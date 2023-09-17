@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdf32160c393e054599b06c15ef35635, type: 3}
+  m_Name: CURRENT WORLD
+  m_EditorClassIdentifier: 
+  _name: Overworld
+  _wavesInterval: 30
+  _waves:
+  - {fileID: 11400000, guid: a1d4db9cb4ebc0748bb8bf3adb2a3439, type: 2}
+  - {fileID: 11400000, guid: 4be05f6db21bd2740a26b54eecc4f6a8, type: 2}
+  - {fileID: 11400000, guid: 2ed687e839df8994daf353b1420acec4, type: 2}
+  _enemyPrefabs:
+  - {fileID: 7992409206138210505, guid: 17ccb786a8bca6f4584af54136d7f833, type: 3}
+  - {fileID: 779268523137980044, guid: 7d7bf4d16f609fe4bb21582ca6f23bde, type: 3}
+  - {fileID: 779268523137980044, guid: 4966e3a35d824ee44a9850012833ae7f, type: 3}
+  - {fileID: 779268523137980044, guid: b7cfc66fc8f2a1b42bf018c1686a5f58, type: 3}
+  _chunks:
+  - {fileID: 1345279769607379422, guid: 672779cfd9167ae4d86704cce8dc5562, type: 3}
+  - {fileID: 1345279769607379422, guid: d78eee21352d5e14b99cb0281d1d8985, type: 3}
+  - {fileID: 1345279769607379422, guid: 40ead1d70c9a6ba4aa72df2cd14bf752, type: 3}
