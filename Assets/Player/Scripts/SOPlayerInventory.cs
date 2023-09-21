@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,8 @@ public class SOPlayerInventory : ScriptableObject
     Dictionary<CraftingMaterial, int> _ownedMaterials = new();
     Dictionary<SOUpgradeBase, int> _equippedUpgrades = new();
     [SerializeField]int _maxUpgradesCount = 5;
+    public event Action onInventoryChange;
+    public event Action<SOUpgradeBase> onUpgradeAdded;
 
     //properties
     public int MaxUpgradesCount 
@@ -15,7 +18,9 @@ public class SOPlayerInventory : ScriptableObject
         get => _maxUpgradesCount;
         set => _maxUpgradesCount = value;
     }
-
+    public Dictionary<CraftingMaterial, int> OwnedMaterials => _ownedMaterials;
+    public Dictionary<SOUpgradeBase, int> EquippedUpgrades => _equippedUpgrades;
+ 
 
     public void Initialize()
     {
@@ -34,6 +39,7 @@ public class SOPlayerInventory : ScriptableObject
         {
             _ownedMaterials.Add(craftingMaterial,1);
         }
+        onInventoryChange?.Invoke();
     }
 
     public void AddUpgrade(SOUpgradeBase upgrade)
@@ -45,7 +51,7 @@ public class SOPlayerInventory : ScriptableObject
         {
             _equippedUpgrades.Add(upgrade, 1);
         }
-
-        Debug.Log($"added {upgrade.name} material and now you have {_equippedUpgrades[upgrade]}");
+        onUpgradeAdded?.Invoke(upgrade);
+        Debug.Log($"added {upgrade.name} upgrade and now you have {_equippedUpgrades[upgrade]}");
     }
 }

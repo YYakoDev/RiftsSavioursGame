@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,11 +11,12 @@ public class WorldManager : MonoBehaviour
     private int _currentWorldIndex = 0; 
 
     //properties
-    public World CurrentWorld => _currentWorld;
+    //public World CurrentWorld => _currentWorld;
+    public static event Action<World> onWorldChange;
 
     private void Awake() 
     {
-        DontDestroyOnLoad(gameObject);
+        //  DontDestroyOnLoad(gameObject);
         _currentWorld.Initialize(_worlds[_currentWorldIndex]);
 
     }
@@ -22,12 +24,6 @@ public class WorldManager : MonoBehaviour
     void Start()
     {
         //subscribe to the onRiftTimerEnd event of the timer and make the world advance and load a new scene etc
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
         
     }
 
@@ -41,12 +37,16 @@ public class WorldManager : MonoBehaviour
             return;
         }
         _currentWorld = _worlds[_currentWorldIndex];
+        onWorldChange?.Invoke(_currentWorld);
     }
 
 
     private void OnValidate() 
     {
         //set the worlds array max length
-
+        if(_worlds.Length > 4)
+        {
+            Array.Resize<World>(ref _worlds, 4);
+        }
     }
 }

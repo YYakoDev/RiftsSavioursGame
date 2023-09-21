@@ -13,6 +13,7 @@ public class World : ScriptableObject
     [SerializeField]private SOEnemyWave[] _waves;
     [SerializeField]private EnemyBrain[] _enemyPrefabs;
     [SerializeField]private List<Tilemap> _chunks = new List<Tilemap>();
+    [SerializeField]private CraftingMaterial[] _worldCraftingMaterials;
 
     private SOEnemyWave _currentWave;
     private int _currentWaveIndex = 0;
@@ -25,6 +26,7 @@ public class World : ScriptableObject
     public SOEnemyWave CurrentWave => _currentWave;
     public EnemyBrain[] EnemyPrefabs => _enemyPrefabs;
     public List<Tilemap> Chunks => _chunks;
+    public CraftingMaterial[] CurrentCraftingMaterials => _worldCraftingMaterials;
 
     public void Initialize(World world)
     {
@@ -40,6 +42,7 @@ public class World : ScriptableObject
             return;
         }
         _currentWave = _waves[_currentWaveIndex];
+        _worldCraftingMaterials = world._worldCraftingMaterials;
 
     }
 

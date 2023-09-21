@@ -10,4 +10,8 @@ public class ResourceDrop : Drop
     {
         pickUpsController.AddMaterial(_craftingMaterial);
     }
+
+    private void OnValidate() {
+        _craftingMaterial.sprite = Sprite;
+    }
 }

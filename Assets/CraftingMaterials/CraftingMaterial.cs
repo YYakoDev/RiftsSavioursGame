@@ -5,8 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObjects/CraftingMaterials/CraftingMaterial")]
 public class CraftingMaterial : ScriptableObject
 {
-    [SerializeField]private Sprite _sprite;
+    [HideInInspector]public Sprite sprite;
     //properties
-    public Sprite Sprite => _sprite;
+    public Sprite Sprite => sprite;
 
 }
