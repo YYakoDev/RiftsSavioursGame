@@ -30,8 +30,6 @@ public class PlayerLevelManager : MonoBehaviour
         if(_playerStats.CurrentXP >= _playerStats.XPToNextLevel)
         {
             AddXP(-_playerStats.XPToNextLevel);
-            //_playerStats.CurrentXP -= _playerStats.XPToNextLevel;
-            //_playerStats.Level++;
             LevelUp();
         }
     }

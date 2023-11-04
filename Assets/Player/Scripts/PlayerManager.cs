@@ -14,6 +14,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField]SOPlayerInventory _inventory;
     [SerializeField]PlayerLevelManager _levelManager;
     [SerializeField]PlayerMovement _movementScript;
+    [SerializeField]CameraTarget _cameraTarget;
 
     public SOPlayerStats Stats => _stats;
     public PlayerAnimationController AnimController => _animatorController;
@@ -29,13 +30,14 @@ public class PlayerManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        gameObject.CheckComponent<PlayerAnimationController>(ref _animatorController);
-        gameObject.CheckComponent<Rigidbody2D>(ref _rigidBody);
-        gameObject.CheckComponent<SpriteRenderer>(ref _renderer);
-        gameObject.CheckComponent<PlayerLevelManager>(ref _levelManager);
+        GameObject thisGO = gameObject;
+        thisGO.CheckComponent<PlayerAnimationController>(ref _animatorController);
+        thisGO.CheckComponent<Rigidbody2D>(ref _rigidBody);
+        thisGO.CheckComponent<SpriteRenderer>(ref _renderer);
+        thisGO.CheckComponent<PlayerLevelManager>(ref _levelManager);
         _levelManager.SetPlayerStats(_stats);
-        gameObject.CheckComponent<PlayerMovement>(ref _movementScript);
-
+        thisGO.CheckComponent<PlayerMovement>(ref _movementScript);
+        thisGO.CheckComponent<CameraTarget>(ref _cameraTarget);
         _inventory.Initialize();
         
     

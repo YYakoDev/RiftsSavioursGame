@@ -47,6 +47,9 @@ public class PlayerMovement : MonoBehaviour, IKnockback
         if(_sortingOrderController == null)_sortingOrderController = new SortingOrderController(transform, _player.Renderer, _sortingOrderOffset);
         
     }
+    private void OnEnable() {
+        
+    }
 
     void Start()
     {
@@ -121,6 +124,10 @@ public class PlayerMovement : MonoBehaviour, IKnockback
     {
         _slowdownTime = slowdownTime;
         _realSpeed = MovementSpeed * SlowdownMultiplier;
+    }
+
+    private void OnDisable() {
+        
     }
 
 }

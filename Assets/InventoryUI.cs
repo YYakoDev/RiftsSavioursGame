@@ -5,10 +5,18 @@ using UnityEngine;
 
 public class InventoryUI : MonoBehaviour
 {
+    Animator _animator;
     [SerializeField]World _currentWorld;
     [SerializeField]SOPlayerInventory _playerInventory;
     [SerializeField]UICraftingMaterialPrefab _craftingMaterialPrefab;
     UICraftingMaterialPrefab[] _instantiatedMaterials;
+
+    const float InventoryVisibleTime = 2f;
+    float _countdown = 1f;
+
+    private void Awake() {
+        _animator = GetComponent<Animator>();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +33,16 @@ public class InventoryUI : MonoBehaviour
         SetMaterialAmount();
     }
 
+    private void Update() {
+        if(_countdown >= 0)
+        {
+            _countdown -= Time.deltaTime;
+        }else
+        {
+            CloseUI();
+        }
+    }
+
 
 
     void SetCraftingMaterialLength()
@@ -34,7 +52,7 @@ public class InventoryUI : MonoBehaviour
 
     void ShowCraftingMaterials()
     {
-        if(_instantiatedMaterials != null) DestroyPreviousItems();
+        if(_instantiatedMaterials != null) DestroyPreviousItems(); // this may cause problems when loading and saving?
         for(int i = 0; i < _currentWorld.CurrentCraftingMaterials.Length; i++)
         {
             UICraftingMaterialPrefab instantiatedMaterial = Instantiate(_craftingMaterialPrefab, transform);
@@ -57,6 +75,24 @@ public class InventoryUI : MonoBehaviour
             int materialsOwned = (_playerInventory.OwnedMaterials.ContainsKey(craftingMaterial)) ? _playerInventory.OwnedMaterials[craftingMaterial] : 0;
             instantiatedMaterial.Initialize(craftingMaterial, materialsOwned);
         }
+        OpenUI();
+    }
+
+    void OpenUI()
+    {
+        _animator.enabled = true;
+        _animator.Play("OpenInventory");
+        _countdown = InventoryVisibleTime;
+        
+    }
+    void CloseUI()
+    {
+        _animator.Play("CloseInventory");
+    }
+
+    public void DisableAnimator() // this one is being called by an animation event
+    {
+        _animator.enabled = false;
     }
 
     void WorldChange(World world)

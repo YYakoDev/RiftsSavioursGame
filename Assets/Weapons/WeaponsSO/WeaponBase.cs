@@ -13,9 +13,10 @@ public abstract class WeaponBase: ScriptableObject
     [SerializeField]private string _name;
     [SerializeField]private Sprite _sprite;
     [SerializeField]private bool _flipSprite = true;
-    [SerializeField]private Vector3 _spawnPosition = new Vector3(-1f, 0.25f, 0f);
+    [SerializeField]private Vector3 _spawnPosition = new Vector3(-0.55f, 0.25f, 0f);
     [SerializeField]private float _spawnRotation = 0;
     [SerializeField]private AnimatorOverrideController _animatorOverrideController;
+    [SerializeField]bool _pointCameraOnAttack = false;
     protected Transform _weaponPrefabTransform;
 
     [Header("Weapon Attack Stats")]
