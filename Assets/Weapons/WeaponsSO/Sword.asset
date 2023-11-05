@@ -18,6 +18,7 @@ MonoBehaviour:
   _spawnPosition: {x: -0.55, y: 0.25, z: 0}
   _spawnRotation: 0
   _animatorOverrideController: {fileID: 22100000, guid: 40d778a495d37254091ce8f08245857f, type: 2}
+  _pointCameraOnAttack: 1
   _attackCooldown: 0.45
   _attackDuration: 0.3
   _weaponFXPrefab: {fileID: 721527248584557683, guid: 280c38db5a76bb641a9ac27326eaa45c, type: 3}

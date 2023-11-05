@@ -23,6 +23,7 @@ public class PlayerManager : MonoBehaviour
     public SOPlayerInventory Inventory => _inventory;
     public PlayerLevelManager LevelManager => _levelManager;
     public PlayerMovement MovementScript => _movementScript;
+    public CameraTarget CameraTarget => _cameraTarget;
 
 
     public Vector3 Position => transform.position;

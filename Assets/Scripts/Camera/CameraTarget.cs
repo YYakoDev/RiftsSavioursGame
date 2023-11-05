@@ -12,9 +12,21 @@ public class CameraTarget : MonoBehaviour
         _targets[0] = transform;
     }
 
+    public int AddTarget(Transform target)
+    {
+        int newSize = _targets.Length + 1;
+        int newTargetIndex = newSize - 1;
+        Array.Resize<Transform>(ref _targets, newSize);
+        _targets[newTargetIndex] = target;
+        return newTargetIndex;
+        
+    }
+
     public void SwitchTarget(int index)
     {
         if(index >= _targets.Length) index = _targets.Length - 1;
+        if(index < 0) index = 0;
+        
         _currentTargetIndex = index;
         onTargetSwitch?.Invoke();
     }

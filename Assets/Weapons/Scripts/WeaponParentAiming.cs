@@ -34,25 +34,31 @@ public class WeaponParentAiming : MonoBehaviour
     [Header("Weapon")]
     private WeaponBase _currentWeapon;
     private float _attackDuration => _currentWeapon.AttackDuration;
+    [SerializeField, Range(0,2.25f)]float _weaponSelfKnockbackForce = 2f;
 
-
+    //CameraTarget
+    int _weaponCameraIndex = 0;
+    WaitForSeconds _waitForAttackDuration;
+    Coroutine _returnCameraTarget;
 
     private IEnumerator Start() {
         if (_mainCamera == null)
         {
             _mainCamera = Camera.main;
         }
+        yield return null; //just in case
 
         //default values
         _autoTargetting = true;
         _nextDetectionTime = 1f;
 
+        _weaponCameraIndex = _player.CameraTarget.AddTarget(_currentWeapon.PrefabTransform);
+        _waitForAttackDuration = new WaitForSeconds(_attackDuration + 0.25f);
 
         //Events
-        yield return null; //just in case
         _currentWeapon.onAttack += AffectPlayer;
         _currentWeapon.onAttack += StopAiming;
-
+        _currentWeapon.onAttack += PointCameraToWeapon;
         Cursor.lockState = CursorLockMode.Locked;
         //Cursor.visible = false;
     }
@@ -186,6 +192,7 @@ public class WeaponParentAiming : MonoBehaviour
     {
         FlipPlayer();
         SlowdownPlayer();
+        Knockback();
     }
 
     void FlipPlayer()
@@ -204,8 +211,30 @@ public class WeaponParentAiming : MonoBehaviour
         _player.MovementScript.SlowdownMovement(_attackDuration);
     }
 
+    void Knockback()
+    {
+        _player.MovementScript.KnockBackLogic.ApplyForce(_currentWeapon.PrefabTransform.position, _weaponSelfKnockbackForce);
+    }
+
     #endregion
 
+    #region Camera Effect
+
+    void PointCameraToWeapon()
+    {
+        if(!_currentWeapon.PointCameraOnAttack) return;
+        _player.CameraTarget.SwitchTarget(_weaponCameraIndex);
+        if(_returnCameraTarget != null) StopCoroutine(_returnCameraTarget);
+        _returnCameraTarget = StartCoroutine(StopPointingCamera());
+    }
+
+    IEnumerator StopPointingCamera()
+    {
+        yield return _waitForAttackDuration;
+        _player.CameraTarget.SwitchTarget(0);
+    }
+
+    #endregion
 
     private void OnDrawGizmosSelected() {
         Gizmos.color = Color.white;
@@ -216,5 +245,6 @@ public class WeaponParentAiming : MonoBehaviour
     private void OnDestroy() {
         _currentWeapon.onAttack -= AffectPlayer;
         _currentWeapon.onAttack -= StopAiming;
+        _currentWeapon.onAttack -= PointCameraToWeapon;
     }
 }

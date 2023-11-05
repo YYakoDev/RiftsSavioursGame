@@ -35,8 +35,10 @@ public abstract class WeaponBase: ScriptableObject
     public AnimatorOverrideController AnimatorOverrideController => _animatorOverrideController;
     public Vector3 SpawnPosition => _spawnPosition;
     public float SpawnRotation => _spawnRotation;
+    public Transform PrefabTransform => _weaponPrefabTransform;
     public float AttackCooldown => _attackCooldown;
     public float AttackDuration => _attackDuration;
+    public bool PointCameraOnAttack => _pointCameraOnAttack;
 
     public virtual void Initialize(WeaponManager weaponManager, Transform prefabTransform)
     {

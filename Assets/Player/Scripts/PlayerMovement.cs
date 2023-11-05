@@ -42,7 +42,7 @@ public class PlayerMovement : MonoBehaviour, IKnockback
 
         //script that handles the knockback effect
         if(_knockeable == null)_knockeable = new Knockbackeable(transform);
-
+        
         //script that handles the sorting order based on its position
         if(_sortingOrderController == null)_sortingOrderController = new SortingOrderController(transform, _player.Renderer, _sortingOrderOffset);
         

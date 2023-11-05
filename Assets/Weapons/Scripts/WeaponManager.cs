@@ -6,20 +6,23 @@ public class WeaponManager : MonoBehaviour
 {
 
     [Header("References")]
+    //[SerializeField]private PlayerManager _playerManager;
     [SerializeField]private SOPlayerStats _playerStats;
     [SerializeField]private GameObject _weaponPrefab;
     [SerializeField]private WeaponParentAiming _weaponParent;
     [SerializeField]private LayerMask _enemyLayer;
-    private static GameObject _weaponPrefabInstance;
+    private GameObject _weaponPrefabInstance;
     private SOPlayerAttackStats _attackStats;
     private WeaponBase _currentWeapon;
 
     //properties
     public SOPlayerAttackStats AttackStats => _attackStats;
     public LayerMask EnemyLayer => _enemyLayer;
+    public GameObject WeaponPrefab => _weaponPrefab;
 
     private void Awake()
     {
+        //if(_playerManager == null) _playerManager = GetComponentInParent<PlayerManager>();
         if(_weaponParent == null) _weaponParent = GetComponentInChildren<WeaponParentAiming>();
     }
 

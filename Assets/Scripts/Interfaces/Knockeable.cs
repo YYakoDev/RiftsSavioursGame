@@ -19,6 +19,8 @@ public class Knockbackeable
         _knockbackDirection = (Vector2)_ownTransform.position - emitterPosition;
         _knockbackDirection.Normalize();
        
+        force = Mathf.Clamp(force, 0, 2.25f);
+
         _ownTransform.position += (Vector3)_knockbackDirection * force;
 
     }
