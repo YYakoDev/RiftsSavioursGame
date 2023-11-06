@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9bb8f0f7345247946ae9aa9f8f5fb969, type: 3}
-  m_Name: Sword
+  m_Name: AstreaSword
   m_EditorClassIdentifier: 
   _name: Astraea's Sword
   _sprite: {fileID: 21300000, guid: fdc72d73992a6354a8c28549be7fcd58, type: 3}
@@ -22,6 +22,8 @@ MonoBehaviour:
   _attackCooldown: 0.45
   _attackDuration: 0.3
   _weaponFXPrefab: {fileID: 721527248584557683, guid: 280c38db5a76bb641a9ac27326eaa45c, type: 3}
+  _weaponSounds:
+  - {fileID: 8300000, guid: 9c192f02e087c9140814059b4e042b82, type: 3}
   _attackRange: 1
   _attackDamage: 1
   _knockbackForce: 0.3

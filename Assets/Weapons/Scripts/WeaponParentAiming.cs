@@ -133,20 +133,21 @@ public class WeaponParentAiming : MonoBehaviour
     }
     void PointToTarget()
     {
+        bool activeIcon = false;
         if(_resultsCount == 0)
         {
-            _selectionIcon.gameObject.SetActive(false);
+            _selectionIcon.gameObject.SetActive(activeIcon);
             return;
         }
         _pointingDirection = Vector2.zero;
-        foreach(Collider2D coll in _targetsDetected)
+
+        for(int i = 0; i < _resultsCount; i++)
         {
-            if(coll == null || !coll.isTrigger || !coll.gameObject.activeInHierarchy)
+            if(!_targetsDetected[i].isTrigger)
             {
-                _selectionIcon.gameObject.SetActive(false);
                 continue;
             }
-            Vector2 directionToTarget = coll.bounds.center - transform.position;
+            Vector2 directionToTarget = _targetsDetected[i].bounds.center - transform.position;
             if(_pointingDirection == Vector2.zero)
             {
                 _pointingDirection = directionToTarget;
@@ -157,13 +158,15 @@ public class WeaponParentAiming : MonoBehaviour
                 _pointingDirection = directionToTarget;
             }
         }
-        
+
+        activeIcon = (_pointingDirection != Vector2.zero);
+        if(!activeIcon) return;
         float angle = Mathf.Atan2(-_pointingDirection.y,-_pointingDirection.x) * Mathf.Rad2Deg;
         angle = Mathf.LerpAngle(transform.rotation.eulerAngles.z, angle, Time.fixedDeltaTime * _aimSmoothing);
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         FlipWeapon(_pointingDirection);
         
-        _selectionIcon.gameObject.SetActive(true);
+        _selectionIcon.gameObject.SetActive(activeIcon);
         _selectionIcon.position = _pointingDirection + (Vector2)transform.position;
     }
     #endregion

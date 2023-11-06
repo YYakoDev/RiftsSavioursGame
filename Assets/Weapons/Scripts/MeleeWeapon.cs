@@ -11,7 +11,10 @@ public class MeleeWeapon : WeaponBase
     WeaponFX _weaponFXInstance;
     Transform _parentTransform;
     LayerMask _enemyLayer;
-    private Animator _weaponAnimator;
+    //private Animator _weaponAnimator;
+    private AudioSource _audio;
+    [SerializeField]AudioClip[] _weaponSounds;
+    private AudioClip _sound => _weaponSounds[Random.Range(0, _weaponSounds.Length)];
 
     [Header("Stats")]
     [SerializeField]float _attackRange = 0.5f;
@@ -27,12 +30,16 @@ public class MeleeWeapon : WeaponBase
         _parentTransform = prefabTransform.parent;
         _enemyLayer = weaponManager.EnemyLayer;
         _maxEnemiesToHit = 2 + (int)(_attackRange * 5);
+
+        _audio = prefabTransform.GetComponent<AudioSource>();
+
     }
     public override void Attack()
     {
         base.Attack(); //this calls the onAttackEvent and also sets the cooldown  i use this to play the attack animation and stop the autotargetting and other things
 
         //InstantiateFX();
+        _audio.PlayOneShot(_sound);
         Collider2D[] hittedEnemies =  Physics2D.OverlapCircleAll(_weaponPrefabTransform.position, _attackRange, _enemyLayer);
         if(hittedEnemies.Length == 0) return;
 

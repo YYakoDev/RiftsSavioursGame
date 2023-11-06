@@ -80,19 +80,19 @@ public class SpriteMasking : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other) {
         //if(other.gameObject.layer == _exceptionLayer)return;
 
-        if(other.TryGetComponent<SpriteRenderer>(out var collRenderer))
+        if(other.TryGetComponent<IMaskeable>(out var maskeable))
         {
-            _otherRenderers.Add(collRenderer);
+            _otherRenderers.Add(maskeable.MaskeableRenderer);
             _checking = true;
         }
     }
     private void OnTriggerExit2D(Collider2D other) {
         //if(other.gameObject.layer == _exceptionLayer)return;
         
-        if(other.TryGetComponent<SpriteRenderer>(out var collRenderer))
+        if(other.TryGetComponent<IMaskeable>(out var maskeable))
         {
-            collRenderer.maskInteraction = SpriteMaskInteraction.None;
-            _otherRenderers.Remove(collRenderer);
+            maskeable.MaskeableRenderer.maskInteraction = SpriteMaskInteraction.None;
+            _otherRenderers.Remove(maskeable.MaskeableRenderer);
             _checking = true;
             if(_otherRenderers.Count <= 0)
             {

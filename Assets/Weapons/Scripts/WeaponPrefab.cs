@@ -4,6 +4,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(AudioSource))]
 public class WeaponPrefab : MonoBehaviour
 {
     private SpriteRenderer _spriteRenderer;

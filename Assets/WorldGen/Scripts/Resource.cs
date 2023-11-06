@@ -6,9 +6,10 @@ using UnityEngine;
 [RequireComponent(typeof(WhiteBlinkEffect))]
 [RequireComponent(typeof(AudioSource))]
 [RequireComponent(typeof(Dropper))]
-public class Resource : MonoBehaviour, IResources, IComparable
+public class Resource : MonoBehaviour, IResources, IComparable, IMaskeable
 {
     Animator _animator;
+    SpriteRenderer _renderer;
     Collider2D _coll;
     AudioSource _audio;
     Dropper _dropper;
@@ -30,11 +31,14 @@ public class Resource : MonoBehaviour, IResources, IComparable
 
     public ResourcesTypes ResourceType => type;
     public Vector3 ResourcePosition => transform.position;
+    public SpriteRenderer MaskeableRenderer => _renderer;
+
 
     private void Awake() {
         GameObject thisGo = gameObject;
-        thisGo.CheckComponent<WhiteBlinkEffect>(ref _blinkFX);
+        _renderer = GetComponentInChildren<SpriteRenderer>();
         _animator = GetComponentInChildren<Animator>();
+        thisGo.CheckComponent<WhiteBlinkEffect>(ref _blinkFX);
         thisGo.CheckComponent<Collider2D>(ref _coll);
         thisGo.CheckComponent<AudioSource>(ref _audio); 
         thisGo.CheckComponent<Dropper>(ref _dropper);
