@@ -20,6 +20,7 @@ public class AvoidanceBehaviourBrain : MonoBehaviour
     //[SerializeField]bool _showDebugTargetDir = true;
     [SerializeField]Vector3 _raycastPositionOffset;
     
+    Vector2 _targetPositionOffset;
     Vector2 _resultDirection = Vector2.zero; 
     
     //properties
@@ -34,6 +35,7 @@ public class AvoidanceBehaviourBrain : MonoBehaviour
         gameObject.CheckComponent<AvoidanceData>(ref _avoidanceData);
         if(_obstacleDetector == null)_obstacleDetector = gameObject.GetComponentInChildren<ObstacleDetector>();
         if(_enemyDetector == null)_enemyDetector = gameObject.GetComponentInChildren<EnemyDetector>();
+        _targetPositionOffset = Random.insideUnitCircle * 0.5f;
     }
 
     // Start is called before the first frame update
@@ -71,7 +73,7 @@ public class AvoidanceBehaviourBrain : MonoBehaviour
     void SetWeightedDirection()
     {
         _resultDirection = Vector2.zero;
-        _resultDirection = _targetInterestMap.InterestDirection - _obstacleAvoidance.AverageDangerDirection;
+        _resultDirection = (_targetInterestMap.InterestDirection + (_targetPositionOffset)) - _obstacleAvoidance.AverageDangerDirection;
         _resultDirection += _enemyDetector.AvoidanceDirection;
         _resultDirection.Normalize();
     }
