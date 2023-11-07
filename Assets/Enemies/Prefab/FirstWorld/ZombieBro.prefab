@@ -305,6 +305,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _brain: {fileID: 0}
+  _deathDuration: 0.643
 --- !u!114 &5718278490260225803
 MonoBehaviour:
   m_ObjectHideFlags: 0

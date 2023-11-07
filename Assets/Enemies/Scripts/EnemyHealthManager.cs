@@ -11,7 +11,8 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable
     Dropper _dropper;
     WhiteBlinkEffect _blinkFX;
     private int _health;
-
+    [SerializeField]private float _deathDuration = 0.35f;
+    WaitForSeconds _deathDurationWait;
     public event Action onDeath;
 
     private void Awake()
@@ -19,6 +20,8 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable
         gameObject.CheckComponent<EnemyBrain>(ref _brain);
         gameObject.CheckComponent<Dropper>(ref _dropper);
         gameObject.CheckComponent<WhiteBlinkEffect>(ref _blinkFX);
+
+        _deathDurationWait = new(_deathDuration);
     }
 
     private void OnEnable() 
@@ -61,7 +64,7 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable
 
     IEnumerator DeactivateObject()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return _deathDurationWait;
         gameObject.SetActive(false);
     }
 

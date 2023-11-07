@@ -305,6 +305,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _brain: {fileID: 0}
+  _deathDuration: 1.1
 --- !u!114 &5718278490260225803
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -376,7 +377,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44f7bb0bcae11884fbb2f5cd997851bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dropPrefab: {fileID: 8016294593690498616, guid: d7ff122d0a778f9408e524adb2b64387, type: 3}
   _drops:
   - {fileID: 11400000, guid: d0ab46bbe532d364a8d370efba7ef95e, type: 2}
 --- !u!1001 &779268523277072844
