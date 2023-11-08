@@ -30,7 +30,7 @@ public class TweenController : MonoBehaviour
         Gizmos.DrawWireCube(_destination, Vector3.one * 50);
     }
 
-    Vector2 TranslateWorldToUIPoint(Vector2 position)
+    /*Vector2 TranslateWorldToUIPoint(Vector2 position)
     {
         float screenXCenter = Screen.width / 2f;
         float screenYCenter = Screen.height / 2f;
@@ -44,5 +44,5 @@ public class TweenController : MonoBehaviour
             (position.y - screenYCenter) * (canvasYCenter/screenYCenter)  
         );
         return UIPoint;
-    }
+    }*/
 }
