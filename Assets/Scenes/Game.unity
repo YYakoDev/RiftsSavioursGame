@@ -3046,7 +3046,7 @@ PrefabInstance:
       objectReference: {fileID: 212994787, guid: 3f1920c055b0eb94d8036eb07da824fb, type: 3}
     - target: {fileID: 2832783612829257955, guid: d5cbe50cfb654904eb03377de4a74ef6, type: 3}
       propertyPath: m_text
-      value: 10/28
+      value: 28/10
       objectReference: {fileID: 0}
     - target: {fileID: 2832783612829257955, guid: d5cbe50cfb654904eb03377de4a74ef6, type: 3}
       propertyPath: m_fontSize
@@ -3062,7 +3062,7 @@ PrefabInstance:
       objectReference: {fileID: 146778261}
     - target: {fileID: 5373631608114432140, guid: d5cbe50cfb654904eb03377de4a74ef6, type: 3}
       propertyPath: m_text
-      value: 10/100
+      value: 100/10
       objectReference: {fileID: 0}
     - target: {fileID: 5373631608114432140, guid: d5cbe50cfb654904eb03377de4a74ef6, type: 3}
       propertyPath: m_fontSize
@@ -3098,7 +3098,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7124196233329953742, guid: d5cbe50cfb654904eb03377de4a74ef6, type: 3}
       propertyPath: m_text
-      value: 20/30
+      value: 30/20
       objectReference: {fileID: 0}
     - target: {fileID: 7124196233329953742, guid: d5cbe50cfb654904eb03377de4a74ef6, type: 3}
       propertyPath: m_fontSize
@@ -3831,9 +3831,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 687413100}
-  - component: {fileID: 687413101}
   - component: {fileID: 687413102}
-  - component: {fileID: 687413103}
   m_Layer: 5
   m_Name: MenuParent
   m_TagString: Untagged
@@ -3865,26 +3863,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!95 &687413101
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 687413099}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: dc1bdbd3b2b654247ad3ef84159f3380, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 2
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!82 &687413102
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3981,18 +3959,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &687413103
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 687413099}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3dc33112ff8680041a16fd425b12bc3f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &702969616 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 779268523137980047, guid: b7cfc66fc8f2a1b42bf018c1686a5f58, type: 3}
@@ -4559,7 +4525,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2832783612829257955, guid: d5cbe50cfb654904eb03377de4a74ef6, type: 3}
       propertyPath: m_text
-      value: 5/100
+      value: 100/5
       objectReference: {fileID: 0}
     - target: {fileID: 2832783612829257955, guid: d5cbe50cfb654904eb03377de4a74ef6, type: 3}
       propertyPath: m_fontSize
@@ -17209,7 +17175,7 @@ PrefabInstance:
       objectReference: {fileID: 146778261}
     - target: {fileID: 5373631608114432140, guid: d5cbe50cfb654904eb03377de4a74ef6, type: 3}
       propertyPath: m_text
-      value: 15/10
+      value: 10/15
       objectReference: {fileID: 0}
     - target: {fileID: 5373631608114432140, guid: d5cbe50cfb654904eb03377de4a74ef6, type: 3}
       propertyPath: m_fontSize
@@ -17265,7 +17231,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7124196233329953742, guid: d5cbe50cfb654904eb03377de4a74ef6, type: 3}
       propertyPath: m_text
-      value: 10/3
+      value: 3/10
       objectReference: {fileID: 0}
     - target: {fileID: 7124196233329953742, guid: d5cbe50cfb654904eb03377de4a74ef6, type: 3}
       propertyPath: m_fontSize

@@ -8,6 +8,7 @@ public class TweenMoveTo : TweenAnimationBase
     Vector3 _destination;
     float _elapsedTime;
     float _totalDuration;
+    AnimationCurve _curve;
     event Action _onComplete;
 
     public TweenMoveTo(TweenAnimator animator) : base(animator)
@@ -15,21 +16,22 @@ public class TweenMoveTo : TweenAnimationBase
     }
 
 
-    public void Initialize(RectTransform rectTransform, Vector3 endPosition, float duration, Action onComplete = null, bool loop = false)
+    public void Initialize(RectTransform rectTransform, Vector3 endPosition, float duration, AnimationCurve curve, bool loop, Action onComplete)
     {
         _rectTransform = rectTransform;
         _startPosition = rectTransform.localPosition;
         _destination = endPosition;
         _totalDuration = duration;
-        _onComplete = onComplete;
+        _curve = curve;
         _loop = loop;
+        _onComplete = onComplete;
         _animator.EnableAnimator = true;
     }
     public override void Play()
     {
         _elapsedTime += Time.deltaTime;
         float percent = _elapsedTime / _totalDuration;
-        _rectTransform.localPosition = Vector3.Lerp(_startPosition, _destination, percent);
+        _rectTransform.localPosition = Vector3.Lerp(_startPosition, _destination, _curve.Evaluate(percent));
         //_rectTransform.localPosition = _startPosition;
 
         if(_elapsedTime >= _totalDuration)

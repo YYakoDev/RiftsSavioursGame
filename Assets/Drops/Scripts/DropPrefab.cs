@@ -41,7 +41,7 @@ public class DropPrefab : MonoBehaviour
     private void Update() {
         if(_target == null)return;
 
-        _timer.TimerUpdate();
+        _timer.UpdateTime();
     }
 
     private void FixedUpdate() {
@@ -72,7 +72,7 @@ public class DropPrefab : MonoBehaviour
     
     void MoveToTarget()
     {
-        _timer.SetTimerActive(false);
+        _timer.SetActive(false);
         _moveToTarget = true;
     }
 

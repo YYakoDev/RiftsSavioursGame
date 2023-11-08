@@ -5,13 +5,17 @@ using UnityEngine;
 public class TweenAnimator : MonoBehaviour
 {
 
-    public bool EnableAnimator = false;
+    [HideInInspector]public bool EnableAnimator = false;
     TweenStateFactory _stateFactory;
     TweenAnimationBase _currentAnimation;
-
     private void Awake()
     {
         if(_stateFactory == null) _stateFactory = new(this);
+    }
+
+    private void Start()
+    {
+
     }
 
     // Update is called once per frame
@@ -22,11 +26,13 @@ public class TweenAnimator : MonoBehaviour
     }
 
 
-    public void MoveTo(RectTransform rectTransform, Vector3 endPosition, float duration, Action onComplete = null, bool loop = false)
+    public void MoveTo(RectTransform rectTransform, Vector3 endPosition, float duration, CurveTypes curveType = CurveTypes.Linear, bool loop = false, Action onComplete = null)
     {
         if(_stateFactory == null) _stateFactory = new(this);
         TweenMoveTo moveToAnim = _stateFactory.GetMoveToAnimation();
-        moveToAnim.Initialize(rectTransform, endPosition, duration, onComplete, loop);
+        AnimationCurve curve = TweenCurveLibrary.GetCurve(curveType);    
+
+        moveToAnim.Initialize(rectTransform, endPosition, duration, curve, loop, onComplete);
         _currentAnimation = moveToAnim;
     }
 }

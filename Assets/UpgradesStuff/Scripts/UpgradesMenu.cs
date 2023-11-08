@@ -31,7 +31,7 @@ public class UpgradesMenu : MonoBehaviour
             this.enabled = false;
         }
         PlayerLevelManager.onLevelUp += ActivateUpgradeMenu;
-        DeactivateUpgradeMenu();
+        _upgradesMenu.gameObject.SetActive(false);
 
         
     }
@@ -51,7 +51,7 @@ public class UpgradesMenu : MonoBehaviour
         
         //do the setup here and get the possible upgrades and show 3
         //every time the player gets an upgrade they are "popped" from the list
-        //ALSO add to the button eventListener the CraftUpgrade method an pass as a parameter
+        //ALSO add to the button eventListener the CraftUpgrade method and pass as a parameter the actual upgrade that you generated
     }
 
     public void CraftUpgrade(SOUpgradeBase upgradeToCraft) //this method is being called by the upgrade button on the canvas
