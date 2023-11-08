@@ -6,10 +6,12 @@ public class TweenAnimator : MonoBehaviour
 {
 
     public bool EnableAnimator = false;
+    TweenStateFactory _stateFactory;
     TweenAnimationBase _currentAnimation;
 
-    private void Awake() {
-
+    private void Awake()
+    {
+        _stateFactory = new(this);
     }
 
     // Update is called once per frame
@@ -22,8 +24,8 @@ public class TweenAnimator : MonoBehaviour
 
     public void MoveTo(RectTransform rectTransform, Vector3 endPosition, float duration, Action onComplete = null, bool loop = false)
     {
-        TweenMoveTo moveAnim = new(this);
-        moveAnim.Initialize(rectTransform, endPosition, duration, onComplete, loop);
-        _currentAnimation = moveAnim;
+        var moveToAnim = _stateFactory.GetMoveToAnimation();
+        moveToAnim.Initialize(rectTransform, endPosition, duration, onComplete, loop);
+        _currentAnimation = moveToAnim;
     }
 }
