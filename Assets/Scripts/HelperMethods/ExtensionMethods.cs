@@ -49,4 +49,23 @@ public static class ExtensionMethods
     {
         button.onClick.RemoveAllListeners();
     }
+
+
+
+    //UI POSITION TRANSLATION
+    public static Vector2 TranslateWorldToUIPoint(this CanvasScaler canvasScaler, Vector2 position)
+    {
+        float screenXCenter = Screen.width / 2f;
+        float screenYCenter = Screen.height / 2f;
+
+        float canvasXCenter = canvasScaler.referenceResolution.x / 2f;
+        float canvasYCenter = canvasScaler.referenceResolution.y / 2f;
+
+        Vector2 UIPoint = new Vector2
+        (
+            (position.x - screenXCenter) * (canvasXCenter/screenXCenter), 
+            (position.y - screenYCenter) * (canvasYCenter/screenYCenter)  
+        );
+        return UIPoint;
+    }
 }

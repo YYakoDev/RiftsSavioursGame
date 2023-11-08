@@ -17,11 +17,11 @@ public class TweenController : MonoBehaviour
         _rectTransform = GetComponent<RectTransform>();
         _tweenAnimator = GetComponent<TweenAnimator>();
         _rootCanvas = transform.root.GetComponentInChildren<CanvasScaler>();
-        Debug.Log(_rootCanvas.referenceResolution);
     }
+    
 
     private void OnEnable() {
-        _tweenAnimator.MoveTo(_rectTransform, TranslateWorldToUIPoint(_destination), _duration, loop: _loop);
+        _tweenAnimator.MoveTo(_rectTransform, _rootCanvas.TranslateWorldToUIPoint(_destination), _duration, loop: _loop);
     }
 
     private void OnDrawGizmosSelected() {
