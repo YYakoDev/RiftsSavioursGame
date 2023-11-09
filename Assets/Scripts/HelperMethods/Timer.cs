@@ -31,6 +31,10 @@ public class Timer
             if(!_resetOnZero) _timerStopped = true;
         }
     }
+    public void ChangeTime(float newTime)
+    {
+        _countdownTime = newTime;
+    }
 
     public void Restart()
     {

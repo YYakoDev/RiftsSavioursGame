@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TweenAnimator : MonoBehaviour
 {
@@ -34,5 +35,15 @@ public class TweenAnimator : MonoBehaviour
 
         moveToAnim.Initialize(rectTransform, endPosition, duration, curve, loop, onComplete);
         _currentAnimation = moveToAnim;
+    }
+
+    public void TweenImageOpacity(Image image, float endValue, float duration, CurveTypes curveType = CurveTypes.Linear, bool loop = false, Action onComplete = null)
+    {
+        if(_stateFactory == null) _stateFactory = new(this);
+        TweenImageOpacity imgOpacityAnim = _stateFactory.GetTweenImageOpacity();
+        AnimationCurve curve = TweenCurveLibrary.GetCurve(curveType);
+
+        imgOpacityAnim.Initialize(image, endValue, duration, curve, loop, onComplete);
+        _currentAnimation = imgOpacityAnim;
     }
 }

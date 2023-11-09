@@ -55,8 +55,8 @@ public static class ExtensionMethods
     //UI POSITION TRANSLATION
     public static Vector2 TranslateWorldToUIPoint(this CanvasScaler canvasScaler, Vector2 position)
     {
-        float screenXCenter = Screen.width / 2f;
-        float screenYCenter = Screen.height / 2f;
+        float screenXCenter = Display.main.renderingWidth/ 2f;
+        float screenYCenter = Display.main.renderingHeight / 2f;
 
         float canvasXCenter = canvasScaler.referenceResolution.x / 2f;
         float canvasYCenter = canvasScaler.referenceResolution.y / 2f;
@@ -68,4 +68,7 @@ public static class ExtensionMethods
         );
         return UIPoint;
     }
+
+
+
 }

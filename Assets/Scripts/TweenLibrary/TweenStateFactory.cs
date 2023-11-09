@@ -7,7 +7,7 @@ public class TweenStateFactory
     TweenAnimator _animator;
 
     private TweenMoveTo _moveTo;
-
+    private TweenImageOpacity _twImgOpacity;
 
     public TweenStateFactory(TweenAnimator animator)
     {
@@ -21,6 +21,14 @@ public class TweenStateFactory
             _moveTo = new(_animator);
         }
         return _moveTo;
+    }
+    public TweenImageOpacity GetTweenImageOpacity()
+    {
+        if(_twImgOpacity == null)
+        {
+            _twImgOpacity = new(_animator);
+        }
+        return _twImgOpacity;
     }
 
 }
