@@ -9,10 +9,10 @@ public class ScreenResolutionTest : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log(Display.main.renderingWidth + "x" + Display.main.renderingHeight);   
+        //Debug.Log(Display.main.renderingWidth + "x" + Display.main.renderingHeight);   
     }
 
     private void OnValidate() {
-        _text.text = Screen.width + "x" + Screen.height;
+        _text.text = Display.main.renderingWidth + "x" + Display.main.renderingHeight;
     }
 }

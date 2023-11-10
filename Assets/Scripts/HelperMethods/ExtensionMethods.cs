@@ -52,22 +52,28 @@ public static class ExtensionMethods
 
 
 
-    //UI POSITION TRANSLATION
-    public static Vector2 TranslateWorldToUIPoint(this CanvasScaler canvasScaler, Vector2 position)
+    //UI POSITION TRANSLATION 
+    public static Vector2 TranslateUiToWorldPoint(this Canvas canvas, Vector2 position)
     {
-        float screenXCenter = Display.main.renderingWidth/ 2f;
-        float screenYCenter = Display.main.renderingHeight / 2f;
+        float screenWidth = Screen.width;
+        float screenHeight = Screen.height;
 
-        float canvasXCenter = canvasScaler.referenceResolution.x / 2f;
-        float canvasYCenter = canvasScaler.referenceResolution.y / 2f;
+        float scaleFactor = canvas.scaleFactor;
+        var canvasRect = canvas.GetComponent<RectTransform>();
+        float canvasCenterX = canvasRect.position.x;
+        float canvasCenterY = canvasRect.position.y;
 
-        Vector2 UIPoint = new Vector2
+        //float percentX = position.x / canvasWidth;
+        //float percentY = position.y / canvasHeight;
+
+        Vector2 worldPoint = new Vector2
         (
-            (position.x - screenXCenter) * (canvasXCenter/screenXCenter), 
-            (position.y - screenYCenter) * (canvasYCenter/screenYCenter)  
+            canvasCenterX + position.x * scaleFactor,
+            canvasCenterY + position.y * scaleFactor            
         );
-        return UIPoint;
+        return worldPoint;
     }
+
 
 
 
