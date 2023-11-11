@@ -45,7 +45,7 @@ public class ChunkGenerator : MonoBehaviour
         _chunkRenderer.CompressBounds();
         _referenceSize = new Vector2Int((int)_chunkRenderer.size.x, (int)_chunkRenderer.size.y);
         _chunkOrigin = _chunkReference.transform.position;
-        Debug.Log(_referenceSize); // this value determines whether the chunks are valid or not
+        //Debug.Log(_referenceSize); // this value determines whether the chunks are valid or not
 
         _chunks = _currentWorld.Chunks;
 

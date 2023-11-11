@@ -16,19 +16,24 @@ public class TweenStateFactory
     
     public TweenMoveTo GetMoveToAnimation()
     {
-        if(_moveTo == null)
+        /*if(_moveTo == null)
         {
             _moveTo = new(_animator);
-        }
-        return _moveTo;
+        }*/
+        return new(_animator);
     }
     public TweenImageOpacity GetTweenImageOpacity()
     {
-        if(_twImgOpacity == null)
+        /*if(_twImgOpacity == null)
         {
             _twImgOpacity = new(_animator);
-        }
-        return _twImgOpacity;
+        }*/
+        return new(_animator);
+    }
+
+    public TweenScale GetScaleAnimation()
+    {
+        return new(_animator);
     }
 
 }

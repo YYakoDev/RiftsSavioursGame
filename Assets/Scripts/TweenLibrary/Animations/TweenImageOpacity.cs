@@ -12,16 +12,23 @@ public class TweenImageOpacity : TweenAnimationBase
     public TweenImageOpacity(TweenAnimator animator) : base(animator)
     {
     }
-    public void Initialize(Image image, float endValue, float duration, AnimationCurve curve, bool loop = false, Action onComplete = null)
+    public void Initialize(RectTransform rect, float endValue, float duration, AnimationCurve curve, bool loop, Action onComplete)
     {
-        _image = image;
-        _newColor = image.color;
+        _image = rect.GetComponent<Image>();
+        if(_image == null)
+        {
+            Debug.LogError($"The rect {rect.name} has no image component to make the tweenimageopacity animation");
+            _animator.EnableAnimator = false;
+            return;
+        }
+        _newColor = _image.color;
         _startingValue = _newColor.a;
-        _endValue = endValue;
-        _totalDuration = duration;
+        _endValue = endValue / 255;
+        _totalDuration = (duration == 0) ?  0.001f : duration ;
         _curve = curve;
         _loop = loop;
         _onComplete = onComplete;
+        _animator.EnableAnimator = true;
     }
 
     public override void Play()
@@ -30,7 +37,6 @@ public class TweenImageOpacity : TweenAnimationBase
         float percent = _elapsedTime / _totalDuration;
         _newColor.a = Mathf.Lerp(_startingValue, _endValue, _curve.Evaluate(percent));
         _image.color = _newColor;
-
         AnimationEnd();
     }
 

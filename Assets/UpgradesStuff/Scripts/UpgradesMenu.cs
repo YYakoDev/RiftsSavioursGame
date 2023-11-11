@@ -11,11 +11,11 @@ public class UpgradesMenu : MonoBehaviour
     [SerializeField]SOPlayerInventory _playerInventory;
     private UpgradeGroup[] _selectedUpgrades;
 
+    [SerializeField]bool _activeMenuOnStart = false;
 
     [Header("VFX & SFX")]
     [SerializeField]AudioSource _audio;
-    [SerializeField]AudioClip _openingSound;
-    [SerializeField]AudioClip _closingSound;
+    [SerializeField]AudioClip _openingSound, _closingSound;
 
 
 
@@ -31,7 +31,7 @@ public class UpgradesMenu : MonoBehaviour
             this.enabled = false;
         }
         PlayerLevelManager.onLevelUp += ActivateUpgradeMenu;
-        _upgradesMenu.gameObject.SetActive(false);
+        _upgradesMenu.gameObject.SetActive(_activeMenuOnStart);
 
         
     }

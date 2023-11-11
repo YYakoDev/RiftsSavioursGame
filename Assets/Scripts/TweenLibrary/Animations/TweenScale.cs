@@ -1,24 +1,24 @@
 using System;
 using UnityEngine;
 
-public class TweenMoveTo : TweenAnimationBase
+public class TweenScale : TweenAnimationBase
 {
     RectTransform _rectTransform;
-    Vector3 _startPosition;
-    Vector3 _destination;
+    Vector3 _startingSize;
+    Vector3 _endScale;
     AnimationCurve _curve;
 
 
-    public TweenMoveTo(TweenAnimator animator) : base(animator)
+    public TweenScale(TweenAnimator animator) : base(animator)
     {
     }
 
 
-    public void Initialize(RectTransform rectTransform, Vector3 endPosition, float duration, AnimationCurve curve, bool loop, Action onComplete)
+    public void Initialize(RectTransform rectTransform, Vector3 endScale, float duration, AnimationCurve curve, bool loop, Action onComplete)
     {
         _rectTransform = rectTransform;
-        _startPosition = rectTransform.localPosition;
-        _destination = endPosition;
+        _startingSize = rectTransform.localScale;
+        _endScale = endScale;
         _totalDuration = (duration == 0) ?  0.0001f : duration ;
         _elapsedTime = 0;
         _curve = curve;
@@ -30,7 +30,7 @@ public class TweenMoveTo : TweenAnimationBase
     {
         _elapsedTime += Time.deltaTime;
         float percent = _elapsedTime / _totalDuration;
-        _rectTransform.localPosition = Vector3.Lerp(_startPosition, _destination, _curve.Evaluate(percent));
+        _rectTransform.localScale = Vector3.Lerp(_startingSize, _endScale, _curve.Evaluate(percent));
 
         
         AnimationEnd();
@@ -40,9 +40,10 @@ public class TweenMoveTo : TweenAnimationBase
     {
         if(_elapsedTime >= _totalDuration && _loop)
         {
-            Vector3 oldStartPos = _startPosition;
-            _startPosition = _destination;
-            _destination = oldStartPos;
+            Debug.Log(_loop);
+            Vector3 oldStartingSize = _startingSize;
+            _startingSize = _endScale;
+            _endScale = oldStartingSize;
         }
         base.AnimationEnd();
     }
