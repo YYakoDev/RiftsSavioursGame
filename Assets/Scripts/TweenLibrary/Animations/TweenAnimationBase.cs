@@ -1,9 +1,11 @@
 using System;
+using UnityEngine;
 public abstract class TweenAnimationBase
 {
     protected TweenAnimator _animator;
     protected float _elapsedTime = 0;
     protected float _totalDuration;
+    protected float _percent;
     protected bool _loop = false;
     protected Action _onComplete;
 
@@ -14,7 +16,12 @@ public abstract class TweenAnimationBase
         _animator = animator;
     }
 
-    public abstract void Play();
+    public virtual void Play()
+    {
+        if(_animator.timeUsage == TweenAnimator.TimeUsage.ScaledTime) _elapsedTime += Time.deltaTime;
+        else if(_animator.timeUsage == TweenAnimator.TimeUsage.UnscaledTime) _elapsedTime += Time.unscaledDeltaTime;
+        _percent = _elapsedTime / _totalDuration;
+    }
 
     protected virtual void AnimationEnd()
     {

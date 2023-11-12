@@ -1,25 +1,29 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
 public class TweenAnimator : MonoBehaviour
 {
-
+    public enum TimeUsage
+    {
+        ScaledTime,
+        UnscaledTime
+    }
     [HideInInspector]public bool EnableAnimator = false;
     TweenStateFactory _stateFactory;
     TweenAnimationBase _currentAnimation;
     Queue<TweenAnimationBase> _animationQueue = new();
     bool _isAnimationPlaying = false;
+    [SerializeField]TimeUsage _timeUsage = TimeUsage.ScaledTime;
+
+    //public accessor
+
+    public TimeUsage timeUsage => _timeUsage;
 
     private void Awake()
     {
         if(_stateFactory == null) _stateFactory = new(this);
-    }
-
-    private void Start()
-    {
-
     }
 
     // Update is called once per frame
@@ -64,6 +68,20 @@ public class TweenAnimator : MonoBehaviour
         SwitchCurrentAnimation(scaleAnim);
     }
 
+    /// <summary>
+    /// Change opacity of a TMPRO Text, opacity value goes from 0 to 255.
+    /// </summary>
+    public void TweenTextOpacity
+    (TextMeshProUGUI text, float opacityEndValue, float duration, CurveTypes curveType = CurveTypes.Linear, bool loop = false, Action onComplete = null)
+    {
+        if(_stateFactory == null) _stateFactory = new(this);
+        TweenTextOpacity txtOpacityAnim = _stateFactory.GetTextOpacityAnimation();
+        AnimationCurve curve = TweenCurveLibrary.GetCurve(curveType);   
+
+        txtOpacityAnim.Initialize(text, opacityEndValue, duration, curve, loop, onComplete + UnlockAnimator);
+        SwitchCurrentAnimation(txtOpacityAnim); 
+    }
+
     void SwitchCurrentAnimation(TweenAnimationBase animationBase)
     {
         if(_isAnimationPlaying)
@@ -96,5 +114,10 @@ public class TweenAnimator : MonoBehaviour
     {
         _isAnimationPlaying = state;
         EnableAnimator = state;
+    }
+
+    public void ChangeTimeScalingUsage(TimeUsage usage)
+    {
+        _timeUsage = usage;
     }
 }

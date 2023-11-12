@@ -28,9 +28,8 @@ public class TweenScale : TweenAnimationBase
     }
     public override void Play()
     {
-        _elapsedTime += Time.deltaTime;
-        float percent = _elapsedTime / _totalDuration;
-        _rectTransform.localScale = Vector3.Lerp(_startingSize, _endScale, _curve.Evaluate(percent));
+        base.Play();
+        _rectTransform.localScale = Vector3.Lerp(_startingSize, _endScale, _curve.Evaluate(_percent));
 
         
         AnimationEnd();
@@ -40,7 +39,6 @@ public class TweenScale : TweenAnimationBase
     {
         if(_elapsedTime >= _totalDuration && _loop)
         {
-            Debug.Log(_loop);
             Vector3 oldStartingSize = _startingSize;
             _startingSize = _endScale;
             _endScale = oldStartingSize;

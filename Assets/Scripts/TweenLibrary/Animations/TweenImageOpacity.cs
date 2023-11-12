@@ -33,21 +33,20 @@ public class TweenImageOpacity : TweenAnimationBase
 
     public override void Play()
     {
-        _elapsedTime += Time.deltaTime;
-        float percent = _elapsedTime / _totalDuration;
-        _newColor.a = Mathf.Lerp(_startingValue, _endValue, _curve.Evaluate(percent));
+        base.Play();
+        _newColor.a = Mathf.Lerp(_startingValue, _endValue, _curve.Evaluate(_percent));
         _image.color = _newColor;
         AnimationEnd();
     }
 
     protected override void AnimationEnd()
     {
-        base.AnimationEnd();
         if(_elapsedTime >= _totalDuration && _loop)
         {
             var oldStartValue = _startingValue;
             _startingValue = _endValue;
             _endValue = oldStartValue;
         }
+        base.AnimationEnd();
     }
 }

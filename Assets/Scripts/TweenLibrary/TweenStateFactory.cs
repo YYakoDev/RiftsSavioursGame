@@ -36,4 +36,9 @@ public class TweenStateFactory
         return new(_animator);
     }
 
+    public TweenTextOpacity GetTextOpacityAnimation()
+    {
+        return new(_animator);
+    }
+
 }

@@ -6,6 +6,7 @@ public class UpgradesMenu : MonoBehaviour
 {
     [SerializeField]private RectTransform _upgradesMenu;
     [SerializeField]private RectTransform _upgradesContainer;
+    [SerializeField]private UpgradeMenuAnimations _animations;
     [SerializeField]private UpgradeItemPrefab _upgradeItemPrefab;
     [SerializeField]SOPossibleUpgradesList _possibleUpgradesList; // from here you should grab an x number of upgrades and show them everytime you open the menu
     [SerializeField]SOPlayerInventory _playerInventory;
@@ -39,8 +40,8 @@ public class UpgradesMenu : MonoBehaviour
     public void ActivateUpgradeMenu()
     {
         _upgradesMenu.gameObject.SetActive(true);
+        _animations.PlayAnimations();
         _audio.PlayWithVaryingPitch(_openingSound);
-
         //Cursor stuff
         _previousCursorState = Cursor.visible;
         _previousCursorLockMode = Cursor.lockState;

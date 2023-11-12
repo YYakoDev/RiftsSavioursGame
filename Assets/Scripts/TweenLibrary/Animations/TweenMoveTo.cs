@@ -28,9 +28,8 @@ public class TweenMoveTo : TweenAnimationBase
     }
     public override void Play()
     {
-        _elapsedTime += Time.deltaTime;
-        float percent = _elapsedTime / _totalDuration;
-        _rectTransform.localPosition = Vector3.Lerp(_startPosition, _destination, _curve.Evaluate(percent));
+        base.Play();
+        _rectTransform.localPosition = Vector3.Lerp(_startPosition, _destination, _curve.Evaluate(_percent));
 
         
         AnimationEnd();
