@@ -46,7 +46,7 @@ public abstract class WeaponBase: ScriptableObject
         _weaponPrefabTransform = prefabTransform;
     }
 
-    public virtual void Attack()
+    protected virtual void Attack()
     {
         _nextAttackTime = Time.time + _attackCooldown;
         onAttack?.Invoke();
@@ -62,7 +62,7 @@ public abstract class WeaponBase: ScriptableObject
         }
     }
 
-    public abstract void EvaluateStats(SOPlayerAttackStats attackStats);
+    protected abstract void EvaluateStats(SOPlayerAttackStats attackStats);
 
     public virtual void DrawGizmos(){}
 }

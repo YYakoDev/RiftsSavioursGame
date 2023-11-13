@@ -5,7 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(AIStats)),
 RequireComponent(typeof(EnemyHealthManager)),
 RequireComponent(typeof(EnemyAnimations)),
-RequireComponent(typeof(Rigidbody2D))]
+RequireComponent(typeof(Rigidbody2D)),
+RequireComponent(typeof(AudioSource))]
 public class EnemyBrain : MonoBehaviour
 {
     [SerializeField]EnemySignature _signature;
@@ -13,6 +14,7 @@ public class EnemyBrain : MonoBehaviour
     [Header("References")]
     [SerializeField]Rigidbody2D _rb;
     [SerializeField]SpriteRenderer _renderer;
+    [SerializeField]AudioSource _audio;
     Sprite _intialSprite = null;
     [SerializeField]AIStats _aiData;
     [SerializeField]EnemyHealthManager _healthManager;
@@ -23,6 +25,7 @@ public class EnemyBrain : MonoBehaviour
     public EnemySignature Signature => _signature;
     public Rigidbody2D Rigidbody => _rb;
     public SpriteRenderer Renderer => _renderer;
+    public AudioSource Audio => _audio;
     public AIStats Stats => _aiData;
     public EnemyHealthManager HealthManager => _healthManager;
     public EnemyAnimations Animation => _animation;
@@ -34,7 +37,7 @@ public class EnemyBrain : MonoBehaviour
         thisGO.CheckComponent<SpriteRenderer>(ref _renderer);
         //saving the initialsprite in case the original sprite gets overriden by an empty animation or stuff like that
         if(_intialSprite == null) _intialSprite = _renderer.sprite;
-
+        thisGO.CheckComponent<AudioSource>(ref _audio);
         thisGO.CheckComponent<AIStats>(ref _aiData);
         thisGO.CheckComponent<EnemyHealthManager>(ref _healthManager);
         thisGO.CheckComponent<EnemyAnimations>(ref _animation);

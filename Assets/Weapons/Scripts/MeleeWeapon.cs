@@ -20,8 +20,13 @@ public class MeleeWeapon : WeaponBase
     [SerializeField]float _attackRange = 0.5f;
     [SerializeField]int _attackDamage = 5;
     int _maxEnemiesToHit = 10;
-
+    float _followupTime;
+    [SerializeField]float _comboInputTime;
+    bool _executeCombo;
+    int _attacksExecuted = 0;
     [SerializeField, Range(0,2.25f)]float _knockbackForce = 0.1f;
+    Timer _atkDurationTimer;
+    bool _waitForComboInput;
 
     public override void Initialize(WeaponManager weaponManager, Transform prefabTransform)
     {
@@ -32,24 +37,19 @@ public class MeleeWeapon : WeaponBase
         _maxEnemiesToHit = 2 + (int)(_attackRange * 5);
 
         _audio = prefabTransform.GetComponent<AudioSource>();
-
     }
-    public override void Attack()
+    protected override void Attack()
     {
         base.Attack(); //this calls the onAttackEvent and also sets the cooldown  i use this to play the attack animation and stop the autotargetting and other things
-
-        //InstantiateFX();
-        _audio.PlayOneShot(_sound);
+        _audio?.PlayWithVaryingPitch(_sound);
+        
         Collider2D[] hittedEnemies =  Physics2D.OverlapCircleAll(_weaponPrefabTransform.position, _attackRange, _enemyLayer);
         if(hittedEnemies.Length == 0) return;
 
         List<GameObject> hittedEnemiesGO = new List<GameObject>();
         for(int i = 0; i < hittedEnemies.Length; i++)
         {
-            if(hittedEnemiesGO.Contains(hittedEnemies[i].gameObject))
-            {
-                continue;
-            };
+            if(hittedEnemiesGO.Contains(hittedEnemies[i].gameObject)) continue;
             hittedEnemiesGO.Add(hittedEnemies[i].gameObject);
         }
         
@@ -62,6 +62,7 @@ public class MeleeWeapon : WeaponBase
             if(hittedEnemiesGO[i].TryGetComponent<IDamageable>(out IDamageable damageable))
             {
                 damageable.TakeDamage(_attackDamage);
+                PopupsManager.Create(hittedEnemiesGO[i].transform.position + Vector3.up * 0.75f, _attackDamage * 10);
             }
             if(hittedEnemiesGO[i].gameObject.TryGetComponent<IKnockback>(out IKnockback knockbackable))
             {
@@ -70,31 +71,7 @@ public class MeleeWeapon : WeaponBase
         }
 
     }
-
-    public void InstantiateFX()
-    {
-        Vector3 spawnPosition = _weaponPrefabTransform.position + _weaponPrefabTransform.right * -1 * _attackRange;
-        Vector3 flippedScale = _parentTransform.localScale;
-        flippedScale.x *= flippedScale.y * -1;
-
-
-        if(_weaponFXInstance == null)
-        {
-            _weaponFXObject = Instantiate(_weaponFXPrefab.gameObject, spawnPosition, Quaternion.identity);
-            _weaponFXObject.transform.localScale = flippedScale;
-            //_weaponFXObject.transform.parent = _parentTransform;
-            _weaponFXInstance = _weaponFXObject.GetComponent<WeaponFX>();
-            _weaponFXInstance.Initialize(_attackDuration);
-        }else
-        {
-            _weaponFXObject.SetActive(true);
-            _weaponFXObject.transform.position = spawnPosition;
-            _weaponFXObject.transform.localScale = flippedScale;
-            _weaponFXInstance.Initialize(_attackDuration);
-        }
-    }
-
-    public override void EvaluateStats(SOPlayerAttackStats attackStats)
+    protected override void EvaluateStats(SOPlayerAttackStats attackStats)
     {
         //codear esto para que se modifiquen las stats del arma pero sin escalar hasta el infinito sin querer
         //Mirar el oldweapon system!

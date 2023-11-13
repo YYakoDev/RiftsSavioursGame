@@ -15,6 +15,9 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable
     WaitForSeconds _deathDurationWait;
     public event Action onDeath;
 
+    //SFX STUFF
+    [SerializeField]AudioClip _onHitSFX, _onDeathSFX;
+
     private void Awake()
     {   
         gameObject.CheckComponent<EnemyBrain>(ref _brain);
@@ -47,7 +50,7 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable
         
        _health -= damage;
        _blinkFX.Play();
-       
+       _brain.Audio.PlayWithVaryingPitch(_onHitSFX);
        if(_health <= 0)
        {
             _blinkFX.Stop();
@@ -57,6 +60,7 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable
     public void Die()
     {
         StartCoroutine(DeactivateObject());
+        _brain.Audio.PlayWithVaryingPitch(_onDeathSFX);
         _brain.Animation.PlayDeath();
         _dropper.Drop();
         onDeath?.Invoke();

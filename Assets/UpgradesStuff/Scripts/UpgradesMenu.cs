@@ -65,7 +65,7 @@ public class UpgradesMenu : MonoBehaviour
     public void DeactivateUpgradeMenu()
     {
         _audio.PlayWithVaryingPitch(_closingSound);
-        _upgradesMenu.gameObject.SetActive(false);
+        _animations.PlayCloseAnimations();
         Cursor.visible = _previousCursorState;
         Cursor.lockState = _previousCursorLockMode;
         TimeScaleManager.ForceTimeScale(1);

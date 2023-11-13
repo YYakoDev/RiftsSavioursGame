@@ -87,6 +87,7 @@ public class UpgradeMenuAnimations : MonoBehaviour
         _bgImg.color = bgColor;
 
         _upgradeMenu.localPosition = _upgradeMenuStartPos;
+        _upgradeMenu.localScale = Vector3.one;
         _table.localPosition = _upgradeMenuStartPos;
         _toolsLeft.localPosition = _toolsLeftStartPos;
         _toolsRight.localPosition = _toolsRightStartPos;
@@ -96,6 +97,19 @@ public class UpgradeMenuAnimations : MonoBehaviour
         _timerForIcon.onReset += ScaleDownIcon;
         _timerForIcon.SetActive(false);
 
+    }
+
+    public void PlayCloseAnimations()
+    {
+        _tableAnimator.MoveTo(_table, _upgradeMenuStartPos, 0.2f, CurveTypes.EaseInOut);
+        _toolsLeftAnimator.MoveTo(_toolsLeft, _toolsLeftStartPos, 0.25f, CurveTypes.EaseInOut);
+        _toolsRightAnimator.MoveTo(_toolsRight, _toolsRightStartPos, 0.25f, CurveTypes.EaseInOut);
+        _twAnimator.TweenImageOpacity(_background, 0, 0.3f, CurveTypes.EaseInOut);
+        _upgradeAnimator.Scale(_upgradeMenu, Vector3.zero, 0.45f, CurveTypes.EaseInOut,
+            onComplete: () => 
+            {
+                gameObject.SetActive(false);
+            });
     }
 
     private void OnDisable() {

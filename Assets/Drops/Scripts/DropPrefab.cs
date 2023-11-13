@@ -3,14 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
-[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(AudioSource))]
 public class DropPrefab : MonoBehaviour
 {
     SpriteRenderer _renderer;
     Drop _drop;
-
-    Coroutine _pickUpRoutine;
-
     PickUpsController _pickUpsController;
     Transform _target;
     [SerializeField]float _pickupVelocity;
@@ -18,11 +15,16 @@ public class DropPrefab : MonoBehaviour
     bool _moveToTarget = false;
     bool _pickedUp = false;
 
+    //SFX
+    AudioSource _audio;
+    [SerializeField]AudioClip _pickupSound;
 
     private void Awake() {
-        gameObject.CheckComponent<SpriteRenderer>(ref _renderer);
+        GameObject thisGO = gameObject;
+        thisGO.CheckComponent<SpriteRenderer>(ref _renderer);
+        thisGO.CheckComponent<AudioSource>(ref _audio);
+
         _timer = new(0.3f);
-        //gameObject.CheckComponent<Animator>(ref _animator);
     }
 
     private void OnEnable() {
@@ -84,39 +86,16 @@ public class DropPrefab : MonoBehaviour
 
     public void PickUp(PickUpsController pickUpsController)
     {
+        if(_target != null)return;
         _pickUpsController = pickUpsController;
         _target = _pickUpsController.transform;
     }
-
-    /*IEnumerator DestroyAfterTime(Vector3 targetPos)
-    {
-        Vector3 currentPosition = transform.position;
-        Vector3 positionFromTarget = currentPosition - targetPos;
-        positionFromTarget.Normalize();
-        float timeGoingAway = 0.2f;
-        while(timeGoingAway >= 0)
-        {
-            Debug.Log("Going Away");
-            transform.position = Vector3.MoveTowards(transform.position, transform.position + positionFromTarget, _pickupVelocity * 2 * Time.fixedDeltaTime);
-            timeGoingAway -= Time.fixedDeltaTime;
-            yield return null;
-        }
-        while(Vector2.Distance(transform.position, targetPos) > 0.2f)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, targetPos, _pickupVelocity * 2 * Time.fixedDeltaTime);
-            yield return null;
-        }
-        Debug.Log("Destroying pickup");
-        _drop.OnPickUp(_pickUpsController);
-        Destroy(gameObject,0.01f);
-        //_pickUpRoutine = null;
-    }*/
-
     void PickUpAndDestroy()
     {
         _pickedUp = true;
+        _audio.PlayWithVaryingPitch(_pickupSound);
         _drop.OnPickUp(_pickUpsController);
-        Destroy(gameObject,0.01f);
+        Destroy(gameObject,_pickupSound.length);
     }
 
     private void OnDisable() {

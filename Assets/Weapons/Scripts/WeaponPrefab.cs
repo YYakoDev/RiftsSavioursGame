@@ -11,7 +11,7 @@ public class WeaponPrefab : MonoBehaviour
     private Animator _animator;
     private WeaponBase _weaponBase;
 
-    private static readonly int AttackAnimation = Animator.StringToHash("Attack");
+    private readonly int AttackAnimation = Animator.StringToHash("Attack");
 
     private void Awake() {
         gameObject.CheckComponent<SpriteRenderer>(ref _spriteRenderer);
