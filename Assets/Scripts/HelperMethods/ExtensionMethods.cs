@@ -10,10 +10,10 @@ public static class ExtensionMethods
     {
         if(animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.98f) animator.Play(animationName);
     }
-    public static void ForcePlay(this Animator animator, string animationName)
+    public static void ForcePlay(this Animator animator, int animationHash)
     {
         animator.StopPlayback();
-        animator.Play(animationName);
+        animator.Play(animationHash);
     }
 
     //TRY TO GET COMPONENT IF ITS NOT NULL

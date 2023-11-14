@@ -6,8 +6,6 @@ public class WeaponParentAiming : MonoBehaviour
 {
     [Header("References")]
     [SerializeField]PlayerManager _player;
-
-    bool _stopAiming = false;
     float _stopAimingTime = 0f;
 
     [Header("Point To Mouse References")]

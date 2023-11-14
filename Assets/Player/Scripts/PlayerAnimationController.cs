@@ -6,28 +6,35 @@ using UnityEngine;
 public class PlayerAnimationController : MonoBehaviour
 {
     [SerializeField]Animator _animator;
+    [SerializeField]EntryAnimationFX _introFX;
+    PlayerIntroAnimation _introAnim;
     string _currentAnimation;
-    
-    //[SerializeField]float _collectingAnimTime = 0.4f;
-    //public float CollectingTime => _collectingAnimTime;
+    //float _lockedTill;
+    //bool _action;
 
-    float _lockedTill;
-    bool _action;
+
 
     void Awake()
     {
-        gameObject.CheckComponent<Animator>(ref _animator);
+        GameObject thisGO = gameObject;
+        thisGO.CheckComponent<Animator>(ref _animator);
+        _introAnim = new(_animator, _introFX.gameObject);
+    }
+
+    private void Start()
+    {
+        _introAnim.PlayAnimation();    
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        _introAnim.UpdateLogic();
     }
 
     public void PlayStated(string animationName)
     {
-        if(Time.time < _lockedTill) return;
+        //if(Time.time < _lockedTill) return;
         if(animationName == _currentAnimation)return;
         /*if(_action)return;
 
@@ -46,13 +53,13 @@ public class PlayerAnimationController : MonoBehaviour
         //Debug.Log(animationName +  " is currently playing");
         _currentAnimation = animationName;
         _animator.Play(animationName);
-        _action = false;
+        /*_action = false;
 
 
         void LockState( float time)
         {
             _lockedTill = Time.time + time;
-        }
+        }*/
     }
 
 

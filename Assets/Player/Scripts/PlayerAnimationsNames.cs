@@ -6,9 +6,7 @@ public static class PlayerAnimationsNames
 {
    public static readonly string Iddle = "Iddle";
    public static readonly string Run = "Move";
-   public static readonly string Mining = "Mining";
-   public static readonly string Chopping = "Chopping";
-   public static readonly string Gathering = "Gathering";
+   public static readonly int Landing = Animator.StringToHash("Landing");
    public static readonly string Mount = "Mounting";
 
 

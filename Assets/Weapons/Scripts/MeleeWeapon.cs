@@ -20,13 +20,13 @@ public class MeleeWeapon : WeaponBase
     [SerializeField]float _attackRange = 0.5f;
     [SerializeField]int _attackDamage = 5;
     int _maxEnemiesToHit = 10;
-    float _followupTime;
-    [SerializeField]float _comboInputTime;
-    bool _executeCombo;
-    int _attacksExecuted = 0;
     [SerializeField, Range(0,2.25f)]float _knockbackForce = 0.1f;
-    Timer _atkDurationTimer;
-    bool _waitForComboInput;
+    //float _followupTime;
+    //[SerializeField]float _comboInputTime;
+    //bool _executeCombo;
+    //int _attacksExecuted = 0;
+    //Timer _atkDurationTimer;
+    //bool _waitForComboInput;
 
     public override void Initialize(WeaponManager weaponManager, Transform prefabTransform)
     {
