@@ -19,12 +19,11 @@ MonoBehaviour:
   _spawnRotation: 0
   _animatorOverrideController: {fileID: 22100000, guid: 82d4939194c4a114aa9a925a6b9c5270, type: 2}
   _pointCameraOnAttack: 1
-  _attackCooldown: 0.45
+  _attackCooldown: 0.57
   _attackDuration: 0.35
   _weaponFXPrefab: {fileID: 721527248584557683, guid: 280c38db5a76bb641a9ac27326eaa45c, type: 3}
   _weaponSounds:
   - {fileID: 8300000, guid: 9c192f02e087c9140814059b4e042b82, type: 3}
-  _attackRange: 1
+  _attackRange: 1.01
   _attackDamage: 1
-  _comboInputTime: 0.3
-  _knockbackForce: 0.31
+  _knockbackForce: 0.3

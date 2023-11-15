@@ -28,7 +28,6 @@ public class PlayerIntroAnimation
 
     public void PlayAnimation()
     {
-        Debug.Log("Playing Animation");
         _animator.ForcePlay(PlayerAnimationsNames.Landing);
         SpawnFX();
     }
