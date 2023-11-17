@@ -17,13 +17,14 @@ MonoBehaviour:
   _flipSprite: 1
   _spawnPosition: {x: -0.55, y: 0.25, z: 0}
   _spawnRotation: 0
-  _animatorOverrideController: {fileID: 22100000, guid: 82d4939194c4a114aa9a925a6b9c5270, type: 2}
+  _animatorOverrideController: {fileID: 22100000, guid: 40d778a495d37254091ce8f08245857f, type: 2}
   _pointCameraOnAttack: 1
   _attackCooldown: 0.57
-  _attackDuration: 0.35
+  _attackDuration: 0.3
   _weaponFXPrefab: {fileID: 721527248584557683, guid: 280c38db5a76bb641a9ac27326eaa45c, type: 3}
   _weaponSounds:
   - {fileID: 8300000, guid: 9c192f02e087c9140814059b4e042b82, type: 3}
+  - {fileID: 8300000, guid: 0cb9f012f24c2c344afbc622e76a1edf, type: 3}
   _attackRange: 1.01
   _attackDamage: 1
   _knockbackForce: 0.3

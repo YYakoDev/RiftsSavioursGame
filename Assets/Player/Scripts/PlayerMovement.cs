@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour, IKnockback
     PlayerManager _player;
     GameObject _spriteGameObject;
     Knockbackeable _knockeable;
+    [SerializeField]ParticleSystem _dustEffect;
 
     //Movement
     Vector2 _movement;
@@ -72,18 +73,21 @@ public class PlayerMovement : MonoBehaviour, IKnockback
 
     private void FixedUpdate()
     {
-        if(_movement.sqrMagnitude > 0.1f) {Move();}
-        else {Iddle();}
+        if(_movement.sqrMagnitude > 0.1f) Move();
+        else Iddle();
     }
 
     void Iddle()
     {
         _player.AnimController.PlayStated(PlayerAnimationsNames.Iddle);
         _sortingOrderController.SortOrder();
+        _dustEffect.Stop();
+        Debug.Log("IDDLE");
     }
 
     void Move()
     {
+        _dustEffect.Play();
         Vector2 direction = (Vector2)transform.position + _movement.normalized * (_realSpeed *Time.fixedDeltaTime);
         _player.RigidBody.MovePosition(direction);
         

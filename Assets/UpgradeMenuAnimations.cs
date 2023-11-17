@@ -56,7 +56,7 @@ public class UpgradeMenuAnimations : MonoBehaviour
                         _twAnimator.Scale(_openingIcon, _openingIconEndSize, _iconAnimDuration / 3f, CurveTypes.EaseInOut, 
                         onComplete: () => 
                         {
-                            _timerForIcon.SetActive(true);
+                            _timerForIcon.Start();
                         });
                     });
     }
@@ -95,7 +95,7 @@ public class UpgradeMenuAnimations : MonoBehaviour
         _twAnimator.Scale(_openingIcon, Vector3.zero, 0f);
         _openingIcon.gameObject.SetActive(false);
         _timerForIcon.onReset += ScaleDownIcon;
-        _timerForIcon.SetActive(false);
+        _timerForIcon.Stop();
 
     }
 

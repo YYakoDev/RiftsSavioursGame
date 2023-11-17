@@ -74,13 +74,15 @@ public class DropPrefab : MonoBehaviour
     
     void MoveToTarget()
     {
-        _timer.SetActive(false);
+        _timer.Stop();
         _moveToTarget = true;
     }
 
     void MoveFromTarget()
     {
         _moveToTarget = false;
+        _timer.Start();
+        Debug.Log("Moving from target");
     }
 
 

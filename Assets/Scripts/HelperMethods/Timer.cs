@@ -24,8 +24,7 @@ public class Timer
     {
         if(_timerStopped)return;
         if(_timeRemaining > 0)
-        {
-            onTimerStart?.Invoke();     
+        { 
             if(_useUnscaledTime) _timeRemaining -= Time.unscaledDeltaTime;
             else _timeRemaining -= Time.deltaTime;
         }else
@@ -46,9 +45,19 @@ public class Timer
         onReset?.Invoke();
     }
 
-    public void SetActive(bool state)
+    public void Start()
     {
-        _timerStopped = !state;
         _timeRemaining = _countdownTime;
+        onTimerStart?.Invoke();    
+        Resume();
+    }
+    public void Resume()
+    {
+        _timerStopped = false;
+    }
+
+    public void Stop()
+    {
+        _timerStopped = true;
     }
 }

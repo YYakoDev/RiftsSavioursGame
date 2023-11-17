@@ -9,7 +9,7 @@ public class PlayerAnimationController : MonoBehaviour
     [SerializeField]EntryAnimationFX _introFX;
     PlayerIntroAnimation _introAnim;
     string _currentAnimation;
-    //float _lockedTill;
+    float _lockedTill;
     //bool _action;
 
 
@@ -34,7 +34,7 @@ public class PlayerAnimationController : MonoBehaviour
 
     public void PlayStated(string animationName)
     {
-        //if(Time.time < _lockedTill) return;
+        if(Time.time < _lockedTill) return;
         if(animationName == _currentAnimation)return;
         /*if(_action)return;
 
@@ -50,16 +50,20 @@ public class PlayerAnimationController : MonoBehaviour
             LockState(_collectingAnimTime/2f);
         }*/
 
+        if(animationName == PlayerAnimationsNames.Attack)
+        {
+            LockState(0.3f);
+        }
+
         //Debug.Log(animationName +  " is currently playing");
         _currentAnimation = animationName;
         _animator.Play(animationName);
-        /*_action = false;
 
 
         void LockState( float time)
         {
             _lockedTill = Time.time + time;
-        }*/
+        }
     }
 
 
