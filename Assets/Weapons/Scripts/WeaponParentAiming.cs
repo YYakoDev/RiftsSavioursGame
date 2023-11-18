@@ -31,7 +31,7 @@ public class WeaponParentAiming : MonoBehaviour
     //Weapon
     [Header("Weapon")]
     private WeaponBase _currentWeapon;
-    private float _attackDuration => _currentWeapon.AttackDuration;
+    private float _attackDuration => _player.AnimController.AtkDuration;
     [SerializeField, Range(0,2.25f)]float _weaponSelfKnockbackForce = 2f;
 
     //CameraTarget

@@ -42,8 +42,8 @@ public class MeleeWeapon : WeaponBase
     {
         base.Attack(); //this calls the onAttackEvent and also sets the cooldown  i use this to play the attack animation and stop the autotargetting and other things
         _audio?.PlayWithVaryingPitch(_sound);
-        InstantiateFX();
-        Collider2D[] hittedEnemies =  Physics2D.OverlapCircleAll(_weaponFXObject.transform.position, _attackRange, _enemyLayer);
+        //InstantiateFX();
+        Collider2D[] hittedEnemies =  Physics2D.OverlapCircleAll(_weaponPrefabTransform.position, _attackRange, _enemyLayer);
         if(hittedEnemies.Length == 0) return;
 
         List<GameObject> hittedEnemiesGO = new List<GameObject>();

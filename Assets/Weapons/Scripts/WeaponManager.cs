@@ -31,14 +31,14 @@ public class WeaponManager : MonoBehaviour
         _atkDurationTimer.onReset += ShowSheathe;
     }
 
-    void Start()
+    IEnumerator Start()
     {
         _attackStats = _playerStats.AttackStats;
         _currentWeapon = _playerStats.WeaponBase;
         if(_weaponPrefab == null || _currentWeapon == null || _weaponParent == null)
         {
             Debug.LogError("A Reference is not assigned to the weapon manager");
-            return;
+            yield break;
         }
         _weaponParent.Initialize(_enemyLayer, _currentWeapon);
 
@@ -57,8 +57,10 @@ public class WeaponManager : MonoBehaviour
             _weaponPrefabInstance.GetComponent<WeaponPrefab>().SetWeaponBase(_currentWeapon);
         }
         _currentWeapon.Initialize(this, _weaponPrefabInstance.transform);
+
         _currentWeapon.onAttack += PlayAttackAnimation;
-        _atkDurationTimer.ChangeTime(_currentWeapon.AttackDuration);
+        yield return null;
+        _atkDurationTimer.ChangeTime(_playerManager.AnimController.AtkDuration);
     }
 
     private void Update() {

@@ -10,8 +10,10 @@ public class PlayerAnimationController : MonoBehaviour
     PlayerIntroAnimation _introAnim;
     string _currentAnimation;
     float _lockedTill;
+    float _attackDuration;
     //bool _action;
 
+    public float AtkDuration => _attackDuration;
 
 
     void Awake()
@@ -23,7 +25,8 @@ public class PlayerAnimationController : MonoBehaviour
 
     private void Start()
     {
-        _introAnim.PlayAnimation();    
+        _introAnim.PlayAnimation();
+        GetAttackDuration();    
     }
 
     // Update is called once per frame
@@ -36,26 +39,11 @@ public class PlayerAnimationController : MonoBehaviour
     {
         if(Time.time < _lockedTill) return;
         if(animationName == _currentAnimation)return;
-        /*if(_action)return;
-
-        if(animationName == PlayerAnimationsNames.Mining || animationName == PlayerAnimationsNames.Chopping)
-        {
-            _action = true;
-            LockState(_collectingAnimTime);
-            _player.MovementScript.StopMovementForSeconds(_collectingAnimTime*0.85f);
-        }
-        if(animationName == PlayerAnimationsNames.Gathering)
-        {
-            _action = true;
-            LockState(_collectingAnimTime/2f);
-        }*/
 
         if(animationName == PlayerAnimationsNames.Attack)
         {
-            LockState(0.3f);
+            LockState(_attackDuration);
         }
-
-        //Debug.Log(animationName +  " is currently playing");
         _currentAnimation = animationName;
         _animator.Play(animationName);
 
@@ -63,6 +51,19 @@ public class PlayerAnimationController : MonoBehaviour
         void LockState( float time)
         {
             _lockedTill = Time.time + time;
+        }
+    }
+
+    void GetAttackDuration()
+    {
+        var clips = _animator.runtimeAnimatorController.animationClips;
+        foreach(AnimationClip clip in clips)
+        {
+            if(clip.name == PlayerAnimationsNames.Attack)
+            {
+                _attackDuration = clip.averageDuration;
+                break;  
+            } 
         }
     }
 
