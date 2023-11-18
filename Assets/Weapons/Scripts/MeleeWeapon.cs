@@ -42,8 +42,8 @@ public class MeleeWeapon : WeaponBase
     {
         base.Attack(); //this calls the onAttackEvent and also sets the cooldown  i use this to play the attack animation and stop the autotargetting and other things
         _audio?.PlayWithVaryingPitch(_sound);
-        
-        Collider2D[] hittedEnemies =  Physics2D.OverlapCircleAll(_weaponPrefabTransform.position, _attackRange, _enemyLayer);
+        InstantiateFX();
+        Collider2D[] hittedEnemies =  Physics2D.OverlapCircleAll(_weaponFXObject.transform.position, _attackRange, _enemyLayer);
         if(hittedEnemies.Length == 0) return;
 
         List<GameObject> hittedEnemiesGO = new List<GameObject>();
@@ -71,6 +71,30 @@ public class MeleeWeapon : WeaponBase
         }
 
     }
+
+    public void InstantiateFX()
+    {
+        Vector3 spawnPosition = _weaponPrefabTransform.position + _weaponPrefabTransform.right * -1 * _attackRange;
+        Vector3 flippedScale = _parentTransform.localScale;
+        flippedScale.x *= flippedScale.y * -1;
+
+
+        if(_weaponFXInstance == null)
+        {
+            _weaponFXObject = Instantiate(_weaponFXPrefab.gameObject, spawnPosition, Quaternion.identity);
+            _weaponFXObject.transform.localScale = flippedScale;
+            //_weaponFXObject.transform.parent = _parentTransform;
+            _weaponFXInstance = _weaponFXObject.GetComponent<WeaponFX>();
+            _weaponFXInstance.Initialize(_attackDuration);
+        }else
+        {
+            _weaponFXObject.SetActive(true);
+            _weaponFXObject.transform.position = spawnPosition;
+            _weaponFXObject.transform.localScale = flippedScale;
+            _weaponFXInstance.Initialize(_attackDuration);
+        }
+    }
+
     protected override void EvaluateStats(SOPlayerAttackStats attackStats)
     {
         //codear esto para que se modifiquen las stats del arma pero sin escalar hasta el infinito sin querer

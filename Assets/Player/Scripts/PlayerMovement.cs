@@ -82,7 +82,6 @@ public class PlayerMovement : MonoBehaviour, IKnockback
         _player.AnimController.PlayStated(PlayerAnimationsNames.Iddle);
         _sortingOrderController.SortOrder();
         _dustEffect.Stop();
-        Debug.Log("IDDLE");
     }
 
     void Move()
