@@ -21,7 +21,6 @@ public abstract class WeaponBase: ScriptableObject
 
     [Header("Weapon Attack Stats")]
     [SerializeField]protected float _attackCooldown = 0.5f;
-    protected float _attackDuration = 0.33f;
     protected float _nextAttackTime = 0f;
 
 
@@ -37,7 +36,6 @@ public abstract class WeaponBase: ScriptableObject
     public float SpawnRotation => _spawnRotation;
     public Transform PrefabTransform => _weaponPrefabTransform;
     public float AttackCooldown => _attackCooldown;
-    public float AttackDuration {get => _attackDuration; set => _attackDuration = value;}
     public bool PointCameraOnAttack => _pointCameraOnAttack;
 
     public virtual void Initialize(WeaponManager weaponManager, Transform prefabTransform)

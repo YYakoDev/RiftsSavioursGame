@@ -7,6 +7,6 @@ public class DeactivateOnPlay : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        gameObject.SetActive(!Application.isPlaying);
+        gameObject.SetActive(false);
     }
 }

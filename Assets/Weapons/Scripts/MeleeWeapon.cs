@@ -72,7 +72,7 @@ public class MeleeWeapon : WeaponBase
 
     }
 
-    public void InstantiateFX()
+    /*public void InstantiateFX()
     {
         Vector3 spawnPosition = _weaponPrefabTransform.position + _weaponPrefabTransform.right * -1 * _attackRange;
         Vector3 flippedScale = _parentTransform.localScale;
@@ -93,7 +93,7 @@ public class MeleeWeapon : WeaponBase
             _weaponFXObject.transform.localScale = flippedScale;
             _weaponFXInstance.Initialize(_attackDuration);
         }
-    }
+    }*/
 
     protected override void EvaluateStats(SOPlayerAttackStats attackStats)
     {

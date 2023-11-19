@@ -117,6 +117,7 @@ public class WeaponParentAiming : MonoBehaviour
     {
         _mouseDirection = _mainCamera.ScreenToWorldPoint(Input.mousePosition) - transform.position;
         float angle = Mathf.Atan2(-_mouseDirection.y,-_mouseDirection.x) * Mathf.Rad2Deg;
+        angle = Mathf.LerpAngle(transform.rotation.eulerAngles.z, angle, Time.fixedDeltaTime * _aimSmoothing);
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         FlipWeapon(_mouseDirection);
 
