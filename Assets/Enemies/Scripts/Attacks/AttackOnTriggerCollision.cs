@@ -22,6 +22,7 @@ public class AttackOnTriggerCollision : MonoBehaviour, IEnemyAttack
             Attack(damageable);
             if(other.gameObject.TryGetComponent<IKnockback>(out IKnockback knockbackable))
             {
+                //knockbackable.ApplyKnockback();
                 knockbackable.KnockBackLogic.ApplyForce(transform.position, _knockbackForce);
             }
         }

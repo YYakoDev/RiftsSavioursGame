@@ -66,7 +66,7 @@ public class MeleeWeapon : WeaponBase
             }
             if(hittedEnemiesGO[i].gameObject.TryGetComponent<IKnockback>(out IKnockback knockbackable))
             {
-                knockbackable.KnockBackLogic.ApplyForce(_parentTransform.position, _knockbackForce);
+                //knockbackable.KnockBackLogic.ApplyForce(_parentTransform.position, _knockbackForce);
             }
         }
 

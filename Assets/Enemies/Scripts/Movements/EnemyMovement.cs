@@ -30,6 +30,7 @@ public class EnemyMovement : MonoBehaviour, IMovement, IKnockback
     public int FacingDirection => (_isFlipped) ? -1 : 1;
     public Knockbackeable KnockBackLogic { get => _knockbackeable;}
     public bool StopMoving { get => _stopMovement;}
+    public bool knockback { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
 
     private void Awake() 
     {

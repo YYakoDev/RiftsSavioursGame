@@ -36,6 +36,8 @@ public class PlayerMovement : MonoBehaviour, IKnockback
     private float MovementSpeed => _player.Stats.Speed;
     private float SlowdownMultiplier => _player.Stats.SlowdownMultiplier;
 
+    public bool knockback { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+
     void Awake()
     {
         //components

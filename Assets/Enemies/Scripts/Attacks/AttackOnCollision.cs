@@ -23,7 +23,7 @@ public class AttackOnCollision : MonoBehaviour, IEnemyAttack
             Attack(damageable);
             if(other.gameObject.TryGetComponent<IKnockback>(out IKnockback knockbackable))
             {
-                knockbackable.KnockBackLogic.ApplyForce(transform.position, _knockbackForce);
+                //knockbackable.KnockBackLogic.ApplyForce(transform.position, _knockbackForce);
             }
         }
     }
