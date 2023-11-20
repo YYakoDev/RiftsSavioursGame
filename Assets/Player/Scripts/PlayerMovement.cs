@@ -36,7 +36,11 @@ public class PlayerMovement : MonoBehaviour, IKnockback
     private float MovementSpeed => _player.Stats.Speed;
     private float SlowdownMultiplier => _player.Stats.SlowdownMultiplier;
 
-    public bool knockback { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+    //Knockback Stuff
+    private Vector3 _knockbackEmitter;
+    private float _emitterForce;
+    public Vector3 KnockbackEmitter { set => _knockbackEmitter = value; }
+    public float EmitterForce { set => _emitterForce = value; }
 
     void Awake()
     {
@@ -50,10 +54,6 @@ public class PlayerMovement : MonoBehaviour, IKnockback
         if(_sortingOrderController == null)_sortingOrderController = new SortingOrderController(transform, _player.Renderer, _sortingOrderOffset);
         
     }
-    private void OnEnable() {
-        
-    }
-
     void Start()
     {
         _spriteGameObject = _player.Renderer.gameObject;
@@ -131,8 +131,10 @@ public class PlayerMovement : MonoBehaviour, IKnockback
         _realSpeed = MovementSpeed * SlowdownMultiplier;
     }
 
-    private void OnDisable() {
-        
+    public void KnockbackLogic()
+    {
+        if(_knockbackEmitter.sqrMagnitude < 0.1f) return;
+        Debug.Log("Applying Knockback!");
+        _knockbackEmitter = Vector3.zero;
     }
-
 }

@@ -164,12 +164,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _signature: 3
-  _rb: {fileID: 0}
+  _rb: {fileID: 779268523137980045}
   _renderer: {fileID: 779268523137980046}
   _audio: {fileID: 6764728389151127168}
   _aiData: {fileID: 3440584230537335307}
-  _healthManager: {fileID: 0}
-  _animation: {fileID: 0}
+  _healthManager: {fileID: 290690915799055065}
+  _animation: {fileID: 6124761155502390654}
   _colliders: []
 --- !u!114 &2173043081193469781
 MonoBehaviour:

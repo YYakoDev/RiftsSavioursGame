@@ -64,8 +64,10 @@ public class MeleeWeapon : WeaponBase
                 damageable.TakeDamage(_attackDamage);
                 PopupsManager.Create(hittedEnemiesGO[i].transform.position + Vector3.up * 0.75f, _attackDamage * 10);
             }
-            if(hittedEnemiesGO[i].gameObject.TryGetComponent<IKnockback>(out IKnockback knockbackable))
+            if(hittedEnemiesGO[i].gameObject.TryGetComponent<IKnockback>(out var knockbackable))
             {
+                knockbackable.EmitterForce = _knockbackForce;
+                knockbackable.KnockbackEmitter = _parentTransform.position;
                 //knockbackable.KnockBackLogic.ApplyForce(_parentTransform.position, _knockbackForce);
             }
         }

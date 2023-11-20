@@ -23,30 +23,28 @@ public class EnemyMovement : MonoBehaviour, IMovement, IKnockback
 
 
     //KNOCKBACK LOGIC
-    Knockbackeable _knockbackeable;
+    private Vector3 _knockbackEmitter;
+    private float _emitterForce;
+    public Vector3 KnockbackEmitter { set => _knockbackEmitter = value; }
+    public float EmitterForce { set => _emitterForce = value; }
     
 
     //properties
     public int FacingDirection => (_isFlipped) ? -1 : 1;
-    public Knockbackeable KnockBackLogic { get => _knockbackeable;}
     public bool StopMoving { get => _stopMovement;}
-    public bool knockback { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
 
     private void Awake() 
     {
         gameObject.CheckComponent<EnemyBrain>(ref _enemy);
         gameObject.CheckComponent<AvoidanceBehaviourBrain>(ref _avoidanceBehaviour);
 
-        if(_knockbackeable == null) _knockbackeable = new Knockbackeable(transform);
         if(_sortOrderController == null) _sortOrderController = new SortingOrderController(transform, _enemy.Renderer, _offsetSortOrderPosition);
         
     }
     private void OnEnable()
     {
         _enemy.HealthManager.onDeath += StopMovement;
-        _enemy.HealthManager.onDeath += DisableKnockback;
         _stopMovement = false;
-        _knockbackeable.Enabled = true;  
     }
     private void FixedUpdate() 
     {
@@ -54,6 +52,8 @@ public class EnemyMovement : MonoBehaviour, IMovement, IKnockback
 
         if(_avoidanceBehaviour.ResultDirection.sqrMagnitude > 0.1f) Move();
         else Iddle();
+
+        KnockbackLogic();
     }
 
     public void Move()
@@ -102,15 +102,15 @@ public class EnemyMovement : MonoBehaviour, IMovement, IKnockback
         }
     }
 
-    void DisableKnockback()
-    {
-        _knockbackeable.Enabled = false;
-    }
 
     private void OnDisable() {
         _enemy.HealthManager.onDeath -= StopMovement;
-        _enemy.HealthManager.onDeath -= DisableKnockback;
-        _stopMovement = false;
     }
-   
+
+    public void KnockbackLogic()
+    {
+        if(_knockbackEmitter.sqrMagnitude < 0.1f) return;
+        Debug.Log("Applying Knockback!");
+        _knockbackEmitter = Vector3.zero;
+    }
 }

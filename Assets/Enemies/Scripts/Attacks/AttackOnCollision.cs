@@ -2,35 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AttackOnCollision : MonoBehaviour, IEnemyAttack
+public class AttackOnCollision : MonoBehaviour
 {
     [SerializeField]EnemyBrain _brain;
     [Range(0,1), SerializeField]float _knockbackForce = 0.2f;
-
+    EnemyAttackLogic _attackLogic;
     //properties
-
     int damage => _brain.Stats.Damage;
 
     private void Awake()
     {
         if(_brain == null) _brain = GetComponentInParent<EnemyBrain>();
+        //with this method you cant actually update the knockback force or the damage of the enemies through the course of the game
+        _attackLogic = new(transform, damage, _knockbackForce); 
     }
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if(other.gameObject.TryGetComponent<IDamageable>(out IDamageable damageable))
-        {
-            Attack(damageable);
-            if(other.gameObject.TryGetComponent<IKnockback>(out IKnockback knockbackable))
-            {
-                //knockbackable.KnockBackLogic.ApplyForce(transform.position, _knockbackForce);
-            }
-        }
-    }
-
-    public void Attack(IDamageable damageable)
-    {
-        damageable.TakeDamage(damage);
+        _attackLogic.Attack(other.gameObject);
     }
     
 }

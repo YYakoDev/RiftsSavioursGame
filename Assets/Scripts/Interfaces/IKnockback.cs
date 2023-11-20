@@ -1,5 +1,8 @@
+using UnityEngine;
 
 public interface IKnockback
 {
-    public Knockbackeable KnockBackLogic { get; }
+    public Vector3 KnockbackEmitter {set;}
+    public float EmitterForce {set;}
+    public void KnockbackLogic();
 }
