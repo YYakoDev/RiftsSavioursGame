@@ -32,7 +32,7 @@ public class WeaponPrefab : MonoBehaviour
 
         _animator.runtimeAnimatorController = _weaponBase.AnimatorOverrideController;
         _animator.ForcePlay(OnEquipAnim);
-        _weaponBase.onAttack += PlayAttackAnimation;
+        _weaponBase.onAttack += AttackEffects;
     }
 
     // Update is called once per frame
@@ -41,9 +41,19 @@ public class WeaponPrefab : MonoBehaviour
         _weaponBase.InputLogic();
     }
 
+    void AttackEffects()
+    {
+        PlayAttackAnimation();
+        PlayAttackSound();
+    }
     void PlayAttackAnimation()
     {
         _animator.Play(AttackAnim1);
+    }
+
+    void PlayAttackSound()
+    {
+        _audio.PlayWithVaryingPitch(_weaponBase.Sound);
     }
 
     public void SetWeaponBase(WeaponBase weapon)
@@ -64,6 +74,6 @@ public class WeaponPrefab : MonoBehaviour
     }
 
     private void OnDestroy() {
-        _weaponBase.onAttack -= PlayAttackAnimation;
+        _weaponBase.onAttack -= AttackEffects;
     }
 }

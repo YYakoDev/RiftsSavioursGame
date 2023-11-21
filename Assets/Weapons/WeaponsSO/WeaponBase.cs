@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public abstract class WeaponBase: ScriptableObject
 {
@@ -16,6 +17,7 @@ public abstract class WeaponBase: ScriptableObject
     [SerializeField]private Vector3 _spawnPosition = new Vector3(-0.55f, 0.25f, 0f);
     [SerializeField]private float _spawnRotation = 0;
     [SerializeField]private AnimatorOverrideController _animatorOverrideController;
+    [SerializeField]private AudioClip[] _weaponSounds;
     [SerializeField]bool _pointCameraOnAttack = false;
     protected Transform _weaponPrefabTransform;
 
@@ -37,6 +39,7 @@ public abstract class WeaponBase: ScriptableObject
     public Transform PrefabTransform => _weaponPrefabTransform;
     public float AttackCooldown => _attackCooldown;
     public bool PointCameraOnAttack => _pointCameraOnAttack;
+    public AudioClip Sound => _weaponSounds[Random.Range(0, _weaponSounds.Length)];
 
     public virtual void Initialize(WeaponManager weaponManager, Transform prefabTransform)
     {

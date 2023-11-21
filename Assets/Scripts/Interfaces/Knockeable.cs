@@ -25,7 +25,7 @@ public class Knockbackeable
     public void SetKnockbackData(Vector3 emitterPos, float force)
     {
         _emitterPos = emitterPos;
-        _force = force;
+        _force = force * 2;
 
         _knockbackHits++;
         if(_knockbackHits >= 0)
@@ -48,7 +48,7 @@ public class Knockbackeable
         //Debug.Log("Applying Knockback!");
         Vector2 currentPos = _ownTransform.position;
         Vector2 direction = currentPos - _emitterPos;
-        _rb.MovePosition(currentPos + direction.normalized * (_force * 2 * Time.fixedDeltaTime));
+        _rb.MovePosition(currentPos + direction.normalized * (_force * Time.fixedDeltaTime));
     }
 
     public void StopKnockback()

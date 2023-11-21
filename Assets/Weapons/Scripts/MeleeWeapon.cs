@@ -6,27 +6,17 @@ using UnityEngine;
 public class MeleeWeapon : WeaponBase
 {
     [Header("References")]
-    [SerializeField]WeaponFX _weaponFXPrefab;
-    GameObject _weaponFXObject;
-    WeaponFX _weaponFXInstance;
+    //[SerializeField]WeaponFX _weaponFXPrefab;
+    //GameObject _weaponFXObject;
+    //WeaponFX _weaponFXInstance;
     Transform _parentTransform;
     LayerMask _enemyLayer;
-    //private Animator _weaponAnimator;
-    private AudioSource _audio;
-    [SerializeField]AudioClip[] _weaponSounds;
-    private AudioClip _sound => _weaponSounds[Random.Range(0, _weaponSounds.Length)];
 
     [Header("Stats")]
     [SerializeField]float _attackRange = 0.5f;
     [SerializeField]int _attackDamage = 5;
     int _maxEnemiesToHit = 10;
-    [SerializeField, Range(0,2.25f)]float _knockbackForce = 0.1f;
-    //float _followupTime;
-    //[SerializeField]float _comboInputTime;
-    //bool _executeCombo;
-    //int _attacksExecuted = 0;
-    //Timer _atkDurationTimer;
-    //bool _waitForComboInput;
+    [SerializeField, Range(0,2.25f)]float _knockbackForce = 0.35f;
 
     public override void Initialize(WeaponManager weaponManager, Transform prefabTransform)
     {
@@ -34,14 +24,12 @@ public class MeleeWeapon : WeaponBase
         _nextAttackTime = 0;
         _parentTransform = prefabTransform.parent;
         _enemyLayer = weaponManager.EnemyLayer;
-        _maxEnemiesToHit = 2 + (int)(_attackRange * 5);
-
-        _audio = prefabTransform.GetComponent<AudioSource>();
+        _maxEnemiesToHit = 3 + (int)(_attackRange * 5);
     }
     protected override void Attack()
     {
-        base.Attack(); //this calls the onAttackEvent and also sets the cooldown  i use this to play the attack animation and stop the autotargetting and other things
-        _audio?.PlayWithVaryingPitch(_sound);
+        //this calls the onAttackEvent and also sets the cooldown.
+        base.Attack(); 
         //InstantiateFX();
         Collider2D[] hittedEnemies =  Physics2D.OverlapCircleAll(_weaponPrefabTransform.position, _attackRange, _enemyLayer);
         if(hittedEnemies.Length == 0) return;
@@ -67,9 +55,6 @@ public class MeleeWeapon : WeaponBase
             if(hittedEnemiesGO[i].gameObject.TryGetComponent<IKnockback>(out var knockbackable))
             {
                 knockbackable.KnockbackLogic.SetKnockbackData(_parentTransform.position, _knockbackForce);
-                //knockbackable.EmitterForce = _knockbackForce;
-                //knockbackable.KnockbackEmitter = _parentTransform.position;
-                //knockbackable.KnockBackLogic.ApplyForce(_parentTransform.position, _knockbackForce);
             }
         }
 
@@ -106,7 +91,6 @@ public class MeleeWeapon : WeaponBase
 
     public override void DrawGizmos()
     {
-        //if(_weaponFXObject == null) return;
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(_weaponPrefabTransform.position, _attackRange);
     }
