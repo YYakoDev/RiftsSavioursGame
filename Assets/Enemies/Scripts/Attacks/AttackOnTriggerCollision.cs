@@ -5,7 +5,7 @@ using UnityEngine;
 public class AttackOnTriggerCollision : MonoBehaviour
 {
     [SerializeField]EnemyBrain _brain;
-    [Range(0,1), SerializeField]float _knockbackForce = 0.2f;
+    [Range(0,2), SerializeField]float _knockbackForce = 1f;
     EnemyAttackLogic _attackLogic;
     //properties
 

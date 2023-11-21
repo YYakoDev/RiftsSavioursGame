@@ -48,7 +48,7 @@ public class EnemyMovement : MonoBehaviour, IMovement, IKnockback
     private void FixedUpdate() 
     {
         _knockbackLogic.ApplyKnockback();
-        if(_stopMovement) return;
+        if(_stopMovement || _knockbackLogic.Enabled) return;
 
         if(_avoidanceBehaviour.ResultDirection.sqrMagnitude > 0.1f) Move();
         else Iddle();

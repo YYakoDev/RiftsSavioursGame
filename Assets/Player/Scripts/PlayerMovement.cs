@@ -44,6 +44,8 @@ public class PlayerMovement : MonoBehaviour, IKnockback
         gameObject.CheckComponent<PlayerManager>(ref _player);
 
         //script that handles the knockback effect
+        //there is a problem with this part, you cant really update the speed if the player gets an upgrade
+        //you should handle that through the onStatsChange Event on the playerstats script
         if(_knockbackLogic == null)_knockbackLogic = new Knockbackeable(transform, _player.RigidBody);
         
         //script that handles the sorting order based on its position
@@ -71,7 +73,8 @@ public class PlayerMovement : MonoBehaviour, IKnockback
 
     private void FixedUpdate()
     {
-        if(_movement.sqrMagnitude > 0.1f) Move();
+        if(_knockbackLogic.Enabled) _knockbackLogic.ApplyKnockback();
+        else if(_movement.sqrMagnitude > 0.1f) Move();
         else Iddle();
     }
 

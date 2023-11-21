@@ -525,6 +525,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -1448552036706072602, guid: 4966e3a35d824ee44a9850012833ae7f, type: 3}
+      propertyPath: _knockbackForce
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 779268523137980041, guid: 4966e3a35d824ee44a9850012833ae7f, type: 3}
       propertyPath: m_Name
       value: SkellyBro
