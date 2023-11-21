@@ -9,7 +9,6 @@ public class PlayerMovement : MonoBehaviour, IKnockback
     //References
     PlayerManager _player;
     GameObject _spriteGameObject;
-    Knockbackeable _knockeable;
     [SerializeField]ParticleSystem _dustEffect;
 
     //Movement
@@ -29,26 +28,23 @@ public class PlayerMovement : MonoBehaviour, IKnockback
 
 
     //properties
-    public Vector2 Movement => _movement;
-    public bool IsFlipped => isFlipped;
+    //public Vector2 Movement => _movement;
+    //public bool IsFlipped => isFlipped;
     public int FacingDirection => (isFlipped) ? -1 : 1;
-    public Knockbackeable KnockBackLogic { get => _knockeable;}
     private float MovementSpeed => _player.Stats.Speed;
     private float SlowdownMultiplier => _player.Stats.SlowdownMultiplier;
 
     //Knockback Stuff
-    private Vector3 _knockbackEmitter;
-    private float _emitterForce;
-    public Vector3 KnockbackEmitter { set => _knockbackEmitter = value; }
-    public float EmitterForce { set => _emitterForce = value; }
-
+    Knockbackeable _knockbackLogic;
+    public Knockbackeable KnockbackLogic { get => _knockbackLogic;}
+    
     void Awake()
     {
         //components
         gameObject.CheckComponent<PlayerManager>(ref _player);
 
         //script that handles the knockback effect
-        if(_knockeable == null)_knockeable = new Knockbackeable(transform);
+        if(_knockbackLogic == null)_knockbackLogic = new Knockbackeable(transform, _player.RigidBody);
         
         //script that handles the sorting order based on its position
         if(_sortingOrderController == null)_sortingOrderController = new SortingOrderController(transform, _player.Renderer, _sortingOrderOffset);
@@ -129,12 +125,5 @@ public class PlayerMovement : MonoBehaviour, IKnockback
     {
         _slowdownTime = slowdownTime;
         _realSpeed = MovementSpeed * SlowdownMultiplier;
-    }
-
-    public void KnockbackLogic()
-    {
-        if(_knockbackEmitter.sqrMagnitude < 0.1f) return;
-        Debug.Log("Applying Knockback!");
-        _knockbackEmitter = Vector3.zero;
     }
 }

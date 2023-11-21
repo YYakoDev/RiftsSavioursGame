@@ -215,7 +215,7 @@ public class WeaponParentAiming : MonoBehaviour
 
     void Knockback()
     {
-        _player.MovementScript.KnockBackLogic.ApplyForce(_currentWeapon.PrefabTransform.position, _weaponSelfKnockbackForce);
+        //_player.MovementScript.KnockBackLogic.ApplyForce(_currentWeapon.PrefabTransform.position, _weaponSelfKnockbackForce);
     }
 
     #endregion

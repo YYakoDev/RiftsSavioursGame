@@ -45,6 +45,11 @@ public class Timer
         onReset?.Invoke();
     }
 
+    public void ResetTime()
+    {
+        _timeRemaining = _countdownTime;
+    }
+
     public void Start()
     {
         _timeRemaining = _countdownTime;

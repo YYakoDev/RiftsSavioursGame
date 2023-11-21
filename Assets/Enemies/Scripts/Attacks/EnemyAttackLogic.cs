@@ -21,8 +21,8 @@ public class EnemyAttackLogic
             if(objective.TryGetComponent<IKnockback>(out IKnockback knockbackable))
             {
                 //knockbackable.ApplyKnockback();
-                knockbackable.KnockbackEmitter = _transform.position;
-                knockbackable.EmitterForce = _knockbackForce;
+                //knockbackable.KnockbackEmitter = _transform.position;
+                //knockbackable.EmitterForce = _knockbackForce;
             }
         }
     }

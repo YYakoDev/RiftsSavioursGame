@@ -23,11 +23,8 @@ public class EnemyMovement : MonoBehaviour, IMovement, IKnockback
 
 
     //KNOCKBACK LOGIC
-    private Vector3 _knockbackEmitter;
-    private float _emitterForce;
-    public Vector3 KnockbackEmitter { set => _knockbackEmitter = value; }
-    public float EmitterForce { set => _emitterForce = value; }
-    
+    private Knockbackeable _knockbackLogic;
+    public Knockbackeable KnockbackLogic {get => _knockbackLogic;}
 
     //properties
     public int FacingDirection => (_isFlipped) ? -1 : 1;
@@ -35,10 +32,12 @@ public class EnemyMovement : MonoBehaviour, IMovement, IKnockback
 
     private void Awake() 
     {
-        gameObject.CheckComponent<EnemyBrain>(ref _enemy);
-        gameObject.CheckComponent<AvoidanceBehaviourBrain>(ref _avoidanceBehaviour);
+        GameObject thisGO = gameObject;
+        thisGO.CheckComponent<EnemyBrain>(ref _enemy);
+        thisGO.CheckComponent<AvoidanceBehaviourBrain>(ref _avoidanceBehaviour);
 
-        if(_sortOrderController == null) _sortOrderController = new SortingOrderController(transform, _enemy.Renderer, _offsetSortOrderPosition);
+        _sortOrderController = new SortingOrderController(transform, _enemy.Renderer, _offsetSortOrderPosition);
+        _knockbackLogic = new(transform, _enemy.Rigidbody);
         
     }
     private void OnEnable()
@@ -48,19 +47,18 @@ public class EnemyMovement : MonoBehaviour, IMovement, IKnockback
     }
     private void FixedUpdate() 
     {
+        _knockbackLogic.ApplyKnockback();
         if(_stopMovement) return;
 
         if(_avoidanceBehaviour.ResultDirection.sqrMagnitude > 0.1f) Move();
         else Iddle();
 
-        KnockbackLogic();
     }
 
     public void Move()
     {
         _enemy.Rigidbody.velocity = Vector2.zero;
 
-        //Vector2 resultDirection = _avoidanceBehaviour.ResultDirection;
         Vector2 directionToMove = _avoidanceBehaviour.ResultDirection * (_enemy.Stats.Speed * Time.fixedDeltaTime);        
         if(directionToMove == Vector2.zero) return;
         _enemy.Rigidbody.MovePosition((Vector2)transform.position + directionToMove);
@@ -102,15 +100,8 @@ public class EnemyMovement : MonoBehaviour, IMovement, IKnockback
         }
     }
 
-
     private void OnDisable() {
         _enemy.HealthManager.onDeath -= StopMovement;
     }
 
-    public void KnockbackLogic()
-    {
-        if(_knockbackEmitter.sqrMagnitude < 0.1f) return;
-        Debug.Log("Applying Knockback!");
-        _knockbackEmitter = Vector3.zero;
-    }
 }
