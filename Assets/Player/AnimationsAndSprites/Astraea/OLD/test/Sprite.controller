@@ -37,7 +37,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Sprite
+  m_Name: sprite
   serializedVersion: 5
   m_AnimatorParameters: []
   m_AnimatorLayers:
@@ -86,7 +86,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: IddleNoArms
+  m_Name: Iddle
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []

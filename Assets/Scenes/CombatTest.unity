@@ -525,13 +525,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -1448552036706072602, guid: 4966e3a35d824ee44a9850012833ae7f, type: 3}
-      propertyPath: _knockbackForce
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 779268523137980041, guid: 4966e3a35d824ee44a9850012833ae7f, type: 3}
       propertyPath: m_Name
       value: SkellyBro
+      objectReference: {fileID: 0}
+    - target: {fileID: 779268523137980041, guid: 4966e3a35d824ee44a9850012833ae7f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 779268523137980047, guid: 4966e3a35d824ee44a9850012833ae7f, type: 3}
       propertyPath: m_RootOrder
@@ -11611,7 +11611,7 @@ MonoBehaviour:
   _selectionIcon: {fileID: 497865621}
   _detectionRadius: 3
   _aimSmoothing: 10
-  _weaponSelfKnockbackForce: 0.05
+  _weaponSelfKnockbackForce: -0.25
 --- !u!1 &1941127828
 GameObject:
   m_ObjectHideFlags: 0

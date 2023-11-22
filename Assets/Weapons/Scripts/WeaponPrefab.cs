@@ -11,7 +11,7 @@ public class WeaponPrefab : MonoBehaviour
     private Animator _animator;
     private WeaponBase _weaponBase;
     private readonly int OnEquipAnim = Animator.StringToHash("OnEquip");
-    private readonly int AttackAnim1 = Animator.StringToHash("Attack");
+    //private readonly int AttackAnim1 = Animator.StringToHash("Attack");
 
     //SFX 
     private AudioSource _audio;
@@ -48,9 +48,8 @@ public class WeaponPrefab : MonoBehaviour
     }
     void PlayAttackAnimation()
     {
-        _animator.Play(AttackAnim1);
+        _animator.Play(_weaponBase.Animation);
     }
-
     void PlayAttackSound()
     {
         _audio.PlayWithVaryingPitch(_weaponBase.Sound);

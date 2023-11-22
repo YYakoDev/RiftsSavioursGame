@@ -45,6 +45,9 @@ public class TweenAnimator : MonoBehaviour
         SwitchCurrentAnimation(moveToAnim);
     }
 
+    /// <summary>
+    /// Change opacity of an UnityEngine Image type, opacity value goes from 0 to 255.
+    /// </summary>
     public void TweenImageOpacity
     (RectTransform rect, float endValue, float duration, CurveTypes curveType = CurveTypes.Linear, bool loop = false, Action onComplete = null)
     {

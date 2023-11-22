@@ -31,8 +31,8 @@ public class WeaponParentAiming : MonoBehaviour
     //Weapon
     [Header("Weapon")]
     private WeaponBase _currentWeapon;
-    private float _attackDuration => _player.AnimController.AtkDuration;
-    [SerializeField, Range(0,2.25f)]float _weaponSelfKnockbackForce = 2f;
+    private float _attackDuration => _currentWeapon.AtkDuration;
+    [SerializeField, Range(-2f,2.25f)]float _weaponSelfKnockbackForce = 2f;
 
     //CameraTarget
     int _weaponCameraIndex = 0;
@@ -215,6 +215,7 @@ public class WeaponParentAiming : MonoBehaviour
 
     void Knockback()
     {
+        _player.MovementScript.KnockbackLogic.SetKnockbackData(_currentWeapon.PrefabTransform.position, _weaponSelfKnockbackForce);
         //_player.MovementScript.KnockBackLogic.ApplyForce(_currentWeapon.PrefabTransform.position, _weaponSelfKnockbackForce);
     }
 

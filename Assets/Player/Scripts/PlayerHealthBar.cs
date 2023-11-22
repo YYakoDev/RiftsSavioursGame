@@ -2,17 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
 public class PlayerHealthBar : MonoBehaviour
 {
     [SerializeField]SOPlayerStats _playerStats;
+    [SerializeField]PlayerHealthAnimations _animations;
     Slider _healthBar;
     private void Awake() {
-        
-        gameObject.SetActive(_playerStats != null);
-
-        gameObject.CheckComponent<Slider>(ref _healthBar);
+        GameObject thisGO = gameObject;
+        thisGO.SetActive(_playerStats != null);
+        thisGO.CheckComponent<Slider>(ref _healthBar);
         _playerStats.onStatsChange += UpdateHealthBar;
-        
         UpdateHealthBar();
 
     }
@@ -23,6 +23,8 @@ public class PlayerHealthBar : MonoBehaviour
         if(_healthBar.value != _playerStats.CurrentHealth)
         {
             _healthBar.value = _playerStats.CurrentHealth;
+            //_animations.ShakeAnimation();
+            _animations.BlinkBarAnim();
         }
         if(_healthBar.maxValue != _playerStats.MaxHealth)
         {

@@ -9,11 +9,11 @@ public class PlayerAnimationController : MonoBehaviour
     [SerializeField]EntryAnimationFX _introFX;
     PlayerIntroAnimation _introAnim;
     string _currentAnimation;
-    float _lockedTill;
+    /*float _lockedTill;
     float _attackDuration;
     //bool _action;
 
-    public float AtkDuration => _attackDuration;
+    public float AtkDuration => _attackDuration;*/
 
 
     void Awake()
@@ -26,7 +26,6 @@ public class PlayerAnimationController : MonoBehaviour
     private void Start()
     {
         _introAnim.PlayAnimation();
-        GetAttackDuration();    
     }
 
     // Update is called once per frame
@@ -37,24 +36,21 @@ public class PlayerAnimationController : MonoBehaviour
 
     public void PlayStated(string animationName)
     {
-        if(Time.time < _lockedTill) return;
+        //if(Time.time < _lockedTill) return;
         if(animationName == _currentAnimation)return;
 
-        if(animationName == PlayerAnimationsNames.Attack)
-        {
-            LockState(_attackDuration);
-        }
+
         _currentAnimation = animationName;
         _animator.Play(animationName);
 
 
-        void LockState( float time)
+        /*void LockState( float time)
         {
             _lockedTill = Time.time + time;
-        }
+        }*/
     }
 
-    void GetAttackDuration()
+    /*void GetAttackDuration()
     {
         var clips = _animator.runtimeAnimatorController.animationClips;
         foreach(AnimationClip clip in clips)
@@ -65,7 +61,7 @@ public class PlayerAnimationController : MonoBehaviour
                 break;  
             } 
         }
-    }
+    }*/
 
 
 }

@@ -17,12 +17,14 @@ public abstract class WeaponBase: ScriptableObject
     [SerializeField]private Vector3 _spawnPosition = new Vector3(-0.55f, 0.25f, 0f);
     [SerializeField]private float _spawnRotation = 0;
     [SerializeField]private AnimatorOverrideController _animatorOverrideController;
+    protected int _currentAnim;
     [SerializeField]private AudioClip[] _weaponSounds;
     [SerializeField]bool _pointCameraOnAttack = false;
     protected Transform _weaponPrefabTransform;
 
     [Header("Weapon Attack Stats")]
     [SerializeField]protected float _attackCooldown = 0.5f;
+    [SerializeField]protected float _attackDuration = 0.35f;
     protected float _nextAttackTime = 0f;
 
 
@@ -37,14 +39,21 @@ public abstract class WeaponBase: ScriptableObject
     public Vector3 SpawnPosition => _spawnPosition;
     public float SpawnRotation => _spawnRotation;
     public Transform PrefabTransform => _weaponPrefabTransform;
-    public float AttackCooldown => _attackCooldown;
+    public float AtkCooldown => _attackCooldown;
+    public float AtkDuration => _attackDuration;
     public bool PointCameraOnAttack => _pointCameraOnAttack;
+
+    //anims
+    public int Animation => _currentAnim;
+
+    //sound stuff
     public AudioClip Sound => _weaponSounds[Random.Range(0, _weaponSounds.Length)];
 
     public virtual void Initialize(WeaponManager weaponManager, Transform prefabTransform)
     {
         _weaponManager = weaponManager;
         _weaponPrefabTransform = prefabTransform;
+        _currentAnim = Animator.StringToHash("Attack");
     }
 
     protected virtual void Attack()
