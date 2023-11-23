@@ -9,7 +9,6 @@ public class PlayerHealthAnimations : MonoBehaviour
     TweenAnimator _animator;
     [SerializeField]RectTransform _heartIcon;
     [SerializeField]RectTransform _healthBar;
-    Image _healthBarImage;
     Vector3 _initialSize;
     int _blinkLoops = 0;
     int _maxBlinkTimes = 2;
@@ -17,7 +16,6 @@ public class PlayerHealthAnimations : MonoBehaviour
     private void Awake() {
         GameObject thisGO = gameObject;
         thisGO.CheckComponent<TweenAnimator>(ref _animator);
-        _healthBarImage = _healthBar.GetComponent<Image>();
         _initialSize = _heartIcon.localScale;
     }
 
@@ -32,13 +30,13 @@ public class PlayerHealthAnimations : MonoBehaviour
 
     public void BlinkBarAnim()
     {
+        gameObject.CheckComponent<TweenAnimator>(ref _animator);
         _animator.TweenImageOpacity(_healthBar, 0, 0.05f, CurveTypes.Linear, true, CheckBlinkTime);
     }
 
     void CheckBlinkTime()
     {
         _blinkLoops++;
-        Debug.Log("Stopping Blink");
         if(_blinkLoops > _maxBlinkTimes)
         {
             StopBlink();

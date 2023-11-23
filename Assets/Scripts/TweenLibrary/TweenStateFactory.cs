@@ -8,6 +8,10 @@ public class TweenStateFactory
 
     private TweenMoveTo _moveTo;
     private TweenImageOpacity _twImgOpacity;
+    private TweenScale _twScale;
+    private TweenTextOpacity _twTxtOpacity;
+    private TweenTransformMoveTo _twTransformMoveTo;
+    private TweenImageColor _twImgColor;
 
     public TweenStateFactory(TweenAnimator animator)
     {
@@ -16,29 +20,45 @@ public class TweenStateFactory
     
     public TweenMoveTo GetMoveToAnimation()
     {
-        /*if(_moveTo == null)
+        if(_moveTo == null)
         {
             _moveTo = new(_animator);
-        }*/
-        return new(_animator);
+        }
+        return _moveTo;
     }
     public TweenImageOpacity GetTweenImageOpacity()
     {
-        /*if(_twImgOpacity == null)
+        if(_twImgOpacity == null)
         {
             _twImgOpacity = new(_animator);
-        }*/
-        return new(_animator);
+        }
+        return _twImgOpacity;
     }
 
     public TweenScale GetScaleAnimation()
     {
-        return new(_animator);
+        if(_twScale == null)
+        {
+            _twScale = new(_animator);
+        }
+        return _twScale;
     }
 
     public TweenTextOpacity GetTextOpacityAnimation()
     {
-        return new(_animator);
+        if(_twTxtOpacity == null) _twImgOpacity = new(_animator);
+        return _twTxtOpacity;
+    }
+    public TweenTransformMoveTo GetTwTransformMoveTo()
+    {
+        if(_twTransformMoveTo == null) _twTransformMoveTo = new(_animator);
+        return _twTransformMoveTo;
+    }
+
+    public TweenImageColor GetTwImgColor()
+    {
+        if(_twImgColor == null) _twImgColor = new(_animator);
+        return _twImgColor;
     }
 
 }

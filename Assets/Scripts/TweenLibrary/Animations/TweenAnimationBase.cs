@@ -37,6 +37,7 @@ public abstract class TweenAnimationBase
                 _elapsedTime = 0;
             }
             _onComplete?.Invoke();
+            _animator.UnlockAnimator();
         }
     }
 
