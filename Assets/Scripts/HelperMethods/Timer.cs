@@ -40,8 +40,8 @@ public class Timer
 
     public void Restart()
     {
-        _timerStopped = false;
         _timeRemaining = _countdownTime;
+        _timerStopped = false;
         onReset?.Invoke();
     }
 

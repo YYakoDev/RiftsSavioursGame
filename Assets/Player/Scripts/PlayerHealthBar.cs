@@ -12,28 +12,53 @@ public class PlayerHealthBar : MonoBehaviour
         GameObject thisGO = gameObject;
         thisGO.SetActive(_playerStats != null);
         thisGO.CheckComponent<Slider>(ref _healthBar);
-        _playerStats.onStatsChange += UpdateHealthBar;
         UpdateHealthBar();
-
     }
 
+    private IEnumerator Start()
+    {
+        yield return null;
+        yield return null;
+        _playerStats.onStatsChange += UpdateAndDoAnimations;
+    }
 
     void UpdateHealthBar()
     {
         if(_healthBar.value != _playerStats.CurrentHealth)
         {
             _healthBar.value = _playerStats.CurrentHealth;
-            //_animations.ShakeAnimation();
-            _animations.BlinkBarAnim();
         }
         if(_healthBar.maxValue != _playerStats.MaxHealth)
         {
             _healthBar.maxValue = _playerStats.MaxHealth;
+            _animations.ShakeAnimation();
         }
     }
 
+    void UpdateAndDoAnimations()
+    {
+        if(_healthBar.value != _playerStats.CurrentHealth)
+        {
+            PlayAnimations();
+            _healthBar.value = _playerStats.CurrentHealth;
+        }
+        if(_healthBar.maxValue != _playerStats.MaxHealth)
+        {
+            _healthBar.maxValue = _playerStats.MaxHealth;
+            _animations.ShakeAnimation();
+        }
+    }
+
+    void PlayAnimations()
+    {
+        _animations.Stop();
+        CameraShake.Shake(1);
+        _animations.BlinkBarAnim();
+        _animations.ShakeAnimation();
+    }
+
     private void OnDestroy() {
-        _playerStats.onStatsChange -= UpdateHealthBar;
+        _playerStats.onStatsChange -= UpdateAndDoAnimations;
     }
     
 }

@@ -13,16 +13,16 @@ MonoBehaviour:
   m_Name: AstreaSword
   m_EditorClassIdentifier: 
   _name: Astraea's Sword
-  _sprite: {fileID: 21300000, guid: fdc72d73992a6354a8c28549be7fcd58, type: 3}
+  _SpriteAndAnimationsData: {fileID: 11400000, guid: 543a019bc4eb7d54a901633dbe15a124, type: 2}
   _flipSprite: 1
   _spawnPosition: {x: -0.55, y: 0.25, z: 0}
   _spawnRotation: 0
-  _animatorOverrideController: {fileID: 22100000, guid: 40d778a495d37254091ce8f08245857f, type: 2}
   _weaponSounds:
   - {fileID: 8300000, guid: 6cbb45dd3c204e04aae673889c597324, type: 3}
   - {fileID: 8300000, guid: 9c192f02e087c9140814059b4e042b82, type: 3}
   _pointCameraOnAttack: 1
   _attackCooldown: 0.51
+  _attackDuration: 0.35
   _attackRange: 1.51
   _attackDamage: 1
   _knockbackForce: 0.4

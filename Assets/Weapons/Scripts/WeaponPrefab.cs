@@ -27,10 +27,10 @@ public class WeaponPrefab : MonoBehaviour
     IEnumerator Start()
     {
         yield return null;
-        _spriteRenderer.sprite = _weaponBase.WeaponSprite;
+        _spriteRenderer.sprite = _weaponBase.SpriteAndAnimationData.Sprite;
         _spriteRenderer.flipX = _weaponBase.FlipSprite;
 
-        _animator.runtimeAnimatorController = _weaponBase.AnimatorOverrideController;
+        _animator.runtimeAnimatorController = _weaponBase.SpriteAndAnimationData.AnimatorOverride;
         _animator.ForcePlay(OnEquipAnim);
         _weaponBase.onAttack += AttackEffects;
     }

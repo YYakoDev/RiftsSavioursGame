@@ -32,14 +32,17 @@ public class UpgradesMenu : MonoBehaviour
             this.enabled = false;
         }
         PlayerLevelManager.onLevelUp += ActivateUpgradeMenu;
-        _upgradesMenu.gameObject.SetActive(_activeMenuOnStart);
-
+        if(_activeMenuOnStart)
+        {
+            ActivateUpgradeMenu();
+        }
         
     }
 
     public void ActivateUpgradeMenu()
     {
         _upgradesMenu.gameObject.SetActive(true);
+        _animations.ClearAnimations();
         _animations.PlayAnimations();
         _audio.PlayWithVaryingPitch(_openingSound);
         //Cursor stuff

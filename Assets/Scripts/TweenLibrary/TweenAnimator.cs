@@ -132,10 +132,11 @@ public class TweenAnimator : MonoBehaviour
         {
             _currentAnimation = _animationQueue.Dequeue();
             SetAnimatorState(true);
-        }else if(_currentAnimation.Loop)
+        }else if(_currentAnimation != null && _currentAnimation.Loop)
         {
             SetAnimatorState(true);
-        }else
+        }
+        else
         {
             SetAnimatorState(false);
         }

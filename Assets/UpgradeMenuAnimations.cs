@@ -53,7 +53,7 @@ public class UpgradeMenuAnimations : MonoBehaviour
                     onComplete: () => 
                     {
                         _openingIcon.gameObject.SetActive(true);
-                        _twAnimator.Scale(_openingIcon, _openingIconEndSize, _iconAnimDuration / 3f, CurveTypes.EaseInOut, 
+                        _twAnimator.Scale(_openingIcon, _openingIconEndSize, _iconAnimDuration / 2f, CurveTypes.EaseInOut, 
                         onComplete: () => 
                         {
                             _timerForIcon.Start();
@@ -75,7 +75,7 @@ public class UpgradeMenuAnimations : MonoBehaviour
     {
         _tableAnimator.MoveTo(_table, _tableEndPos, 0.3f, CurveTypes.EaseInOut);
         _toolsRightAnimator.MoveTo(_toolsRight, _toolsRightEndPos, 0.4f, CurveTypes.EaseInOut);
-        _toolsLeftAnimator.MoveTo(_toolsLeft, _toolsLeftEndPos, 0.4f, CurveTypes.EaseInOut);
+        _toolsLeftAnimator.MoveTo(_toolsLeft, _toolsLeftEndPos, 0.4f, CurveTypes.EaseInOut); 
         _upgradeAnimator.MoveTo(_upgradeMenu, _upgradeMenuEndPos, 0.65f, CurveTypes.EaseInOut);
     }
 
@@ -91,11 +91,12 @@ public class UpgradeMenuAnimations : MonoBehaviour
         _table.localPosition = _upgradeMenuStartPos;
         _toolsLeft.localPosition = _toolsLeftStartPos;
         _toolsRight.localPosition = _toolsRightStartPos;
+        _openingIcon.localScale = Vector3.zero;
 
-        _twAnimator.Scale(_openingIcon, Vector3.zero, 0f);
         _openingIcon.gameObject.SetActive(false);
         _timerForIcon.onReset += ScaleDownIcon;
         _timerForIcon.Stop();
+        //ClearAnimations();
 
     }
 
@@ -110,6 +111,15 @@ public class UpgradeMenuAnimations : MonoBehaviour
             {
                 gameObject.SetActive(false);
             });
+    }
+
+    public void ClearAnimations()
+    {
+        _twAnimator.Clear();
+        _tableAnimator.Clear();
+        _toolsLeftAnimator.Clear();
+        _toolsRightAnimator.Clear();
+        _upgradeAnimator.Clear();
     }
 
     private void OnDisable() {

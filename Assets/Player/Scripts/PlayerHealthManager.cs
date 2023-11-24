@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(WhiteBlinkEffect))]
@@ -19,12 +17,6 @@ public class PlayerHealthManager : MonoBehaviour, IDamageable
     void Start()
     {
         SetHealth();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     void SetHealth()

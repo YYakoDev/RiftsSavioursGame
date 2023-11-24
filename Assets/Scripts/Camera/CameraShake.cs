@@ -11,19 +11,20 @@ public class CameraShake : MonoBehaviour
     static Vector3 _initialPos;
     static Vector3 _direction;
     static int _loops;
-    static int _maxLoops = 5;
+    static int _maxLoops = 7;
+    [Range(0,5)]static int _shakeStrength = 2;
 
     private void Awake() {
         _camera = GetComponent<Camera>();
         _animator = GetComponent<TweenAnimator>();
         _cameraTransform = _camera.transform;
         _initialPos = _cameraTransform.localPosition;
-        SetNewDirection();
+        SetNewDirection(1);
     }
 
-    public static void Shake()
+    public static void Shake(float strength)
     {
-        SetNewDirection();
+        SetNewDirection(strength);
         _animator.TweenTransformMoveTo(_cameraTransform, _direction, 0.02f, CurveTypes.EaseInOut, true, CheckShakeLoops);
     }
 
@@ -39,8 +40,8 @@ public class CameraShake : MonoBehaviour
         }
     }
 
-    static void SetNewDirection()
+    static void SetNewDirection(float strength)
     {
-        _direction = _cameraTransform.position + Vector3.one * (Random.Range(-0.11f, 0.12f));
+        _direction = _cameraTransform.position + Vector3.one * (Random.Range(-0.06f, 0.06f) * _shakeStrength);
     }
 }

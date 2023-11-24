@@ -18,6 +18,8 @@ public class MeleeWeapon : WeaponBase
     int _maxEnemiesToHit = 10;
     [SerializeField, Range(0,2.25f)]float _knockbackForce = 0.35f;
 
+    private readonly int AtkAnim = Animator.StringToHash("Attack");
+
     public override void Initialize(WeaponManager weaponManager, Transform prefabTransform)
     {
         base.Initialize(weaponManager, prefabTransform);

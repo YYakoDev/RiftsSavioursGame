@@ -12,14 +12,15 @@ public abstract class WeaponBase: ScriptableObject
     //fields
     [Header("Weapon Properties")]
     [SerializeField]private string _name;
-    [SerializeField]private Sprite _sprite;
+    [SerializeField]protected SOWeaponSpriteAnimationData _SpriteAndAnimationsData;
+    protected Animator _prefabAnimator;
     [SerializeField]private bool _flipSprite = true;
     [SerializeField]private Vector3 _spawnPosition = new Vector3(-0.55f, 0.25f, 0f);
     [SerializeField]private float _spawnRotation = 0;
-    [SerializeField]private AnimatorOverrideController _animatorOverrideController;
+
     protected int _currentAnim;
     [SerializeField]private AudioClip[] _weaponSounds;
-    [SerializeField]bool _pointCameraOnAttack = false;
+    [SerializeField]private bool _pointCameraOnAttack = false;
     protected Transform _weaponPrefabTransform;
 
     [Header("Weapon Attack Stats")]
@@ -33,9 +34,8 @@ public abstract class WeaponBase: ScriptableObject
 
     //properties
     public string WeaponName => _name;
-    public Sprite WeaponSprite => _sprite;
+    public SOWeaponSpriteAnimationData SpriteAndAnimationData => _SpriteAndAnimationsData;
     public bool FlipSprite => _flipSprite;
-    public AnimatorOverrideController AnimatorOverrideController => _animatorOverrideController;
     public Vector3 SpawnPosition => _spawnPosition;
     public float SpawnRotation => _spawnRotation;
     public Transform PrefabTransform => _weaponPrefabTransform;
@@ -51,9 +51,11 @@ public abstract class WeaponBase: ScriptableObject
 
     public virtual void Initialize(WeaponManager weaponManager, Transform prefabTransform)
     {
+        _SpriteAndAnimationsData.SetAnimations();
         _weaponManager = weaponManager;
         _weaponPrefabTransform = prefabTransform;
         _currentAnim = Animator.StringToHash("Attack");
+        _prefabAnimator = prefabTransform.GetComponent<Animator>();
     }
 
     protected virtual void Attack()

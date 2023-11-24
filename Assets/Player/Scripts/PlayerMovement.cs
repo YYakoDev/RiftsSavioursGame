@@ -73,9 +73,9 @@ public class PlayerMovement : MonoBehaviour, IKnockback
 
     private void FixedUpdate()
     {
-        if(_knockbackLogic.Enabled) _knockbackLogic.ApplyKnockback();
-        else if(_movement.sqrMagnitude > 0.1f) Move();
+        if(_movement.sqrMagnitude > 0.1f) Move();
         else Iddle();
+        if(_knockbackLogic.Enabled) _knockbackLogic.ApplyKnockback();
     }
 
     void Iddle()
