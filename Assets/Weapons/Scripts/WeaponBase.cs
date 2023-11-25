@@ -13,7 +13,7 @@ public abstract class WeaponBase: ScriptableObject
     [Header("Weapon Properties")]
     [SerializeField]private string _name;
     [SerializeField]protected SOWeaponSpriteAnimationData _SpriteAndAnimationsData;
-    protected Animator _prefabAnimator;
+    private const string AtkAnimName = "Attack";
     [SerializeField]private bool _flipSprite = true;
     [SerializeField]private Vector3 _spawnPosition = new Vector3(-0.55f, 0.25f, 0f);
     [SerializeField]private float _spawnRotation = 0;
@@ -25,11 +25,12 @@ public abstract class WeaponBase: ScriptableObject
 
     [Header("Weapon Attack Stats")]
     [SerializeField]protected float _attackCooldown = 0.5f;
-    [SerializeField]protected float _attackDuration = 0.35f;
+    protected float _attackDuration = 0.35f;
     protected float _nextAttackTime = 0f;
 
 
     public event Action onAttack;
+    public event Action onEnemyHit;
 
 
     //properties
@@ -51,11 +52,11 @@ public abstract class WeaponBase: ScriptableObject
 
     public virtual void Initialize(WeaponManager weaponManager, Transform prefabTransform)
     {
-        _SpriteAndAnimationsData.SetAnimations();
         _weaponManager = weaponManager;
         _weaponPrefabTransform = prefabTransform;
-        _currentAnim = Animator.StringToHash("Attack");
-        _prefabAnimator = prefabTransform.GetComponent<Animator>();
+        _currentAnim = Animator.StringToHash(AtkAnimName);
+        _attackDuration = GetAnimationDuration(AtkAnimName);
+
     }
 
     protected virtual void Attack()
@@ -74,7 +75,14 @@ public abstract class WeaponBase: ScriptableObject
         }
     }
 
+    protected float GetAnimationDuration(string animName)
+    {
+        return _SpriteAndAnimationsData.AnimatorOverride[animName].averageDuration;
+    }
     protected abstract void EvaluateStats(SOPlayerAttackStats attackStats);
-
+    protected void InvokeOnEnemyHit()
+    {
+        onEnemyHit?.Invoke();
+    }
     public virtual void DrawGizmos(){}
 }

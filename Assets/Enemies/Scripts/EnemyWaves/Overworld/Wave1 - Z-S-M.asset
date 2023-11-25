@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 931b96bd6377f414c80f00c7b67ed1c2, type: 3}
   m_Name: Wave1 - Z-S-M
   m_EditorClassIdentifier: 
-  _enemiesSignatures: 020000000400000003000000
+  _enemiesSignatures: 04000000030000000200000002000000
   _enemySpawnCooldown: 1
-  enemiesToSpawn: 10
+  enemiesToSpawn: 8
   _enemiesSpeed: 1

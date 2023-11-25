@@ -17,6 +17,7 @@ public class WeaponManager : MonoBehaviour
     //properties
     //public SOPlayerAttackStats AttackStats => _attackStats;
     public LayerMask EnemyLayer => _enemyLayer;
+    public WeaponBase CurrentWeapon => _currentWeapon;
     //public GameObject WeaponPrefab => _weaponPrefab;
 
     private void Awake()

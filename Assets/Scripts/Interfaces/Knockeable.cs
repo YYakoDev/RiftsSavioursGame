@@ -21,7 +21,7 @@ public class Knockbackeable
         _rb = rb;
         _alwaysApply = alwaysApplyKnockback;
         _knockbackTimer = new(0.13f + Random.Range(0.01f, 0.1f), false);
-        _knockbackTimer.onReset += StopKnockback;
+        _knockbackTimer.onEnd += StopKnockback;
     }
 
     public void SetKnockbackData(Vector3 emitterPos, float force)

@@ -166,7 +166,6 @@ MonoBehaviour:
   _aiData: {fileID: 0}
   _healthManager: {fileID: 7992409206138210506}
   _animation: {fileID: 0}
-  _colliders: []
 --- !u!114 &7992409206138210500
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -181,7 +180,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _randomizeStats: 1
   _speed: 2.25
-  _maxHealth: 1
+  _maxHealth: 5
   _damage: 1
 --- !u!114 &7992409206138210506
 MonoBehaviour:

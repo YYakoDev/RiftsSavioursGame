@@ -19,7 +19,7 @@ public class EnemyBrain : MonoBehaviour
     [SerializeField]AIStats _aiData;
     [SerializeField]EnemyHealthManager _healthManager;
     [SerializeField]EnemyAnimations _animation;
-    [SerializeField]Collider2D[] _colliders;
+    Collider2D[] _colliders;
 
     //properties
     public EnemySignature Signature => _signature;

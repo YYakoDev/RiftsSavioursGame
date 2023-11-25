@@ -14,13 +14,4 @@ public class SOWeaponSpriteAnimationData : ScriptableObject
     public Sprite Sprite => _sprite;
     public AnimatorOverrideController AnimatorOverride => _animOverrideController;
     public AnimationClip[] AttackAnimations => _attackAnimations;
-
-    public void SetAnimations()
-    {
-        _attackAnimations = _animOverrideController.animationClips;
-        foreach(var clip in _attackAnimations)
-        {
-            Debug.Log(clip.name);
-        }
-    }
 }

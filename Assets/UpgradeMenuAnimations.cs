@@ -94,7 +94,7 @@ public class UpgradeMenuAnimations : MonoBehaviour
         _openingIcon.localScale = Vector3.zero;
 
         _openingIcon.gameObject.SetActive(false);
-        _timerForIcon.onReset += ScaleDownIcon;
+        _timerForIcon.onEnd += ScaleDownIcon;
         _timerForIcon.Stop();
         //ClearAnimations();
 
@@ -123,7 +123,7 @@ public class UpgradeMenuAnimations : MonoBehaviour
     }
 
     private void OnDisable() {
-        _timerForIcon.onReset -= ScaleDownIcon;
+        _timerForIcon.onEnd -= ScaleDownIcon;
     }
 
 

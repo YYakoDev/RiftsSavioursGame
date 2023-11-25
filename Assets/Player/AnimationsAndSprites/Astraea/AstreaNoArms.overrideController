@@ -9,11 +9,11 @@ AnimatorOverrideController:
   m_Name: AstreaNoArms
   m_Controller: {fileID: 9100000, guid: 2f40684b37dc7034db38c69f618896ab, type: 2}
   m_Clips:
-  - m_OriginalClip: {fileID: 7400000, guid: 4dec1122ed172234d88b7e639eb67141, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: c24620d120cd9b842b742d6d726acca2, type: 2}
   - m_OriginalClip: {fileID: 7400000, guid: 0b59c2f5e1c506c498b426da67a37d7b, type: 2}
     m_OverrideClip: {fileID: 7400000, guid: 47f70d6028201444b9886c66750196a0, type: 2}
   - m_OriginalClip: {fileID: 7400000, guid: a50f8753a94c72a4b997380162f02a61, type: 2}
     m_OverrideClip: {fileID: 7400000, guid: 8fff06dfa4451944da4f10208e4a44b0, type: 2}
   - m_OriginalClip: {fileID: 7400000, guid: 4c67357ef4ca6e14b983f3a7cc5343e7, type: 2}
     m_OverrideClip: {fileID: 7400000, guid: 6d151a270121fa548a28ec04fb494f35, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 936180d0d020d4c4e962b3aacea2a178, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 936180d0d020d4c4e962b3aacea2a178, type: 2}

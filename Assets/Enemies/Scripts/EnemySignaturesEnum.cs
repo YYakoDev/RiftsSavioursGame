@@ -6,4 +6,5 @@ public enum EnemySignature
     Zombie,
     Skeleton,
     Mummy,
+    Goblin,
 }

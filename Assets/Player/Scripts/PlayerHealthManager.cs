@@ -4,19 +4,23 @@ using UnityEngine;
 public class PlayerHealthManager : MonoBehaviour, IDamageable
 {
     [SerializeField]PlayerManager _player;
+    [SerializeField]AudioSource _audio;
     WhiteBlinkEffect _blinkFX;
     
+    [SerializeField]AudioClip[] _onHitSFXs;
 
+    private AudioClip _onHitSfx => _onHitSFXs[Random.Range(0, _onHitSFXs.Length)];
     private void Awake()
     {   
         gameObject.CheckComponent<PlayerManager>(ref _player);
         gameObject.CheckComponent<WhiteBlinkEffect>(ref _blinkFX);
+        SetHealth();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        SetHealth();
+        
     }
 
     void SetHealth()
@@ -31,6 +35,7 @@ public class PlayerHealthManager : MonoBehaviour, IDamageable
             return;
         }
         _player.Stats.CurrentHealth -= damage;
+        _audio.PlayOneShot(_onHitSfx);
         _blinkFX.Play();
         if(_player.Stats.CurrentHealth <= 0)
         {

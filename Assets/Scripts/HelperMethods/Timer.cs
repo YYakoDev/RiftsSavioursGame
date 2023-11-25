@@ -9,7 +9,7 @@ public class Timer
     private bool _timerStopped = false;
     bool _useUnscaledTime = false;
     public event Action onTimerStart;
-    public event Action onReset;
+    public event Action onEnd;
 
     public Timer(float countdownTime, bool resetOnZero = true, bool useUnscaledTime = false)
     {
@@ -17,6 +17,7 @@ public class Timer
         _timeRemaining = _countdownTime;
         _resetOnZero = resetOnZero;
         _useUnscaledTime = useUnscaledTime;
+        _timerStopped = false;
     }
 
 
@@ -42,7 +43,7 @@ public class Timer
     {
         _timeRemaining = _countdownTime;
         _timerStopped = false;
-        onReset?.Invoke();
+        onEnd?.Invoke();
     }
 
     public void ResetTime()

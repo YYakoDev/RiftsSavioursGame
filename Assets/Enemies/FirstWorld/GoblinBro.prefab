@@ -74,7 +74,7 @@ GameObject:
   - component: {fileID: 4049917255450127592}
   - component: {fileID: 6764728389151127168}
   m_Layer: 6
-  m_Name: ZombieBro
+  m_Name: GoblinBro
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -140,7 +140,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 60ed97a19e6aa9146a8ef9a47780a60d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: aafc5b07a1f2bb84cbdbb9059238fe4c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -163,14 +163,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22aba3768ee987546b3218e8e9cc1e4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _signature: 2
+  _signature: 5
   _rb: {fileID: 779268523137980045}
   _renderer: {fileID: 779268523137980046}
   _audio: {fileID: 0}
   _aiData: {fileID: 3440584230537335307}
   _healthManager: {fileID: 290690915799055065}
   _animation: {fileID: 4367117240559491877}
-  _colliders: []
 --- !u!114 &2173043081193469781
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -201,8 +200,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _randomizeStats: 1
-  _speed: 2
-  _maxHealth: 1
+  _speed: 2.5
+  _maxHealth: 10
   _damage: 1
 --- !u!114 &2108419061
 MonoBehaviour:
@@ -230,9 +229,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.07, y: -0.55}
+  m_Offset: {x: 0.060000002, y: -0.5525405}
   serializedVersion: 2
-  m_Radius: 0.22
+  m_Radius: 0.19205457
 --- !u!61 &4771314179410607562
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -246,7 +245,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.029079318, y: -0.007172942}
+  m_Offset: {x: 0.06208314, y: -0.007172942}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -257,7 +256,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.45490104, y: 0.9533665}
+  m_Size: {x: 0.48281792, y: 0.9533665}
   m_EdgeRadius: 0
 --- !u!50 &779268523137980045
 Rigidbody2D:
@@ -307,9 +306,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _brain: {fileID: 0}
-  _deathDuration: 0.643
+  _deathDuration: 1
   _onHitSFX: {fileID: 8300000, guid: 657335475f236a445b3e5f302d58fc5f, type: 3}
-  _onDeathSFX: {fileID: 8300000, guid: 657335475f236a445b3e5f302d58fc5f, type: 3}
+  _onDeathSFX: {fileID: 8300000, guid: 3769d4547fc18c44984e33324cc8e7d4, type: 3}
 --- !u!114 &5718278490260225803
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -335,7 +334,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _brain: {fileID: 0}
-  _knockbackForce: 0.1
+  _knockbackForce: 0.9
 --- !u!114 &4367117240559491877
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -359,7 +358,7 @@ Animator:
   m_GameObject: {fileID: 779268523137980041}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 22100000, guid: b9f821d99ff66ae45ad6061fce689351, type: 2}
+  m_Controller: {fileID: 22100000, guid: b869af702a4907a4dba565533e1ba8ff, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -500,11 +499,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 365477189729537304, guid: 02333200164bc6f4c913353b5739e847, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.117
       objectReference: {fileID: 0}
     - target: {fileID: 365477189729537304, guid: 02333200164bc6f4c913353b5739e847, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.113
+      value: 0.129
       objectReference: {fileID: 0}
     - target: {fileID: 365477189729537304, guid: 02333200164bc6f4c913353b5739e847, type: 3}
       propertyPath: m_LocalPosition.z

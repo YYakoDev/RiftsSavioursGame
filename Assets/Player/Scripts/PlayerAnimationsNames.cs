@@ -4,10 +4,11 @@ using UnityEngine;
 
 public static class PlayerAnimationsNames
 {
-   public static readonly string Iddle = "Iddle";
-   public static readonly string Run = "Move";
+   public static readonly int Iddle = Animator.StringToHash("Iddle");
+   public static readonly int Run = Animator.StringToHash("Move");
+   public static readonly int Attack = Animator.StringToHash("Attack");
    public static readonly int Landing = Animator.StringToHash("Landing");
-   public static readonly string Mount = "Mounting";
+   public static readonly int Mount = Animator.StringToHash("Mounting");
 
 
 }

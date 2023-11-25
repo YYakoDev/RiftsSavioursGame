@@ -22,7 +22,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 9c192f02e087c9140814059b4e042b82, type: 3}
   _pointCameraOnAttack: 1
   _attackCooldown: 0.51
-  _attackDuration: 0.35
   _attackRange: 1.51
-  _attackDamage: 1
+  _attackDamage: 10
   _knockbackForce: 0.4

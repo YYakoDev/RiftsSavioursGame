@@ -12,11 +12,12 @@ public class PlayerHealthBar : MonoBehaviour
         GameObject thisGO = gameObject;
         thisGO.SetActive(_playerStats != null);
         thisGO.CheckComponent<Slider>(ref _healthBar);
-        UpdateHealthBar();
+
     }
 
     private IEnumerator Start()
     {
+        UpdateHealthBar();
         yield return null;
         yield return null;
         _playerStats.onStatsChange += UpdateAndDoAnimations;
@@ -52,7 +53,7 @@ public class PlayerHealthBar : MonoBehaviour
     void PlayAnimations()
     {
         _animations.Stop();
-        CameraShake.Shake(1);
+        CameraShake.Shake(0.5f);
         _animations.BlinkBarAnim();
         _animations.ShakeAnimation();
     }

@@ -32,12 +32,17 @@ public class WeaponParentAiming : MonoBehaviour
     [Header("Weapon")]
     private WeaponBase _currentWeapon;
     private float _attackDuration => _currentWeapon.AtkDuration;
-    [SerializeField, Range(-2f,2.25f)]float _weaponSelfKnockbackForce = 2f;
+
 
     //CameraTarget
     int _weaponCameraIndex = 0;
     WaitForSeconds _waitForAttackDuration;
     Coroutine _returnCameraTarget;
+
+    //properties
+    public bool AutoTargetting => _autoTargetting;
+    public Vector3 MouseDirection => _mouseDirection;
+    public Vector3 PointingDirection => _pointingDirection;
 
     private IEnumerator Start() {
         if (_mainCamera == null)
@@ -53,12 +58,11 @@ public class WeaponParentAiming : MonoBehaviour
         _weaponCameraIndex = _player.CameraTarget.AddTarget(_currentWeapon.PrefabTransform);
         _waitForAttackDuration = new WaitForSeconds(_attackDuration + 0.25f);
 
+        Cursor.lockState = CursorLockMode.Locked;
+
         //Events
-        _currentWeapon.onAttack += AffectPlayer;
         _currentWeapon.onAttack += StopAiming;
         _currentWeapon.onAttack += PointCameraToWeapon;
-        Cursor.lockState = CursorLockMode.Locked;
-        //Cursor.visible = false;
     }
 
     public void Initialize(LayerMask enemyLayer, WeaponBase currentWeapon)
@@ -166,7 +170,7 @@ public class WeaponParentAiming : MonoBehaviour
         FlipWeapon(_pointingDirection);
         
         _selectionIcon.gameObject.SetActive(activeIcon);
-        _selectionIcon.position = _pointingDirection + (Vector2)transform.position;
+        _selectionIcon.position = (Vector3)_pointingDirection + transform.position;
     }
     #endregion
     void FlipWeapon(Vector2 direction)
@@ -185,40 +189,8 @@ public class WeaponParentAiming : MonoBehaviour
     }
     void StopAiming()
     {
-        _stopAimingTime = _attackDuration / 1.1f;
+        _stopAimingTime = _attackDuration;
     }
-    #endregion
-
-    #region Player Effects on attacking
-    void AffectPlayer()
-    {
-        FlipPlayer();
-        SlowdownPlayer();
-        Knockback();
-    }
-
-    void FlipPlayer()
-    {
-        if(_autoTargetting)
-        {
-            _player.MovementScript.CheckForFlip(_pointingDirection.x, _attackDuration);
-        }else
-        {
-            _player.MovementScript.CheckForFlip(_mouseDirection.x, _attackDuration);
-        }
-    }
-
-    void SlowdownPlayer()
-    {
-        _player.MovementScript.SlowdownMovement(_attackDuration);
-    }
-
-    void Knockback()
-    {
-        _player.MovementScript.KnockbackLogic.SetKnockbackData(_currentWeapon.PrefabTransform.position, _weaponSelfKnockbackForce);
-        //_player.MovementScript.KnockBackLogic.ApplyForce(_currentWeapon.PrefabTransform.position, _weaponSelfKnockbackForce);
-    }
-
     #endregion
 
     #region Camera Effect
@@ -240,13 +212,13 @@ public class WeaponParentAiming : MonoBehaviour
     #endregion
 
     private void OnDrawGizmosSelected() {
+        if(Application.isPlaying) return;
         Gizmos.color = Color.white;
         Gizmos.DrawWireSphere(transform.position,_detectionRadius);
 
     }
 
     private void OnDestroy() {
-        _currentWeapon.onAttack -= AffectPlayer;
         _currentWeapon.onAttack -= StopAiming;
         _currentWeapon.onAttack -= PointCameraToWeapon;
     }

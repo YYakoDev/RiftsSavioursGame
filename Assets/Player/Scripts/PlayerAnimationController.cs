@@ -8,9 +8,9 @@ public class PlayerAnimationController : MonoBehaviour
     [SerializeField]Animator _animator;
     [SerializeField]EntryAnimationFX _introFX;
     PlayerIntroAnimation _introAnim;
-    string _currentAnimation;
-    /*float _lockedTill;
-    float _attackDuration;
+    int _currentAnimation;
+    float _lockedTill;
+    /*float _attackDuration;
     //bool _action;
 
     public float AtkDuration => _attackDuration;*/
@@ -34,20 +34,24 @@ public class PlayerAnimationController : MonoBehaviour
         _introAnim.UpdateLogic();
     }
 
-    public void PlayStated(string animationName)
+    public void PlayStated(int animationHash)
     {
-        //if(Time.time < _lockedTill) return;
-        if(animationName == _currentAnimation)return;
+        if(Time.time < _lockedTill) return;
+        if(animationHash == _currentAnimation)return;
+
+        if(animationHash == PlayerAnimationsNames.Attack)
+        {
+            LockState(0.3f);
+            //GET THE ANIM DURATION HERE!
+        }
+        _currentAnimation = animationHash;
+        _animator.Play(animationHash);
 
 
-        _currentAnimation = animationName;
-        _animator.Play(animationName);
-
-
-        /*void LockState( float time)
+        void LockState( float time)
         {
             _lockedTill = Time.time + time;
-        }*/
+        }
     }
 
     /*void GetAttackDuration()

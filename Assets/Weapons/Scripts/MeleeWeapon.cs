@@ -17,8 +17,9 @@ public class MeleeWeapon : WeaponBase
     [SerializeField]int _attackDamage = 5;
     int _maxEnemiesToHit = 10;
     [SerializeField, Range(0,2.25f)]float _knockbackForce = 0.35f;
-
     private readonly int AtkAnim = Animator.StringToHash("Attack");
+    List<GameObject> _hittedEnemiesGO = new();
+    Timer _atkExecutionTimer;
 
     public override void Initialize(WeaponManager weaponManager, Transform prefabTransform)
     {
@@ -27,7 +28,18 @@ public class MeleeWeapon : WeaponBase
         _parentTransform = prefabTransform.parent;
         _enemyLayer = weaponManager.EnemyLayer;
         _maxEnemiesToHit = 3 + (int)(_attackRange * 5);
+
+        _atkExecutionTimer = new(_attackDuration / 4f, false);
+        _atkExecutionTimer.onEnd += AttackLogic;
+        _atkExecutionTimer.Stop();
     }
+
+    public override void InputLogic()
+    {
+        _atkExecutionTimer.UpdateTime();
+        base.InputLogic();
+    }
+
     protected override void Attack()
     {
         //this calls the onAttackEvent and also sets the cooldown.
@@ -36,30 +48,37 @@ public class MeleeWeapon : WeaponBase
         Collider2D[] hittedEnemies =  Physics2D.OverlapCircleAll(_weaponPrefabTransform.position, _attackRange, _enemyLayer);
         if(hittedEnemies.Length == 0) return;
 
-        List<GameObject> hittedEnemiesGO = new List<GameObject>();
+        _hittedEnemiesGO.Clear();
         for(int i = 0; i < hittedEnemies.Length; i++)
         {
-            if(hittedEnemiesGO.Contains(hittedEnemies[i].gameObject)) continue;
-            hittedEnemiesGO.Add(hittedEnemies[i].gameObject);
+            if(_hittedEnemiesGO.Contains(hittedEnemies[i].gameObject)) continue;
+            _hittedEnemiesGO.Add(hittedEnemies[i].gameObject);
         }
-        
+        _atkExecutionTimer.ResetTime();
+        _atkExecutionTimer.Start();
+    }
 
-        for(int i = 0; i < hittedEnemiesGO.Count; i++)
+    void AttackLogic()
+    {
+        if(_hittedEnemiesGO.Count == 0) return;
+        for(int i = 0; i < _hittedEnemiesGO.Count; i++)
         {
-            if(hittedEnemiesGO[i] == null)continue;
+            if(_hittedEnemiesGO[i] == null)continue;
             if(i >= _maxEnemiesToHit)break;
 
-            if(hittedEnemiesGO[i].TryGetComponent<IDamageable>(out IDamageable damageable))
+            if(_hittedEnemiesGO[i].TryGetComponent<IDamageable>(out IDamageable damageable))
             {
                 damageable.TakeDamage(_attackDamage);
-                PopupsManager.Create(hittedEnemiesGO[i].transform.position + Vector3.up * 0.75f, _attackDamage * 10);
+                PopupsManager.Create(_hittedEnemiesGO[i].transform.position + Vector3.up * 0.75f, _attackDamage);
             }
-            if(hittedEnemiesGO[i].gameObject.TryGetComponent<IKnockback>(out var knockbackable))
+            if(_hittedEnemiesGO[i].gameObject.TryGetComponent<IKnockback>(out var knockbackable))
             {
                 knockbackable.KnockbackLogic.SetKnockbackData(_parentTransform.position, _knockbackForce);
             }
-        }
 
+            //you can spawn hit fx in this part
+        }
+        InvokeOnEnemyHit();
     }
 
     /*public void InstantiateFX()

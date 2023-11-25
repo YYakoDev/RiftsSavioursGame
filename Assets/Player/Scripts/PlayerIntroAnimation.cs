@@ -21,7 +21,7 @@ public class PlayerIntroAnimation
         SetAnimDuration();
         
         _animTimer = new(_animDuration + 0.1f, false, true);
-        _animTimer.onReset += ResumeTime;
+        _animTimer.onEnd += ResumeTime;
         StopTime();
         //PlayAnimation();
     }
