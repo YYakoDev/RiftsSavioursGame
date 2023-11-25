@@ -19,6 +19,7 @@ public class PlayerAttack : MonoBehaviour
 
         _weaponManager.CurrentWeapon.onAttack += PlayerAttackEffects;
         _weaponManager.CurrentWeapon.onEnemyHit += KnockbackPlayer;
+        _weaponManager.CurrentWeapon.onEnemyHit += FreezeGame;
     }
 
     void PlayerAttackEffects()
@@ -62,7 +63,7 @@ public class PlayerAttack : MonoBehaviour
 
     void FreezeGame()
     {
-        
+        GameFreezer.FreezeGame(0.03f);
     }
 
 
@@ -70,6 +71,7 @@ public class PlayerAttack : MonoBehaviour
     {
         _weaponManager.CurrentWeapon.onAttack -= PlayerAttackEffects;
         _weaponManager.CurrentWeapon.onEnemyHit -= KnockbackPlayer;
+        _weaponManager.CurrentWeapon.onEnemyHit -= FreezeGame;
     }
 
 }
