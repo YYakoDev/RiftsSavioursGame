@@ -7,6 +7,7 @@ public class PickUpsController : MonoBehaviour
 {
     [Header("References")]
     [SerializeField]PlayerManager _playerManager;
+    [SerializeField] AudioSource _audio;
     CircleCollider2D _collider;
 
     [Header("Pick Up Properties")]
@@ -47,7 +48,10 @@ public class PickUpsController : MonoBehaviour
         _playerManager.Inventory.AddMaterial(material);
     }
 
-
+    public void PlayAudioClip(AudioClip sound)
+    {
+        _audio.PlayWithVaryingPitch(sound);
+    }
 
     private void OnTriggerEnter2D(Collider2D other){
         if(other.TryGetComponent<DropPrefab>(out DropPrefab drop))
