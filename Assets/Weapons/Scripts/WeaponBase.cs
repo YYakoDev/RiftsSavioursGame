@@ -62,7 +62,7 @@ public abstract class WeaponBase: ScriptableObject
     protected virtual void Attack()
     {
         _nextAttackTime = Time.time + _attackCooldown;
-        onAttack?.Invoke();
+        InvokeOnAttack();
     }
 
     public virtual void InputLogic()
@@ -83,6 +83,10 @@ public abstract class WeaponBase: ScriptableObject
     protected void InvokeOnEnemyHit()
     {
         onEnemyHit?.Invoke();
+    }
+    protected void InvokeOnAttack()
+    {
+        onAttack?.Invoke();
     }
     public virtual void DrawGizmos(){}
 }

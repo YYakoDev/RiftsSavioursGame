@@ -10,16 +10,16 @@ public class MeleeWeapon : WeaponBase
     //GameObject _weaponFXObject;
     //WeaponFX _weaponFXInstance;
     Transform _parentTransform;
-    LayerMask _enemyLayer;
+    protected LayerMask _enemyLayer;
 
     [Header("Stats")]
-    [SerializeField]float _attackRange = 0.5f;
-    [SerializeField]int _attackDamage = 5;
-    int _maxEnemiesToHit = 10;
-    [SerializeField, Range(0,2.25f)]float _knockbackForce = 0.35f;
+    [SerializeField]protected float _attackRange = 0.5f;
+    [SerializeField]protected int _attackDamage = 5;
+    protected int _maxEnemiesToHit = 10;
+    [SerializeField, Range(0,2.25f)]protected float _knockbackForce = 0.35f;
     private readonly int AtkAnim = Animator.StringToHash("Attack");
-    List<GameObject> _hittedEnemiesGO = new();
-    Timer _atkExecutionTimer;
+    protected List<GameObject> _hittedEnemiesGO = new();
+    protected Timer _atkExecutionTimer;
 
     public override void Initialize(WeaponManager weaponManager, Transform prefabTransform)
     {

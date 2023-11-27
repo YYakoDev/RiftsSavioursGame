@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: AstreaSwordWCombo
   m_EditorClassIdentifier: 
   _name: "astrik\xF3 x\xEDfos"
-  _SpriteAndAnimationsData: {fileID: 11400000, guid: 543a019bc4eb7d54a901633dbe15a124, type: 2}
+  _SpriteAndAnimationsData: {fileID: 11400000, guid: 3ffd0d601d729f44f946aefc00161325, type: 2}
   _flipSprite: 1
   _spawnPosition: {x: -0.55, y: 0.25, z: 0}
   _spawnRotation: 0
-  _weaponSounds: []
-  _pointCameraOnAttack: 0
-  _attackCooldown: 0.5
-  _attackRange: 0.5
-  _attackDamage: 5
-  _knockbackForce: 0.35
-  FollowUpCooldown: 0.1
+  _weaponSounds:
+  - {fileID: 8300000, guid: 6cbb45dd3c204e04aae673889c597324, type: 3}
+  _pointCameraOnAttack: 1
+  _attackCooldown: 1
+  _attackRange: 2
+  _attackDamage: 10
+  _knockbackForce: 0.45

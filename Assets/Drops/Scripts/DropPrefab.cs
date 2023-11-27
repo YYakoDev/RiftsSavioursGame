@@ -28,7 +28,7 @@ public class DropPrefab : MonoBehaviour
     }
 
     private void OnEnable() {
-        _timer.onTimerStart += MoveFromTarget;
+        _timer.onStart += MoveFromTarget;
         _timer.onEnd += MoveToTarget;
         _pickedUp = false;
     }
@@ -101,7 +101,7 @@ public class DropPrefab : MonoBehaviour
     }
 
     private void OnDisable() {
-        _timer.onTimerStart -= MoveFromTarget;
+        _timer.onStart -= MoveFromTarget;
         _timer.onEnd -= MoveToTarget;
     }
 }

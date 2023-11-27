@@ -8,8 +8,10 @@ public class Timer
     bool _resetOnZero;
     private bool _timerStopped = false;
     bool _useUnscaledTime = false;
-    public event Action onTimerStart;
+    public event Action onStart;
     public event Action onEnd;
+
+    public float CurrentTime => _timeRemaining;
 
     public Timer(float countdownTime, bool resetOnZero = true, bool useUnscaledTime = false)
     {
@@ -54,7 +56,7 @@ public class Timer
     public void Start()
     {
         _timeRemaining = _countdownTime;
-        onTimerStart?.Invoke();    
+        onStart?.Invoke();    
         Resume();
     }
     public void Resume()
