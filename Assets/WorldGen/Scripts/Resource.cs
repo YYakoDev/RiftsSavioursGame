@@ -25,7 +25,10 @@ public class Resource : MonoBehaviour, IResources, IComparable, IMaskeable
     [SerializeField]AudioClip _hitSFX;
     [SerializeField]AudioClip _breakSFX;
 
+    [Header("Animations Stuff")]
     [SerializeField]bool _activeAnimatorOnStart = false;
+    private readonly int BreakingAnim = Animator.StringToHash("Breaking");
+    private readonly int OnHitAnim = Animator.StringToHash("OnHit");
 
     //properties
 
@@ -59,7 +62,9 @@ public class Resource : MonoBehaviour, IResources, IComparable, IMaskeable
 
         _health -= damage;
         _blinkFX.Play();
-
+        PopupsManager.Create(transform.position, damage);
+        _animator.enabled = true;
+        _animator.Play(OnHitAnim);
         if(_hitSFX != null)
         {
             _audio.Stop();
@@ -77,11 +82,11 @@ public class Resource : MonoBehaviour, IResources, IComparable, IMaskeable
         _coll.enabled = false;
 
         _animator.enabled = true;
-        _animator?.Play("Death");   
+        _animator?.Play(BreakingAnim);   
 
         _dropper.Drop();
 
-        Destroy(gameObject, _disappearingTime);
+        //Destroy(gameObject, _disappearingTime);
     }
 
     public int CompareTo(object obj)

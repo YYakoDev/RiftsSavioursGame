@@ -18,8 +18,7 @@ public class PlayerAttack : MonoBehaviour
         yield return null;
 
         _weaponManager.CurrentWeapon.onAttack += PlayerAttackEffects;
-        _weaponManager.CurrentWeapon.onEnemyHit += KnockbackPlayer;
-        _weaponManager.CurrentWeapon.onEnemyHit += FreezeGame;
+        _weaponManager.CurrentWeapon.onEnemyHit += OnHitEffects;
     }
 
     void PlayerAttackEffects()
@@ -29,7 +28,12 @@ public class PlayerAttack : MonoBehaviour
         SlowdownPlayer();
         SelfPush();
     }
-
+    void OnHitEffects()
+    {
+        FreezeGame();
+        KnockbackPlayer();
+        ScreenShake();
+    }
     void FlipPlayer()
     {
         if(_weaponAiming.AutoTargetting)
@@ -61,6 +65,11 @@ public class PlayerAttack : MonoBehaviour
         _player.MovementScript.KnockbackLogic.SetKnockbackData(_weaponManager.CurrentWeapon.PrefabTransform.position, 0.2f);
     }
 
+    void ScreenShake()
+    {
+        CameraShake.Shake(0.5f);
+    }
+
     void FreezeGame()
     {
         GameFreezer.FreezeGame(0.03f);
@@ -70,8 +79,7 @@ public class PlayerAttack : MonoBehaviour
     private void OnDestroy()
     {
         _weaponManager.CurrentWeapon.onAttack -= PlayerAttackEffects;
-        _weaponManager.CurrentWeapon.onEnemyHit -= KnockbackPlayer;
-        _weaponManager.CurrentWeapon.onEnemyHit -= FreezeGame;
+        _weaponManager.CurrentWeapon.onEnemyHit -= OnHitEffects;
     }
 
 }

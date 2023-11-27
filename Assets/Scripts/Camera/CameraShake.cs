@@ -42,6 +42,6 @@ public class CameraShake : MonoBehaviour
 
     static void SetNewDirection(float strength)
     {
-        _direction = _cameraTransform.position + Vector3.one * (Random.Range(-0.06f, 0.06f) * _shakeStrength);
+        _direction = _cameraTransform.position + Vector3.one * (Random.Range(-0.06f, 0.06f) * strength);
     }
 }
