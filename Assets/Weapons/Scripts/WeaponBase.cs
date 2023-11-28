@@ -19,7 +19,7 @@ public abstract class WeaponBase: ScriptableObject
     [SerializeField]private float _spawnRotation = 0;
 
     protected int _currentAnim;
-    [SerializeField]private AudioClip[] _weaponSounds;
+    [SerializeField]protected AudioClip[] _weaponSounds;
     [SerializeField]private bool _pointCameraOnAttack = false;
     protected Transform _weaponPrefabTransform;
 
@@ -48,7 +48,8 @@ public abstract class WeaponBase: ScriptableObject
     public int Animation => _currentAnim;
 
     //sound stuff
-    public AudioClip Sound => _weaponSounds[Random.Range(0, _weaponSounds.Length)];
+    protected AudioClip _attackSound;
+    public AudioClip Sound => _attackSound;
 
     public virtual void Initialize(WeaponManager weaponManager, Transform prefabTransform)
     {
@@ -62,6 +63,7 @@ public abstract class WeaponBase: ScriptableObject
     protected virtual void Attack()
     {
         _nextAttackTime = Time.time + _attackCooldown;
+        _attackSound = _weaponSounds[Random.Range(0, _weaponSounds.Length)];
         InvokeOnAttack();
     }
 

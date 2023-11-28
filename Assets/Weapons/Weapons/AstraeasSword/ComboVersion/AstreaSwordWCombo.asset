@@ -18,9 +18,11 @@ MonoBehaviour:
   _spawnPosition: {x: -0.55, y: 0.25, z: 0}
   _spawnRotation: 0
   _weaponSounds:
+  - {fileID: 8300000, guid: 25422fdcfeeb570429eb23176345b730, type: 3}
   - {fileID: 8300000, guid: 6cbb45dd3c204e04aae673889c597324, type: 3}
+  - {fileID: 8300000, guid: fdcd87b1a5ca93e4ab18fe179749a334, type: 3}
   _pointCameraOnAttack: 1
-  _attackCooldown: 1
+  _attackCooldown: 0.94
   _attackRange: 2
   _attackDamage: 10
   _knockbackForce: 0.45

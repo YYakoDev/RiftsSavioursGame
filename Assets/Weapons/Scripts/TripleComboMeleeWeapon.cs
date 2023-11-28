@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "ScriptableObjects/Weapons/TripleComboMeleeWeapon")]
@@ -23,19 +22,31 @@ public class TripleComboMeleeWeapon : MeleeWeapon
     };
     private int[] _animationsHash = new int[ComboAttacks];
     private float[] _atkDurations = new float[ComboAttacks];
+
     public override void Initialize(WeaponManager weaponManager, Transform prefabTransform)
     {
         base.Initialize(weaponManager, prefabTransform);
         _weaponInstanceAnimator = prefabTransform.GetComponent<Animator>();
         _weaponInstanceAnimator.speed = _attackSpeed;
+
         for (int i = 0; i < ComboAttacks; i++)
         {
             _animationsHash[i] = Animator.StringToHash(_animationNames[i]);
             _atkDurations[i] = GetAnimationDuration(_animationNames[i]);
         }
+        int soundsCount = _weaponSounds.Length;
+        if(soundsCount < ComboAttacks)
+        {
+            Array.Resize<AudioClip>(ref _weaponSounds, ComboAttacks);
+            int soundsLeft = ComboAttacks - soundsCount;
+            for (int i = soundsCount; i < ComboAttacks; i++)
+            {
+                _weaponSounds[i] = _weaponSounds[0];
+            }
+        }
 
         _currentComboIndex = 0;
-
+        
         _waitForInputTimer = new(_atkDurations[0] + TimeOffset, false, false);
         _waitForInputTimer.onStart += StartInputCheck;
         _waitForInputTimer.onEnd += StopInputCheck;
@@ -131,6 +142,7 @@ public class TripleComboMeleeWeapon : MeleeWeapon
     {
         _attackDuration = _atkDurations[_currentComboIndex];
         _currentAnim = _animationsHash[_currentComboIndex];
+        _attackSound = _weaponSounds[_currentComboIndex];
         _waitForInputTimer.ChangeTime(_attackDuration + TimeOffset);
     }
     void StartInputCheck()
