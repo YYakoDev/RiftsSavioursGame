@@ -16,6 +16,7 @@ public class WeaponManager : MonoBehaviour
     private WeaponBase _currentWeapon;
     //properties
     //public SOPlayerAttackStats AttackStats => _attackStats;
+    public GameObject WeaponPrefab => _weaponPrefabInstance;
     public LayerMask EnemyLayer => _enemyLayer;
     public WeaponBase CurrentWeapon => _currentWeapon;
     //public GameObject WeaponPrefab => _weaponPrefab;

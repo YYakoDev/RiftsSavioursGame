@@ -38,7 +38,12 @@ public class PlayerAttack : MonoBehaviour
     {
         if(_weaponAiming.AutoTargetting)
         {
-            _player.MovementScript.CheckForFlip(_weaponAiming.PointingDirection.x, AttackDuration);
+            if(_weaponAiming.PointingDirection.x != 0) _player.MovementScript.CheckForFlip(_weaponAiming.PointingDirection.x, AttackDuration);
+            else
+            {
+                float xDirection = _weaponManager.WeaponPrefab.transform.position.x - transform.position.x;
+                _player.MovementScript.CheckForFlip(xDirection, AttackDuration);
+            }
         }else
         {
             _player.MovementScript.CheckForFlip(_weaponAiming.MouseDirection.x, AttackDuration);

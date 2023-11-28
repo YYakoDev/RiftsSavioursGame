@@ -10,7 +10,7 @@ public class TripleComboMeleeWeapon : MeleeWeapon
     Animator _weaponInstanceAnimator;
     Timer _waitForInputTimer;
     Timer _waitForRemainingDuration;
-    const float TimeOffset = 0.13f;
+    const float TimeOffset = 0.12f;
     float _comboCooldown;
     bool _checkForComboInput = false;
     bool _inputDetected = false;
@@ -65,6 +65,7 @@ public class TripleComboMeleeWeapon : MeleeWeapon
             {
                 _inputDetected = true;
                 _weaponInstanceAnimator.speed = _attackSpeed * 1.25f;
+                _attackDuration /= 1.25f;
                 _waitForRemainingDuration.ChangeTime(_waitForInputTimer.CurrentTime / 1.25f - (TimeOffset / 5f));
                 _waitForRemainingDuration.Start();
                 return;
@@ -73,7 +74,10 @@ public class TripleComboMeleeWeapon : MeleeWeapon
             return;
         }
         _waitForInputTimer.UpdateTime();
-        base.InputLogic();
+        if(Input.GetButtonDown("Attack"))
+        {
+            Attack();
+        }
     }
     protected override void Attack()
     {
@@ -112,7 +116,7 @@ public class TripleComboMeleeWeapon : MeleeWeapon
     void ResetCombo()
     {
         //Debug.Log("<b> Resetting Combo </b>");
-        _comboCooldown = (_attackCooldown / _attackSpeed) * ((_currentComboIndex + 1) / 3);
+        _comboCooldown = TimeOffset + (_attackCooldown / _attackSpeed) * ((_currentComboIndex + 1) / 3);
         _nextAttackTime = Time.time + _comboCooldown; //here you should check the combo index at which the attacked stopped and change the cooldown based on that
         _currentComboIndex = 0;
         OnComboIndexChange(_currentComboIndex);
