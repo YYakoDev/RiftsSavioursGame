@@ -24,3 +24,4 @@ MonoBehaviour:
   _attackRange: 2
   _attackDamage: 10
   _knockbackForce: 0.45
+  _attackSpeed: 1

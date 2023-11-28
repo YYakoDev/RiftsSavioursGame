@@ -67,12 +67,12 @@ public class PlayerAttack : MonoBehaviour
 
     void ScreenShake()
     {
-        CameraShake.Shake(0.5f);
+        CameraShake.Shake(0.6f);
     }
 
     void FreezeGame()
     {
-        GameFreezer.FreezeGame(0.03f);
+        GameFreezer.FreezeGame(0.04f);
     }
 
 

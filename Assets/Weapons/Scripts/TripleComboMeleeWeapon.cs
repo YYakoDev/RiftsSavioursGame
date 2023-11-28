@@ -5,26 +5,30 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObjects/Weapons/TripleComboMeleeWeapon")]
 public class TripleComboMeleeWeapon : MeleeWeapon
 {
+    [SerializeField]float _attackSpeed = 1; // this value should change when evaluating stats
+    const int ComboAttacks = 3;
+    Animator _weaponInstanceAnimator;
     Timer _waitForInputTimer;
     Timer _waitForRemainingDuration;
-    const float TimeOffset = 0.175f;
+    const float TimeOffset = 0.13f;
     float _comboCooldown;
     bool _checkForComboInput = false;
     bool _inputDetected = false;
     int _currentComboIndex = 0;
-    private string[] _animationNames = new string[3]
+    private string[] _animationNames = new string[ComboAttacks]
     {
         "Attack",
         "Attack2",
         "Attack3"
     };
-    private int[] _animationsHash = new int[3];
-    private float[] _atkDurations = new float[3];
+    private int[] _animationsHash = new int[ComboAttacks];
+    private float[] _atkDurations = new float[ComboAttacks];
     public override void Initialize(WeaponManager weaponManager, Transform prefabTransform)
     {
         base.Initialize(weaponManager, prefabTransform);
-
-        for (int i = 0; i < _animationNames.Length; i++)
+        _weaponInstanceAnimator = prefabTransform.GetComponent<Animator>();
+        _weaponInstanceAnimator.speed = _attackSpeed;
+        for (int i = 0; i < ComboAttacks; i++)
         {
             _animationsHash[i] = Animator.StringToHash(_animationNames[i]);
             _atkDurations[i] = GetAnimationDuration(_animationNames[i]);
@@ -60,9 +64,8 @@ public class TripleComboMeleeWeapon : MeleeWeapon
             if(Input.GetButtonDown("Attack") && !_inputDetected)
             {
                 _inputDetected = true;
-                //Debug.Log(_currentComboIndex);
-                //Debug.Log("Remaining attack duration:  " + _waitForInputTimer.CurrentTime);
-                _waitForRemainingDuration.ChangeTime(_waitForInputTimer.CurrentTime - TimeOffset / 5f);
+                _weaponInstanceAnimator.speed = _attackSpeed * 1.25f;
+                _waitForRemainingDuration.ChangeTime(_waitForInputTimer.CurrentTime / 1.25f - (TimeOffset / 5f));
                 _waitForRemainingDuration.Start();
                 return;
             }
@@ -109,13 +112,15 @@ public class TripleComboMeleeWeapon : MeleeWeapon
     void ResetCombo()
     {
         //Debug.Log("<b> Resetting Combo </b>");
-        _comboCooldown = _attackCooldown * ((_currentComboIndex + 1) / 3);
+        _comboCooldown = (_attackCooldown / _attackSpeed) * ((_currentComboIndex + 1) / 3);
         _nextAttackTime = Time.time + _comboCooldown; //here you should check the combo index at which the attacked stopped and change the cooldown based on that
         _currentComboIndex = 0;
-        _inputDetected = false;
         OnComboIndexChange(_currentComboIndex);
+        _inputDetected = false;
         _checkForComboInput = false;
         _waitForInputTimer.Stop();
+
+        _weaponInstanceAnimator.speed = _attackSpeed;
     }
 
     void OnComboIndexChange(int newIndex)
