@@ -7,8 +7,8 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField]PlayerManager _player;
     [SerializeField]WeaponParentAiming _weaponAiming;
     [SerializeField]WeaponManager _weaponManager;
-    [SerializeField, Range(0f,2f)]float _weaponPullForce = 0.4f;
 
+    float PullForce => _weaponManager.CurrentWeapon.GetPullForce();
     float AttackDuration => _weaponManager.CurrentWeapon.AtkDuration;
 
 
@@ -62,7 +62,7 @@ public class PlayerAttack : MonoBehaviour
 
     void SelfPush()
     {
-        _player.MovementScript.KnockbackLogic.SetKnockbackData(_weaponManager.CurrentWeapon.PrefabTransform.position, -_weaponPullForce);
+        _player.MovementScript.KnockbackLogic.SetKnockbackData(_weaponManager.CurrentWeapon.PrefabTransform.position, - PullForce);
     }
 
     void KnockbackPlayer()

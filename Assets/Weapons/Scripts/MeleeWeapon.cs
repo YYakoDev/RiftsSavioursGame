@@ -30,7 +30,7 @@ public class MeleeWeapon : WeaponBase
         _maxEnemiesToHit = 3 + (int)(_attackRange * 5);
 
         _atkExecutionTimer = new(_attackDuration / 4f, false);
-        _atkExecutionTimer.onEnd += AttackLogic;
+        _atkExecutionTimer.onEnd += DoAttackLogic;
         _atkExecutionTimer.Stop();
     }
 
@@ -40,10 +40,10 @@ public class MeleeWeapon : WeaponBase
         base.InputLogic();
     }
 
-    protected override void Attack()
+    protected override void Attack(float cooldown)
     {
         //this calls the onAttackEvent and also sets the cooldown.
-        base.Attack(); 
+        base.Attack(cooldown); 
         //InstantiateFX();
         Collider2D[] hittedEnemies =  Physics2D.OverlapCircleAll(_weaponPrefabTransform.position, _attackRange, _enemyLayer);
         if(hittedEnemies.Length == 0) return;
@@ -57,23 +57,26 @@ public class MeleeWeapon : WeaponBase
         _atkExecutionTimer.ResetTime();
         _atkExecutionTimer.Start();
     }
-
-    void AttackLogic()
+    protected virtual void DoAttackLogic()
+    {
+        AttackLogic(_attackDamage, _knockbackForce);
+    }
+    protected void AttackLogic(int damage, float knockbackForce)
     {
         if(_hittedEnemiesGO.Count == 0) return;
         for(int i = 0; i < _hittedEnemiesGO.Count; i++)
         {
-            if(_hittedEnemiesGO[i] == null)continue;
             if(i >= _maxEnemiesToHit)break;
+            if(_hittedEnemiesGO[i] == null)continue;
 
             if(_hittedEnemiesGO[i].TryGetComponent<IDamageable>(out IDamageable damageable))
             {
-                damageable.TakeDamage(_attackDamage);
-                PopupsManager.Create(_hittedEnemiesGO[i].transform.position + Vector3.up * 0.75f, _attackDamage);
+                damageable.TakeDamage(damage);
+                PopupsManager.Create(_hittedEnemiesGO[i].transform.position + Vector3.up * 0.75f, damage);
             }
-            if(_hittedEnemiesGO[i].gameObject.TryGetComponent<IKnockback>(out var knockbackable))
+            if(_hittedEnemiesGO[i].TryGetComponent<IKnockback>(out var knockbackable))
             {
-                knockbackable.KnockbackLogic.SetKnockbackData(_parentTransform.position, _knockbackForce);
+                knockbackable.KnockbackLogic.SetKnockbackData(_parentTransform.position, knockbackForce);
             }
 
             //you can spawn hit fx in this part

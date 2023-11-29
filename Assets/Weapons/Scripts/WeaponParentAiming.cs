@@ -189,7 +189,7 @@ public class WeaponParentAiming : MonoBehaviour
     }
     void StopAiming()
     {
-        _stopAimingTime = _attackDuration;
+        _stopAimingTime = _attackDuration / 1.25f;
     }
     #endregion
 

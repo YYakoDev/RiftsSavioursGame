@@ -25,6 +25,7 @@ public abstract class WeaponBase: ScriptableObject
 
     [Header("Weapon Attack Stats")]
     [SerializeField]protected float _attackCooldown = 0.5f;
+    [SerializeField, Range(0f, 2f)] protected float _pullForce = 0;
     protected float _attackDuration = 0.35f;
     protected float _nextAttackTime = 0f;
 
@@ -40,7 +41,6 @@ public abstract class WeaponBase: ScriptableObject
     public Vector3 SpawnPosition => _spawnPosition;
     public float SpawnRotation => _spawnRotation;
     public Transform PrefabTransform => _weaponPrefabTransform;
-    public float AtkCooldown => _attackCooldown;
     public float AtkDuration => _attackDuration;
     public bool PointCameraOnAttack => _pointCameraOnAttack;
 
@@ -60,9 +60,9 @@ public abstract class WeaponBase: ScriptableObject
 
     }
 
-    protected virtual void Attack()
+    protected virtual void Attack(float weaponCooldown)
     {
-        _nextAttackTime = Time.time + _attackCooldown;
+        _nextAttackTime = Time.time + weaponCooldown;
         _attackSound = _weaponSounds[Random.Range(0, _weaponSounds.Length)];
         InvokeOnAttack();
     }
@@ -73,7 +73,7 @@ public abstract class WeaponBase: ScriptableObject
         //if you dont put a cooldown here everything is going to be fucked
         if(Input.GetButton("Attack"))
         {
-            Attack();
+            Attack(_attackCooldown);
         }
     }
 
@@ -81,6 +81,11 @@ public abstract class WeaponBase: ScriptableObject
     {
         return _SpriteAndAnimationsData.AnimatorOverride[animName].averageDuration;
     }
+    public virtual float GetPullForce()
+    {
+        return _pullForce;
+    }
+
     protected abstract void EvaluateStats(SOPlayerAttackStats attackStats);
     protected void InvokeOnEnemyHit()
     {

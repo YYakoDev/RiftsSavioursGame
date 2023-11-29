@@ -20,10 +20,30 @@ MonoBehaviour:
   _weaponSounds:
   - {fileID: 8300000, guid: 25422fdcfeeb570429eb23176345b730, type: 3}
   - {fileID: 8300000, guid: 6cbb45dd3c204e04aae673889c597324, type: 3}
-  - {fileID: 8300000, guid: fdcd87b1a5ca93e4ab18fe179749a334, type: 3}
+  - {fileID: 8300000, guid: 9c192f02e087c9140814059b4e042b82, type: 3}
   _pointCameraOnAttack: 1
-  _attackCooldown: 0.94
-  _attackRange: 2
-  _attackDamage: 10
-  _knockbackForce: 0.45
+  _attackCooldown: 0.95
+  _pullForce: 0.2
+  _attackRange: 1
+  _attackDamage: 5
+  _knockbackForce: 0.3
   _attackSpeed: 1
+  _comboStats:
+  - Cooldown: 0.1
+    Range: 0.3
+    KnockbackForce: 0.1
+    AtkSpeed: 0.1
+    PullForce: 4
+    Damage: 5
+  - Cooldown: 0
+    Range: 1.2
+    KnockbackForce: 1
+    AtkSpeed: 0
+    PullForce: 0
+    Damage: 10
+  - Cooldown: 0.1
+    Range: 0.5
+    KnockbackForce: 4
+    AtkSpeed: 0.35
+    PullForce: 3
+    Damage: 0
