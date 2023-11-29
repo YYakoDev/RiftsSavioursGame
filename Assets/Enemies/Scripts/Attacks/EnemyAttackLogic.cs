@@ -20,7 +20,7 @@ public class EnemyAttackLogic
             damageable.TakeDamage(_damage);
             if(objective.TryGetComponent<IKnockback>(out IKnockback knockbackable))
             {
-                knockbackable.KnockbackLogic.SetKnockbackData(_transform.position, _knockbackForce);
+                knockbackable.KnockbackLogic.SetKnockbackData(_transform, _knockbackForce);
             }
         }
     }

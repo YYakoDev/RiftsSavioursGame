@@ -32216,7 +32216,6 @@ MonoBehaviour:
   _player: {fileID: 2123491969}
   _weaponAiming: {fileID: 476491158}
   _weaponManager: {fileID: 2062021155}
-  _weaponPullForce: 1
 --- !u!114 &2062021157
 MonoBehaviour:
   m_ObjectHideFlags: 0

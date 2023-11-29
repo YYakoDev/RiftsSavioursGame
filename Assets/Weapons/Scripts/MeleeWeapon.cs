@@ -27,7 +27,7 @@ public class MeleeWeapon : WeaponBase
         _nextAttackTime = 0;
         _parentTransform = prefabTransform.parent;
         _enemyLayer = weaponManager.EnemyLayer;
-        _maxEnemiesToHit = 3 + (int)(_attackRange * 5);
+        SetMaxEnemiesToHit(_attackRange);
 
         _atkExecutionTimer = new(_attackDuration / 4f, false);
         _atkExecutionTimer.onEnd += DoAttackLogic;
@@ -76,7 +76,7 @@ public class MeleeWeapon : WeaponBase
             }
             if(_hittedEnemiesGO[i].TryGetComponent<IKnockback>(out var knockbackable))
             {
-                knockbackable.KnockbackLogic.SetKnockbackData(_parentTransform.position, knockbackForce);
+                knockbackable.KnockbackLogic.SetKnockbackData(_parentTransform, knockbackForce);
             }
 
             //you can spawn hit fx in this part
@@ -107,6 +107,10 @@ public class MeleeWeapon : WeaponBase
         }
     }*/
 
+    protected void SetMaxEnemiesToHit(float atkRange)
+    {
+        _maxEnemiesToHit = 2 + (int)(_attackRange * 5);
+    }
     protected override void EvaluateStats(SOPlayerAttackStats attackStats)
     {
         //codear esto para que se modifiquen las stats del arma pero sin escalar hasta el infinito sin querer

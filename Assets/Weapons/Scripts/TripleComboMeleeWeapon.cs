@@ -45,7 +45,6 @@ public class TripleComboMeleeWeapon : MeleeWeapon
         _waitForRemainingDuration.Stop();
 
         _modifiedStats = new(_attackCooldown, _attackRange, _knockbackForce, _attackSpeed, _pullForce ,_attackDamage);
-
         OnComboIndexChange(_currentComboIndex);
 
         _checkForComboInput = false;
@@ -101,16 +100,16 @@ public class TripleComboMeleeWeapon : MeleeWeapon
 
     void SetNextAttack()
     {
-        _currentComboIndex++;
-        OnComboIndexChange(_currentComboIndex);
-        _inputDetected = false;
-        _waitForRemainingDuration.Stop();
-        Attack(_modifiedStats.Cooldown);
         if(_currentComboIndex >= 2)
         {
             ResetCombo();
             return;
         }
+        _currentComboIndex++;
+        OnComboIndexChange(_currentComboIndex);
+        _inputDetected = false;
+        _waitForRemainingDuration.Stop();
+        Attack(_modifiedStats.Cooldown);
     }
 
     protected override void DoAttackLogic()
@@ -134,10 +133,10 @@ public class TripleComboMeleeWeapon : MeleeWeapon
 
     void OnComboIndexChange(int newIndex)
     {
-        _attackDuration = _atkDurations[_currentComboIndex];
         _currentAnim = _animationsHash[_currentComboIndex];
         _attackSound = _weaponSounds[_currentComboIndex];
         SetNewStats(_comboStats[_currentComboIndex]);
+        _attackDuration = _atkDurations[_currentComboIndex] / _modifiedStats.AtkSpeed;
         _waitForInputTimer.ChangeTime(_attackDuration + TimeOffset);
     }
     void StartInputCheck()
@@ -183,6 +182,7 @@ public class TripleComboMeleeWeapon : MeleeWeapon
         _modifiedStats.Damage = _attackDamage + stats.Damage;
         _modifiedStats.Cooldown = _attackCooldown - stats.Cooldown;
         _modifiedStats.PullForce = _pullForce + stats.PullForce;
+        SetMaxEnemiesToHit(_modifiedStats.Range);
     }
     public override float GetPullForce()
     {

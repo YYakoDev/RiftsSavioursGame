@@ -18,9 +18,9 @@ MonoBehaviour:
   _spawnPosition: {x: -0.55, y: 0.25, z: 0}
   _spawnRotation: 0
   _weaponSounds:
-  - {fileID: 8300000, guid: 25422fdcfeeb570429eb23176345b730, type: 3}
-  - {fileID: 8300000, guid: 6cbb45dd3c204e04aae673889c597324, type: 3}
   - {fileID: 8300000, guid: 9c192f02e087c9140814059b4e042b82, type: 3}
+  - {fileID: 8300000, guid: 9c192f02e087c9140814059b4e042b82, type: 3}
+  - {fileID: 8300000, guid: ad040c740fc3ad343b81d0d6dfd4ea0a, type: 3}
   _pointCameraOnAttack: 1
   _attackCooldown: 0.95
   _pullForce: 0.2
@@ -30,10 +30,10 @@ MonoBehaviour:
   _attackSpeed: 1
   _comboStats:
   - Cooldown: 0.1
-    Range: 0.3
+    Range: 0.35
     KnockbackForce: 0.1
     AtkSpeed: 0.1
-    PullForce: 4
+    PullForce: 2.12
     Damage: 5
   - Cooldown: 0
     Range: 1.2
@@ -42,8 +42,8 @@ MonoBehaviour:
     PullForce: 0
     Damage: 10
   - Cooldown: 0.1
-    Range: 0.5
+    Range: 1
     KnockbackForce: 4
     AtkSpeed: 0.35
-    PullForce: 3
+    PullForce: 2
     Damage: 0

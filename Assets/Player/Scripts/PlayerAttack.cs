@@ -7,6 +7,7 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField]PlayerManager _player;
     [SerializeField]WeaponParentAiming _weaponAiming;
     [SerializeField]WeaponManager _weaponManager;
+    Transform _weaponPrefab;
 
     float PullForce => _weaponManager.CurrentWeapon.GetPullForce();
     float AttackDuration => _weaponManager.CurrentWeapon.AtkDuration;
@@ -17,8 +18,10 @@ public class PlayerAttack : MonoBehaviour
         yield return null;
         yield return null;
 
+        _weaponPrefab = _weaponManager.WeaponPrefab.transform;
         _weaponManager.CurrentWeapon.onAttack += PlayerAttackEffects;
         _weaponManager.CurrentWeapon.onEnemyHit += OnHitEffects;
+
     }
 
     void PlayerAttackEffects()
@@ -41,7 +44,7 @@ public class PlayerAttack : MonoBehaviour
             if(_weaponAiming.PointingDirection.x != 0) _player.MovementScript.CheckForFlip(_weaponAiming.PointingDirection.x, AttackDuration);
             else
             {
-                float xDirection = _weaponManager.WeaponPrefab.transform.position.x - transform.position.x;
+                float xDirection = _weaponPrefab.position.x - transform.position.x;
                 _player.MovementScript.CheckForFlip(xDirection, AttackDuration);
             }
         }else
@@ -62,12 +65,12 @@ public class PlayerAttack : MonoBehaviour
 
     void SelfPush()
     {
-        _player.MovementScript.KnockbackLogic.SetKnockbackData(_weaponManager.CurrentWeapon.PrefabTransform.position, - PullForce);
+        _player.MovementScript.KnockbackLogic.SetKnockbackData(_weaponPrefab, -PullForce);
     }
 
     void KnockbackPlayer()
     {
-        _player.MovementScript.KnockbackLogic.SetKnockbackData(_weaponManager.CurrentWeapon.PrefabTransform.position, 0.2f);
+        _player.MovementScript.KnockbackLogic.SetKnockbackData(_weaponPrefab, 0.2f);
     }
 
     void ScreenShake()

@@ -6,7 +6,7 @@ public class Knockbackeable
 {
     Transform _ownTransform;
     Rigidbody2D _rb;
-    Vector2 _emitterPos;
+    Transform _emitterPos;
     float _force;
     Timer _knockbackTimer;
     int _knockbackHits = 0;
@@ -22,9 +22,10 @@ public class Knockbackeable
         _alwaysApply = alwaysApplyKnockback;
         _knockbackTimer = new(0.13f + Random.Range(0.01f, 0.1f), false);
         _knockbackTimer.onEnd += StopKnockback;
+        _enabled = false;
     }
 
-    public void SetKnockbackData(Vector3 emitterPos, float force)
+    public void SetKnockbackData(Transform emitterPos, float force)
     {
         _emitterPos = emitterPos;
         _force = force * 2;
@@ -51,7 +52,7 @@ public class Knockbackeable
         _knockbackTimer.UpdateTime();
         //Debug.Log("Applying Knockback!");
         Vector2 currentPos = _ownTransform.position;
-        Vector2 direction = currentPos - _emitterPos;
+        Vector2 direction = currentPos - (Vector2)_emitterPos.position;
         _rb.MovePosition(currentPos + direction.normalized * (_force * Time.fixedDeltaTime));
     }
 
