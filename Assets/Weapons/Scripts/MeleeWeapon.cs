@@ -14,6 +14,8 @@ public class MeleeWeapon : WeaponBase
 
     [Header("Stats")]
     [SerializeField]protected float _attackRange = 0.5f;
+    protected float _radiusOffset = 0;
+    protected Vector3 _attackPoint = Vector2.zero;
     [SerializeField]protected int _attackDamage = 5;
     protected int _maxEnemiesToHit = 10;
     [SerializeField, Range(0,2.25f)]protected float _knockbackForce = 0.35f;
@@ -28,7 +30,7 @@ public class MeleeWeapon : WeaponBase
         _parentTransform = prefabTransform.parent;
         _enemyLayer = weaponManager.EnemyLayer;
         SetMaxEnemiesToHit(_attackRange);
-
+        SetRadiusOffset(_attackRange);
         _atkExecutionTimer = new(_attackDuration / 4f, false);
         _atkExecutionTimer.onEnd += DoAttackLogic;
         _atkExecutionTimer.Stop();
@@ -43,10 +45,26 @@ public class MeleeWeapon : WeaponBase
     protected override void Attack(float cooldown)
     {
         //this calls the onAttackEvent and also sets the cooldown.
-        base.Attack(cooldown); 
+        base.Attack(cooldown);
         //InstantiateFX();
-        Collider2D[] hittedEnemies =  Physics2D.OverlapCircleAll(_weaponPrefabTransform.position, _attackRange, _enemyLayer);
-        if(hittedEnemies.Length == 0) return;
+        SetAttackPoint();
+        if(!DetectEnemies(_attackRange)) return;
+
+        _atkExecutionTimer.ResetTime();
+        _atkExecutionTimer.Start();
+    }
+    protected virtual void SetAttackPoint()
+    {
+        Vector3 prefabPos = _weaponPrefabTransform.position;
+        Vector3 directionFromParent = prefabPos - _parentTransform.position;
+        directionFromParent.Normalize();
+        _attackPoint = _weaponPrefabTransform.position + directionFromParent * _radiusOffset;
+
+    }
+    protected virtual bool DetectEnemies(float atkRange)
+    {
+        Collider2D[] hittedEnemies =  Physics2D.OverlapCircleAll(_attackPoint, atkRange, _enemyLayer);
+        if(hittedEnemies.Length == 0) return false;
 
         _hittedEnemiesGO.Clear();
         for(int i = 0; i < hittedEnemies.Length; i++)
@@ -54,8 +72,7 @@ public class MeleeWeapon : WeaponBase
             if(_hittedEnemiesGO.Contains(hittedEnemies[i].gameObject)) continue;
             _hittedEnemiesGO.Add(hittedEnemies[i].gameObject);
         }
-        _atkExecutionTimer.ResetTime();
-        _atkExecutionTimer.Start();
+        return true;
     }
     protected virtual void DoAttackLogic()
     {
@@ -107,9 +124,13 @@ public class MeleeWeapon : WeaponBase
         }
     }*/
 
+    protected void SetRadiusOffset(float atkRange)
+    {
+        _radiusOffset = 0.5f * atkRange;
+    }
     protected void SetMaxEnemiesToHit(float atkRange)
     {
-        _maxEnemiesToHit = 2 + (int)(_attackRange * 5);
+        _maxEnemiesToHit = 2 + (int)(atkRange * 5);
     }
     protected override void EvaluateStats(SOPlayerAttackStats attackStats)
     {
@@ -119,7 +140,15 @@ public class MeleeWeapon : WeaponBase
 
     public override void DrawGizmos()
     {
+        DrawAttackRange(_attackRange);
+    }
+    protected void DrawAttackRange(float atkRange)
+    {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(_weaponPrefabTransform.position, _attackRange);
+        Vector3 prefabPos = _weaponPrefabTransform.position;
+        Vector3 directionFromParent = prefabPos - _parentTransform.position;
+        directionFromParent.Normalize();
+        Vector3 point = _weaponPrefabTransform.position + directionFromParent * _radiusOffset;
+        Gizmos.DrawWireSphere(point, atkRange);
     }
 }

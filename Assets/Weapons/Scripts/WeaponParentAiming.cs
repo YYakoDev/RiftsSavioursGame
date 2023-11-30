@@ -175,6 +175,7 @@ public class WeaponParentAiming : MonoBehaviour
     #endregion
     void FlipWeapon(Vector2 direction)
     {
+        if(_stopAimingTime > 0) return;
         Vector2 scale = transform.localScale;
         if(direction.x < 0)
         {

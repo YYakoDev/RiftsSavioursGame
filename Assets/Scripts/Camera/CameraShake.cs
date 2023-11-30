@@ -25,8 +25,14 @@ public class CameraShake : MonoBehaviour
     public static void Shake(float strength)
     {
         SetNewDirection(strength);
-        _animator.TweenTransformMoveTo(_cameraTransform, _direction, 0.02f, CurveTypes.EaseInOut, true, CheckShakeLoops);
+        _animator.TweenTransformMoveTo(_cameraTransform, _direction, 0.013f, CurveTypes.EaseInOut, true, CheckShakeLoops);
     }
+    public static void Shake(float strength, float duration)
+    {
+        SetNewDirection(strength);
+        _animator.TweenTransformMoveTo(_cameraTransform, _direction, duration, CurveTypes.EaseInOut, true, CheckShakeLoops);
+    }
+
 
 
     static void CheckShakeLoops()

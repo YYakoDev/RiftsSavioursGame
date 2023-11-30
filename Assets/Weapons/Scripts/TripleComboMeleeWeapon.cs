@@ -9,8 +9,9 @@ public class TripleComboMeleeWeapon : MeleeWeapon
     Animator _weaponInstanceAnimator;
     Timer _waitForInputTimer;
     Timer _waitForRemainingDuration;
-    const float TimeOffset = 0.12f;
+    const float TimeOffset = 0.125f;
     float _comboCooldown;
+    [SerializeField] bool _speedUPComboAnimations = false;
     bool _checkForComboInput = false;
     bool _inputDetected = false;
     int _currentComboIndex = 0;
@@ -64,9 +65,17 @@ public class TripleComboMeleeWeapon : MeleeWeapon
             if(Input.GetButtonDown("Attack") && !_inputDetected)
             {
                 _inputDetected = true;
-                _weaponInstanceAnimator.speed = _modifiedStats.AtkSpeed * 1.25f;
-                _attackDuration /= 1.25f;
-                _waitForRemainingDuration.ChangeTime(_waitForInputTimer.CurrentTime / 1.25f - (TimeOffset / 5f));
+                if(_speedUPComboAnimations)
+                {
+                    float speedUpFactor = 1.25f;
+                    _weaponInstanceAnimator.speed = _modifiedStats.AtkSpeed * speedUpFactor;
+                    _attackDuration /= speedUpFactor;
+                    _waitForRemainingDuration.ChangeTime(_waitForInputTimer.CurrentTime / speedUpFactor - (TimeOffset / 7f));
+                }else
+                {
+                    _waitForRemainingDuration.ChangeTime(_waitForInputTimer.CurrentTime - (TimeOffset / 6f));
+                }
+                
                 _waitForRemainingDuration.Start();
                 return;
             }
@@ -82,18 +91,10 @@ public class TripleComboMeleeWeapon : MeleeWeapon
     protected override void Attack(float cooldown)
     {
         InvokeOnAttack();
-        //Debug.Log("<b> Attacking! </b>");
         _waitForInputTimer.ResetTime();
         _waitForInputTimer.Start();
-        Collider2D[] hittedEnemies =  Physics2D.OverlapCircleAll(_weaponPrefabTransform.position, _modifiedStats.Range, _enemyLayer);
-        if(hittedEnemies.Length == 0) return;
-
-        _hittedEnemiesGO.Clear();
-        for(int i = 0; i < hittedEnemies.Length; i++)
-        {
-            if(_hittedEnemiesGO.Contains(hittedEnemies[i].gameObject)) continue;
-            _hittedEnemiesGO.Add(hittedEnemies[i].gameObject);
-        }
+        SetAttackPoint();
+        if(!DetectEnemies(_modifiedStats.Range)) return;
         _atkExecutionTimer.ResetTime();
         _atkExecutionTimer.Start();
     }
@@ -120,7 +121,8 @@ public class TripleComboMeleeWeapon : MeleeWeapon
     void ResetCombo()
     {
         //Debug.Log("<b> Resetting Combo </b>");
-        _comboCooldown = TimeOffset + (_modifiedStats.Cooldown / _modifiedStats.AtkSpeed) * ((_currentComboIndex + 1) / 3);
+        //Debug.Log($"modified cooldown:  {_modifiedStats.Cooldown} \n modified atk speed: {_modifiedStats.AtkSpeed} \n current combo INDEX: {_currentComboIndex}" );
+        _comboCooldown = 0.01f + (_modifiedStats.Cooldown / _modifiedStats.AtkSpeed) * ((_currentComboIndex + 1) / 3f);
         _nextAttackTime = Time.time + _comboCooldown; //here you should check the combo index at which the attacked stopped and change the cooldown based on that
         _currentComboIndex = 0;
         OnComboIndexChange(_currentComboIndex);
@@ -136,7 +138,7 @@ public class TripleComboMeleeWeapon : MeleeWeapon
         _currentAnim = _animationsHash[_currentComboIndex];
         _attackSound = _weaponSounds[_currentComboIndex];
         SetNewStats(_comboStats[_currentComboIndex]);
-        _attackDuration = _atkDurations[_currentComboIndex] / _modifiedStats.AtkSpeed;
+        _attackDuration = _atkDurations[_currentComboIndex] / _modifiedStats.AtkSpeed * 0.9f;
         _waitForInputTimer.ChangeTime(_attackDuration + TimeOffset);
     }
     void StartInputCheck()
@@ -183,6 +185,7 @@ public class TripleComboMeleeWeapon : MeleeWeapon
         _modifiedStats.Cooldown = _attackCooldown - stats.Cooldown;
         _modifiedStats.PullForce = _pullForce + stats.PullForce;
         SetMaxEnemiesToHit(_modifiedStats.Range);
+        SetRadiusOffset(_modifiedStats.Range);
     }
     public override float GetPullForce()
     {
@@ -196,7 +199,7 @@ public class TripleComboMeleeWeapon : MeleeWeapon
 
     public override void DrawGizmos()
     {
-        base.DrawGizmos();
+        DrawAttackRange(_modifiedStats.Range);
     }
 
     private void OnValidate()

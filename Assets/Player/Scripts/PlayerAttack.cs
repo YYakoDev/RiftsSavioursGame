@@ -7,6 +7,7 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField]PlayerManager _player;
     [SerializeField]WeaponParentAiming _weaponAiming;
     [SerializeField]WeaponManager _weaponManager;
+    [SerializeField]float _shakeStrength, _shakeDuration, _gameFreezeTime;
     Transform _weaponPrefab;
 
     float PullForce => _weaponManager.CurrentWeapon.GetPullForce();
@@ -75,12 +76,12 @@ public class PlayerAttack : MonoBehaviour
 
     void ScreenShake()
     {
-        CameraShake.Shake(0.6f);
+        CameraShake.Shake(_shakeStrength, _shakeDuration);
     }
 
     void FreezeGame()
     {
-        GameFreezer.FreezeGame(0.04f);
+        GameFreezer.FreezeGame(_gameFreezeTime);
     }
 
 

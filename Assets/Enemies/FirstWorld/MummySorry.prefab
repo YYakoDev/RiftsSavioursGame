@@ -244,8 +244,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _brain: {fileID: 0}
   _deathDuration: 0.35
-  _onHitSFX: {fileID: 8300000, guid: 9939cb18f45caee44bf3b179fc96b79c, type: 3}
-  _onDeathSFX: {fileID: 8300000, guid: 3769d4547fc18c44984e33324cc8e7d4, type: 3}
+  _onHitSFX: {fileID: 8300000, guid: 3fe221a89eb88674985f8b33737e4415, type: 3}
+  _onDeathSFX: {fileID: 8300000, guid: 3fe221a89eb88674985f8b33737e4415, type: 3}
 --- !u!114 &5718278490260225803
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -393,8 +393,8 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 0.426
+  m_PlayOnAwake: 0
+  m_Volume: 0.545
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -438,7 +438,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.175
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0

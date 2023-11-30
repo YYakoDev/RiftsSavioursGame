@@ -4616,7 +4616,7 @@ MonoBehaviour:
   _mainCamera: {fileID: 519420031}
   _selectionIcon: {fileID: 931277550}
   _detectionRadius: 4
-  _aimSmoothing: 10
+  _aimSmoothing: 8.07
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -7957,7 +7957,7 @@ GameObject:
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &996265012
 Transform:
   m_ObjectHideFlags: 0
@@ -32216,6 +32216,9 @@ MonoBehaviour:
   _player: {fileID: 2123491969}
   _weaponAiming: {fileID: 476491158}
   _weaponManager: {fileID: 2062021155}
+  _shakeStrength: 1.66
+  _shakeDuration: 0.0025
+  _gameFreezeTime: 0.05
 --- !u!114 &2062021157
 MonoBehaviour:
   m_ObjectHideFlags: 0

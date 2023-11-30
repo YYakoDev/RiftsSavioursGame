@@ -49,10 +49,23 @@ public class WeaponPrefab : MonoBehaviour
     void PlayAttackAnimation()
     {
         _animator.Play(_weaponBase.Animation);
+        if(_animator.GetCurrentAnimatorStateInfo(0).shortNameHash == _weaponBase.Animation)
+        {
+            StartCoroutine(ReplayAnimation(_animator, _weaponBase.Animation));
+        }
     }
     void PlayAttackSound()
     {
         _audio.PlayWithVaryingPitch(_weaponBase.Sound);
+    }
+
+    IEnumerator ReplayAnimation(Animator animator, int hash)
+    {
+        while(_animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f)
+        {
+            yield return null;
+        }
+        _animator.Play(hash);
     }
 
     public void SetWeaponBase(WeaponBase weapon)
