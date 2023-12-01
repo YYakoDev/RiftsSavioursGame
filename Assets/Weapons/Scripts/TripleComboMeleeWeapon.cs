@@ -29,7 +29,6 @@ public class TripleComboMeleeWeapon : MeleeWeapon
     {
         base.Initialize(weaponManager, prefabTransform);
         _weaponInstanceAnimator = prefabTransform.GetComponent<Animator>();
-        _weaponInstanceAnimator.speed = _modifiedStats.AtkSpeed;
 
         SetDurationsAndHashes();
         SetSounds();
@@ -48,6 +47,8 @@ public class TripleComboMeleeWeapon : MeleeWeapon
         _modifiedStats = new(_attackCooldown, _attackRange, _knockbackForce, _attackSpeed, _pullForce ,_attackDamage);
         OnComboIndexChange(_currentComboIndex);
 
+        _weaponInstanceAnimator.speed = _modifiedStats.AtkSpeed;
+        
         _checkForComboInput = false;
         _inputDetected = false;
     }

@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
-[RequireComponent(typeof(AudioSource))]
 public class DropPrefab : MonoBehaviour
 {
     SpriteRenderer _renderer;
-    Drop _drop;
     PickUpsController _pickUpsController;
+    Drop _drop;
     Transform _target;
     [SerializeField]float _pickupVelocity;
     Timer _timer;
@@ -17,6 +16,7 @@ public class DropPrefab : MonoBehaviour
 
 
     //SFX
+    [Header("Sounds")]
     [SerializeField]AudioClip _pickupSound;
     public AudioClip PickUpSound => _pickupSound;
 
