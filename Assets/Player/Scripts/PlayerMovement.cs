@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -26,14 +27,13 @@ public class PlayerMovement : MonoBehaviour, IKnockback
     SortingOrderController _sortingOrderController;
     [SerializeField]private float _sortingOrderOffset; //this adds an offset to the position detected on the sprite    
 
-
     //properties
     //public Vector2 Movement => _movement;
     //public bool IsFlipped => isFlipped;
     public int FacingDirection => (isFlipped) ? -1 : 1;
     private float MovementSpeed => _player.Stats.Speed;
     private float SlowdownMultiplier => _player.Stats.SlowdownMultiplier;
-
+    public event Action<Vector2> OnMovement;
     //Knockback Stuff
     Knockbackeable _knockbackLogic;
     public Knockbackeable KnockbackLogic { get => _knockbackLogic;}
@@ -97,6 +97,8 @@ public class PlayerMovement : MonoBehaviour, IKnockback
         _sortingOrderController.SortOrder();
 
         _player.AnimController.PlayStated(PlayerAnimationsNames.Run);
+
+        OnMovement.Invoke(_movement);
     }
 
     public void CheckForFlip(float direction, float lockFlipTime = 0f)
