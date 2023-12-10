@@ -36,7 +36,6 @@ public class ResourcePointer : MonoBehaviour
         TryGetComponent<SpriteRenderer>(out var _renderer);
         if (_renderer != null)
         {
-            Debug.Log("Destroying sprite renderer");
             Destroy(_renderer);
         }
     }
