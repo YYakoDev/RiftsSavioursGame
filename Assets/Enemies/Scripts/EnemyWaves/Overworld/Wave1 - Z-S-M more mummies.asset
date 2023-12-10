@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 931b96bd6377f414c80f00c7b67ed1c2, type: 3}
   m_Name: Wave1 - Z-S-M more mummies
   m_EditorClassIdentifier: 
-  _enemiesSignatures: 0300000002000000040000000400000004000000
-  _enemySpawnCooldown: 0.8
+  _enemiesSignatures: 030000000200000004000000040000000400000004000000
+  _enemySpawnCooldown: 0.688
   enemiesToSpawn: 10
   _enemiesSpeed: 1

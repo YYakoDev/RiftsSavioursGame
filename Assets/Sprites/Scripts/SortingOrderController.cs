@@ -6,20 +6,25 @@ public class SortingOrderController
 {
     Transform _currentPosition;
     SpriteRenderer _spriteRenderer;
-    [Range(0,10)]float _offset;
+    float _offset;
     int _extraOrder;
-    public SortingOrderController(Transform currentPosition, SpriteRenderer spriteRenderer, float offset = 0, int extraOrder = 0)
+    public SortingOrderController(Transform currentTransform, SpriteRenderer spriteRenderer, float offset = 0, int extraOrder = 0)
     {
         _spriteRenderer = spriteRenderer;
-        _currentPosition = currentPosition;
+        _currentPosition = currentTransform;
         _offset = offset;
         _extraOrder = extraOrder;
     }
     
     public void SortOrder()
     {
-        int sortOrder = _extraOrder -(int)((_currentPosition.position.y - _offset) *30);
+        int sortOrder = _extraOrder -(int)((_currentPosition.position.y - _offset) *35);
         _spriteRenderer.sortingOrder = sortOrder;
     }
 
+    public void ChangeOffset(float newOffset)
+    {
+        _offset = newOffset;
+        SortOrder();
+    }
 }

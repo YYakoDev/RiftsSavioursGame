@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SortOrderForPosition : MonoBehaviour
 {
-    SpriteRenderer _spriteRenderer;
+    [SerializeField]SpriteRenderer _spriteRenderer;
     SortingOrderController _sortOrderController;
     [SerializeField]float _offsetPosition = 0;
 
@@ -18,5 +18,10 @@ public class SortOrderForPosition : MonoBehaviour
     void Start()
     {
         _sortOrderController.SortOrder();
+    }
+
+    public void ChangeOffset(float newOffset)
+    {
+        _offsetPosition = newOffset;
     }
 }

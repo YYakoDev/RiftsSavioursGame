@@ -14,6 +14,8 @@ public class CameraShake : MonoBehaviour
     static int _maxLoops = 7;
     [Range(0,5)]static int _shakeStrength = 2;
 
+    private static float GetRandomShakeRange => Random.Range(-0.06f, 0.06f);
+
     private void Awake() {
         _camera = GetComponent<Camera>();
         _animator = GetComponent<TweenAnimator>();
@@ -48,6 +50,7 @@ public class CameraShake : MonoBehaviour
 
     static void SetNewDirection(float strength)
     {
-        _direction = _cameraTransform.position + Vector3.one * (Random.Range(-0.06f, 0.06f) * strength);
+        Vector3 randomDir = new Vector3(1 * GetRandomShakeRange, 1 * GetRandomShakeRange, 0) * strength;
+        _direction = _cameraTransform.position + randomDir;
     }
 }

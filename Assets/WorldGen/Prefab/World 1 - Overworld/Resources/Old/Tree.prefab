@@ -133,6 +133,7 @@ GameObject:
   - component: {fileID: 7193364733809801067}
   - component: {fileID: 929439079090991523}
   - component: {fileID: 8467917762306859397}
+  - component: {fileID: 8684225634018797571}
   m_Layer: 3
   m_Name: Tree
   m_TagString: Untagged
@@ -195,12 +196,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2a803c1cefee99429ef662068c30210, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 1
-  _maxHealth: 4
-  _disappearingTime: 1
-  _hitSFX: {fileID: 8300000, guid: a186b13580a4dd84eb917f5539099b5b, type: 3}
-  _breakSFX: {fileID: 0}
-  _activeAnimatorOnStart: 0
+  _animator: {fileID: 0}
+  _renderer: {fileID: 0}
+  _coll: {fileID: 0}
+  _audio: {fileID: 0}
+  _dropper: {fileID: 0}
+  _sortOrderController: {fileID: 0}
+  _blinkFX: {fileID: 0}
 --- !u!114 &7193364733809801067
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -325,6 +327,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _drops:
   - {fileID: 11400000, guid: 161e3755b5ac26349b863cdb20e4912f, type: 2}
+--- !u!58 &8684225634018797571
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7583988700215501786}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.03, y: -0.45}
+  serializedVersion: 2
+  m_Radius: 0.225
 --- !u!1001 &2837022782043385641
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -335,6 +353,10 @@ PrefabInstance:
     - target: {fileID: 5924903889123201794, guid: def02c58bc6f13a49b37781a08654a30, type: 3}
       propertyPath: m_Name
       value: Shadow
+      objectReference: {fileID: 0}
+    - target: {fileID: 5924903889123201794, guid: def02c58bc6f13a49b37781a08654a30, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5924903889123201795, guid: def02c58bc6f13a49b37781a08654a30, type: 3}
       propertyPath: m_RootOrder

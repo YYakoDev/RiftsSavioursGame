@@ -13,17 +13,28 @@ MonoBehaviour:
   m_Name: CURRENT WORLD
   m_EditorClassIdentifier: 
   _name: Overworld
-  _wavesInterval: 30
+  _wavesInterval: 40
   _waves:
-  - {fileID: 11400000, guid: a1d4db9cb4ebc0748bb8bf3adb2a3439, type: 2}
+  - {fileID: 11400000, guid: 98c067d14ad053b4bbcb7f226d4a5fc0, type: 2}
+  - {fileID: 11400000, guid: 0413687fd332e7d468b0cb4c327a0c3d, type: 2}
+  - {fileID: 11400000, guid: c0e5d5754ca67a94c9c4396642a97c12, type: 2}
   - {fileID: 11400000, guid: 4be05f6db21bd2740a26b54eecc4f6a8, type: 2}
+  - {fileID: 11400000, guid: a9d4ee8a2a2560c4bb3f3ff693a33d58, type: 2}
+  - {fileID: 11400000, guid: a1d4db9cb4ebc0748bb8bf3adb2a3439, type: 2}
   - {fileID: 11400000, guid: 2ed687e839df8994daf353b1420acec4, type: 2}
+  - {fileID: 11400000, guid: bb7718a5f534d684fa6850c6d5a9587b, type: 2}
+  - {fileID: 11400000, guid: 51d47d8f29f1058428f8943f2a021f78, type: 2}
+  - {fileID: 11400000, guid: a1d4db9cb4ebc0748bb8bf3adb2a3439, type: 2}
   _enemyPrefabs:
   - {fileID: 7992409206138210505, guid: 17ccb786a8bca6f4584af54136d7f833, type: 3}
   - {fileID: 779268523137980044, guid: 7d7bf4d16f609fe4bb21582ca6f23bde, type: 3}
   - {fileID: 779268523137980044, guid: 4966e3a35d824ee44a9850012833ae7f, type: 3}
   - {fileID: 779268523137980044, guid: b7cfc66fc8f2a1b42bf018c1686a5f58, type: 3}
+  - {fileID: 779268523137980044, guid: f82fd7828c71afe4fb8befa5cd774117, type: 3}
   _chunks:
   - {fileID: 1345279769607379422, guid: 672779cfd9167ae4d86704cce8dc5562, type: 3}
-  - {fileID: 1345279769607379422, guid: d78eee21352d5e14b99cb0281d1d8985, type: 3}
-  - {fileID: 1345279769607379422, guid: 40ead1d70c9a6ba4aa72df2cd14bf752, type: 3}
+  _worldCraftingMaterials:
+  - {fileID: 11400000, guid: b4ba9f582bfaddb44855f718a50fcc0b, type: 2}
+  - {fileID: 11400000, guid: b13362f075742974d9b87d69b98b5b63, type: 2}
+  - {fileID: 11400000, guid: 992205d56e5cf6a4e9e59d9fabc07de5, type: 2}
+  - {fileID: 11400000, guid: 00a58af03a53dc947be4af400a57e69b, type: 2}

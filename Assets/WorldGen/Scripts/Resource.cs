@@ -2,76 +2,106 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
-[RequireComponent(typeof(WhiteBlinkEffect))]
-[RequireComponent(typeof(AudioSource))]
-[RequireComponent(typeof(Dropper))]
 public class Resource : MonoBehaviour, IResources, IComparable, IMaskeable
 {
-    Animator _animator;
-    SpriteRenderer _renderer;
-    Collider2D _coll;
-    AudioSource _audio;
-    Dropper _dropper;
-    WhiteBlinkEffect _blinkFX;
+    //References
+    [SerializeField]Animator _animator;
+    [SerializeField]SpriteRenderer _renderer;
+    SortingOrderController _sortOrderController;
+    [SerializeField]CircleCollider2D _coll;
+    [SerializeField]AudioSource _audio;
+    [SerializeField]Dropper _dropper;
+    [SerializeField]WhiteBlinkEffect _blinkFX;
 
-    [Header("Stats")]
-    [SerializeField]private ResourcesTypes type;
-    [SerializeField]int _maxHealth = 3;
-    [SerializeField]float _disappearingTime = 1f;
-    int _health;
+    bool _initialized = false;
 
-    [Header("AudioStuff")]
-    [SerializeField]AudioClip _hitSFX;
-    [SerializeField]AudioClip _breakSFX;
+    //Resource Properties
+    private ResourcesTypes _type;
+    int _maxHealth = 3, _currentHealth;
+    float _disappearingTime = 1f;
 
-    [Header("Animations Stuff")]
-    [SerializeField]bool _activeAnimatorOnStart = false;
+    //Audio Stuff
+    AudioClip[] _hitSFXs;
+    AudioClip _breakSFX;
+    AudioClip HitSFX => _hitSFXs[Random.Range(0, _hitSFXs.Length)];
+
+    //Animation Stuff
+    bool _activeAnimatorOnStart = false;
     private readonly int BreakingAnim = Animator.StringToHash("Breaking");
     private readonly int OnHitAnim = Animator.StringToHash("OnHit");
 
     //properties
 
-    public ResourcesTypes ResourceType => type;
+    public ResourcesTypes ResourceType => _type;
     public Vector3 ResourcePosition => transform.position;
     public SpriteRenderer MaskeableRenderer => _renderer;
 
+    public void SetResourceInfo(ResourceInfo info)
+    {
+        if(!_initialized) Initialize();
+        transform.localScale = Vector3.one * info.ScaleFactor;
 
-    private void Awake() {
-        GameObject thisGo = gameObject;
-        _renderer = GetComponentInChildren<SpriteRenderer>();
-        _animator = GetComponentInChildren<Animator>();
-        thisGo.CheckComponent<WhiteBlinkEffect>(ref _blinkFX);
-        thisGo.CheckComponent<Collider2D>(ref _coll);
-        thisGo.CheckComponent<AudioSource>(ref _audio); 
-        thisGo.CheckComponent<Dropper>(ref _dropper);
+        _renderer.sprite = info.Sprite;
+        _sortOrderController.ChangeOffset(info.SpriteOrderOffset);
 
-        _animator.enabled = _activeAnimatorOnStart;
-        _audio.playOnAwake = false;
-        
+        _maxHealth = info.MaxHealth; _currentHealth = _maxHealth;
+        _disappearingTime = info.DissapearingTime;
+
+        _type = info.Type;
+        _dropper.Clear();
+        _dropper.AddDrop(info.ResourceDrop);
+
+        _coll.offset = info.ColliderPosOffset;
+        _coll.radius = info.Radius;
+        _coll.isTrigger = info.IsTrigger;
+
+        _hitSFXs = info.HitSFXs;
+        _breakSFX = info.BreakSFX;
+
+        _animator.runtimeAnimatorController = info.AnimOverrider;
+        _animator.enabled = info.ActiveAnimatorOnStart;
+
     }
 
-    // Start is called before the first frame update
-    void Start()
+    void Initialize()
     {
-        _health = _maxHealth;
+        _initialized = true;
+
+        GameObject thisGo = gameObject;
+        thisGo.CheckComponent<WhiteBlinkEffect>(ref _blinkFX);
+        thisGo.CheckComponent<CircleCollider2D>(ref _coll);
+        thisGo.CheckComponent<AudioSource>(ref _audio); 
+        thisGo.CheckComponent<Dropper>(ref _dropper);
+        if(_renderer == null) _renderer = GetComponentInChildren<SpriteRenderer>();
+        if(_animator == null) _animator = GetComponentInChildren<Animator>();
+        _sortOrderController = new(transform, _renderer);
+
+        _audio.playOnAwake = false;
+    }
+
+    private void Awake() {
+        
+        if(!_initialized) Initialize();
+
     }
     public void Interact(int damage)
     {
-        if(_health <=0)return;
+        if(_currentHealth <= 0)return;
 
-        _health -= damage;
+        _currentHealth -= damage;
         _blinkFX.Play();
         PopupsManager.Create(transform.position, damage);
         _animator.enabled = true;
         _animator.Play(OnHitAnim);
-        if(_hitSFX != null)
+        if(HitSFX != null)
         {
             _audio.Stop();
-            _audio.PlayWithVaryingPitch(_hitSFX);
+            _audio.PlayWithVaryingPitch(HitSFX);
         }
 
-        if(_health <= 0)
+        if(_currentHealth <= 0)
         {
             _blinkFX.Stop();
             DestroyResource();
@@ -92,6 +122,6 @@ public class Resource : MonoBehaviour, IResources, IComparable, IMaskeable
     public int CompareTo(object obj)
     {
         Resource resource = obj as Resource;
-        return _health.CompareTo(resource._health);
+        return _currentHealth.CompareTo(resource._currentHealth);
     }
 }

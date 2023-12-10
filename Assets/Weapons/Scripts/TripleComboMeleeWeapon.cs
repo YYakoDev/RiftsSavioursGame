@@ -11,7 +11,8 @@ public class TripleComboMeleeWeapon : MeleeWeapon
     Timer _waitForRemainingDuration;
     const float TimeOffset = 0.125f;
     float _comboCooldown;
-    [SerializeField] bool _speedUPComboAnimations = false;
+    [SerializeField]bool _speedUPComboAnimations = false;
+    [SerializeField]AudioClip _comboFollowUpSound;
     bool _checkForComboInput = false;
     bool _inputDetected = false;
     int _currentComboIndex = 0;
