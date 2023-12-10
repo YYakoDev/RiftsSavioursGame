@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 public class Dropper : MonoBehaviour
 {
     private static DropPrefab _dropPrefab;
-    [SerializeField]Drop[] _drops;
+    [SerializeField]Drop[] _drops = new Drop[0];
     int _currentLength = 0;
     Vector3 _dropOffset = Vector3.right/2;
 
@@ -23,7 +23,8 @@ public class Dropper : MonoBehaviour
 
     public void Clear()
     {
-        Array.Resize<Drop>(ref _drops, 0);
+        _currentLength = 0;
+        Array.Clear(_drops, 0, _drops.Length);
     }
 
     public void Drop()
@@ -32,7 +33,7 @@ public class Dropper : MonoBehaviour
         foreach(Drop drop in _drops)
         {
             if(Random.Range(0,101) > drop.DropChance)continue;
-
+            if(drop == null) continue;
             GameObject dropGO = Instantiate(_dropPrefab.gameObject, previousDropPosition + _dropOffset, Quaternion.identity);
             previousDropPosition = dropGO.transform.position;
     

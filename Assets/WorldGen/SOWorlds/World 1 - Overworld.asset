@@ -33,11 +33,9 @@ MonoBehaviour:
   - {fileID: 779268523137980044, guid: f82fd7828c71afe4fb8befa5cd774117, type: 3}
   _chunks:
   - {fileID: 1345279769607379422, guid: 672779cfd9167ae4d86704cce8dc5562, type: 3}
-  - {fileID: 1345279769607379422, guid: d78eee21352d5e14b99cb0281d1d8985, type: 3}
-  - {fileID: 1345279769607379422, guid: 40ead1d70c9a6ba4aa72df2cd14bf752, type: 3}
-  - {fileID: 1345279769607379422, guid: 3f2024ff65d88084cae0ae7590e74ec5, type: 3}
-  - {fileID: 1345279769607379422, guid: 7733e5faa890dc9429228657576052da, type: 3}
-  - {fileID: 1345279769607379422, guid: a87bcfde4e4d5354e9d2d93a26fdba33, type: 3}
+  - {fileID: 1345279769607379422, guid: 20129998047db9f40975012e11bfe972, type: 3}
+  - {fileID: 1345279769607379422, guid: 428ba062f99c53b489a7cff5de72006c, type: 3}
+  - {fileID: 1345279769607379422, guid: d3e8f71d3ba2ef049ad5be05a87e2f1a, type: 3}
   _worldCraftingMaterials:
   - {fileID: 11400000, guid: b4ba9f582bfaddb44855f718a50fcc0b, type: 2}
   - {fileID: 11400000, guid: b13362f075742974d9b87d69b98b5b63, type: 2}

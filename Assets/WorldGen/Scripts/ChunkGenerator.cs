@@ -71,8 +71,6 @@ public class ChunkGenerator : MonoBehaviour
             _spawnedChunks.Add(spawnPos , SpawnChunk(GetChunkPosition(spawnPos)));
             
         }
-        
-        
     }
 
     // Update is called once per frame
@@ -152,6 +150,18 @@ public class ChunkGenerator : MonoBehaviour
             SpawnChunksIn8Direction(_playerPositionOnGrid);
         }
     }*/
+    public Transform GetChunkFromWorldPosition(Vector2 position)
+    {
+        Vector2Int positionOnGrid = new Vector2Int
+        (
+            Mathf.RoundToInt(position.x/_referenceSize.x),
+            Mathf.RoundToInt(position.y/_referenceSize.y)
+        );
+        if(_spawnedChunks.ContainsKey(positionOnGrid))
+        {
+            return _spawnedChunks[positionOnGrid].transform;
+        }else return null;
+    }
 
     Vector2 GetChunkPosition(Vector2Int chunkPositionOnGrid) 
     {

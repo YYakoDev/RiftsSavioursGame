@@ -13,6 +13,7 @@ public class ResourcePointer : MonoBehaviour
         if(_resourceData == null) gameObject.SetActive(false);
         DestroySpritePreview();
         OnResourceSignal?.Invoke(_resourceData.Info, transform.position);
+        gameObject.SetActive(false);
     }
 
     public void PreviewSprite()

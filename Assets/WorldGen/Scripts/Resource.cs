@@ -43,7 +43,6 @@ public class Resource : MonoBehaviour, IResources, IComparable, IMaskeable
         if(!_initialized) Initialize();
         transform.localScale = Vector3.one * info.ScaleFactor;
 
-        _renderer.sprite = info.Sprite;
         _sortOrderController.ChangeOffset(info.SpriteOrderOffset);
 
         _maxHealth = info.MaxHealth; _currentHealth = _maxHealth;
@@ -60,8 +59,14 @@ public class Resource : MonoBehaviour, IResources, IComparable, IMaskeable
         _hitSFXs = info.HitSFXs;
         _breakSFX = info.BreakSFX;
 
+        _animator.enabled = false;
+        _animator.runtimeAnimatorController = null;
         _animator.runtimeAnimatorController = info.AnimOverrider;
         _animator.enabled = info.ActiveAnimatorOnStart;
+
+        _renderer.enabled = false;
+        _renderer.sprite = info.Sprite;
+        _renderer.enabled = true;
 
     }
 

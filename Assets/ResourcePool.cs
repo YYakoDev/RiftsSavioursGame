@@ -5,6 +5,7 @@ using UnityEngine;
 public class ResourcePool : MonoBehaviour
 {
     [SerializeField] GameObject _resourcePrefab;
+    [SerializeField] ChunkGenerator _chunkGenerator;
     [SerializeField] int _amountToPool = 10;
     [SerializeField] bool _isResizable = true;
     ObjectAndComponentPool<Resource> _resourcesPool;
@@ -24,6 +25,7 @@ public class ResourcePool : MonoBehaviour
         var resource = _resourcesPool.GetObjectWithComponent();
         if(resource.Key == null) return;
         resource.Key.transform.position = position;
+        resource.Key.transform.SetParent(_chunkGenerator.GetChunkFromWorldPosition(position));
         resource.Value.SetResourceInfo(info);
 
         resource.Key.gameObject.SetActive(true);
