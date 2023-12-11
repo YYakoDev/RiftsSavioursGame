@@ -27,6 +27,6 @@ public class UICraftingMaterialPrefab : MonoBehaviour
 
         if(_amount == amount && _amount != 0) return;
         _amount = amount;
-        t_amount.text = $"x{_amount.ToString()}";
+        t_amount.text = _amount.ToString();
     }
 }
