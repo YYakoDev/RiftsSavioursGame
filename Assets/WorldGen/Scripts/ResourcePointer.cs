@@ -24,11 +24,14 @@ public class ResourcePointer : MonoBehaviour
             DestroySpritePreview();
             return;
         }
+
         if(!TryGetComponent<SpriteRenderer>(out var _renderer))
         {
             _renderer = gameObject.AddComponent<SpriteRenderer>();
         }
         transform.localScale = Vector3.one * _resourceData.Info.ScaleFactor;
+        int sortOrder = -(int)((transform.position.y - _resourceData.Info.SpriteOrderOffset) * 35);
+        _renderer.sortingOrder = sortOrder;
         _renderer.sprite = _resourceData.Info.Sprite;
     }
 
@@ -39,5 +42,10 @@ public class ResourcePointer : MonoBehaviour
         {
             Destroy(_renderer);
         }
+    }
+
+    private void OnValidate() {
+        if(_resourceData == null || name == _resourceData.name) return;
+        name = _resourceData.name;
     }
 }

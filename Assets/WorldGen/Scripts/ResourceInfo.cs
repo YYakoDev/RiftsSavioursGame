@@ -16,7 +16,7 @@ public class ResourceInfo
 
     [Header("Resource Properties")]
     [SerializeField]ResourcesTypes _type;
-    [SerializeField]Drop _resourceDrop;
+    [SerializeField]Drop[] _resourceDrops;
 
     [Header("Collider Info")]
     [SerializeField] bool _isTrigger;
@@ -39,7 +39,7 @@ public class ResourceInfo
     public float SpriteOrderOffset => _spriteOrderOffset;
 
     public ResourcesTypes Type => _type;
-    public Drop ResourceDrop => _resourceDrop;
+    public Drop[] ResourceDrops => _resourceDrops;
 
     public int MaxHealth => _maxHealth;
     public float DissapearingTime => _dissapearingTime;

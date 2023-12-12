@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca257d03a3743244793520d3e8c6c441, type: 3}
+  m_Name: TreeVariant
+  m_EditorClassIdentifier: 
+  _info:
+    _scaleFactor: 2
+    _sprites:
+    - {fileID: 21300000, guid: 8c0e878c219e3e44bb469609a8164d18, type: 3}
+    _spriteOrderOffset: 1.25
+    _maxHealth: 4
+    _dissapearingTime: 1
+    _type: 1
+    _resourceDrops:
+    - {fileID: 11400000, guid: 161e3755b5ac26349b863cdb20e4912f, type: 2}
+    - {fileID: 11400000, guid: 161e3755b5ac26349b863cdb20e4912f, type: 2}
+    _isTrigger: 0
+    _posOffset: {x: 0.03, y: -0.45}
+    _radius: 0.25
+    _hitSFXs:
+    - {fileID: 8300000, guid: a186b13580a4dd84eb917f5539099b5b, type: 3}
+    - {fileID: 8300000, guid: af029666b69976a43be320c4548e0c22, type: 3}
+    _breakSFX: {fileID: 8300000, guid: d38e4d13817a7774d90fcc4b40687c85, type: 3}
+    _animOverrider: {fileID: 22100000, guid: dd1d217633577844bbd1196a3af003e0, type: 2}
+    _activeAnimatorOnStart: 0

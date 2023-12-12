@@ -42,7 +42,7 @@ public class Resource : MonoBehaviour, IResources, IComparable, IMaskeable
     {
         if(!_initialized) Initialize();
         transform.localScale = Vector3.one * info.ScaleFactor;
-
+        _renderer.sprite = null;
         _sortOrderController.ChangeOffset(info.SpriteOrderOffset);
 
         _maxHealth = info.MaxHealth; _currentHealth = _maxHealth;
@@ -50,7 +50,10 @@ public class Resource : MonoBehaviour, IResources, IComparable, IMaskeable
 
         _type = info.Type;
         _dropper.Clear();
-        _dropper.AddDrop(info.ResourceDrop);
+        foreach(Drop drop in info.ResourceDrops)
+        {
+            _dropper.AddDrop(drop);
+        }
 
         _coll.offset = info.ColliderPosOffset;
         _coll.radius = info.Radius;
@@ -61,12 +64,11 @@ public class Resource : MonoBehaviour, IResources, IComparable, IMaskeable
 
         _animator.enabled = false;
         _animator.runtimeAnimatorController = null;
-        _animator.runtimeAnimatorController = info.AnimOverrider;
-        _animator.enabled = info.ActiveAnimatorOnStart;
-
         _renderer.enabled = false;
         _renderer.sprite = info.Sprite;
         _renderer.enabled = true;
+        _animator.runtimeAnimatorController = info.AnimOverrider;
+        _animator.enabled = info.ActiveAnimatorOnStart;
 
     }
 
@@ -91,9 +93,20 @@ public class Resource : MonoBehaviour, IResources, IComparable, IMaskeable
         if(!_initialized) Initialize();
 
     }
+
+    private void OnEnable()
+    {
+        if(!_initialized) return;
+        if(_currentHealth > 0) _coll.enabled = true;
+    }
+
     public void Interact(int damage)
     {
-        if(_currentHealth <= 0)return;
+        if(_currentHealth <= 0)
+        {
+            _coll.enabled = false;
+            return;
+        }
 
         _currentHealth -= damage;
         _blinkFX.Play();
@@ -118,6 +131,13 @@ public class Resource : MonoBehaviour, IResources, IComparable, IMaskeable
 
         _animator.enabled = true;
         _animator?.Play(BreakingAnim);   
+
+        
+        if(_breakSFX != null)
+        {
+            _audio.Stop();
+            _audio.PlayWithVaryingPitch(_breakSFX);
+        }
 
         _dropper.Drop();
 

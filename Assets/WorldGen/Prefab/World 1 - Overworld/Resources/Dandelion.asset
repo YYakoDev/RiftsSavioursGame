@@ -20,7 +20,8 @@ MonoBehaviour:
     _maxHealth: 1
     _dissapearingTime: 1
     _type: 2
-    _resourceDrop: {fileID: 11400000, guid: f93a79a374d7e684f97165be420f7a8c, type: 2}
+    _resourceDrops:
+    - {fileID: 11400000, guid: f93a79a374d7e684f97165be420f7a8c, type: 2}
     _isTrigger: 1
     _posOffset: {x: -0.03, y: -0.05}
     _radius: 0.4

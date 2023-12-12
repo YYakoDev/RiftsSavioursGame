@@ -84,7 +84,7 @@ public class MeleeWeapon : WeaponBase
         for(int i = 0; i < _hittedEnemiesGO.Count; i++)
         {
             if(i >= _maxEnemiesToHit)break;
-            if(_hittedEnemiesGO[i] == null)continue;
+            if(_hittedEnemiesGO[i] == null || !_hittedEnemiesGO[i].activeSelf)continue;
 
             if(_hittedEnemiesGO[i].TryGetComponent<IDamageable>(out IDamageable damageable))
             {

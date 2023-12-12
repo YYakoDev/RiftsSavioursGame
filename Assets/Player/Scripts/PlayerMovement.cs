@@ -98,7 +98,7 @@ public class PlayerMovement : MonoBehaviour, IKnockback
 
         _player.AnimController.PlayStated(PlayerAnimationsNames.Run);
 
-        OnMovement.Invoke(_movement);
+        //OnMovement.Invoke(_movement);
     }
 
     public void CheckForFlip(float direction, float lockFlipTime = 0f)

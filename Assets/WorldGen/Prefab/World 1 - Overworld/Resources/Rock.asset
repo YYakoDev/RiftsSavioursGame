@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Rock
   m_EditorClassIdentifier: 
   _info:
+    _scaleFactor: 1
     _sprites:
     - {fileID: 633662281, guid: 3f1920c055b0eb94d8036eb07da824fb, type: 3}
     - {fileID: 870220504, guid: 3f1920c055b0eb94d8036eb07da824fb, type: 3}
@@ -22,7 +23,8 @@ MonoBehaviour:
     _maxHealth: 2
     _dissapearingTime: 1
     _type: 0
-    _resourceDrop: {fileID: 11400000, guid: 08e564a65807d9e4faecdce0f6e25aa4, type: 2}
+    _resourceDrops:
+    - {fileID: 11400000, guid: 08e564a65807d9e4faecdce0f6e25aa4, type: 2}
     _isTrigger: 0
     _posOffset: {x: 0, y: -0.05}
     _radius: 0.375

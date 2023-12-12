@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEditor;
 
 #if UNITY_EDITOR
-[CustomEditor(typeof(ResourcePointer))]
+[CustomEditor(typeof(ResourcePointer)), CanEditMultipleObjects]
 public class EditorScriptResourcePointer : Editor
 {
     public override void OnInspectorGUI()
