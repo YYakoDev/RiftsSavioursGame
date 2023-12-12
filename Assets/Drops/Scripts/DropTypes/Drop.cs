@@ -11,13 +11,13 @@ public class Drop : ScriptableObject
     [Header("Drop Properties")]
     [SerializeField]private string _name;
     [SerializeField]private Sprite _sprite;
-    [SerializeField]private AnimatorOverrideController _animatorOverride;
+    [SerializeField]private AudioClip[] _pickupSounds = new AudioClip[0];
     [SerializeField, Range(0,100)]int _dropChance = 100;
 
     //Properties
     public string Name => _name;
     public Sprite Sprite => _sprite;
-    public AnimatorOverrideController AnimatorOverride => _animatorOverride;
+    public AudioClip[] PickUpSounds => _pickupSounds;
     public int DropChance => _dropChance;
     
 

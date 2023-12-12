@@ -22,6 +22,7 @@ MonoBehaviour:
     _type: 2
     _resourceDrops:
     - {fileID: 11400000, guid: 578e1ec1c29852d4d86e985749803ec5, type: 2}
+    - {fileID: 11400000, guid: 4756e3baa6580c748bb41f24229e2745, type: 2}
     _isTrigger: 1
     _posOffset: {x: -0.03, y: 0}
     _radius: 0.5

@@ -13,11 +13,11 @@ public abstract class WeaponBase: ScriptableObject
     [Header("Weapon Properties")]
     [SerializeField]private string _name;
     [SerializeField]protected SOWeaponSpriteAnimationData _SpriteAndAnimationsData;
+    [SerializeField]protected WeaponEffects[] _effects;
     private const string AtkAnimName = "Attack";
     [SerializeField]private bool _flipSprite = true;
     [SerializeField]private Vector3 _spawnPosition = new Vector3(-0.55f, 0.25f, 0f);
     [SerializeField]private float _spawnRotation = 0;
-
     protected int _currentAnim;
     [SerializeField]protected AudioClip[] _weaponSounds;
     [SerializeField]private bool _pointCameraOnAttack = false;
@@ -31,12 +31,13 @@ public abstract class WeaponBase: ScriptableObject
 
 
     public event Action onAttack;
-    public event Action onEnemyHit;
+    public event Action<Vector3> onEnemyHit;
 
 
     //properties
     public string WeaponName => _name;
     public SOWeaponSpriteAnimationData SpriteAndAnimationData => _SpriteAndAnimationsData;
+    public WeaponEffects[] WeaponEffects => _effects;
     public bool FlipSprite => _flipSprite;
     public Vector3 SpawnPosition => _spawnPosition;
     public float SpawnRotation => _spawnRotation;
@@ -87,9 +88,9 @@ public abstract class WeaponBase: ScriptableObject
     }
 
     protected abstract void EvaluateStats(SOPlayerAttackStats attackStats);
-    protected void InvokeOnEnemyHit()
+    protected void InvokeOnEnemyHit(Vector3 enemyPos)
     {
-        onEnemyHit?.Invoke();
+        onEnemyHit?.Invoke(enemyPos);
     }
     protected void InvokeOnAttack()
     {

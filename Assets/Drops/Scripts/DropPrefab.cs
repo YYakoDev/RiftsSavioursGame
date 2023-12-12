@@ -17,8 +17,7 @@ public class DropPrefab : MonoBehaviour
 
     //SFX
     [Header("Sounds")]
-    [SerializeField]AudioClip _pickupSound;
-    public AudioClip PickUpSound => _pickupSound;
+    [SerializeField]AudioClip _pickupSoundDefault;
 
     private void Awake() {
         GameObject thisGO = gameObject;
@@ -95,9 +94,18 @@ public class DropPrefab : MonoBehaviour
     void PickUpAndDestroy()
     {
         _pickedUp = true;
-        _pickUpsController.PlayAudioClip(_pickupSound);
+
+        _pickUpsController.PlayAudioClip(GetPickUpSound());
+
         _drop.OnPickUp(_pickUpsController);
         Destroy(gameObject,0.1f);
+    }
+
+    AudioClip GetPickUpSound()
+    {
+        var pickupSounds = _drop.PickUpSounds;
+        if(pickupSounds == null || pickupSounds.Length == 0) return _pickupSoundDefault;
+        else return pickupSounds[Random.Range(0, pickupSounds.Length)];
     }
 
     private void OnDisable() {

@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7230e8f03bb05d14ea40b5578f29e49e, type: 3}
-  m_Name: WoodDrop
+  m_Name: AloeDrop 50%
   m_EditorClassIdentifier: 
-  _name: Wood Drop
-  _sprite: {fileID: 21300000, guid: 79b0ef05db0e6bc48a5764f9189281db, type: 3}
+  _name: Aloe Vera
+  _sprite: {fileID: 21300000, guid: 7298a30aa6fb11c4792a85bfc1254738, type: 3}
   _pickupSounds: []
-  _dropChance: 100
-  _craftingMaterial: {fileID: 11400000, guid: b4ba9f582bfaddb44855f718a50fcc0b, type: 2}
+  _dropChance: 50
+  _craftingMaterial: {fileID: 11400000, guid: 00a58af03a53dc947be4af400a57e69b, type: 2}

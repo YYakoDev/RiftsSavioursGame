@@ -16,6 +16,9 @@ public class PlayerMovement : MonoBehaviour, IKnockback
     Vector2 _movement;
     float _realSpeed;
 
+    [SerializeField]AnimationCurve _accelerationCurve;
+    float _elapsedAccelerationTime = 0f;
+
     //Slowdown when attacking
     float _slowdownTime = 0f;
 
@@ -31,6 +34,7 @@ public class PlayerMovement : MonoBehaviour, IKnockback
     //public Vector2 Movement => _movement;
     //public bool IsFlipped => isFlipped;
     public int FacingDirection => (isFlipped) ? -1 : 1;
+    private float AccelerationTime => _player.Stats.AccelerationTime;
     private float MovementSpeed => _player.Stats.Speed;
     private float SlowdownMultiplier => _player.Stats.SlowdownMultiplier;
     public event Action<Vector2> OnMovement;
@@ -56,6 +60,8 @@ public class PlayerMovement : MonoBehaviour, IKnockback
     {
         _spriteGameObject = _player.Renderer.gameObject;
         _realSpeed = MovementSpeed;
+        _elapsedAccelerationTime = 0f;
+        //_accelerationCurve = TweenCurveLibrary.GetCurve(CurveTypes.EaseInOut);
     }
 
     // Update is called once per frame
@@ -83,11 +89,17 @@ public class PlayerMovement : MonoBehaviour, IKnockback
         _player.AnimController.PlayStated(PlayerAnimationsNames.Iddle);
         _sortingOrderController.SortOrder();
         _dustEffect.Stop();
+        _elapsedAccelerationTime = 0f;
     }
 
     void Move()
     {
         _dustEffect.Play();
+
+        _elapsedAccelerationTime += Time.fixedDeltaTime;
+        float percent = _elapsedAccelerationTime / AccelerationTime;
+        if(percent <= 1) _realSpeed = Mathf.Lerp(0, MovementSpeed, _accelerationCurve.Evaluate(percent));
+
         Vector2 direction = (Vector2)transform.position + _movement.normalized * (_realSpeed *Time.fixedDeltaTime);
         _player.RigidBody.MovePosition(direction);
         
@@ -130,5 +142,6 @@ public class PlayerMovement : MonoBehaviour, IKnockback
     {
         _slowdownTime = slowdownTime;
         _realSpeed = MovementSpeed * SlowdownMultiplier;
+        _elapsedAccelerationTime = 0f;
     }
 }

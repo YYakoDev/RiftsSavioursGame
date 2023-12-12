@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAttack : MonoBehaviour
+public class PlayerAttackEffects : MonoBehaviour
 {
     [SerializeField]PlayerManager _player;
     [SerializeField]WeaponParentAiming _weaponAiming;
@@ -20,23 +20,23 @@ public class PlayerAttack : MonoBehaviour
         yield return null;
 
         _weaponPrefab = _weaponManager.WeaponPrefab.transform;
-        _weaponManager.CurrentWeapon.onAttack += PlayerAttackEffects;
-        _weaponManager.CurrentWeapon.onEnemyHit += OnHitEffects;
+        _weaponManager.CurrentWeapon.onAttack += AttackEffects;
+        if(_weaponManager.CurrentWeapon.WeaponEffects == null) yield break;
+        foreach(WeaponEffects fx in _weaponManager.CurrentWeapon.WeaponEffects)
+        {
+            fx.Initialize(this);
+            _weaponManager.CurrentWeapon.onAttack += fx.OnAttackFX;
+            _weaponManager.CurrentWeapon.onEnemyHit += fx.OnHitFX;
+        }
+        //_weaponManager.CurrentWeapon.onEnemyHit += OnHitEffects;
 
     }
 
-    void PlayerAttackEffects()
+    void AttackEffects()
     {
         FlipPlayer();
         PlayAttackAnimation();
-        SlowdownPlayer();
         SelfPush();
-    }
-    void OnHitEffects()
-    {
-        FreezeGame();
-        KnockbackPlayer();
-        ScreenShake();
     }
     void FlipPlayer()
     {
@@ -63,32 +63,55 @@ public class PlayerAttack : MonoBehaviour
     {
         _player.MovementScript.SlowdownMovement(AttackDuration);
     }
+    public void SlowdownPlayer(float time)
+    {
+        _player.MovementScript.SlowdownMovement(time);
+    }
 
     void SelfPush()
     {
         _player.MovementScript.KnockbackLogic.SetKnockbackData(_weaponPrefab, -PullForce);
     }
-
-    void KnockbackPlayer()
+    public void SelfPush(float pullForce)
     {
-        _player.MovementScript.KnockbackLogic.SetKnockbackData(_weaponPrefab, 0.2f);
+        _player.MovementScript.KnockbackLogic.SetKnockbackData(_weaponPrefab, -pullForce);
+    }
+
+    public void KnockbackPlayer(float knockbackAmount)
+    {
+        _player.MovementScript.KnockbackLogic.SetKnockbackData(_weaponPrefab, knockbackAmount);
     }
 
     void ScreenShake()
     {
         CameraShake.Shake(_shakeStrength, _shakeDuration);
     }
-
-    void FreezeGame()
+    public void ScreenShake(float strength)
     {
-        GameFreezer.FreezeGame(_gameFreezeTime);
+        CameraShake.Shake(strength);
+    }
+    public void ScreenShake(float strength, float duration)
+    {
+        CameraShake.Shake(strength, duration);
+    }
+
+    public void FreezeGame(float time)
+    {
+        GameFreezer.FreezeGame(time);
     }
 
 
     private void OnDestroy()
     {
-        _weaponManager.CurrentWeapon.onAttack -= PlayerAttackEffects;
-        _weaponManager.CurrentWeapon.onEnemyHit -= OnHitEffects;
+        _weaponManager.CurrentWeapon.onAttack -= AttackEffects;
+        if(_weaponManager.CurrentWeapon.WeaponEffects == null) return;
+        foreach(WeaponEffects fx in _weaponManager.CurrentWeapon.WeaponEffects)
+        {
+            _weaponManager.CurrentWeapon.onAttack -= fx.OnAttackFX;
+            _weaponManager.CurrentWeapon.onEnemyHit -= fx.OnHitFX;
+        }
+        //_weaponManager.CurrentWeapon.onAttack -= AttackEffects;
+        //_weaponManager.CurrentWeapon.onEnemyHit -= OnHitEffects;
     }
 
 }

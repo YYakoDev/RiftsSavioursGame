@@ -17,6 +17,7 @@ public class MeleeWeapon : WeaponBase
     protected float _radiusOffset = 0;
     protected Vector3 _attackPoint = Vector2.zero;
     [SerializeField]protected int _attackDamage = 5;
+    [SerializeField, Range(0f, 1f)] protected float _damageDelay = 0.2f;
     protected int _maxEnemiesToHit = 10;
     [SerializeField, Range(0,2.25f)]protected float _knockbackForce = 0.35f;
     private readonly int AtkAnim = Animator.StringToHash("Attack");
@@ -31,7 +32,7 @@ public class MeleeWeapon : WeaponBase
         _enemyLayer = weaponManager.EnemyLayer;
         SetMaxEnemiesToHit(_attackRange);
         SetRadiusOffset(_attackRange);
-        _atkExecutionTimer = new(_attackDuration / 4f, false);
+        _atkExecutionTimer = new(_damageDelay, false);
         _atkExecutionTimer.onEnd += DoAttackLogic;
         _atkExecutionTimer.Stop();
     }
@@ -90,6 +91,7 @@ public class MeleeWeapon : WeaponBase
             {
                 damageable.TakeDamage(damage);
                 PopupsManager.Create(_hittedEnemiesGO[i].transform.position + Vector3.up * 0.75f, damage);
+                InvokeOnEnemyHit(_hittedEnemiesGO[i].transform.position);
             }
             if(_hittedEnemiesGO[i].TryGetComponent<IKnockback>(out var knockbackable))
             {
@@ -97,8 +99,8 @@ public class MeleeWeapon : WeaponBase
             }
 
             //you can spawn hit fx in this part
+
         }
-        InvokeOnEnemyHit();
     }
 
     /*public void InstantiateFX()

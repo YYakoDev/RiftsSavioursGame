@@ -200,7 +200,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _randomizeStats: 0
-  _speed: 1.25
+  _speed: 2
   _maxHealth: 40
   _damage: 3
 --- !u!114 &2108419061

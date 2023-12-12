@@ -19,6 +19,7 @@ public class SOPlayerStats : ScriptableObject
 
     [Header("Movement Stats")]
     [SerializeField]private float _speed;
+    [Tooltip("The time it takes the player to reach the desired velocity")] [SerializeField, Range(0f, 2f)] private float _accelerationTime = 0.5f;
     [SerializeField, Range(0.15f,1f)]private float _slowdownMultiplier = 0.5f;
 
     [Header("PickUp Stats")]
@@ -43,6 +44,7 @@ public class SOPlayerStats : ScriptableObject
 
     // MOVEMENT STATS
     public float Speed {get => _speed; set {_speed = value; onStatsChange?.Invoke();}}
+    public float AccelerationTime { get => _accelerationTime;  set { _accelerationTime = value; onStatsChange?.Invoke(); } }
     public float SlowdownMultiplier {get => _slowdownMultiplier; set {_slowdownMultiplier = value; onStatsChange?.Invoke();}}
 
     // PICKUP STATS
