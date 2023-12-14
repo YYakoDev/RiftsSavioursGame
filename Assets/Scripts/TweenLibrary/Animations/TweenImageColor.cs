@@ -33,7 +33,7 @@ public class TweenImageColor : TweenAnimationBase
     public override void Play()
     {
         base.Play();
-        _image.color = Color.Lerp(_startingValue, _endColor, _curve.Evaluate(_elapsedTime));
+        _image.color = Color.Lerp(_startingValue, _endColor, _curve.Evaluate(_percent));
         AnimationEnd();
     }
 

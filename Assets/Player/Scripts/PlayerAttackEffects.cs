@@ -59,10 +59,11 @@ public class PlayerAttackEffects : MonoBehaviour
         _player.AnimController.PlayStated(PlayerAnimationsNames.Attack);
     }
 
-    void SlowdownPlayer()
+    public void SlowdownPlayer()
     {
         _player.MovementScript.SlowdownMovement(AttackDuration);
     }
+
     public void SlowdownPlayer(float time)
     {
         _player.MovementScript.SlowdownMovement(time);

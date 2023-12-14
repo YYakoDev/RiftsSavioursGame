@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "ScriptableObjects/WeaponEffects/FreezeGameFX")]
+[CreateAssetMenu(menuName = MenuPath + "FreezeGameFX")]
 public class SOFreezeGameEffect : WeaponEffects
 {
     [SerializeField]float _freezeTime = 0.06f;

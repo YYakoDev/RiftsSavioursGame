@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class WeaponEffects : ScriptableObject
 {
+    public const string MenuPath = "ScriptableObjects/WeaponEffects/";
     protected PlayerAttackEffects _effects;
 
     public virtual void Initialize(PlayerAttackEffects atkEffects)

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Melee Weapon", menuName = "ScriptableObjects/Weapons/Melee Weapon")]
+[CreateAssetMenu(fileName = "New Melee Weapon", menuName = MenuPath + "Melee Weapon")]
 public class MeleeWeapon : WeaponBase
 {
     [Header("References")]

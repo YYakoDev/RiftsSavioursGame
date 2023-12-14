@@ -4,9 +4,9 @@ using UnityEngine;
 public class PlayerHealthManager : MonoBehaviour, IDamageable
 {
     [SerializeField]PlayerManager _player;
-    [SerializeField]AudioSource _audio;
     WhiteBlinkEffect _blinkFX;
-    
+    [Header("Audio Stuff")]
+    [SerializeField]AudioSource _audio;
     [SerializeField]AudioClip[] _onHitSFXs;
 
     private AudioClip _onHitSfx => _onHitSFXs[Random.Range(0, _onHitSFXs.Length)];

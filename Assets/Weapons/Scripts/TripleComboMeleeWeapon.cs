@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "ScriptableObjects/Weapons/TripleComboMeleeWeapon")]
+[CreateAssetMenu(menuName = MenuPath + "TripleComboMeleeWeapon")]
 public class TripleComboMeleeWeapon : MeleeWeapon
 {
     [SerializeField]float _attackSpeed = 1; // this value should change when evaluating stats

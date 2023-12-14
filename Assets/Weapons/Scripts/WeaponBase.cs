@@ -6,6 +6,7 @@ using Random = UnityEngine.Random;
 
 public abstract class WeaponBase: ScriptableObject
 {
+    public const string MenuPath = "ScriptableObjects/Weapons/";
     //references
     protected WeaponManager _weaponManager;
 
