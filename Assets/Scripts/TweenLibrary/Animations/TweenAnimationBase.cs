@@ -27,17 +27,11 @@ public abstract class TweenAnimationBase
     {
         if(_elapsedTime >= _totalDuration)
         {
-            if(_loop)
-            {
-                _elapsedTime = 0;
-                _animator.EnableAnimator = true;
-            }else
-            {
-                _animator.EnableAnimator = false;
-                _elapsedTime = 0;
-            }
-            _animator.UnlockAnimator();
+            _animator.EnableAnimator = _loop;
+            _elapsedTime = 0;
+            
             _onComplete?.Invoke();
+            if(!_loop)_animator.AnimationComplete();
         }
     }
 

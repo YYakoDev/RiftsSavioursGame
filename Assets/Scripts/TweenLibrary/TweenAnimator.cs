@@ -11,7 +11,6 @@ public class TweenAnimator : MonoBehaviour
         UnscaledTime
     }
     [HideInInspector]public bool EnableAnimator = false;
-    TweenStateFactory _stateFactory;
     TweenAnimationBase _currentAnimation;
     Queue<TweenAnimationBase> _animationQueue = new();
     bool _isAnimationPlaying = false;
@@ -21,10 +20,6 @@ public class TweenAnimator : MonoBehaviour
 
     public TimeUsage timeUsage => _timeUsage;
 
-    private void Awake()
-    {
-        if(_stateFactory == null) _stateFactory = new(this);
-    }
 
     // Update is called once per frame
     void Update()
@@ -43,8 +38,7 @@ public class TweenAnimator : MonoBehaviour
     public void MoveTo
     (RectTransform rectTransform, Vector3 endPosition, float duration, CurveTypes curveType = CurveTypes.Linear, bool loop = false, Action onComplete = null)
     {
-        CheckFactory();
-        TweenMoveTo moveToAnim = _stateFactory.GetMoveToAnimation();
+        TweenMoveTo moveToAnim = new(this);
         AnimationCurve curve = TweenCurveLibrary.GetCurve(curveType);    
 
         moveToAnim.Initialize(rectTransform, endPosition, duration, curve, loop, onComplete);
@@ -57,8 +51,7 @@ public class TweenAnimator : MonoBehaviour
     public void TweenImageOpacity
     (RectTransform rect, float endValue, float duration, CurveTypes curveType = CurveTypes.Linear, bool loop = false, Action onComplete = null)
     {
-        CheckFactory();
-        TweenImageOpacity imgOpacityAnim = _stateFactory.GetTweenImageOpacity();
+        TweenImageOpacity imgOpacityAnim = new(this);
         AnimationCurve curve = TweenCurveLibrary.GetCurve(curveType);
 
         imgOpacityAnim.Initialize(rect, endValue, duration, curve, loop, onComplete);
@@ -69,8 +62,7 @@ public class TweenAnimator : MonoBehaviour
     public void Scale
     (RectTransform rectTransform, Vector3 endSize, float duration, CurveTypes curveType = CurveTypes.Linear, bool loop = false, Action onComplete = null)
     {
-        CheckFactory();
-        TweenScale scaleAnim = _stateFactory.GetScaleAnimation();
+        TweenScale scaleAnim = new(this);
         AnimationCurve curve = TweenCurveLibrary.GetCurve(curveType);    
 
         scaleAnim.Initialize(rectTransform, endSize, duration, curve, loop, onComplete);
@@ -83,8 +75,7 @@ public class TweenAnimator : MonoBehaviour
     public void TweenTextOpacity
     (TextMeshProUGUI text, float opacityEndValue, float duration, CurveTypes curveType = CurveTypes.Linear, bool loop = false, Action onComplete = null)
     {
-        CheckFactory();
-        TweenTextOpacity txtOpacityAnim = _stateFactory.GetTextOpacityAnimation();
+        TweenTextOpacity txtOpacityAnim = new(this);
         AnimationCurve curve = TweenCurveLibrary.GetCurve(curveType);   
 
         txtOpacityAnim.Initialize(text, opacityEndValue, duration, curve, loop, onComplete);
@@ -94,8 +85,7 @@ public class TweenAnimator : MonoBehaviour
     public void TweenTransformMoveTo
     (Transform transform, Vector3 endPosition, float duration, CurveTypes curveType = CurveTypes.Linear, bool loop = false, Action onComplete = null)
     {
-        CheckFactory();
-        TweenTransformMoveTo anim = _stateFactory.GetTwTransformMoveTo();
+        TweenTransformMoveTo anim = new(this);
         AnimationCurve curve = TweenCurveLibrary.GetCurve(curveType);   
 
         anim.Initialize(transform, endPosition, duration, curve, loop, onComplete);
@@ -105,8 +95,7 @@ public class TweenAnimator : MonoBehaviour
     public void TweenImageColor
     (RectTransform rect, Color endValue, float duration, CurveTypes curveType = CurveTypes.Linear, bool loop = false, Action onComplete = null)
     {
-        CheckFactory();
-        TweenImageColor anim = _stateFactory.GetTwImgColor();
+        TweenImageColor anim = new(this);
         AnimationCurve curve = TweenCurveLibrary.GetCurve(curveType);   
 
         anim.Initialize(rect, endValue, duration, curve, loop, onComplete);
@@ -115,43 +104,34 @@ public class TweenAnimator : MonoBehaviour
 
     void SwitchCurrentAnimation(TweenAnimationBase animationBase)
     {
-        if(_isAnimationPlaying)
-        {
-            _animationQueue.Enqueue(animationBase);
-        }else
-        {
-            _currentAnimation = animationBase;
-            SetAnimatorState(true);
-        }
-
+        Debug.Log("Enqueueing  " + animationBase);
+        _animationQueue.Enqueue(animationBase);
+        TryPlayNext();
     }
 
-    public void UnlockAnimator()
+    void TryPlayNext()
     {
-        if(_animationQueue.Count > 0)
+        if(_animationQueue.Count > 0 && !_isAnimationPlaying)
         {
+            SetAnimatorState(true);
+            Debug.Log("Dequeueing");
             _currentAnimation = _animationQueue.Dequeue();
-            SetAnimatorState(true);
-        }else if(_currentAnimation != null && _currentAnimation.Loop)
-        {
-            SetAnimatorState(true);
-        }
-        else
-        {
-            SetAnimatorState(false);
         }
     }
 
     void SetAnimatorState(bool state)
     {
-        _isAnimationPlaying = state;
         EnableAnimator = state;
+        _isAnimationPlaying = state;
     }
 
-    void CheckFactory()
+    public void AnimationComplete()
     {
-        if(_stateFactory == null) _stateFactory = new(this);
+        Debug.Log("Animation complete");
+        _isAnimationPlaying = false;
+        TryPlayNext();
     }
+
 
     public void ChangeTimeScalingUsage(TimeUsage usage)
     {
