@@ -36,7 +36,7 @@ public class TweenAnimator : MonoBehaviour
     }
 
     public void MoveTo
-    (RectTransform rectTransform, Vector3 endPosition, float duration, CurveTypes curveType = CurveTypes.Linear, bool loop = false, Action onComplete = null)
+    (RectTransform rectTransform, Vector3 endPosition, float duration, CurveTypes curveType = CurveTypes.EaseInOut, bool loop = false, Action onComplete = null)
     {
         TweenMoveTo moveToAnim = new(this);
         AnimationCurve curve = TweenCurveLibrary.GetCurve(curveType);    
@@ -49,7 +49,7 @@ public class TweenAnimator : MonoBehaviour
     /// Change opacity of an UnityEngine Image type, opacity value goes from 0 to 255.
     /// </summary>
     public void TweenImageOpacity
-    (RectTransform rect, float endValue, float duration, CurveTypes curveType = CurveTypes.Linear, bool loop = false, Action onComplete = null)
+    (RectTransform rect, float endValue, float duration, CurveTypes curveType = CurveTypes.EaseInOut, bool loop = false, Action onComplete = null)
     {
         TweenImageOpacity imgOpacityAnim = new(this);
         AnimationCurve curve = TweenCurveLibrary.GetCurve(curveType);
@@ -60,7 +60,7 @@ public class TweenAnimator : MonoBehaviour
 
 
     public void Scale
-    (RectTransform rectTransform, Vector3 endSize, float duration, CurveTypes curveType = CurveTypes.Linear, bool loop = false, Action onComplete = null)
+    (RectTransform rectTransform, Vector3 endSize, float duration, CurveTypes curveType = CurveTypes.EaseInOut, bool loop = false, Action onComplete = null)
     {
         TweenScale scaleAnim = new(this);
         AnimationCurve curve = TweenCurveLibrary.GetCurve(curveType);    
@@ -73,7 +73,7 @@ public class TweenAnimator : MonoBehaviour
     /// Change opacity of a TMPRO Text, opacity value goes from 0 to 255.
     /// </summary>
     public void TweenTextOpacity
-    (TextMeshProUGUI text, float opacityEndValue, float duration, CurveTypes curveType = CurveTypes.Linear, bool loop = false, Action onComplete = null)
+    (TextMeshProUGUI text, float opacityEndValue, float duration, CurveTypes curveType = CurveTypes.EaseInOut, bool loop = false, Action onComplete = null)
     {
         TweenTextOpacity txtOpacityAnim = new(this);
         AnimationCurve curve = TweenCurveLibrary.GetCurve(curveType);   
@@ -83,7 +83,7 @@ public class TweenAnimator : MonoBehaviour
     }
 
     public void TweenTransformMoveTo
-    (Transform transform, Vector3 endPosition, float duration, CurveTypes curveType = CurveTypes.Linear, bool loop = false, Action onComplete = null)
+    (Transform transform, Vector3 endPosition, float duration, CurveTypes curveType = CurveTypes.EaseInOut, bool loop = false, Action onComplete = null)
     {
         TweenTransformMoveTo anim = new(this);
         AnimationCurve curve = TweenCurveLibrary.GetCurve(curveType);   
@@ -93,12 +93,21 @@ public class TweenAnimator : MonoBehaviour
     }
 
     public void TweenImageColor
-    (RectTransform rect, Color endValue, float duration, CurveTypes curveType = CurveTypes.Linear, bool loop = false, Action onComplete = null)
+    (RectTransform rect, Color endValue, float duration, CurveTypes curveType = CurveTypes.EaseInOut, bool loop = false, Action onComplete = null)
     {
         TweenImageColor anim = new(this);
         AnimationCurve curve = TweenCurveLibrary.GetCurve(curveType);   
 
         anim.Initialize(rect, endValue, duration, curve, loop, onComplete);
+        SwitchCurrentAnimation(anim); 
+    }
+    public void TweenImageColor
+    (RectTransform rect, Color initialColor, Color endValue, float duration, CurveTypes curveType = CurveTypes.EaseInOut, bool loop = false, Action onComplete = null)
+    {
+        TweenImageColor anim = new(this);
+        AnimationCurve curve = TweenCurveLibrary.GetCurve(curveType);   
+
+        anim.Initialize(rect, initialColor, endValue, duration, curve, loop, onComplete);
         SwitchCurrentAnimation(anim); 
     }
 
