@@ -104,7 +104,6 @@ public class TweenAnimator : MonoBehaviour
 
     void SwitchCurrentAnimation(TweenAnimationBase animationBase)
     {
-        Debug.Log("Enqueueing  " + animationBase);
         _animationQueue.Enqueue(animationBase);
         TryPlayNext();
     }
@@ -114,7 +113,6 @@ public class TweenAnimator : MonoBehaviour
         if(_animationQueue.Count > 0 && !_isAnimationPlaying)
         {
             SetAnimatorState(true);
-            Debug.Log("Dequeueing");
             _currentAnimation = _animationQueue.Dequeue();
         }
     }
@@ -127,7 +125,6 @@ public class TweenAnimator : MonoBehaviour
 
     public void AnimationComplete()
     {
-        Debug.Log("Animation complete");
         _isAnimationPlaying = false;
         TryPlayNext();
     }
