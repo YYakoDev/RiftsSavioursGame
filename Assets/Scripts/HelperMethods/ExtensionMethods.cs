@@ -34,8 +34,11 @@ public static class ExtensionMethods
     public static T CheckOrAddComponent<T>(this Component component) where T : Component
     {
         T componentToCheck;
-        component.TryGetComponent<T>(out componentToCheck);
-        if(componentToCheck == null) componentToCheck = component.gameObject.AddComponent<T>();
+        
+        if(!component.TryGetComponent<T>(out componentToCheck))
+        {
+            componentToCheck = component.gameObject.AddComponent<T>();
+        }
 
         return componentToCheck;
     }

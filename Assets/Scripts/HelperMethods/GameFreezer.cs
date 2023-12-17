@@ -11,9 +11,9 @@ public static class GameFreezer
     public static async void FreezeGame(float seconds)
     {
         int miliseconds = (int)(seconds * 1000f);
-        TimeScaleManager.ForceTimeScale(0);
+        TimeScaleManager.SetTimeScale(0);
         await Task.Delay(miliseconds);
-        TimeScaleManager.ForceTimeScale(1);
+        TimeScaleManager.SetTimeScale(1);
     }
 
     public static void Freeze()

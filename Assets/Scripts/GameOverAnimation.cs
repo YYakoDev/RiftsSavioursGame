@@ -8,20 +8,24 @@ public class GameOverAnimation : MonoBehaviour
 {
     [SerializeField] bool _debugPlayAnimationAtStart;
     [Header("References")]
+    [SerializeField] Canvas _canvas;
     [SerializeField] SOPlayerStats _playerStats;
     [SerializeField] Camera _mainCamera;
     [SerializeField] GameObject _visualsParent;
-    [SerializeField] Image _redScreen;
-    RectTransform _redScreenRect;
-    [SerializeField] Image _playerImage;
-    RectTransform _playerImgRect;
+    [SerializeField] RectTransform _redScreenRect;
+    Image _redScreenImg;
+    [SerializeField] RectTransform _playerImageRect;
+    Image _playerImg;
+    [SerializeField] RectTransform _gameOverTextRect;
+    Image _gameOverTextImg;
     [SerializeField] RectTransform _buttons;
     TweenAnimator _redScreenAnimator;
     TweenAnimator _playerAnimator;
+    TweenAnimator _GOTextAnimator;
 
 
     [Header("Player Image Animation")]
-    [SerializeField] Color _endColor;
+    [SerializeField] Color _playerImgEndColor;
     [SerializeField] float _playerAnimDuration = 1f;
     SpriteRenderer _playerRenderer;
     Sprite _playerSprite;
@@ -32,6 +36,14 @@ public class GameOverAnimation : MonoBehaviour
     Color _redScreenInitialColor;
     [SerializeField] float _redScreenColorChangeDuration = 0.2f;
     [SerializeField] Color[] _redScreenBlinkColors;
+
+    [Header("Game Over Text Animation")]
+    [SerializeField] Color _GOverTxtInitialColor;
+    [SerializeField] Color _GOverTxtEndColor;
+    [SerializeField] float _GOVerTxtColorChangeDuration = 1f;
+    [SerializeField] Vector2 _GOverTxtInitialPos;
+    [SerializeField] Vector2 _GOverTxtEndPos;
+
 
     [Header("Audio Stuff")]
     [SerializeField] AudioSource _audio;
@@ -46,12 +58,11 @@ public class GameOverAnimation : MonoBehaviour
         if (_mainCamera == null) _mainCamera = Camera.main;
 
         _playerStats.onStatsChange += CheckHealth;
-        _redScreenInitialColor = _redScreen.color;
+        _redScreenImg = _redScreenRect.GetComponent<Image>();
+        _playerImg = _playerImageRect.GetComponent<Image>();
+
+        _redScreenInitialColor = _redScreenImg.color;
         _redScreenInitialColor.a = 1;
-
-        _redScreenRect = _redScreen.rectTransform;
-        _playerImgRect = _playerImage.rectTransform;
-
         if (_debugPlayAnimationAtStart) GameOver();
     }
 
@@ -67,55 +78,56 @@ public class GameOverAnimation : MonoBehaviour
     void GameOver()
     {
         _visualsParent.SetActive(true);
-        CheckRedScreen();
-        CheckPlayerSprite();
+        CheckAnimators();
         TimeScaleManager.ForceTimeScale(0f);
         PlayAnimations();
 
     }
 
-    void CheckRedScreen()
+    void CheckAnimators()
     {
-        if(_redScreenAnimator == null)
-        {
-            Debug.Log("redscreenanimator is null");
-            _redScreenAnimator = _redScreen.CheckOrAddComponent<TweenAnimator>();
-            _redScreenAnimator.ChangeTimeScalingUsage(TweenAnimator.TimeUsage.UnscaledTime);
-        }
-    }
-
-    void CheckPlayerSprite()
-    {
+        //RedScreen Background
+        GetAnimatorAndChangeTimeScale(_redScreenRect, ref _redScreenAnimator);
+        //PlayerIMG
         if (_playerRenderer == null)
         {
             _playerRenderer = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<SpriteRenderer>();
         }
         _playerSprite = _playerRenderer.sprite;
-        if (_playerAnimator == null)
-        {
-            _playerAnimator = _playerImage.CheckOrAddComponent<TweenAnimator>();
-            _playerAnimator.ChangeTimeScalingUsage(TweenAnimator.TimeUsage.UnscaledTime);
-        }
+        GetAnimatorAndChangeTimeScale(_playerImageRect, ref _playerAnimator);
+        //Game Over Text (GOText)
+        GetAnimatorAndChangeTimeScale(_gameOverTextRect, ref _GOTextAnimator);
+    }
+
+    void GetAnimatorAndChangeTimeScale(RectTransform rect, ref TweenAnimator animator)
+    {
+        if(animator == null) animator = rect.CheckOrAddComponent<TweenAnimator>();
+        animator.ChangeTimeScalingUsage(TweenAnimator.TimeUsage.UnscaledTime);
     }
 
     void PlayAnimations()
     {
+        if(_redScreenImg == null) _redScreenImg = _redScreenRect.GetComponent<Image>();
+        if(_playerImg == null) _playerImg = _playerImageRect.GetComponent<Image>();
+        if(_gameOverTextImg == null) _gameOverTextImg = _gameOverTextRect.GetComponent<Image>();
         _playerAnimator.Clear();
         _redScreenAnimator.Clear();
 
-        _playerImage.sprite = _playerSprite;
-        _playerImage.color = Color.white;
-        Vector3 flippedScale = _playerImgRect.localScale;
+        _playerImg.sprite = _playerSprite;
+        _playerImg.color = Color.white;
+        Vector3 flippedScale = _playerImageRect.localScale;
         flippedScale.x = _playerRenderer.transform.localScale.x;
-        _playerImgRect.localScale = flippedScale;
+        _playerImageRect.localScale = flippedScale;
 
         Color newColor =_redScreenInitialColor;
         newColor.a = 0;
-        _redScreen.color = newColor;
+        _redScreenImg.color = newColor;
 
+        Color newTextColor = _gameOverTextImg.color;
+        newTextColor.a = 0;
+        _gameOverTextImg.color = newTextColor;
 
-
-        _playerAnimator.TweenImageColor(_playerImgRect, _endColor, _playerAnimDuration);
+        _playerAnimator.TweenImageColor(_playerImageRect, _playerImgEndColor, _playerAnimDuration);
         _redScreenAnimator.TweenImageOpacity(_redScreenRect, 255, _redScreenFadeDuration, onComplete: () => 
         {
             for (int i = 0; i < _redScreenBlinkColors.Length; i++)
@@ -132,13 +144,15 @@ public class GameOverAnimation : MonoBehaviour
     void PlayRestOfAnimations()
     {
         float duration = 0.1f + _redScreenColorChangeDuration;
-        _redScreenAnimator.TweenImageColor(_redScreenRect, _redScreenInitialColor,  _endColor, duration);
-        _playerAnimator.TweenImageColor(_playerImgRect, _endColor,  _redScreenInitialColor, duration - 0.1f);
+        _redScreenAnimator.TweenImageColor(_redScreenRect, _redScreenInitialColor,  _playerImgEndColor, duration);
+        _playerAnimator.TweenImageColor(_playerImageRect, _playerImgEndColor,  _redScreenInitialColor, duration - 0.1f);
+
+        _GOTextAnimator.TweenImageOpacity(_gameOverTextRect, 255, _GOVerTxtColorChangeDuration);
     }
 
     void ButtonAnimations()
     {
-          //here maybe you could add the game over stats and not just the buttons
+        //here maybe you could add the game over stats and not just the buttons
         Debug.Log("Moving Buttons");
     }
 
@@ -146,6 +160,7 @@ public class GameOverAnimation : MonoBehaviour
     {
         //here you reset player stats, or maybe fire an event called onGameReset
         //you need to restart the run with the same parameters chosen at the start like character & weapon selected
+        TimeScaleManager.ForceTimeScale(1f);
         SceneManager.LoadScene("Game");
 
     }
@@ -159,6 +174,13 @@ public class GameOverAnimation : MonoBehaviour
     {
         if(!_debugPlayAnimationAtStart) return;
         GameOver();
+    }
+
+    private void OnDrawGizmosSelected() {
+        if(_canvas == null) return;
+        Gizmos.color = Color.magenta;
+        Gizmos.DrawCube(_canvas.TranslateUiToWorldPoint(_GOverTxtInitialPos), Vector3.one * 30);
+        Gizmos.DrawCube(_canvas.TranslateUiToWorldPoint(_GOverTxtEndPos), Vector3.one * 35);
     }
 
     private void OnDestroy() {

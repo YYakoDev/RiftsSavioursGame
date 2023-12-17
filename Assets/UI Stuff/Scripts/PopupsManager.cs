@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class PopupsManager : MonoBehaviour
+public static class PopupsManager
 {
     private static bool Initialized = false;
     private static bool PoolCreated = false;
@@ -32,6 +32,7 @@ public class PopupsManager : MonoBehaviour
 
     static void InitializePool()
     {
+        if(Parent == null) Parent = GameObject.FindGameObjectWithTag("PopupCanvas").transform;
         ObjectPool = new(50, PopupPrefab, Parent, true);
         PoolCreated = true;
     }

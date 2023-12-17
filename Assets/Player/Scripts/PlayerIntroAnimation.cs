@@ -67,12 +67,12 @@ public class PlayerIntroAnimation
     void StopTime()
     {
         _animator.updateMode = AnimatorUpdateMode.UnscaledTime;
-        TimeScaleManager.ForceTimeScale(0);
+        TimeScaleManager.SetTimeScale(0);
     }
 
     void ResumeTime()
     {
-        TimeScaleManager.ForceTimeScale(1);
+        TimeScaleManager.SetTimeScale(1);
         _animationEnded = true;
         _animator.updateMode = AnimatorUpdateMode.Normal;
         _animator.StopPlayback();
