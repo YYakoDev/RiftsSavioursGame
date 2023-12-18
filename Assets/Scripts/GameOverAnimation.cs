@@ -17,12 +17,12 @@ public class GameOverAnimation : MonoBehaviour
     [SerializeField] RectTransform _playerImageRect;
     Image _playerImg;
     [SerializeField] RectTransform _gameOverTextRect;
+    [SerializeField] Animator _gameOverTxtAnimatorComponent;
     Image _gameOverTextImg;
     [SerializeField] RectTransform _buttons;
     TweenAnimator _redScreenAnimator;
     TweenAnimator _playerAnimator;
     TweenAnimator _GOTextAnimator;
-
 
     [Header("Player Image Animation")]
     [SerializeField] Color _playerImgEndColor;
@@ -40,9 +40,12 @@ public class GameOverAnimation : MonoBehaviour
     [Header("Game Over Text Animation")]
     [SerializeField] Color _GOverTxtInitialColor;
     [SerializeField] Color _GOverTxtEndColor;
+    [SerializeField] float _GOverTxtMovementDuration = 1f;
+    [SerializeField] string _GOverTxtAnimName = "Animation";
+    [SerializeField]int _GOverMoveIterations = 5;
     [SerializeField] float _GOVerTxtColorChangeDuration = 1f;
     [SerializeField] Vector2 _GOverTxtInitialPos;
-    [SerializeField] Vector2 _GOverTxtEndPos;
+    Vector2 _GOverTxtEndPos;
 
 
     [Header("Audio Stuff")]
@@ -68,6 +71,7 @@ public class GameOverAnimation : MonoBehaviour
 
     void CheckHealth()
     {
+        Debug.Log("Change Of Stats");
         if (_playerStats.CurrentHealth <= 0)
         {
             Debug.Log("<b>Game Over :( </b>");
@@ -112,6 +116,7 @@ public class GameOverAnimation : MonoBehaviour
         if(_gameOverTextImg == null) _gameOverTextImg = _gameOverTextRect.GetComponent<Image>();
         _playerAnimator.Clear();
         _redScreenAnimator.Clear();
+        _GOTextAnimator.Clear();
 
         _playerImg.sprite = _playerSprite;
         _playerImg.color = Color.white;
@@ -126,28 +131,59 @@ public class GameOverAnimation : MonoBehaviour
         Color newTextColor = _gameOverTextImg.color;
         newTextColor.a = 0;
         _gameOverTextImg.color = newTextColor;
+        _gameOverTextRect.localPosition = _GOverTxtInitialPos;
+        _gameOverTextRect.gameObject.SetActive(false);
+        _GOverTxtEndPos = new Vector2(_playerImageRect.localPosition.x, _playerImageRect.localPosition.y + _GOverTxtInitialPos.y);
 
         _playerAnimator.TweenImageColor(_playerImageRect, _playerImgEndColor, _playerAnimDuration);
-        _redScreenAnimator.TweenImageOpacity(_redScreenRect, 255, _redScreenFadeDuration, onComplete: () => 
+        _redScreenAnimator.TweenImageOpacity(_redScreenRect, 255, _redScreenFadeDuration);
+        for (int i = 0; i < _redScreenBlinkColors.Length; i++)
         {
-            for (int i = 0; i < _redScreenBlinkColors.Length; i++)
-            {
-                var initialColor = (i == 0) ?  _redScreenInitialColor : _redScreenBlinkColors[i-1];
-                _redScreenAnimator.TweenImageColor
-                (_redScreenRect, initialColor, _redScreenBlinkColors[i], _redScreenColorChangeDuration);
-            }
-        });
+            var initialColor = (i == 0) ?  _redScreenInitialColor : _redScreenBlinkColors[i-1];
+            _redScreenAnimator.TweenImageColor
+            (_redScreenRect, initialColor, _redScreenBlinkColors[i], _redScreenColorChangeDuration);
+        }
         //this is a fake animation that is used to know when the color blinking anim has completed
-        _redScreenAnimator.TweenImageOpacity(_redScreenRect, 255, 0, onComplete: PlayRestOfAnimations);
+        _redScreenAnimator.TweenImageOpacity(_redScreenRect, 255f, 0f, onComplete: PlayRestOfAnimations);
     }
 
     void PlayRestOfAnimations()
     {
         float duration = 0.1f + _redScreenColorChangeDuration;
-        _redScreenAnimator.TweenImageColor(_redScreenRect, _redScreenInitialColor,  _playerImgEndColor, duration);
-        _playerAnimator.TweenImageColor(_playerImageRect, _playerImgEndColor,  _redScreenInitialColor, duration - 0.1f);
+        _redScreenAnimator.TweenImageColor(_redScreenRect, _redScreenInitialColor,  _playerImgEndColor, duration,
+        onComplete: () => 
+        {
+            _gameOverTextRect.gameObject.SetActive(true);
+            _gameOverTxtAnimatorComponent.enabled = true;
+        });
+        _playerAnimator.TweenImageColor(_playerImageRect, _playerImgEndColor,  _redScreenInitialColor, duration);
 
-        _GOTextAnimator.TweenImageOpacity(_gameOverTextRect, 255, _GOVerTxtColorChangeDuration);
+        MoveGameOverText();
+        
+        //_GOTextAnimator.TweenImageOpacity(_gameOverTextRect, 255, _GOVerTxtColorChangeDuration);
+        _GOTextAnimator.TweenImageColor(_gameOverTextRect, _GOverTxtInitialColor, _GOVerTxtColorChangeDuration, onComplete: () => 
+        {
+            _gameOverTxtAnimatorComponent.Play(_GOverTxtAnimName);
+        });
+        _GOTextAnimator.TweenImageColor(_gameOverTextRect, _GOverTxtInitialColor, _GOverTxtEndColor, _GOVerTxtColorChangeDuration);
+    }
+
+    void MoveGameOverText(int iteration = 0)
+    {
+        iteration++;
+
+        if(iteration >= _GOverMoveIterations)
+        {
+            _playerAnimator.MoveTo(_gameOverTextRect, _GOverTxtEndPos, _GOverTxtMovementDuration / (iteration * 3f), CurveTypes.Linear);
+            return;   
+        }
+        int sign = (iteration % 2 == 0) ? -1 : 1;
+        Vector2 offset = Vector2.right * 20 * sign;
+        float timeDivision = iteration * 2f;
+        _playerAnimator.MoveTo(_gameOverTextRect, _GOverTxtEndPos + offset, _GOverTxtMovementDuration / timeDivision, onComplete: () => 
+        {
+            MoveGameOverText(iteration);
+        });
     }
 
     void ButtonAnimations()
@@ -179,8 +215,8 @@ public class GameOverAnimation : MonoBehaviour
     private void OnDrawGizmosSelected() {
         if(_canvas == null) return;
         Gizmos.color = Color.magenta;
-        Gizmos.DrawCube(_canvas.TranslateUiToWorldPoint(_GOverTxtInitialPos), Vector3.one * 30);
-        Gizmos.DrawCube(_canvas.TranslateUiToWorldPoint(_GOverTxtEndPos), Vector3.one * 35);
+        Gizmos.DrawWireCube(_canvas.TranslateUiToWorldPoint(_GOverTxtInitialPos), Vector3.one * 30);
+        Gizmos.DrawWireCube(_canvas.TranslateUiToWorldPoint(_GOverTxtEndPos), Vector3.one * 35);
     }
 
     private void OnDestroy() {

@@ -67,12 +67,9 @@ public static class ExtensionMethods
     //UI POSITION TRANSLATION 
     public static Vector2 TranslateUiToWorldPoint(this Canvas canvas, Vector2 position)
     {
-        float screenWidth = Screen.width;
-        float screenHeight = Screen.height;
-
         float scaleFactor = canvas.scaleFactor;
         var canvasRect = canvas.GetComponent<RectTransform>();
-        float canvasCenterX = canvasRect.position.x;
+        float canvasCenterX = canvasRect.position.x; //this two positions are already expressed as world points and also its the center of the canvas
         float canvasCenterY = canvasRect.position.y;
 
         //float percentX = position.x / canvasWidth;
@@ -84,6 +81,32 @@ public static class ExtensionMethods
             canvasCenterY + position.y * scaleFactor            
         );
         return worldPoint;
+    }
+
+    public static Vector2 TranslateWorldPointToUI(this Canvas canvas, Vector2 worldPoint)
+    {
+        Camera camera = Camera.main;
+        worldPoint = camera.WorldToScreenPoint(worldPoint);
+        float screenCenterX = camera.scaledPixelWidth/2f;
+        float screenCenterY = camera.scaledPixelHeight/2f;
+
+        var canvasRect = canvas.GetComponent<RectTransform>();
+        float canvasCenterX = canvasRect.position.x; //this two positions are already expressed as world points and also its the center of the canvas
+        float canvasCenterY = canvasRect.position.y;
+
+        Debug.Log($"Camera Center X:  {screenCenterX} \n Camera Center Y: {screenCenterY} ");
+        float scaleFactor = canvas.scaleFactor;
+
+        Vector2 test = new Vector2(screenCenterX, screenCenterY);
+        //float percentX = position.x / canvasWidth;
+        //float percentY = position.y / canvasHeight;
+
+        Vector2 uiPoint = new Vector2
+        (
+            screenCenterX - worldPoint.x / scaleFactor,
+            screenCenterY - worldPoint.y / scaleFactor
+        );
+        return uiPoint;
     }
 
 
