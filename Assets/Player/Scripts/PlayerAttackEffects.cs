@@ -7,7 +7,6 @@ public class PlayerAttackEffects : MonoBehaviour
     [SerializeField]PlayerManager _player;
     [SerializeField]WeaponParentAiming _weaponAiming;
     [SerializeField]WeaponManager _weaponManager;
-    [SerializeField]float _shakeStrength, _shakeDuration, _gameFreezeTime;
     Transform _weaponPrefab;
 
     float PullForce => _weaponManager.CurrentWeapon.GetPullForce();
@@ -31,7 +30,6 @@ public class PlayerAttackEffects : MonoBehaviour
         //_weaponManager.CurrentWeapon.onEnemyHit += OnHitEffects;
 
     }
-
     void AttackEffects()
     {
         FlipPlayer();
@@ -83,10 +81,6 @@ public class PlayerAttackEffects : MonoBehaviour
         _player.MovementScript.KnockbackLogic.SetKnockbackData(_weaponPrefab, knockbackAmount);
     }
 
-    void ScreenShake()
-    {
-        CameraShake.Shake(_shakeStrength, _shakeDuration);
-    }
     public void ScreenShake(float strength)
     {
         CameraShake.Shake(strength);
@@ -111,8 +105,6 @@ public class PlayerAttackEffects : MonoBehaviour
             _weaponManager.CurrentWeapon.onAttack -= fx.OnAttackFX;
             _weaponManager.CurrentWeapon.onEnemyHit -= fx.OnHitFX;
         }
-        //_weaponManager.CurrentWeapon.onAttack -= AttackEffects;
-        //_weaponManager.CurrentWeapon.onEnemyHit -= OnHitEffects;
     }
 
 }

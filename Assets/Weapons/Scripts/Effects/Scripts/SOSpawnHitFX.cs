@@ -7,6 +7,7 @@ public class SOSpawnHitFX : WeaponEffects
 {
     [SerializeField] GameObject _fxPrefab;
     [SerializeField] bool _flipOnDirection;
+    [SerializeField] Vector2 _offset = Vector2.zero;
     Transform _player;
 
     public override void Initialize(PlayerAttackEffects atkEffects)
@@ -17,7 +18,7 @@ public class SOSpawnHitFX : WeaponEffects
 
     public override void OnHitFX(Vector3 pos)
     {
-        Transform obj = Instantiate(_fxPrefab, pos, Quaternion.identity).transform;
+        Transform obj = Instantiate(_fxPrefab, pos + (Vector3)_offset, Quaternion.identity).transform;
         if(_flipOnDirection)
         {
             Vector3 flippedScale = obj.localScale;
@@ -25,6 +26,8 @@ public class SOSpawnHitFX : WeaponEffects
             direction.Normalize();
             flippedScale.x = (direction.x > 0) ? -1 : 1;
             obj.localScale = flippedScale;
+
+            obj.position = pos + (Vector3)(_offset * flippedScale.x);
         }
         
     }

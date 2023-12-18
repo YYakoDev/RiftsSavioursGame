@@ -5,17 +5,11 @@ using UnityEngine;
 public class HitFXPrefab : MonoBehaviour
 {
     Timer _timer;
-    Animator _animator;
+    [SerializeField, Range(-1f, 10f)] float _duration = 0.25f;
 
     private void Awake() {
-        _animator = GetComponent<Animator>();
-
-        _timer = new(0.25f, false, false);
-        if(_animator != null)
-        {
-            float animDuration = _animator.GetCurrentAnimatorStateInfo(0).length;
-            _timer.ChangeTime(animDuration);
-        }
+        if(_duration <= 0) this.enabled = false;
+        _timer = new(_duration);
         _timer.onEnd += DeactivateItself;
     }
 

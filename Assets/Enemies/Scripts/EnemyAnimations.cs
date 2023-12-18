@@ -20,6 +20,7 @@ public class EnemyAnimations : MonoBehaviour
     private void Awake()
     {
         gameObject.CheckComponent<Animator>(ref _animator);
+        _animator.speed = 1 + Random.Range(-0.1f, 0.1f);
     }
 
     private void OnEnable() {

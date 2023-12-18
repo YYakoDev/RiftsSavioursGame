@@ -32,7 +32,7 @@ public class EnemyDetector : MonoBehaviour
     {
         if(_nextDetectionTime <= 0)
         {
-            Detection(transform.parent.position);
+            Detection(_parent.position);
             _nextDetectionTime = _detectionRate + _randomizedFrameWait;
         }else
         {

@@ -13,7 +13,7 @@ public class Timer
 
     public float CurrentTime => _timeRemaining;
 
-    public Timer(float countdownTime, bool resetOnZero = true, bool useUnscaledTime = false)
+    public Timer(float countdownTime, bool resetOnZero = false, bool useUnscaledTime = false)
     {
         _countdownTime = countdownTime;
         _timeRemaining = _countdownTime;

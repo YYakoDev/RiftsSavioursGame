@@ -71,7 +71,6 @@ public class GameOverAnimation : MonoBehaviour
 
     void CheckHealth()
     {
-        Debug.Log("Change Of Stats");
         if (_playerStats.CurrentHealth <= 0)
         {
             Debug.Log("<b>Game Over :( </b>");
@@ -114,6 +113,7 @@ public class GameOverAnimation : MonoBehaviour
         if(_redScreenImg == null) _redScreenImg = _redScreenRect.GetComponent<Image>();
         if(_playerImg == null) _playerImg = _playerImageRect.GetComponent<Image>();
         if(_gameOverTextImg == null) _gameOverTextImg = _gameOverTextRect.GetComponent<Image>();
+
         _playerAnimator.Clear();
         _redScreenAnimator.Clear();
         _GOTextAnimator.Clear();
@@ -133,7 +133,7 @@ public class GameOverAnimation : MonoBehaviour
         _gameOverTextImg.color = newTextColor;
         _gameOverTextRect.localPosition = _GOverTxtInitialPos;
         _gameOverTextRect.gameObject.SetActive(false);
-        _GOverTxtEndPos = new Vector2(_playerImageRect.localPosition.x, _playerImageRect.localPosition.y + _GOverTxtInitialPos.y);
+        _GOverTxtEndPos = new Vector2(_playerImageRect.localPosition.x, _playerImageRect.localPosition.y + 200f);
 
         _playerAnimator.TweenImageColor(_playerImageRect, _playerImgEndColor, _playerAnimDuration);
         _redScreenAnimator.TweenImageOpacity(_redScreenRect, 255, _redScreenFadeDuration);
