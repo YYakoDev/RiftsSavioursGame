@@ -45,6 +45,26 @@ public class TweenAnimator : MonoBehaviour
         SwitchCurrentAnimation(moveToAnim);
     }
 
+    public void TweenMoveToBouncy
+    (RectTransform rect, Vector3 endPos, Vector3 offset, float duration, int iteration, int maxIterations,
+    CurveTypes curve = CurveTypes.EaseInOut, bool loop = false, Action onBounceComplete = null)
+    {
+        iteration++;
+
+        if(iteration >= maxIterations)
+        {
+            onBounceComplete?.Invoke();
+            return;   
+        }
+        int sign = (iteration % 2 == 0) ? -1 : 1;
+        offset *= sign * (1f / iteration * 1.1f);
+        float timeDivision = iteration * 1.75f;
+        MoveTo(rect, endPos + offset, duration / timeDivision, onComplete: () => 
+        {
+            TweenMoveToBouncy(rect, endPos, offset, duration, iteration, maxIterations, curve, loop, onBounceComplete);
+        });
+    }
+
     /// <summary>
     /// Change opacity of an UnityEngine Image type, opacity value goes from 0 to 255.
     /// </summary>

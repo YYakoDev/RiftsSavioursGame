@@ -132,8 +132,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 218674dfd388fbf4599107f2ce25536e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _Animator: {fileID: 3496017023596266572}
+  _animator: {fileID: 3496017023596266572}
+  _renderer: {fileID: 3496017023596266575}
   _SplatterAnimatorVariants:
   - {fileID: 22100000, guid: b444d322f43454a4f8bc1ad8d34592c9, type: 2}
-  - {fileID: 22100000, guid: 7477b1584a1569e4482f023a02013a26, type: 2}
-  - {fileID: 22100000, guid: 881642f436b839b4c801f13a95641c0e, type: 2}
+  _coagulationTime: 10

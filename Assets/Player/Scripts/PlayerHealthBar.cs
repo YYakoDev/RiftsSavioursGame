@@ -8,6 +8,27 @@ public class PlayerHealthBar : MonoBehaviour
     [SerializeField]SOPlayerStats _playerStats;
     [SerializeField]PlayerHealthAnimations _animations;
     Slider _healthBar;
+
+    int currentHealth
+    {
+        get => currentHealth;
+        set
+        {
+            currentHealth = value;
+            UpdateBarValue();
+        }
+    }
+    int maxHealth 
+    {   
+        get => maxHealth; 
+        set 
+        {
+            maxHealth = value;
+            UpdateBarMaxValue();
+        }
+    }
+
+
     private void Awake() {
         GameObject thisGO = gameObject;
         thisGO.SetActive(_playerStats != null);
@@ -17,10 +38,21 @@ public class PlayerHealthBar : MonoBehaviour
 
     private IEnumerator Start()
     {
-        UpdateHealthBar();
+        //UpdateHealthBar();
         yield return null;
         yield return null;
-        _playerStats.onStatsChange += UpdateAndDoAnimations;
+        _playerStats.onStatsChange += CheckValues;
+    }
+
+    void UpdateBarValue()
+    {
+        _healthBar.value = currentHealth;
+        PlayAnimations();
+    }
+    void UpdateBarMaxValue()
+    {
+        _healthBar.maxValue = maxHealth;
+        _animations.ShakeAnimation();
     }
 
     void UpdateHealthBar()
@@ -32,22 +64,13 @@ public class PlayerHealthBar : MonoBehaviour
         if(_healthBar.maxValue != _playerStats.MaxHealth)
         {
             _healthBar.maxValue = _playerStats.MaxHealth;
-            _animations.ShakeAnimation();
         }
     }
 
-    void UpdateAndDoAnimations()
+    void CheckValues()
     {
-        if(_healthBar.value != _playerStats.CurrentHealth)
-        {
-            PlayAnimations();
-            _healthBar.value = _playerStats.CurrentHealth;
-        }
-        if(_healthBar.maxValue != _playerStats.MaxHealth)
-        {
-            _healthBar.maxValue = _playerStats.MaxHealth;
-            _animations.ShakeAnimation();
-        }
+        if(currentHealth != _playerStats.CurrentHealth) currentHealth = _playerStats.CurrentHealth;
+        if(maxHealth != _playerStats.MaxHealth) maxHealth = _playerStats.MaxHealth;
     }
 
     void PlayAnimations()
@@ -59,7 +82,7 @@ public class PlayerHealthBar : MonoBehaviour
     }
 
     private void OnDestroy() {
-        _playerStats.onStatsChange -= UpdateAndDoAnimations;
+        _playerStats.onStatsChange -= CheckValues;
     }
     
 }

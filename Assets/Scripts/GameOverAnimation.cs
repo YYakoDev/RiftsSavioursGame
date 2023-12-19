@@ -7,6 +7,8 @@ using UnityEngine.UI;
 public class GameOverAnimation : MonoBehaviour
 {
     [SerializeField] bool _debugPlayAnimationAtStart;
+    bool _playGameOver;
+    
     [Header("References")]
     [SerializeField] Canvas _canvas;
     [SerializeField] SOPlayerStats _playerStats;
@@ -23,6 +25,10 @@ public class GameOverAnimation : MonoBehaviour
     TweenAnimator _redScreenAnimator;
     TweenAnimator _playerAnimator;
     TweenAnimator _GOTextAnimator;
+
+    [Header("Game Slow Freeze Animation")]
+    [SerializeField]float _slowFreezeTime = 2f;
+    Timer _gameFreezeTimer;
 
     [Header("Player Image Animation")]
     [SerializeField] Color _playerImgEndColor;
@@ -54,6 +60,9 @@ public class GameOverAnimation : MonoBehaviour
     private void Awake()
     {
         _audio = GetComponent<AudioSource>();
+        _gameFreezeTimer = new(_slowFreezeTime, useUnscaledTime: true);
+        _gameFreezeTimer.onEnd += GameOver;
+        _gameFreezeTimer.Start();
     }
 
     private void Start()
@@ -66,16 +75,32 @@ public class GameOverAnimation : MonoBehaviour
 
         _redScreenInitialColor = _redScreenImg.color;
         _redScreenInitialColor.a = 1;
-        if (_debugPlayAnimationAtStart) GameOver();
+        if (_debugPlayAnimationAtStart)
+        {
+            GameOver(); 
+            _visualsParent.SetActive(true);
+        }
     }
 
     void CheckHealth()
     {
-        if (_playerStats.CurrentHealth <= 0)
+        if (_playerStats.CurrentHealth <= 0 && !_playGameOver)
         {
             Debug.Log("<b>Game Over :( </b>");
-            GameOver();
+            _playGameOver = true;
+            //GameOver();
         }
+    }
+
+    private void Update() {
+        if(!_playGameOver) return;
+        _gameFreezeTimer.UpdateTime();
+        float percent = 1 - (_gameFreezeTimer.CurrentTime / _slowFreezeTime);
+        if(percent >= 1 || percent == 0) return;
+        Debug.Log("Setting Time Scale");
+        float result = Mathf.Lerp(1, 0, percent);
+        TimeScaleManager.SetTimeScale(result);
+
     }
 
     void GameOver()
@@ -158,8 +183,13 @@ public class GameOverAnimation : MonoBehaviour
         });
         _playerAnimator.TweenImageColor(_playerImageRect, _playerImgEndColor,  _redScreenInitialColor, duration);
 
-        MoveGameOverText();
-        
+        _playerAnimator.TweenMoveToBouncy(_gameOverTextRect, _GOverTxtEndPos, Vector3.right * 50f, _GOverTxtMovementDuration, 0, _GOverMoveIterations,
+        onBounceComplete: () => 
+        {
+            _playerAnimator.MoveTo(_gameOverTextRect, _GOverTxtEndPos, _GOverTxtMovementDuration / (_GOverMoveIterations * 3f), CurveTypes.Linear);
+        });
+
+
         //_GOTextAnimator.TweenImageOpacity(_gameOverTextRect, 255, _GOVerTxtColorChangeDuration);
         _GOTextAnimator.TweenImageColor(_gameOverTextRect, _GOverTxtInitialColor, _GOVerTxtColorChangeDuration, onComplete: () => 
         {
@@ -168,7 +198,7 @@ public class GameOverAnimation : MonoBehaviour
         _GOTextAnimator.TweenImageColor(_gameOverTextRect, _GOverTxtInitialColor, _GOverTxtEndColor, _GOVerTxtColorChangeDuration);
     }
 
-    void MoveGameOverText(int iteration = 0)
+    /*void MoveGameOverText(int iteration = 0)
     {
         iteration++;
 
@@ -184,7 +214,7 @@ public class GameOverAnimation : MonoBehaviour
         {
             MoveGameOverText(iteration);
         });
-    }
+    }*/
 
     void ButtonAnimations()
     {
@@ -220,6 +250,7 @@ public class GameOverAnimation : MonoBehaviour
     }
 
     private void OnDestroy() {
-        _playerStats.onStatsChange += CheckHealth;        
+        _playerStats.onStatsChange -= CheckHealth;
+        _gameFreezeTimer.onEnd -= GameOver;        
     }
 }

@@ -11,7 +11,8 @@ public static class TimeScaleManager
 
     public static void SetTimeScale(float scale)
     {
-        if(isForced)return;
+        if(scale >= 1) isForced = false;
+        if(isForced) return;
         Time.timeScale = scale;
         
     }
@@ -19,7 +20,7 @@ public static class TimeScaleManager
     public static void ForceTimeScale(float scale)
     {
         isForced = true;
-        if(scale >= 1)isForced = false;
+        if(scale >= 1) isForced = false;
         Time.timeScale = scale;
     }
 }

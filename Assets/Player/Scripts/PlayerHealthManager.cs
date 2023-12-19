@@ -30,10 +30,7 @@ public class PlayerHealthManager : MonoBehaviour, IDamageable
 
     public void TakeDamage(int damage)
     {
-        if(_player.Stats.CurrentHealth <= 0)
-        {
-            return;
-        }
+        if(_player.Stats.CurrentHealth <= 0) return;
         _player.Stats.CurrentHealth -= damage;
         _audio.PlayOneShot(_onHitSfx);
         GameFreezer.FreezeGame(0.04f);
