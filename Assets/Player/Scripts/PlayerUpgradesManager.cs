@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerUpgradesInventory : MonoBehaviour
+public class PlayerUpgradesManager : MonoBehaviour
 {
 
     PlayerManager _playerManager;

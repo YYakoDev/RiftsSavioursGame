@@ -6,6 +6,7 @@ using UnityEngine;
 public class InventoryUI : MonoBehaviour
 {
     Animator _animator;
+    Transform _cachedTransform;
     [SerializeField]World _currentWorld;
     [SerializeField]SOPlayerInventory _playerInventory;
     [SerializeField]UICraftingMaterialPrefab _craftingMaterialPrefab;
@@ -16,22 +17,17 @@ public class InventoryUI : MonoBehaviour
 
     private void Awake() {
         _animator = GetComponent<Animator>();
+        _cachedTransform = transform;
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        _playerInventory.onInventoryChange += SetMaterialAmount;
-        WorldManager.onWorldChange += WorldChange;    
-        InitializeUI();
+        _playerInventory.onInventoryChange += SetInventory;
+        WorldManager.onWorldChange += WorldChange;
+        SetInventory();
     }
 
-    void InitializeUI()
-    {
-        SetCraftingMaterialLength();
-        ShowCraftingMaterials();
-        SetMaterialAmount();
-    }
 
     private void Update() {
         if(_countdown >= 0)
@@ -42,40 +38,55 @@ public class InventoryUI : MonoBehaviour
             CloseUI();
         }
     }
-
-
-
-    void SetCraftingMaterialLength()
+    void SetInventory()
     {
-        Array.Resize<UICraftingMaterialPrefab>(ref _instantiatedMaterials, _currentWorld.CurrentCraftingMaterials.Length);
-    }
-
-    void ShowCraftingMaterials()
-    {
-        if(_instantiatedMaterials != null) DestroyPreviousItems(); // this may cause problems when loading and saving?
-        for(int i = 0; i < _currentWorld.CurrentCraftingMaterials.Length; i++)
+        int ownMatCount = _playerInventory.OwnedMaterials.Count;
+        if(_instantiatedMaterials == null)
         {
-            UICraftingMaterialPrefab instantiatedMaterial = Instantiate(_craftingMaterialPrefab, transform);
-            _instantiatedMaterials[i] = instantiatedMaterial;
-
-            /* 
-            GameObject instantiatedMaterial = Instantiate(_craftingMaterialPrefab.gameObject, transform.position, Quaternion.identity);
-            _instantiatedMaterials[i] = instantiatedMaterial.GetComponent<UICraftingMaterialPrefab>();
-            */
+            CreateUIItem(ownMatCount);
         }
-    }
-
-    void SetMaterialAmount()
-    {
-        for(int i = 0; i < _instantiatedMaterials.Length; i++)
+        else if(_instantiatedMaterials.Length < ownMatCount)
         {
-            CraftingMaterial craftingMaterial = _currentWorld.CurrentCraftingMaterials[i];
+            int diff = ownMatCount - _instantiatedMaterials.Length;
+            CreateUIItem(diff, _instantiatedMaterials.Length);
+        }
+        SetMaterialItems();
+    }
+    void SetMaterialItems()
+    {
+        int index = 0;
+        foreach(CraftingMaterial mat in _playerInventory.OwnedMaterials.Keys)
+        {
+            UICraftingMaterialPrefab instantiatedMaterial = _instantiatedMaterials[index];
+            int matCount = _playerInventory.OwnedMaterials[mat];
+            instantiatedMaterial.Initialize(mat, matCount);
+            index++;
+        }
+        /*for(int i = 0; i < _instantiatedMaterials.Length; i++)
+        {
+            CraftingMaterial craftingMaterial = _playerInventory.OwnedMaterials.Keys.CopyTo();
             UICraftingMaterialPrefab instantiatedMaterial = _instantiatedMaterials[i];
 
             int materialsOwned = (_playerInventory.OwnedMaterials.ContainsKey(craftingMaterial)) ? _playerInventory.OwnedMaterials[craftingMaterial] : 0;
             instantiatedMaterial.Initialize(craftingMaterial, materialsOwned);
-        }
+        }*/
         OpenUI();
+    }
+    void CreateUIItem(int amountToCreate, int startingIndex = 0)
+    {
+        if(_instantiatedMaterials != null)
+        {
+            int newLength = _instantiatedMaterials.Length + amountToCreate;
+            Array.Resize<UICraftingMaterialPrefab>(ref _instantiatedMaterials, newLength);
+        }else
+        {
+            _instantiatedMaterials = new UICraftingMaterialPrefab[amountToCreate];
+        }
+        for (int i = 0; i < amountToCreate; i++)
+        {
+            UICraftingMaterialPrefab instantiatedMaterial = Instantiate(_craftingMaterialPrefab, _cachedTransform);
+            _instantiatedMaterials[startingIndex + i] = instantiatedMaterial;
+        }
     }
 
     void OpenUI()
@@ -98,22 +109,13 @@ public class InventoryUI : MonoBehaviour
     void WorldChange(World world)
     {
         _currentWorld = world;
-        InitializeUI();
-    }
-
-    void DestroyPreviousItems()
-    {
-        foreach(var item in _instantiatedMaterials)
-        {
-            if(item == null) continue;
-            Destroy(item.gameObject);
-        }
+        SetInventory();
     }
 
     private void OnDestroy()
     {
         WorldManager.onWorldChange -= WorldChange;    
-        _playerInventory.onInventoryChange -= SetMaterialAmount;
+        _playerInventory.onInventoryChange -= SetInventory;
     }
 
     

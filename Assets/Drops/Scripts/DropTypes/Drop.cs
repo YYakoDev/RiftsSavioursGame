@@ -9,13 +9,13 @@ public class Drop : ScriptableObject
 
     //fields
     [Header("Drop Properties")]
-    [SerializeField]private string _name;
+    //[SerializeField]private string _name;
     [SerializeField]private Sprite _sprite;
     [SerializeField]private AudioClip[] _pickupSounds = new AudioClip[0];
     [SerializeField, Range(0,100)]int _dropChance = 100;
 
     //Properties
-    public string Name => _name;
+    //public string Name => _name;
     public Sprite Sprite => _sprite;
     public AudioClip[] PickUpSounds => _pickupSounds;
     public int DropChance => _dropChance;

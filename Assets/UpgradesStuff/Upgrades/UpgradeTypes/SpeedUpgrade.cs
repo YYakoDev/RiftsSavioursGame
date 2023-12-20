@@ -9,9 +9,9 @@ public class SpeedUpgrade : SOUpgradeBase
 {
     [SerializeField, Range(0,100)]private int _speedUpAmount = 1;
 
-    public override void ApplyEffect(PlayerUpgradesInventory playerUpgrades)
+    public override void ApplyEffect(PlayerUpgradesManager upgradesManager)
     {
-        base.ApplyEffect(playerUpgrades);
-        playerUpgrades.SpeedUp(_speedUpAmount);
+        base.ApplyEffect(upgradesManager);
+        upgradesManager.SpeedUp(_speedUpAmount);
     }
 }

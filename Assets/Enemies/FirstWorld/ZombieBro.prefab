@@ -382,6 +382,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _drops:
   - {fileID: 11400000, guid: d0ab46bbe532d364a8d370efba7ef95e, type: 2}
+  - {fileID: 11400000, guid: 6de6f62896a6f4344aabdf554cffb9c1, type: 2}
 --- !u!82 &6764728389151127168
 AudioSource:
   m_ObjectHideFlags: 0

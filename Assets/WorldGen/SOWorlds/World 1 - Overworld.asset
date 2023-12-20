@@ -36,8 +36,3 @@ MonoBehaviour:
   - {fileID: 1345279769607379422, guid: 20129998047db9f40975012e11bfe972, type: 3}
   - {fileID: 1345279769607379422, guid: 428ba062f99c53b489a7cff5de72006c, type: 3}
   - {fileID: 1345279769607379422, guid: d3e8f71d3ba2ef049ad5be05a87e2f1a, type: 3}
-  _worldCraftingMaterials:
-  - {fileID: 11400000, guid: b4ba9f582bfaddb44855f718a50fcc0b, type: 2}
-  - {fileID: 11400000, guid: b13362f075742974d9b87d69b98b5b63, type: 2}
-  - {fileID: 11400000, guid: 992205d56e5cf6a4e9e59d9fabc07de5, type: 2}
-  - {fileID: 11400000, guid: 00a58af03a53dc947be4af400a57e69b, type: 2}

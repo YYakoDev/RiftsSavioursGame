@@ -26,7 +26,7 @@ public class SOUpgradeBase : ScriptableObject
         }
     }
 
-    public virtual void ApplyEffect(PlayerUpgradesInventory playerUpgrades)
+    public virtual void ApplyEffect(PlayerUpgradesManager upgradesManager)
     {
 
     }

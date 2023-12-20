@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Possible Upgrades List" , menuName = "ScriptableObjects/PossibleUpgradesList")]
 public class SOPossibleUpgradesList : ScriptableObject
 {
-    [SerializeField]List<UpgradeGroup> _startingUpgrades = new();
+    [SerializeField]List<UpgradeGroup> _startingUpgrades;
     UpgradeGroup[] _possibleUpgrades; 
 
     //properties

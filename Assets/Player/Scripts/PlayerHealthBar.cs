@@ -8,22 +8,23 @@ public class PlayerHealthBar : MonoBehaviour
     [SerializeField]SOPlayerStats _playerStats;
     [SerializeField]PlayerHealthAnimations _animations;
     Slider _healthBar;
+    int _currentHealth, _maxHealth;
 
-    int currentHealth
+    int CurrentHealth
     {
-        get => currentHealth;
+        get => _currentHealth;
         set
         {
-            currentHealth = value;
+            _currentHealth = value;
             UpdateBarValue();
         }
     }
-    int maxHealth 
+    int MaxHealth 
     {   
-        get => maxHealth; 
+        get => _maxHealth; 
         set 
         {
-            maxHealth = value;
+            _maxHealth = value;
             UpdateBarMaxValue();
         }
     }
@@ -38,6 +39,10 @@ public class PlayerHealthBar : MonoBehaviour
 
     private IEnumerator Start()
     {
+        _currentHealth = _playerStats.CurrentHealth;
+        _maxHealth = _playerStats.MaxHealth;
+        _healthBar.value = _currentHealth;
+        _healthBar.maxValue = _maxHealth;
         //UpdateHealthBar();
         yield return null;
         yield return null;
@@ -46,12 +51,12 @@ public class PlayerHealthBar : MonoBehaviour
 
     void UpdateBarValue()
     {
-        _healthBar.value = currentHealth;
+        _healthBar.value = _currentHealth;
         PlayAnimations();
     }
     void UpdateBarMaxValue()
     {
-        _healthBar.maxValue = maxHealth;
+        _healthBar.maxValue = _maxHealth;
         _animations.ShakeAnimation();
     }
 
@@ -69,8 +74,8 @@ public class PlayerHealthBar : MonoBehaviour
 
     void CheckValues()
     {
-        if(currentHealth != _playerStats.CurrentHealth) currentHealth = _playerStats.CurrentHealth;
-        if(maxHealth != _playerStats.MaxHealth) maxHealth = _playerStats.MaxHealth;
+        if(CurrentHealth != _playerStats.CurrentHealth) CurrentHealth = _playerStats.CurrentHealth;
+        if(MaxHealth != _playerStats.MaxHealth) MaxHealth = _playerStats.MaxHealth;
     }
 
     void PlayAnimations()

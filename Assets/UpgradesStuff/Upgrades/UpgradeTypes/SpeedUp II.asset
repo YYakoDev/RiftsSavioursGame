@@ -16,7 +16,7 @@ MonoBehaviour:
   _effectDescription: Increases the player speed by 20%
   _sprite: {fileID: 21300000, guid: e13883e19c570d742b1ba000303563d3, type: 3}
   _upgradeCosts:
-  - CraftingMaterial: {fileID: 0}
+  - CraftingMaterial: {fileID: 11400000, guid: 992205d56e5cf6a4e9e59d9fabc07de5, type: 2}
     Cost: 0
   - CraftingMaterial: {fileID: 0}
     Cost: 0
