@@ -7,11 +7,11 @@ using UnityEngine;
 [CreateAssetMenu(menuName = MenuPath + "SpeedUp")]
 public class SpeedUpgrade : SOUpgradeBase
 {
-    [SerializeField, Range(0,100)]private int _speedUpAmount = 1;
+    [SerializeField, Range(0,100)]private int _speedUpPercentage = 10;
 
     public override void ApplyEffect(PlayerUpgradesManager upgradesManager)
     {
         base.ApplyEffect(upgradesManager);
-        upgradesManager.SpeedUp(_speedUpAmount);
+        upgradesManager.SpeedUp(_speedUpPercentage);
     }
 }

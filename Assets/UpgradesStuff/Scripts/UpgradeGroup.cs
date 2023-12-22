@@ -6,7 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObjects/Upgrades/.UpgradeGroup")]
 public class UpgradeGroup : ScriptableObject
 {
-    int _currentIndex = 0;
+    int _currentIndex = -1;
     [SerializeField]SOUpgradeBase[] _upgrades;
 
     //properties
@@ -20,6 +20,7 @@ public class UpgradeGroup : ScriptableObject
             //you have unlocked every upgrade of this group, congrats
             return null; //in the script that handles which upgrades have a chance of showing, if one is null then you would pop them from the list
         }
+        _currentIndex++;
         return _upgrades[_currentIndex];
     }
 }

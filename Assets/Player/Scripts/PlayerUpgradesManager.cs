@@ -15,6 +15,7 @@ public class PlayerUpgradesManager : MonoBehaviour
     //public SOUpgradeBase[] PossibleUpgrades => _possibleUpgrades;
     public SOPossibleUpgradesList PossibleUpgradesList => _possibleUpgradesList;
     public SOUpgradeBase[] EquippedUpgrades => _equipeedUpgrades;
+    public SOPlayerStats PlayerStats => _playerManager.Stats;
 
 
     private void Awake() {

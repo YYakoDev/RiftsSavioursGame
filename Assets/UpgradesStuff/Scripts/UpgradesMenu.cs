@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class UpgradesMenu : MonoBehaviour
 {
@@ -10,7 +12,9 @@ public class UpgradesMenu : MonoBehaviour
     [SerializeField]private UpgradeItemPrefab _upgradeItemPrefab;
     [SerializeField]SOPossibleUpgradesList _possibleUpgradesList; // from here you should grab an x number of upgrades and show them everytime you open the menu
     [SerializeField]SOPlayerInventory _playerInventory;
-    private UpgradeGroup[] _selectedUpgrades;
+    int _selectionCount = 3;
+    private int[] _pickedIndexes;
+    private SOUpgradeBase[] _selectedUpgrades;
 
     [SerializeField]bool _activeMenuOnStart = false;
 
@@ -32,11 +36,12 @@ public class UpgradesMenu : MonoBehaviour
             this.enabled = false;
         }
         PlayerLevelManager.onLevelUp += ActivateUpgradeMenu;
+        _pickedIndexes = new int[_selectionCount];
+        _selectedUpgrades = new SOUpgradeBase[_selectionCount];
         if(_activeMenuOnStart)
         {
             ActivateUpgradeMenu();
         }
-        
     }
 
     public void ActivateUpgradeMenu()
@@ -63,6 +68,26 @@ public class UpgradesMenu : MonoBehaviour
         //deduce the cost of the upgrade from the players inventory if the player does not have enough materials then dont do that
         DeactivateUpgradeMenu();
         //apply the effect of the upgrade here
+    }
+
+    void PickRandomUpgrades()
+    {
+        CheckSelectionAmount();
+        List<UpgradeGroup> possibleUpgrades = new(_possibleUpgradesList.PossibleUpgrades);
+        
+        for (int i = 0; i < _selectionCount; i++)
+        {
+            _pickedIndexes[i] = Random.Range(0, _possibleUpgradesList.PossibleUpgrades.Length);
+            _selectedUpgrades[i] = possibleUpgrades[_pickedIndexes[i]].GetNextUpgrade();
+            //remove the selected one from the list so the next iteration will get something different
+            possibleUpgrades.Remove(possibleUpgrades[i]);
+        }
+    }
+
+    void CheckSelectionAmount()
+    {
+        if(_pickedIndexes.Length != _selectionCount) Array.Resize<int>(ref _pickedIndexes, _selectionCount);
+        if(_selectedUpgrades.Length != _selectionCount) Array.Resize<SOUpgradeBase>(ref _selectedUpgrades, _selectionCount);
     }
 
     public void DeactivateUpgradeMenu()

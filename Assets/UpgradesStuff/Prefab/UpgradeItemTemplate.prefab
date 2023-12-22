@@ -387,7 +387,7 @@ MonoBehaviour:
   _upgradeName: {fileID: 7124196233482758408}
   _upgradeEffect: {fileID: 7124196234143250568}
   _upgradeIcon: {fileID: 7124196234185394332}
-  _craftUpgradeButton: {fileID: 0}
+  _craftUpgradeButton: {fileID: 4210299322647683725}
   _recipeItemPrefab: {fileID: 5382520300804255403, guid: a3c0ea0eab3265946aafdb3a4ba46f55, type: 3}
 --- !u!114 &4210299322647683725
 MonoBehaviour:

@@ -10,7 +10,6 @@ public class SOPossibleUpgradesList : ScriptableObject
 
     //properties
     public List<UpgradeGroup> StartingUpgrades => _startingUpgrades;
-
     public UpgradeGroup[] PossibleUpgrades => _possibleUpgrades;
     
     public void Initialize()
