@@ -7,6 +7,7 @@ public class PlayerManager : MonoBehaviour
 {
     //References
     [Header("References")]
+    [SerializeField] SOCharacterData _charData;
     [SerializeField]SOPlayerStats _stats;
     [SerializeField]PlayerAnimationController _animatorController;
     [SerializeField]Rigidbody2D _rigidBody;
@@ -31,6 +32,7 @@ public class PlayerManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        if(_stats != null) _stats.Initialize(_charData);
         GameObject thisGO = gameObject;
         thisGO.CheckComponent<PlayerAnimationController>(ref _animatorController);
         thisGO.CheckComponent<Rigidbody2D>(ref _rigidBody);

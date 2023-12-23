@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -100,7 +101,7 @@ public class UpgradeMenuAnimations : MonoBehaviour
 
     }
 
-    public void PlayCloseAnimations()
+    public void PlayCloseAnimations(Action onComplete = null)
     {
         _tableAnimator.MoveTo(_table, _upgradeMenuStartPos, 0.2f, CurveTypes.EaseInOut);
         _toolsLeftAnimator.MoveTo(_toolsLeft, _toolsLeftStartPos, 0.25f, CurveTypes.EaseInOut);
@@ -109,6 +110,7 @@ public class UpgradeMenuAnimations : MonoBehaviour
         _upgradeAnimator.Scale(_upgradeMenu, Vector3.zero, 0.45f, CurveTypes.EaseInOut,
             onComplete: () => 
             {
+                onComplete?.Invoke();
                 gameObject.SetActive(false);
             });
     }

@@ -69,8 +69,9 @@ public class SOPlayerStats : ScriptableObject
 
 
 
-    public void Initialize(SOPlayerStats stats)
+    public void Initialize(SOCharacterData data)
     {
+        SOPlayerStats stats = data.Stats;
         _maxHealth = stats.MaxHealth;
         _currentHealth = stats.CurrentHealth;
 

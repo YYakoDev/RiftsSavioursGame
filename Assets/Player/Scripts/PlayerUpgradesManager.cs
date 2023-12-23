@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerUpgradesManager : MonoBehaviour
 {
 
-    PlayerManager _playerManager;
+    [SerializeField]PlayerManager _playerManager;
 
     [SerializeField]SOPossibleUpgradesList _possibleUpgradesList;
     SOUpgradeBase[] _equipeedUpgrades;
@@ -18,9 +18,11 @@ public class PlayerUpgradesManager : MonoBehaviour
     public SOPlayerStats PlayerStats => _playerManager.Stats;
 
 
-    private void Awake() {
+    private void Awake()
+    {
         gameObject.CheckComponent<PlayerManager>(ref _playerManager);
-    }
+        _possibleUpgradesList.Initialize();
+}
 
     public void SpeedUp(int amount)
     {

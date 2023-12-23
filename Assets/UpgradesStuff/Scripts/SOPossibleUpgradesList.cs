@@ -14,6 +14,10 @@ public class SOPossibleUpgradesList : ScriptableObject
     
     public void Initialize()
     {
+        foreach(var upgrade in _startingUpgrades)
+        {
+            upgrade.Initialize();
+        }
         _possibleUpgrades = _startingUpgrades.ToArray();
 
     }

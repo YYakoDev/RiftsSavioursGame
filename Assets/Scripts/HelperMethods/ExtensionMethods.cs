@@ -57,6 +57,10 @@ public static class ExtensionMethods
     {
         button.onClick.AddListener(() => {OnClick(); });
     }
+    public static void AddEventListener<T>(this Button button, Action<T> OnClick, T argument)
+    {
+        button.onClick.AddListener(() => {OnClick(argument); });
+    }
     public static void RemoveAllEvents(this Button button)
     {
         button.onClick.RemoveAllListeners();

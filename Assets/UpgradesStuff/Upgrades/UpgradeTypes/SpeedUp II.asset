@@ -15,9 +15,7 @@ MonoBehaviour:
   _name: Speed Up II
   _effectDescription: Increases the player speed by 20%
   _sprite: {fileID: 21300000, guid: e13883e19c570d742b1ba000303563d3, type: 3}
-  _upgradeCosts:
-  - CraftingMaterial: {fileID: 11400000, guid: 992205d56e5cf6a4e9e59d9fabc07de5, type: 2}
-    Cost: 0
-  - CraftingMaterial: {fileID: 0}
-    Cost: 0
-  _speedUpAmount: 20
+  _costs:
+  - CraftingMaterial: {fileID: 11400000, guid: b0ee0322b3f2ea5439336a20dc5012b8, type: 2}
+    Cost: 5
+  _speedUpPercentage: 20

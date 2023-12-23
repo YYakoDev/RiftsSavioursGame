@@ -12,9 +12,11 @@ public class UpgradesMenu : MonoBehaviour
     [SerializeField]private UpgradeItemPrefab _upgradeItemPrefab;
     [SerializeField]SOPossibleUpgradesList _possibleUpgradesList; // from here you should grab an x number of upgrades and show them everytime you open the menu
     [SerializeField]SOPlayerInventory _playerInventory;
-    int _selectionCount = 3;
-    private int[] _pickedIndexes;
+    const int selectionCount = 3;
+    int _choicesAmount = 1;
+    bool _isMenuActive = false;
     private SOUpgradeBase[] _selectedUpgrades;
+    private UpgradeItemPrefab[] _instantiatedItems;
 
     [SerializeField]bool _activeMenuOnStart = false;
 
@@ -36,16 +38,26 @@ public class UpgradesMenu : MonoBehaviour
             this.enabled = false;
         }
         PlayerLevelManager.onLevelUp += ActivateUpgradeMenu;
-        _pickedIndexes = new int[_selectionCount];
-        _selectedUpgrades = new SOUpgradeBase[_selectionCount];
+        _selectedUpgrades = new SOUpgradeBase[selectionCount];
+        CreateUpgradeItems();
         if(_activeMenuOnStart)
         {
+            //CreateUpgradeItems();
             ActivateUpgradeMenu();
         }
     }
 
     public void ActivateUpgradeMenu()
     {
+        if(_isMenuActive)
+        {
+            Debug.Log("UPGRADE MENU IS ALREADY ACTIVE, queueing another level up");
+            //do the queue here mf
+            return;
+        }
+        PickRandomUpgrades();
+        CheckCreatedItems();
+        _isMenuActive = true;
         _upgradesMenu.gameObject.SetActive(true);
         _animations.ClearAnimations();
         _animations.PlayAnimations();
@@ -72,31 +84,56 @@ public class UpgradesMenu : MonoBehaviour
 
     void PickRandomUpgrades()
     {
-        CheckSelectionAmount();
         List<UpgradeGroup> possibleUpgrades = new(_possibleUpgradesList.PossibleUpgrades);
-        
-        for (int i = 0; i < _selectionCount; i++)
+        for (int i = 0; i < selectionCount; i++)
         {
-            _pickedIndexes[i] = Random.Range(0, _possibleUpgradesList.PossibleUpgrades.Length);
-            _selectedUpgrades[i] = possibleUpgrades[_pickedIndexes[i]].GetNextUpgrade();
+            if(possibleUpgrades.Count == 0) break;
+            int index = Random.Range(0, possibleUpgrades.Count);
+            _selectedUpgrades[i] = possibleUpgrades[index].GetUpgrade();
             //remove the selected one from the list so the next iteration will get something different
             possibleUpgrades.Remove(possibleUpgrades[i]);
+            if(_selectedUpgrades[i] == null) _selectedUpgrades[i] = possibleUpgrades[index].GetUpgrade();
         }
     }
 
-    void CheckSelectionAmount()
+    void CheckCreatedItems()
     {
-        if(_pickedIndexes.Length != _selectionCount) Array.Resize<int>(ref _pickedIndexes, _selectionCount);
-        if(_selectedUpgrades.Length != _selectionCount) Array.Resize<SOUpgradeBase>(ref _selectedUpgrades, _selectionCount);
+        if(_instantiatedItems == null) CreateUpgradeItems();
+        for (int i = 0; i < _instantiatedItems.Length; i++)
+        {
+            if (_selectedUpgrades[i] == null)
+            {
+                _instantiatedItems[i].gameObject.SetActive(false);
+                continue;
+            }
+            _instantiatedItems[i].Initialize(_selectedUpgrades[i], CraftUpgrade);
+        }
+    }
+
+    void CreateUpgradeItems()
+    {
+        Transform cachedTransform = _upgradesContainer.transform;
+        _instantiatedItems = new UpgradeItemPrefab[selectionCount];
+        for (int i = 0; i < selectionCount; i++)
+        {
+            _instantiatedItems[i] = Instantiate(_upgradeItemPrefab, cachedTransform);
+            _instantiatedItems[i].gameObject.SetActive(true);
+        }
     }
 
     public void DeactivateUpgradeMenu()
     {
         _audio.PlayWithVaryingPitch(_closingSound);
-        _animations.PlayCloseAnimations();
+        _animations.PlayCloseAnimations(Resume);
         Cursor.visible = _previousCursorState;
         Cursor.lockState = _previousCursorLockMode;
+        
+    }
+    
+    void Resume()
+    {
         TimeScaleManager.ForceTimeScale(1);
+        _isMenuActive = false;
     }
 
 
