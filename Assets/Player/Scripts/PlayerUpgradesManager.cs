@@ -8,13 +8,13 @@ public class PlayerUpgradesManager : MonoBehaviour
     [SerializeField]PlayerManager _playerManager;
 
     [SerializeField]SOPossibleUpgradesList _possibleUpgradesList;
-    SOUpgradeBase[] _equipeedUpgrades;
+    SOUpgradeBase[] _equipedUpgrades;
 
 
     //properties
     //public SOUpgradeBase[] PossibleUpgrades => _possibleUpgrades;
     public SOPossibleUpgradesList PossibleUpgradesList => _possibleUpgradesList;
-    public SOUpgradeBase[] EquippedUpgrades => _equipeedUpgrades;
+    public SOUpgradeBase[] EquippedUpgrades => _equipedUpgrades;
     public SOPlayerStats PlayerStats => _playerManager.Stats;
 
 
@@ -28,6 +28,11 @@ public class PlayerUpgradesManager : MonoBehaviour
     {
         float speedUp = (_playerManager.Stats.Speed * amount)/100;
         _playerManager.Stats.Speed += speedUp;
+    }
+
+    public void AddMaterial(CraftingMaterial mat)
+    {
+        _playerManager.Inventory.AddMaterial(mat);
     }
 
 

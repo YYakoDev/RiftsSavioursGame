@@ -12,6 +12,6 @@ public class ResourceDrop : Drop
     }
 
     private void OnValidate() {
-        _craftingMaterial.sprite = Sprite;
+        _craftingMaterial.Sprite = Sprite;
     }
 }
