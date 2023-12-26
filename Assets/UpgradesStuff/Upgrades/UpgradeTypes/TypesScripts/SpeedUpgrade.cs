@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -12,6 +10,6 @@ public class SpeedUpgrade : SOUpgradeBase
     public override void ApplyEffect(PlayerUpgradesManager upgradesManager)
     {
         base.ApplyEffect(upgradesManager);
-        upgradesManager.SpeedUp(_speedUpPercentage);
+
     }
 }

@@ -15,25 +15,27 @@ public class PlayerUpgradesManager : MonoBehaviour
     //public SOUpgradeBase[] PossibleUpgrades => _possibleUpgrades;
     public SOPossibleUpgradesList PossibleUpgradesList => _possibleUpgradesList;
     public SOUpgradeBase[] EquippedUpgrades => _equipedUpgrades;
-    public SOPlayerStats PlayerStats => _playerManager.Stats;
+    public SOPlayerStats Stats => _playerManager.Stats;
 
 
     private void Awake()
     {
         gameObject.CheckComponent<PlayerManager>(ref _playerManager);
         _possibleUpgradesList.Initialize();
-}
-
-    public void SpeedUp(int amount)
-    {
-        float speedUp = (_playerManager.Stats.Speed * amount)/100;
-        _playerManager.Stats.Speed += speedUp;
     }
+
+    public float StatUp(float stat, float amount) => stat += amount;
+    public float StatUp(float stat, int percent) => stat += GetPercentage(stat, percent);
+    public int StatUp(int stat, int amount) => stat += amount;
+    public int StatUpByPercent(int stat, int percent) => stat += (int)GetPercentage(stat, percent);
 
     public void AddMaterial(CraftingMaterial mat)
     {
         _playerManager.Inventory.AddMaterial(mat);
     }
+
+    float GetPercentage(float stat, int percent) => stat * (percent / 100f);
+
 
 
 }
