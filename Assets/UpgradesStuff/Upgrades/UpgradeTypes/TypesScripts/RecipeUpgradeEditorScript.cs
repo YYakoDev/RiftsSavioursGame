@@ -1,18 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class RecipeUpgradeEditorScript : MonoBehaviour
+using UnityEditor;
+[CustomEditor(typeof(RecipeUpgrade)), CanEditMultipleObjects]
+public class RecipeUpgradeEditorScript : Editor
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void OnInspectorGUI()
     {
-        
-    }
+        DrawDefaultInspector();
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        RecipeUpgrade script = (RecipeUpgrade)this.target;
+        if(GUILayout.Button("Set Sprite"))
+        {
+            script.SetSprite();
+        }
     }
 }

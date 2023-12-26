@@ -91,7 +91,7 @@ public class UpgradesMenu : MonoBehaviour
             int index = Random.Range(0, possibleUpgrades.Count);
             _selectedUpgrades[i] = possibleUpgrades[index].GetUpgrade();
             //remove the selected one from the list so the next iteration will get something different
-            possibleUpgrades.Remove(possibleUpgrades[i]);
+            possibleUpgrades.Remove(possibleUpgrades[index]);
             if(_selectedUpgrades[i] == null) _selectedUpgrades[i] = possibleUpgrades[index].GetUpgrade();
         }
     }

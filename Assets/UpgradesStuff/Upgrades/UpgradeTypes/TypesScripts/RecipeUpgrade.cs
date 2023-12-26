@@ -13,6 +13,11 @@ public class RecipeUpgrade : SOUpgradeBase
     }
 
     private void OnValidate() {
+        SetSprite();
+    }
+
+    public void SetSprite()
+    {
         if(_material == null) return;
         if(_material.Sprite == null) _material.Sprite = Sprite;
     }
