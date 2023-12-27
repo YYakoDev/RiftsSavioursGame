@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 786a0624aed0069498d5837622e246fc, type: 3}
   m_Name: LeatherGroup
   m_EditorClassIdentifier: 
-  _upgrades: []
+  _upgrades:
+  - {fileID: 11400000, guid: 42b08c3dd05810a47a174fe57d49cb0d, type: 2}
