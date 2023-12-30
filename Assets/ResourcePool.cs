@@ -15,7 +15,7 @@ public class ResourcePool : MonoBehaviour
         _resourcesPool = new(_amountToPool, _resourcePrefab, transform, _isResizable);
     }
 
-    void Start()
+    void OnEnable()
     {
         ResourcePointer.OnResourceSignal += SpawnResource;
     }
@@ -32,7 +32,7 @@ public class ResourcePool : MonoBehaviour
 
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
         ResourcePointer.OnResourceSignal -= SpawnResource;
     }

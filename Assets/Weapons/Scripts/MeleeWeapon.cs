@@ -14,6 +14,7 @@ public class MeleeWeapon : WeaponBase
 
     [Header("Stats")]
     [SerializeField]protected float _attackRange = 0.5f;
+    [SerializeField] protected Vector2 _rangeOffset;
     protected float _radiusOffset = 0;
     protected Vector3 _attackPoint = Vector2.zero;
     [SerializeField]protected int _attackDamage = 5;
@@ -59,7 +60,8 @@ public class MeleeWeapon : WeaponBase
         Vector3 prefabPos = _weaponPrefabTransform.position;
         Vector3 directionFromParent = prefabPos - _parentTransform.position;
         directionFromParent.Normalize();
-        _attackPoint = _weaponPrefabTransform.position + directionFromParent * _radiusOffset;
+        Vector2 rangeOffset = new Vector2(_rangeOffset.x * Mathf.Sign(directionFromParent.x), _rangeOffset.y * Mathf.Sign(directionFromParent.y));
+        _attackPoint = _weaponPrefabTransform.position + (Vector3)rangeOffset + directionFromParent * _radiusOffset;
 
     }
     protected virtual bool DetectEnemies(float atkRange)
@@ -150,7 +152,8 @@ public class MeleeWeapon : WeaponBase
         Vector3 prefabPos = _weaponPrefabTransform.position;
         Vector3 directionFromParent = prefabPos - _parentTransform.position;
         directionFromParent.Normalize();
-        Vector3 point = _weaponPrefabTransform.position + directionFromParent * _radiusOffset;
+        Vector2 rangeOffset = new Vector2(_rangeOffset.x * Mathf.Sign(directionFromParent.x), _rangeOffset.y * Mathf.Sign(directionFromParent.y));
+        Vector3 point = _weaponPrefabTransform.position + (Vector3)rangeOffset + directionFromParent * _radiusOffset;
         Gizmos.DrawWireSphere(point, atkRange);
     }
 }

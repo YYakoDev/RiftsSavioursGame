@@ -24,10 +24,7 @@ public class ChunkGenerator : MonoBehaviour
     [SerializeField]Transform _playersTransform;
     Vector2Int _playerPositionOnGrid;
  
-    //[SerializeField]Vector2Int _chunkRenderDistance;
-
-    // Start is called before the first frame update
-    void Start()
+    public void StartCreation()
     {
         //failsafe in case you lose the assigned references in the editor
         if(_gridParent == null)
@@ -160,7 +157,11 @@ public class ChunkGenerator : MonoBehaviour
         if(_spawnedChunks.ContainsKey(positionOnGrid))
         {
             return _spawnedChunks[positionOnGrid].transform;
-        }else return null;
+        }else 
+        {
+            Debug.Log("Returning null");
+            return null; 
+        }
     }
 
     Vector2 GetChunkPosition(Vector2Int chunkPositionOnGrid) 

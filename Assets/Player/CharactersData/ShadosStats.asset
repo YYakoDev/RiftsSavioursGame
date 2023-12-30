@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc8b826c734252e40b580fc4ef82deb2, type: 3}
+  m_Name: ShadosStats
+  m_EditorClassIdentifier: 
+  _maxHealth: 100
+  _currentHealth: 95
+  _level: 1
+  _currentXP: 40
+  _xpToNextLevel: 100
+  _speed: 4.57
+  _accelerationTime: 0.33
+  _slowdownMultiplier: 0.665
+  _pickUpRange: 1.5
+  _collectingRange: 2
+  _collectingDamage: 1
+  _interactCooldown: 0.5
+  _maxResourceInteractions: 1
+  _weaponBase: {fileID: 11400000, guid: 77c4c2247dc5e1d43a165ee3213cde47, type: 2}
+  _attackStats: {fileID: 11400000, guid: 5c0efc2d47ffa234c9cfe266e112553e, type: 2}

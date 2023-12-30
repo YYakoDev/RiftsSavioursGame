@@ -86,6 +86,7 @@ public class Resource : MonoBehaviour, IResources, IComparable, IMaskeable
         _sortOrderController = new(transform, _renderer);
 
         _audio.playOnAwake = false;
+        _animator.keepAnimatorControllerStateOnDisable = true;
     }
 
     private void Awake() {

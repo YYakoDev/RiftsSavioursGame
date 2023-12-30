@@ -81,7 +81,8 @@ public class SOPlayerStats : ScriptableObject
 
         _speed = stats.Speed;
         _slowdownMultiplier = stats.SlowdownMultiplier;
-
+        _accelerationTime = stats.AccelerationTime;
+        
         _pickUpRange = stats.PickUpRange;
 
         _collectingRange = stats.CollectingRange;

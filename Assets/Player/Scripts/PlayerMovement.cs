@@ -20,7 +20,8 @@ public class PlayerMovement : MonoBehaviour, IKnockback
     float _elapsedAccelerationTime = 0f;
 
     //Slowdown when attacking
-    float _slowdownTime = 0f;
+    float _slowdown = 1f;
+    float _slowdownTime = 1f;
 
     //Flipping sprite based on direction
     bool isFlipped;
@@ -61,6 +62,7 @@ public class PlayerMovement : MonoBehaviour, IKnockback
         _spriteGameObject = _player.Renderer.gameObject;
         _realSpeed = MovementSpeed;
         _elapsedAccelerationTime = 0f;
+        _slowdown = 1f;
         //_accelerationCurve = TweenCurveLibrary.GetCurve(CurveTypes.EaseInOut);
     }
 
@@ -73,8 +75,10 @@ public class PlayerMovement : MonoBehaviour, IKnockback
             _slowdownTime -= Time.deltaTime;
         }else
         {
+            _slowdown = 1f;
             _realSpeed = MovementSpeed;
         }
+        
     }
 
     private void FixedUpdate()
@@ -95,10 +99,9 @@ public class PlayerMovement : MonoBehaviour, IKnockback
     void Move()
     {
         _dustEffect.Play();
-
         _elapsedAccelerationTime += Time.fixedDeltaTime;
         float percent = _elapsedAccelerationTime / AccelerationTime;
-        if(percent <= 1) _realSpeed = Mathf.Lerp(0, MovementSpeed, _accelerationCurve.Evaluate(percent));
+        if(percent <= 1.1f) _realSpeed = Mathf.Lerp(0, MovementSpeed, _accelerationCurve.Evaluate(percent)) * _slowdown;
 
         Vector2 direction = (Vector2)transform.position + _movement.normalized * (_realSpeed *Time.fixedDeltaTime);
         _player.RigidBody.MovePosition(direction);
@@ -141,7 +144,7 @@ public class PlayerMovement : MonoBehaviour, IKnockback
     public void SlowdownMovement(float slowdownTime)
     {
         _slowdownTime = slowdownTime;
-        _realSpeed = MovementSpeed * SlowdownMultiplier;
+        _slowdown = SlowdownMultiplier;
         _elapsedAccelerationTime = 0f;
     }
 }
