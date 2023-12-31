@@ -14,45 +14,63 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _name: ShadosKatanaCombo
   _SpriteAndAnimationsData: {fileID: 11400000, guid: fe301fefb53f91646b28abcd3bed37b4, type: 2}
-  _effects:
-  - {fileID: 11400000, guid: 9ddd7eda1b0d2ed44ab35738ce51d08c, type: 2}
-  - {fileID: 11400000, guid: a46798bb6b4605f46a88a7cb00606fc1, type: 2}
-  - {fileID: 11400000, guid: 23196116de9b69d47a045c9e6a9b7e11, type: 2}
-  - {fileID: 11400000, guid: 4780209016f8aa349864b33bf7198c79, type: 2}
-  - {fileID: 11400000, guid: c9c1e59da1cfa0d438f4301a1069edcd, type: 2}
+  _effects: []
   _flipSprite: 1
   _spawnPosition: {x: -0.55, y: 0.25, z: 0}
   _spawnRotation: 0
   _weaponSounds:
-  - {fileID: 8300000, guid: 7602fb907d705f944936d4679694c81c, type: 3}
+  - {fileID: 8300000, guid: 47433e00789a13a4cb6367fe767b3609, type: 3}
   - {fileID: 8300000, guid: 0478462ab30cff144b71214f83a74fcd, type: 3}
   - {fileID: 8300000, guid: 8277f752d4e9eff43a3188e0ed7f53bc, type: 3}
-  _pointCameraOnAttack: 0
-  _attackCooldown: 0.32
+  _pointCameraOnAttack: 1
+  _attackCooldown: 0.4
   _pullForce: 2
-  _attackRange: 1.16
-  _rangeOffset: {x: 0, y: 0}
-  _attackDamage: 5
-  _damageDelay: 0.2
-  _knockbackForce: 0.35
-  _attackSpeed: 1.36
-  _speedUPComboAnimations: 1
+  _attackRange: 1.2
+  _rangeOffset: {x: -0.4, y: 0.18}
+  _attackDamage: 10
+  _damageDelay: 0.114
+  _knockbackForce: 0.92
+  _attackSpeed: 1.3
+  _speedUPComboAnimations: 0
   _comboStats:
   - Cooldown: 0
-    Range: 0.1
+    Range: 0.73
     KnockbackForce: 0
-    AtkSpeed: 0
-    PullForce: 0
-    Damage: 0
+    AtkSpeed: 0.18
+    PullForce: 0.45
+    AtkDelay: 0
+    Damage: 3
+    RangeOffset: {x: 0, y: 0}
+    WeaponFxs:
+    - {fileID: 11400000, guid: 9ddd7eda1b0d2ed44ab35738ce51d08c, type: 2}
+    - {fileID: 11400000, guid: a46798bb6b4605f46a88a7cb00606fc1, type: 2}
+    - {fileID: 11400000, guid: 23196116de9b69d47a045c9e6a9b7e11, type: 2}
+    - {fileID: 11400000, guid: 4780209016f8aa349864b33bf7198c79, type: 2}
+    - {fileID: 11400000, guid: c9c1e59da1cfa0d438f4301a1069edcd, type: 2}
+    - {fileID: 11400000, guid: 5aa96cb87718dbb42b53feddbbdae7b1, type: 2}
   - Cooldown: 0
-    Range: 0.4
-    KnockbackForce: 2
-    AtkSpeed: 0
-    PullForce: 0
-    Damage: 0
+    Range: 0.43
+    KnockbackForce: 0.79
+    AtkSpeed: 0.51
+    PullForce: -2.1
+    AtkDelay: 0
+    Damage: -1
+    RangeOffset: {x: 0, y: 0}
+    WeaponFxs:
+    - {fileID: 11400000, guid: a46798bb6b4605f46a88a7cb00606fc1, type: 2}
+    - {fileID: 11400000, guid: c9c1e59da1cfa0d438f4301a1069edcd, type: 2}
   - Cooldown: 0
     Range: 1
     KnockbackForce: 0
-    AtkSpeed: 0
-    PullForce: 0
-    Damage: 0
+    AtkSpeed: 0.3
+    PullForce: 0.1
+    AtkDelay: 0
+    Damage: 1
+    RangeOffset: {x: 0, y: 0}
+    WeaponFxs:
+    - {fileID: 11400000, guid: 9ddd7eda1b0d2ed44ab35738ce51d08c, type: 2}
+    - {fileID: 11400000, guid: a46798bb6b4605f46a88a7cb00606fc1, type: 2}
+    - {fileID: 11400000, guid: 23196116de9b69d47a045c9e6a9b7e11, type: 2}
+    - {fileID: 11400000, guid: 4780209016f8aa349864b33bf7198c79, type: 2}
+    - {fileID: 11400000, guid: c9c1e59da1cfa0d438f4301a1069edcd, type: 2}
+    - {fileID: 11400000, guid: 5aa96cb87718dbb42b53feddbbdae7b1, type: 2}

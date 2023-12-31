@@ -44,13 +44,24 @@ public class TripleComboMeleeWeapon : MeleeWeapon
         _waitForRemainingDuration.onEnd += SetNextAttack;
         _waitForRemainingDuration.Stop();
 
-        _modifiedStats = new(_attackCooldown, _attackRange, _knockbackForce, _attackSpeed, _pullForce ,_attackDamage);
+        _modifiedStats = new(_attackCooldown, _attackRange, _knockbackForce, _attackSpeed, _pullForce , _attackDamage, _damageDelay, _rangeOffset, _effects);
         OnComboIndexChange(_currentComboIndex);
 
-        _weaponInstanceAnimator.speed = _modifiedStats.AtkSpeed;
+        ChangeAnimatorSpeed(_modifiedStats.AtkSpeed);
         
         _checkForComboInput = false;
         _inputDetected = false;
+    }
+    protected override void InitializeFXS()
+    {
+        PlayerAttackEffects fxsScript = _weaponManager.AtkEffects;
+        foreach(ComboAttackStat comboAtk in _comboStats)
+        {
+            foreach(WeaponEffects fx in comboAtk.WeaponFxs)
+            {
+                fx.Initialize(fxsScript);
+            }
+        }
     }
     public override void InputLogic()
     {
@@ -69,7 +80,7 @@ public class TripleComboMeleeWeapon : MeleeWeapon
                 if(_speedUPComboAnimations)
                 {
                     float speedUpFactor = 1.25f;
-                    _weaponInstanceAnimator.speed = _modifiedStats.AtkSpeed * speedUpFactor;
+                    ChangeAnimatorSpeed(_modifiedStats.AtkSpeed * speedUpFactor);
                     _attackDuration /= speedUpFactor;
                     _waitForRemainingDuration.ChangeTime(_waitForInputTimer.CurrentTime / speedUpFactor - (TimeOffset / 7f));
                 }else
@@ -131,7 +142,7 @@ public class TripleComboMeleeWeapon : MeleeWeapon
         _checkForComboInput = false;
         _waitForInputTimer.Stop();
 
-        _weaponInstanceAnimator.speed = _modifiedStats.AtkSpeed;
+        ChangeAnimatorSpeed(_modifiedStats.AtkSpeed);
     }
 
     void OnComboIndexChange(int newIndex)
@@ -141,6 +152,8 @@ public class TripleComboMeleeWeapon : MeleeWeapon
         SetNewStats(_comboStats[_currentComboIndex]);
         _attackDuration = _atkDurations[_currentComboIndex] / _modifiedStats.AtkSpeed * 0.9f;
         _waitForInputTimer.ChangeTime(_attackDuration + TimeOffset);
+        _atkExecutionTimer.ChangeTime(_modifiedStats.AtkDelay);
+        ChangeAnimatorSpeed(_modifiedStats.AtkSpeed);
     }
     void StartInputCheck()
     {
@@ -185,12 +198,29 @@ public class TripleComboMeleeWeapon : MeleeWeapon
         _modifiedStats.Damage = _attackDamage + stats.Damage;
         _modifiedStats.Cooldown = _attackCooldown - stats.Cooldown;
         _modifiedStats.PullForce = _pullForce + stats.PullForce;
+        _modifiedStats.AtkDelay = _damageDelay + stats.AtkDelay;
+        _modifiedStats.RangeOffset = _rangeOffset + stats.RangeOffset;
+        _modifiedStats.WeaponFxs = stats.WeaponFxs;
         SetMaxEnemiesToHit(_modifiedStats.Range);
         SetRadiusOffset(_modifiedStats.Range);
     }
     public override float GetPullForce()
     {
         return _modifiedStats.PullForce;
+    }
+
+    void ChangeAnimatorSpeed(float newSpeed)
+    {
+        _weaponInstanceAnimator.speed = newSpeed;
+    }
+
+    protected override void PlayAtkFXS()
+    {
+        foreach(WeaponEffects fx in _modifiedStats.WeaponFxs)  fx.OnAttackFX();
+    }
+    protected override void PlayHitFXS(Vector3 pos)
+    {
+        foreach(WeaponEffects fx in _modifiedStats.WeaponFxs) fx.OnHitFX(pos);
     }
 
     protected override void EvaluateStats(SOPlayerAttackStats attackStats)

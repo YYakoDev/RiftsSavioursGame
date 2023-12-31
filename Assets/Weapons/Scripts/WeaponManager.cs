@@ -7,6 +7,7 @@ public class WeaponManager : MonoBehaviour
 
     [Header("References")]
     [SerializeField]private PlayerManager _playerManager;
+    [SerializeField]private PlayerAttackEffects _effects;
     private SOPlayerStats _playerStats;
     [SerializeField]private GameObject _weaponPrefab;
     [SerializeField]private WeaponAiming _weaponAiming;
@@ -16,6 +17,7 @@ public class WeaponManager : MonoBehaviour
     private WeaponBase _currentWeapon;
     //properties
     //public SOPlayerAttackStats AttackStats => _attackStats;
+    public PlayerAttackEffects AtkEffects => _effects;
     public GameObject WeaponPrefab => _weaponPrefabInstance;
     public LayerMask EnemyLayer => _enemyLayer;
     public WeaponBase CurrentWeapon => _currentWeapon;
@@ -25,6 +27,7 @@ public class WeaponManager : MonoBehaviour
     {
         if(_playerManager == null) _playerManager = GetComponentInParent<PlayerManager>();
         if(_weaponAiming == null) _weaponAiming = GetComponentInChildren<WeaponAiming>();
+        gameObject.CheckComponent<PlayerAttackEffects>(ref _effects);
         _playerStats = _playerManager.Stats;
     }
 

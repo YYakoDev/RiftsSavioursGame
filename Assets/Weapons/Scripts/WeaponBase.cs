@@ -60,6 +60,15 @@ public abstract class WeaponBase: ScriptableObject
         _currentAnim = Animator.StringToHash(AtkAnimName);
         _attackDuration = GetAnimationDuration(AtkAnimName);
 
+        InitializeFXS();
+    }
+    protected virtual void InitializeFXS()
+    {
+        PlayerAttackEffects fxsScript = _weaponManager.AtkEffects;
+        foreach(WeaponEffects fx in _effects)
+        {
+            fx.Initialize(fxsScript);
+        }
     }
 
     protected virtual void Attack(float weaponCooldown)
@@ -89,13 +98,32 @@ public abstract class WeaponBase: ScriptableObject
     }
 
     protected abstract void EvaluateStats(SOPlayerAttackStats attackStats);
-    protected void InvokeOnEnemyHit(Vector3 enemyPos)
-    {
-        onEnemyHit?.Invoke(enemyPos);
-    }
     protected void InvokeOnAttack()
     {
         onAttack?.Invoke();
+        PlayAtkFXS();
     }
+    protected void InvokeOnEnemyHit(Vector3 enemyPos)
+    {
+        onEnemyHit?.Invoke(enemyPos);
+        PlayHitFXS(enemyPos);
+    }
+
+    protected virtual void PlayAtkFXS()
+    {
+        foreach(WeaponEffects fx in _effects)
+        {
+            fx.OnAttackFX();
+        }
+    }
+    protected virtual void PlayHitFXS(Vector3 pos)
+    {
+        foreach(WeaponEffects fx in _effects)
+        {
+            fx.OnHitFX(pos);
+        }
+    }
+
+
     public virtual void DrawGizmos(){}
 }

@@ -6,7 +6,7 @@ using UnityEngine;
 public class SOCameraShakeEffect : WeaponEffects
 {
     [SerializeField]float _strength;
-    [SerializeField]float _duration;
+    [SerializeField, Range(0f, 0.035f)]float _duration;
     public override void OnAttackFX()
     {
         

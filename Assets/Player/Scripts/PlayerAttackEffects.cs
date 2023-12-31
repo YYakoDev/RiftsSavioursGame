@@ -20,13 +20,13 @@ public class PlayerAttackEffects : MonoBehaviour
 
         _weaponPrefab = _weaponManager.WeaponPrefab.transform;
         _weaponManager.CurrentWeapon.onAttack += AttackEffects;
-        if(_weaponManager.CurrentWeapon.WeaponEffects == null) yield break;
+        /*if(_weaponManager.CurrentWeapon.WeaponEffects == null) yield break;
         foreach(WeaponEffects fx in _weaponManager.CurrentWeapon.WeaponEffects)
         {
             fx.Initialize(this);
             _weaponManager.CurrentWeapon.onAttack += fx.OnAttackFX;
             _weaponManager.CurrentWeapon.onEnemyHit += fx.OnHitFX;
-        }
+        }*/
         //_weaponManager.CurrentWeapon.onEnemyHit += OnHitEffects;
 
     }
@@ -89,12 +89,12 @@ public class PlayerAttackEffects : MonoBehaviour
     private void OnDestroy()
     {
         _weaponManager.CurrentWeapon.onAttack -= AttackEffects;
-        if(_weaponManager.CurrentWeapon.WeaponEffects == null) return;
+        /*if(_weaponManager.CurrentWeapon.WeaponEffects == null) return;
         foreach(WeaponEffects fx in _weaponManager.CurrentWeapon.WeaponEffects)
         {
             _weaponManager.CurrentWeapon.onAttack -= fx.OnAttackFX;
             _weaponManager.CurrentWeapon.onEnemyHit -= fx.OnHitFX;
-        }
+        }*/
     }
 
 }
