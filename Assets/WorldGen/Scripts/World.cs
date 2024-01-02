@@ -12,7 +12,7 @@ public class World : ScriptableObject
     [SerializeField]private float _wavesInterval = 30f; // seconds
     [SerializeField]private SOEnemyWave[] _waves;
     [SerializeField]private EnemyBrain[] _enemyPrefabs;
-    [SerializeField]private List<Tilemap> _chunks = new List<Tilemap>();
+    [SerializeField]private ChunkTileMap[] _chunks = new ChunkTileMap[0];
 
     private SOEnemyWave _currentWave;
     private int _currentWaveIndex = 0;
@@ -24,7 +24,7 @@ public class World : ScriptableObject
     public float WavesInterval => _wavesInterval;
     public SOEnemyWave CurrentWave => _currentWave;
     public EnemyBrain[] EnemyPrefabs => _enemyPrefabs;
-    public List<Tilemap> Chunks => _chunks;
+    public ChunkTileMap[] Chunks => _chunks;
 
     public void Initialize(World world)
     {

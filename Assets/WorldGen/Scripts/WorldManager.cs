@@ -8,24 +8,28 @@ public class WorldManager : MonoBehaviour
     //public static WorldManager instance;
     [SerializeField]private World[] _worlds = new World[4];
     [SerializeField]private World _currentWorld;
-    private int _currentWorldIndex = 0; 
+    private static int _currentWorldIndex = 0; 
 
+    [SerializeField] ChunkGenerator _chunkGenerator;
+    [SerializeField] ResourcePool _resourcePool;
+ 
     //properties
     //public World CurrentWorld => _currentWorld;
     public static event Action<World> onWorldChange;
 
     private void Awake() 
     {
-        //  DontDestroyOnLoad(gameObject);
         _currentWorld.Initialize(_worlds[_currentWorldIndex]);
-
     }
-    // Start is called before the first frame update
     void Start()
     {
         //subscribe to the onRiftTimerEnd event of the timer and make the world advance and load a new scene etc
-        
+        _resourcePool.gameObject.SetActive(false);
+        _chunkGenerator.gameObject.SetActive(true);
+        _chunkGenerator.StartCreation();
+        _resourcePool.gameObject.SetActive(true);
     }
+
 
     private void AdvanceWorld()
     {

@@ -15,7 +15,7 @@ MonoBehaviour:
   _maxHealth: 100
   _currentHealth: 100
   _level: 1
-  _currentXP: 2
+  _currentXP: 0
   _xpToNextLevel: 100
   _speed: 4.57
   _accelerationTime: 0.33
@@ -25,5 +25,5 @@ MonoBehaviour:
   _collectingDamage: 1
   _interactCooldown: 0.5
   _maxResourceInteractions: 1
-  _weaponBase: {fileID: 11400000, guid: 066b0cef79d40364592092aa534d1928, type: 2}
+  _weaponBase: {fileID: 11400000, guid: 77c4c2247dc5e1d43a165ee3213cde47, type: 2}
   _attackStats: {fileID: 11400000, guid: 5c0efc2d47ffa234c9cfe266e112553e, type: 2}

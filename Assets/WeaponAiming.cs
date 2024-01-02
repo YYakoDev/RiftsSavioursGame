@@ -7,6 +7,8 @@ public class WeaponAiming : MonoBehaviour
     [Header("References")]
     [SerializeField]Camera _mainCamera;
     [SerializeField]Transform _crosshair;
+    [SerializeField] PointBetweenTarget_Player _targetPointScript;
+    private Vector3 _mousePosition;
     Vector2 _targetDirection;
     WeaponBase _currentWeapon;
 
@@ -20,7 +22,7 @@ public class WeaponAiming : MonoBehaviour
 
     [Header("Values")]
     [SerializeField] float _aimSmoothing = 8f;
-    float _detectionRadius = 4f;
+    float _detectionRadius = 5f;
     float _stopAimingTime = 0f;
     bool _autoAiming = false;
 
@@ -28,7 +30,7 @@ public class WeaponAiming : MonoBehaviour
     // properties
 
     Vector2 TargetDirection => _targetDirection;
-
+    
 
     private void Awake()
     {
@@ -83,7 +85,12 @@ public class WeaponAiming : MonoBehaviour
             GetNearestEnemy();
             _targetDirection = _closestEnemyPos;
         }
-        else _targetDirection = _mainCamera.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+        else
+        {
+            _mousePosition = _mainCamera.ScreenToWorldPoint(Input.mousePosition); 
+            _targetDirection = _mousePosition - transform.position;
+            SetTargetPoint(_mousePosition);
+        }
 
         if (_targetDirection.sqrMagnitude > 0.1f) PointToTarget(); //maybe is less expensive if we dont calculate the sqr magnitude and just point to target?
      
@@ -99,6 +106,8 @@ public class WeaponAiming : MonoBehaviour
         if(_resultsCount == 0)
         {
             _crosshair.gameObject.SetActive(false);
+            _mousePosition = _mainCamera.ScreenToWorldPoint(Input.mousePosition); 
+            SetTargetPoint(_mousePosition);
             return;
         }
         _closestEnemyPos = Vector2.zero;
@@ -118,7 +127,13 @@ public class WeaponAiming : MonoBehaviour
                 _closestEnemyPos = directionToTarget;
             }
         }
-        _crosshair.gameObject.SetActive(_closestEnemyPos != Vector2.zero);
+        if(_closestEnemyPos == Vector2.zero)
+        {
+            _crosshair.gameObject.SetActive(false);
+            return;
+        }
+        _crosshair.gameObject.SetActive(true);
+        SetTargetPoint(_closestEnemyPos);
     }
 
     void PointToTarget()
@@ -134,22 +149,23 @@ public class WeaponAiming : MonoBehaviour
     void FlipWeapon(float xPoint)
     {
         if(_stopAimingTime > 0) return;
+
         Vector2 scale = transform.localScale;
-        if(xPoint < 0)
-        {
-            scale.y = 1; 
-        }
-        else if(xPoint > 0)
-        {
-            scale.y = -1; 
-        }
-    
+        if(xPoint < 0) scale.y = 1; 
+        else if(xPoint > 0) scale.y = -1; 
+        
         transform.localScale = scale;
     }
     void StopAiming()
     {
-        _stopAimingTime = _currentWeapon.AtkDuration;
+        _stopAimingTime = _currentWeapon.AtkDuration + 0.1f;
         _crosshair.gameObject.SetActive(false);
+    }
+
+    void SetTargetPoint(Vector3 pos)
+    {
+        if(_targetPointScript == null) return;
+        _targetPointScript.TargetPosition = pos;
     }
 
     private void OnDestroy() {

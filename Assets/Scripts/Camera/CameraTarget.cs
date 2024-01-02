@@ -9,7 +9,7 @@ public class CameraTarget : MonoBehaviour
     public Transform Target => _targets[_currentTargetIndex];
 
     private void Awake() {
-        _targets[0] = transform;
+        if(_targets[0] == null) _targets[0] = transform;
     }
 
     public int AddTarget(Transform target)

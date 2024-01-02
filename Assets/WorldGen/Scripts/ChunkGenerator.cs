@@ -8,16 +8,15 @@ public class ChunkGenerator : MonoBehaviour
     //creo que te vendria bien usar un dictionary almacenando como key: un vector2int y como value: un boolean de si la posicion esta ocupada o no
 
     //List<Vector2Int> _spawnedChunkPositions = new List<Vector2Int>();
-    Dictionary<Vector2Int,GameObject> _spawnedChunks = new Dictionary<Vector2Int, GameObject>();
     [SerializeField]World _currentWorld;
+    Dictionary<Vector2Int,ChunkTileMap> _spawnedChunks = new();
+
     [Header("Chunk Reference")]
-    [SerializeField]GameObject _chunkReference;
+    [SerializeField]ChunkTileMap _chunkReference;
     Tilemap _chunkRenderer;
     Vector2  _chunkOrigin;
     Vector2Int _referenceSize;
-
-    List<Tilemap> _chunks = new List<Tilemap>();
-    List<Tilemap> _validChunks = new List<Tilemap>();
+    List<ChunkTileMap> _validChunks = new();
 
     [Header("References")]
     [SerializeField]Grid _gridParent;
@@ -27,40 +26,33 @@ public class ChunkGenerator : MonoBehaviour
     public void StartCreation()
     {
         //failsafe in case you lose the assigned references in the editor
-        if(_gridParent == null)
-        {
-            _gridParent = new GameObject("gridParent",typeof(Grid)).GetComponent<Grid>();
-        }
-        if(_playersTransform == null)
-        {
-            _playersTransform = GameObject.FindGameObjectWithTag("Player").transform;
-        }
+        if(_gridParent == null) _gridParent = new GameObject("gridParent",typeof(Grid)).GetComponent<Grid>();
+        if(_playersTransform == null) _playersTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        
 
         //this sets up the values of the reference chunk, and all other chunks must be built like this one
         // BUT REMEMBER that the chunktilemap script draws its gizmos based on a manual value instead of the _referenceSize one, so be careful
-        _chunkReference.CheckComponent<Tilemap>(ref _chunkRenderer);
+        _chunkRenderer = _chunkReference.GetTilemap();
         _chunkRenderer.CompressBounds();
         _referenceSize = new Vector2Int((int)_chunkRenderer.size.x, (int)_chunkRenderer.size.y);
         _chunkOrigin = _chunkReference.transform.position;
         //Debug.Log(_referenceSize); // this value determines whether the chunks are valid or not
 
-        _chunks = _currentWorld.Chunks;
+        var chunks = _currentWorld.Chunks;
 
         //get the valid chunks, just in case you add a chunk that is bigger or smaller than the others
-        foreach(Tilemap chunk in _chunks)
+        foreach(var chunk in chunks)
         {
-            chunk.CompressBounds();
-            if((Vector2Int)chunk.size != _referenceSize)
-            {
-                Debug.Log($"<color=#ff0000>REMOVED CHUNK {chunk.name} BECAUSE IT DIDNT MATCH THE REFERENCE SIZE OF {_referenceSize} </color>");
-            }
-            else
-            {
-                _validChunks.Add(chunk);
-            }
+            Tilemap tilemap = chunk.GetTilemap();
+            tilemap.CompressBounds();
+            if((Vector2Int)tilemap.size != _referenceSize) 
+            Debug.Log($"<color=#ff0000>REMOVED CHUNK {chunk.name} BECAUSE IT DIDNT MATCH THE REFERENCE SIZE ({_referenceSize}) </color>");
+
+            else _validChunks.Add(chunk);
+            
         }
         //spawn a bunch of chunks at the start
-        _spawnedChunks.Add(Vector2Int.zero,  _chunkReference); // this position is the same as the chunk used as a reference
+        _spawnedChunks.Add(Vector2Int.zero,  _chunkReference); // this position is the same as the chunk used as a reference //SHOULD BE THE SAME*
         //SpawnChunksIn8Direction(Vector2Int.zero);
         foreach(Vector2Int spawnPos in Directions.eightDirections)
         {
@@ -154,13 +146,11 @@ public class ChunkGenerator : MonoBehaviour
             Mathf.RoundToInt(position.x/_referenceSize.x),
             Mathf.RoundToInt(position.y/_referenceSize.y)
         );
-        if(_spawnedChunks.ContainsKey(positionOnGrid))
+        if(_spawnedChunks.ContainsKey(positionOnGrid)) return _spawnedChunks[positionOnGrid].transform;
+        else
         {
-            return _spawnedChunks[positionOnGrid].transform;
-        }else 
-        {
-            Debug.Log("Returning null");
-            return null; 
+            Debug.Log("No parent found in the chunk");
+            return null;
         }
     }
 
@@ -179,7 +169,7 @@ public class ChunkGenerator : MonoBehaviour
         return chunkPosition;
     }
 
-    GameObject SpawnChunk(Vector2 position)
+    ChunkTileMap SpawnChunk(Vector2 position)
     {
         
         //_validChunks[0].CompressBounds();
@@ -191,7 +181,7 @@ public class ChunkGenerator : MonoBehaviour
         //Debug.Log(newPosition);
         int randomChunkIndex = Random.Range(0,_validChunks.Count);
 
-        GameObject chunk = Instantiate(_validChunks[randomChunkIndex].gameObject, position, Quaternion.identity);
+        var chunk = Instantiate(_validChunks[randomChunkIndex], position, Quaternion.identity);
         chunk.transform.SetParent(_gridParent.transform);
         return chunk;
 
@@ -225,12 +215,12 @@ public class ChunkGenerator : MonoBehaviour
             {
                 if(chunkData.Key == chunkPosition)
                 {
-                    chunkData.Value.SetActive(true);
+                    chunkData.Value.gameObject.SetActive(true);
                     break;
                 }
                 else
                 {
-                    chunkData.Value.SetActive(false);
+                    chunkData.Value.gameObject.SetActive(false);
                 }
  
             }

@@ -13,6 +13,7 @@ public class ResourcePointer : MonoBehaviour
         if(_resourceData == null) gameObject.SetActive(false);
         DestroySpritePreview();
         OnResourceSignal?.Invoke(_resourceData.Info, transform.position);
+        Debug.Log("Sending signal");
     }
 
     public void PreviewSprite()
@@ -24,10 +25,8 @@ public class ResourcePointer : MonoBehaviour
             return;
         }
 
-        if(!TryGetComponent<SpriteRenderer>(out var _renderer))
-        {
-            _renderer = gameObject.AddComponent<SpriteRenderer>();
-        }
+        if(!TryGetComponent<SpriteRenderer>(out var _renderer)) _renderer = gameObject.AddComponent<SpriteRenderer>();
+        
         transform.localScale = Vector3.one * _resourceData.Info.ScaleFactor;
         int sortOrder = -(int)((transform.position.y - _resourceData.Info.SpriteOrderOffset) * 35);
         _renderer.sortingOrder = sortOrder;
@@ -36,11 +35,7 @@ public class ResourcePointer : MonoBehaviour
 
     void DestroySpritePreview()
     {
-        TryGetComponent<SpriteRenderer>(out var _renderer);
-        if (_renderer != null)
-        {
-            Destroy(_renderer);
-        }
+        if(TryGetComponent<SpriteRenderer>(out var _renderer)) Destroy(_renderer);
     }
 
     private void OnValidate() {

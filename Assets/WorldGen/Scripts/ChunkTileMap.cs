@@ -3,23 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
+[RequireComponent(typeof(Tilemap))]
 public class ChunkTileMap : MonoBehaviour
 {
     public float xOffset = 0.5f;
     public float yOffset = 0f;
-    /*
-    [HideInInspector] public Vector2Int position;
-    private Tilemap _tileMapComponent;
-    public Tilemap TileMap => _tileMapComponent;
+    Tilemap _tileMap;
+    [SerializeField]ResourcePointer[] _resources;
+    public ResourcePointer[] Resources => _resources;
+    
     private void Awake() {
-        gameObject.CheckComponent<Tilemap>(ref _tileMapComponent);
+        _tileMap = GetTilemap();
     }
 
-    private void OnValidate() {
-        
-
-    }*/
- 
+    public Tilemap GetTilemap()
+    {
+        if(_tileMap == null) _tileMap = GetComponent<Tilemap>();
+        return _tileMap;
+    }
     private void OnDrawGizmos() {
         if(Application.isPlaying) return;
         Vector2 chunkSize = new Vector2Int(33, 24); // this value is the same as the _reference tilemap size (the starting TILEMAP used for REFERENCE in TILEMAPGENERATOR SCRIPT) 

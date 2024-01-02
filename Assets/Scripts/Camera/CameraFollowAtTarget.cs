@@ -14,17 +14,15 @@ public class CameraFollowAtTarget : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(_cameraTargetManager == null)
-        {
-            _cameraTargetManager = GameObject.FindGameObjectWithTag("Player").GetComponent<CameraTarget>();
-        }
+        if(_cameraTargetManager == null) _cameraTargetManager = GameObject.FindGameObjectWithTag("Player").GetComponent<CameraTarget>();
+        
         _currentTarget = _cameraTargetManager.Target;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(Mathf.Abs(Vector3.Distance(transform.position, _currentTarget.position)) < 0.2f)return;
+        if(Mathf.Abs(Vector3.Distance(transform.position, _currentTarget.position)) < 0.4f) return;
         MoveCamera();
     }
 
