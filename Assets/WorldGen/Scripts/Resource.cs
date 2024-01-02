@@ -21,6 +21,7 @@ public class Resource : MonoBehaviour, IResources, IComparable, IMaskeable
     private ResourcesTypes _type;
     int _maxHealth = 3, _currentHealth;
     float _disappearingTime = 1f;
+    bool _isBroken = false;
 
     //Audio Stuff
     AudioClip[] _hitSFXs;
@@ -34,9 +35,12 @@ public class Resource : MonoBehaviour, IResources, IComparable, IMaskeable
 
     //properties
 
+    public int CurrentHealth => _currentHealth;
+    public int MaxHealth => _maxHealth;
     public ResourcesTypes ResourceType => _type;
     public Vector3 ResourcePosition => transform.position;
     public SpriteRenderer MaskeableRenderer => _renderer;
+    public bool IsBroken => _isBroken;
 
     public void SetResourceInfo(ResourceInfo info)
     {
@@ -44,8 +48,9 @@ public class Resource : MonoBehaviour, IResources, IComparable, IMaskeable
         transform.localScale = Vector3.one * info.ScaleFactor;
         _renderer.sprite = null;
         _sortOrderController.ChangeOffset(info.SpriteOrderOffset);
-
-        _maxHealth = info.MaxHealth; _currentHealth = _maxHealth;
+        
+        _maxHealth = info.MaxHealth; 
+        _currentHealth = _maxHealth;
         _disappearingTime = info.DissapearingTime;
 
         _type = info.Type;
@@ -141,7 +146,7 @@ public class Resource : MonoBehaviour, IResources, IComparable, IMaskeable
         }
 
         _dropper.Drop();
-
+        _isBroken = true;
         //Destroy(gameObject, _disappearingTime);
     }
 

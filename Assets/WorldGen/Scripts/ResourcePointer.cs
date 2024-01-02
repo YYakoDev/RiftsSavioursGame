@@ -7,13 +7,20 @@ public class ResourcePointer : MonoBehaviour
 {
     [SerializeField]SOResource _resourceData;
     SpriteRenderer _renderer;
-    public static event Action<ResourceInfo, Vector3> OnResourceSignal;
-    
+    public ResourceInfo Info => _resourceData.Info;
+    public Vector3 Position => transform.position;
+    public GameObject SpawnedResource { get; set; }
+    bool _invoke = false;
+    public static event Action<ResourcePointer> OnSignal;
+
+    private void OnEnable() {
+        if(_invoke)OnSignal?.Invoke(this);
+        _invoke = true;
+    }
     private void Start() {
         if(_resourceData == null) gameObject.SetActive(false);
+        OnSignal?.Invoke(this);
         DestroySpritePreview();
-        OnResourceSignal?.Invoke(_resourceData.Info, transform.position);
-        Debug.Log("Sending signal");
     }
 
     public void PreviewSprite()

@@ -158,7 +158,7 @@ public class WeaponAiming : MonoBehaviour
     }
     void StopAiming()
     {
-        _stopAimingTime = _currentWeapon.AtkDuration + 0.1f;
+        _stopAimingTime = _currentWeapon.AtkDuration / 1.15f;
         _crosshair.gameObject.SetActive(false);
     }
 

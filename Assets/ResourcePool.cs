@@ -7,33 +7,41 @@ public class ResourcePool : MonoBehaviour
     [SerializeField] GameObject _resourcePrefab;
     [SerializeField] ChunkGenerator _chunkGenerator;
     [SerializeField] int _amountToPool = 10;
-    [SerializeField] bool _isResizable = true;
     ObjectAndComponentPool<Resource> _resourcesPool;
 
     private void Awake()
     {
-        _resourcesPool = new(_amountToPool, _resourcePrefab, transform, _isResizable);
+        _resourcesPool = new(_amountToPool, _resourcePrefab, transform, true, SkipCondition);
+        ResourcePointer.OnSignal += OnPointerSignal;
     }
 
-    void OnEnable()
-    {
-        ResourcePointer.OnResourceSignal += SpawnResource;
-    }
 
-    void SpawnResource(ResourceInfo info, Vector3 position)
+    GameObject SpawnResource(ResourceInfo info, Vector3 position)
     {
         var resource = _resourcesPool.GetObjectWithComponent();
-        if(resource.Key == null) return;
+        if(resource.Key == null) return null;
         resource.Key.transform.position = position;
         resource.Key.transform.SetParent(_chunkGenerator.GetChunkFromWorldPosition(position));
         resource.Value.SetResourceInfo(info);
 
-        resource.Key.gameObject.SetActive(true);
-
+        resource.Key.SetActive(true);
+        return resource.Key;
     }
 
-    private void OnDisable()
+    void OnPointerSignal(ResourcePointer pointer)
     {
-        ResourcePointer.OnResourceSignal -= SpawnResource;
+        if(pointer.SpawnedResource != null && pointer.SpawnedResource.activeInHierarchy 
+        && pointer.SpawnedResource.transform.position == pointer.Position) return;
+        pointer.SpawnedResource = SpawnResource(pointer.Info, pointer.Position);
+    }
+
+    private void OnDestroy()
+    {
+        ResourcePointer.OnSignal -= OnPointerSignal;
+    }
+    
+    bool SkipCondition(Resource r)
+    {
+        return (r.IsBroken || (r.CurrentHealth > 0 && r.CurrentHealth != r.MaxHealth));
     }
 }

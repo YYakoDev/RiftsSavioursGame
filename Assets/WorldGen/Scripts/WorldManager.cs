@@ -24,10 +24,9 @@ public class WorldManager : MonoBehaviour
     void Start()
     {
         //subscribe to the onRiftTimerEnd event of the timer and make the world advance and load a new scene etc
-        _resourcePool.gameObject.SetActive(false);
+        _resourcePool.gameObject.SetActive(true);
         _chunkGenerator.gameObject.SetActive(true);
         _chunkGenerator.StartCreation();
-        _resourcePool.gameObject.SetActive(true);
     }
 
 

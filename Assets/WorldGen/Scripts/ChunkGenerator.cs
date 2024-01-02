@@ -1,8 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-
+using Random = UnityEngine.Random;
 public class ChunkGenerator : MonoBehaviour
 {
     //creo que te vendria bien usar un dictionary almacenando como key: un vector2int y como value: un boolean de si la posicion esta ocupada o no
@@ -22,7 +23,10 @@ public class ChunkGenerator : MonoBehaviour
     [SerializeField]Grid _gridParent;
     [SerializeField]Transform _playersTransform;
     Vector2Int _playerPositionOnGrid;
- 
+
+
+
+
     public void StartCreation()
     {
         //failsafe in case you lose the assigned references in the editor
@@ -34,6 +38,7 @@ public class ChunkGenerator : MonoBehaviour
         // BUT REMEMBER that the chunktilemap script draws its gizmos based on a manual value instead of the _referenceSize one, so be careful
         _chunkRenderer = _chunkReference.GetTilemap();
         _chunkRenderer.CompressBounds();
+        
         _referenceSize = new Vector2Int((int)_chunkRenderer.size.x, (int)_chunkRenderer.size.y);
         _chunkOrigin = _chunkReference.transform.position;
         //Debug.Log(_referenceSize); // this value determines whether the chunks are valid or not
@@ -53,13 +58,8 @@ public class ChunkGenerator : MonoBehaviour
         }
         //spawn a bunch of chunks at the start
         _spawnedChunks.Add(Vector2Int.zero,  _chunkReference); // this position is the same as the chunk used as a reference //SHOULD BE THE SAME*
-        //SpawnChunksIn8Direction(Vector2Int.zero);
-        foreach(Vector2Int spawnPos in Directions.eightDirections)
-        {
-            if(_spawnedChunks.ContainsKey(spawnPos))return;
-            _spawnedChunks.Add(spawnPos , SpawnChunk(GetChunkPosition(spawnPos)));
-            
-        }
+        SpawnChunksIn8Direction(Vector2Int.zero);
+        Debug.Log("Spawned all starting chunks");
     }
 
     // Update is called once per frame
@@ -149,7 +149,7 @@ public class ChunkGenerator : MonoBehaviour
         if(_spawnedChunks.ContainsKey(positionOnGrid)) return _spawnedChunks[positionOnGrid].transform;
         else
         {
-            Debug.Log("No parent found in the chunk");
+            Debug.Log("No parent found in the chunk:  " + positionOnGrid + " \n original position:  " + position);
             return null;
         }
     }
@@ -169,7 +169,7 @@ public class ChunkGenerator : MonoBehaviour
         return chunkPosition;
     }
 
-    ChunkTileMap SpawnChunk(Vector2 position)
+    ChunkTileMap SpawnChunk(Vector2 worldPosition)
     {
         
         //_validChunks[0].CompressBounds();
@@ -181,7 +181,7 @@ public class ChunkGenerator : MonoBehaviour
         //Debug.Log(newPosition);
         int randomChunkIndex = Random.Range(0,_validChunks.Count);
 
-        var chunk = Instantiate(_validChunks[randomChunkIndex], position, Quaternion.identity);
+        var chunk = Instantiate(_validChunks[randomChunkIndex], worldPosition, Quaternion.identity);
         chunk.transform.SetParent(_gridParent.transform);
         return chunk;
 
@@ -189,23 +189,40 @@ public class ChunkGenerator : MonoBehaviour
 
     void SpawnChunksIn8Direction(Vector2Int spawnPosition)
     {
-        List<Vector2Int> newChunkPositions = new List<Vector2Int>();
-        foreach(Vector2Int directionalPosition in Directions.eightDirections)
+        Vector2Int[] newChunkPositions = new Vector2Int[8];
+        for(int i = 0; i < Directions.eightDirections.Length; i++)
         {
-            //Vector2Int newChunkPosition = _playerPositionOnGrid + position; //ACA ES DONDE DEBERIAS TENER EN CUENTA LA RENDER DISTANCE Y LA DISTANCIA ENTRE EL JUGADOR Y SPAWNEAR CHUNKS A LO LARGO DE ESA DISTANCIA
-            //Vector2Int newChunkPosition = position + spawnPosition;
-            Vector2Int newChunkPosition =  directionalPosition +  spawnPosition;
-            newChunkPositions.Add(newChunkPosition);
+            Vector2Int directionalPosition = Directions.eightDirections[i];
+            //ACA ES DONDE DEBERIAS TENER EN CUENTA LA RENDER DISTANCE Y LA DISTANCIA ENTRE EL JUGADOR Y SPAWNEAR CHUNKS A LO LARGO DE ESA DISTANCIA
+            Vector2Int newChunkPosition =  directionalPosition + spawnPosition;
+            newChunkPositions[i] = newChunkPosition;
             if(!_spawnedChunks.ContainsKey(newChunkPosition))
             {
-                _spawnedChunks.Add(newChunkPosition , SpawnChunk(GetChunkPosition(newChunkPosition)));
-                //ManageChunksState(false); //unload all the chunks
-
+                var newChunk = SpawnChunk(GetChunkPosition(newChunkPosition));
+                newChunk.SetPosition(newChunkPosition);
+                newChunk.CheckDistance(spawnPosition);
+                _spawnedChunks.Add(newChunkPosition , newChunk);
             }
-            
+            LoadChunk(newChunkPosition, true);
+
         }
-        LoadSpecificChunks(newChunkPositions);
+        DistanceCheck(spawnPosition);
     }
+
+    void LoadChunk(Vector2Int gridPosition, bool activeState)
+    {
+        _spawnedChunks[gridPosition].gameObject.SetActive(activeState);
+    }
+
+    void DistanceCheck(Vector2Int position)
+    {
+        foreach(var chunksData in _spawnedChunks)
+        {
+            if(!chunksData.Value.gameObject.activeInHierarchy) continue;
+            chunksData.Value.CheckDistance(position);
+        }
+    }
+
     void LoadSpecificChunks(List<Vector2Int> specificChunks)
     {
         foreach(var chunkData in _spawnedChunks)

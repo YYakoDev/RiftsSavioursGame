@@ -15,7 +15,9 @@ where TComponent : Component
     GameObject[] _pooledGameObjs;
     KeyValuePair<GameObject, TComponent> _nullPair;
 
-    public ObjectAndComponentPool(int amountToPool, GameObject objToPool, Transform parent, bool isResizable)
+    Func<TComponent, bool> _conditionToMeet;
+
+    public ObjectAndComponentPool(int amountToPool, GameObject objToPool, Transform parent, bool isResizable, Func<TComponent, bool> skipCondition = null)
     {
         if(!objToPool.TryGetComponent<TComponent>(out var component))
         {
@@ -29,12 +31,12 @@ where TComponent : Component
         _objToPool = objToPool;
         _isResizable = isResizable;
         _parent = parent;
-
+        _conditionToMeet = skipCondition;
         if(_pool == null) _pool = new(amountToPool, objToPool, parent, isResizable);
         _pooledGameObjs = _pool.PooledObjects;
-        
         AddComponentsToPool();
     }
+
     void AddComponentsToPool()
     {
         foreach(GameObject obj in _pooledGameObjs)
@@ -56,13 +58,12 @@ where TComponent : Component
         foreach(var pairedObj in _objsAndComponents)
         {
             if(pairedObj.Key.activeInHierarchy) continue;
+            if(_conditionToMeet(pairedObj.Value)) continue;
             return pairedObj;
         }
 
-        if(_isResizable)
-        {
-            return CreateNew();
-        }else return _nullPair;
+        if(_isResizable) return CreateNew();
+        else return _nullPair;
     }
 
     KeyValuePair<GameObject, TComponent> CreateNew()
@@ -83,4 +84,5 @@ where TComponent : Component
         TComponent nullComp = null;
         _nullPair = new(nullObj, nullComp);
     }
+
 }
