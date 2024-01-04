@@ -59,7 +59,6 @@ public class ChunkGenerator : MonoBehaviour
         //spawn a bunch of chunks at the start
         _spawnedChunks.Add(Vector2Int.zero,  _chunkReference); // this position is the same as the chunk used as a reference //SHOULD BE THE SAME*
         SpawnChunksIn8Direction(Vector2Int.zero);
-        Debug.Log("Spawned all starting chunks");
     }
 
     // Update is called once per frame

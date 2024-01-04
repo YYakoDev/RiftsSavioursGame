@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class WeaponAiming : MonoBehaviour
@@ -7,7 +6,7 @@ public class WeaponAiming : MonoBehaviour
     [Header("References")]
     [SerializeField]Camera _mainCamera;
     [SerializeField]Transform _crosshair;
-    [SerializeField] PointBetweenTarget_Player _targetPointScript;
+
     private Vector3 _mousePosition;
     Vector2 _targetDirection;
     WeaponBase _currentWeapon;
@@ -25,11 +24,12 @@ public class WeaponAiming : MonoBehaviour
     float _detectionRadius = 5f;
     float _stopAimingTime = 0f;
     bool _autoAiming = false;
+    public event Action<bool> OnAimingChange;
 
 
     // properties
-
-    Vector2 TargetDirection => _targetDirection;
+    Vector2 _targetPoint;
+    public Vector2 TargetPoint => _targetPoint;
     
 
     private void Awake()
@@ -72,6 +72,7 @@ public class WeaponAiming : MonoBehaviour
                 Cursor.visible = true;
                 _crosshair.gameObject.SetActive(false);
             }
+            OnAimingChange?.Invoke(_autoAiming);
         }
 
         if(_autoAiming) _enemyDetectionTimer.UpdateTime();
@@ -94,6 +95,11 @@ public class WeaponAiming : MonoBehaviour
 
         if (_targetDirection.sqrMagnitude > 0.1f) PointToTarget(); //maybe is less expensive if we dont calculate the sqr magnitude and just point to target?
      
+    }
+
+    private void SetTargetPoint(Vector3 v)
+    {
+        _targetPoint = v;
     }
 
     void DetectEnemy()
@@ -160,12 +166,6 @@ public class WeaponAiming : MonoBehaviour
     {
         _stopAimingTime = _currentWeapon.AtkDuration / 1.15f;
         _crosshair.gameObject.SetActive(false);
-    }
-
-    void SetTargetPoint(Vector3 pos)
-    {
-        if(_targetPointScript == null) return;
-        _targetPointScript.TargetPosition = pos;
     }
 
     private void OnDestroy() {

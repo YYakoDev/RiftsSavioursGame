@@ -13,17 +13,17 @@ MonoBehaviour:
   m_Name: PlayerStats
   m_EditorClassIdentifier: 
   _maxHealth: 100
-  _currentHealth: 100
+  _currentHealth: 98
   _level: 1
-  _currentXP: 0
+  _currentXP: 9
   _xpToNextLevel: 100
-  _speed: 4.57
-  _accelerationTime: 0.33
-  _slowdownMultiplier: 0.665
+  _speed: 4
+  _accelerationTime: 1.06
+  _slowdownMultiplier: 0.5
   _pickUpRange: 1.5
-  _collectingRange: 2
+  _collectingRange: 2.5
   _collectingDamage: 1
-  _interactCooldown: 0.5
+  _interactCooldown: 0.7
   _maxResourceInteractions: 1
-  _weaponBase: {fileID: 11400000, guid: 77c4c2247dc5e1d43a165ee3213cde47, type: 2}
+  _weaponBase: {fileID: 11400000, guid: c25353c1750cde74e8da8d9e9ac261f2, type: 2}
   _attackStats: {fileID: 11400000, guid: 5c0efc2d47ffa234c9cfe266e112553e, type: 2}

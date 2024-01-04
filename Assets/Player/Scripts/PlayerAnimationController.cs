@@ -54,6 +54,11 @@ public class PlayerAnimationController : MonoBehaviour
         }
     }
 
+    public void ChangeAnimator(AnimatorOverrideController animator)
+    {
+        _animator.runtimeAnimatorController = animator;
+    }
+
     /*void GetAttackDuration()
     {
         var clips = _animator.runtimeAnimatorController.animationClips;

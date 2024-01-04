@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Shados
   m_EditorClassIdentifier: 
   _stats: {fileID: 11400000, guid: 6d597a3595c8993498879480ede26bc3, type: 2}
+  _animator: {fileID: 22100000, guid: f885df4ae41625a4d8a466c9a2a44a86, type: 2}

@@ -113,7 +113,7 @@ public class TripleComboMeleeWeapon : MeleeWeapon
 
     void SetNextAttack()
     {
-        if(_currentComboIndex >= 2)
+        if(_currentComboIndex >= ComboAttacks - 1)
         {
             ResetCombo();
             return;

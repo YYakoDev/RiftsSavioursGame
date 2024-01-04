@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bb8f0f7345247946ae9aa9f8f5fb969, type: 3}
+  m_Name: AstreaSwordTest
+  m_EditorClassIdentifier: 
+  _name: Astraea's Sword
+  _SpriteAndAnimationsData: {fileID: 11400000, guid: 543a019bc4eb7d54a901633dbe15a124, type: 2}
+  _effects:
+  - {fileID: 11400000, guid: c9c1e59da1cfa0d438f4301a1069edcd, type: 2}
+  - {fileID: 11400000, guid: a46798bb6b4605f46a88a7cb00606fc1, type: 2}
+  - {fileID: 11400000, guid: 23196116de9b69d47a045c9e6a9b7e11, type: 2}
+  - {fileID: 11400000, guid: f1b3174f673fb1a4b91613d5d1414674, type: 2}
+  - {fileID: 11400000, guid: 9ddd7eda1b0d2ed44ab35738ce51d08c, type: 2}
+  _flipSprite: 1
+  _spawnPosition: {x: -0.55, y: 0.25, z: 0}
+  _spawnRotation: 0
+  _weaponSounds:
+  - {fileID: 8300000, guid: 6cbb45dd3c204e04aae673889c597324, type: 3}
+  - {fileID: 8300000, guid: 9c192f02e087c9140814059b4e042b82, type: 3}
+  _pointCameraOnAttack: 1
+  _attackCooldown: 0.58
+  _pullForce: 0.63
+  _attackRange: 1
+  _rangeOffset: {x: 0, y: 0.03}
+  _attackDamage: 9
+  _damageDelay: 0.063
+  _knockbackForce: 0.95

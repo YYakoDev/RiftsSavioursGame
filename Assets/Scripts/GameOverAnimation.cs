@@ -108,8 +108,7 @@ public class GameOverAnimation : MonoBehaviour
         if(!_playGameOver) return;
         _gameFreezeTimer.UpdateTime();
         float percent = 1 - (_gameFreezeTimer.CurrentTime / _slowFreezeTime);
-        if(percent >= 1 || percent == 0) return;
-        Debug.Log("Setting Time Scale");
+        if(percent >= 1.05f || percent == 0) return;
         float result = Mathf.Lerp(1, 0, percent);
         TimeScaleManager.SetTimeScale(result);
 
@@ -205,6 +204,9 @@ public class GameOverAnimation : MonoBehaviour
 
     void PlayRestOfAnimations()
     {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        
         float duration = 0.1f + _redScreenColorChangeDuration;
         _redScreenAnimator.TweenImageColor(_redScreenRect, _redScreenInitialColor,  _playerImgEndColor, duration,
         onComplete: () => 

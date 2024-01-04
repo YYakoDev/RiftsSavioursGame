@@ -6,6 +6,7 @@ public class PlayerAttackEffects : MonoBehaviour
 {
     [SerializeField]PlayerManager _player;
     [SerializeField]WeaponManager _weaponManager;
+    [SerializeField]AudioSource _audio;
     Transform _weaponPrefab;
 
     float PullForce => _weaponManager.CurrentWeapon.GetPullForce();
@@ -20,15 +21,6 @@ public class PlayerAttackEffects : MonoBehaviour
 
         _weaponPrefab = _weaponManager.WeaponPrefab.transform;
         _weaponManager.CurrentWeapon.onAttack += AttackEffects;
-        /*if(_weaponManager.CurrentWeapon.WeaponEffects == null) yield break;
-        foreach(WeaponEffects fx in _weaponManager.CurrentWeapon.WeaponEffects)
-        {
-            fx.Initialize(this);
-            _weaponManager.CurrentWeapon.onAttack += fx.OnAttackFX;
-            _weaponManager.CurrentWeapon.onEnemyHit += fx.OnHitFX;
-        }*/
-        //_weaponManager.CurrentWeapon.onEnemyHit += OnHitEffects;
-
     }
     void AttackEffects()
     {
@@ -85,6 +77,11 @@ public class PlayerAttackEffects : MonoBehaviour
         GameFreezer.FreezeGame(time);
     }
 
+    public void PlayAudio(AudioClip clip)
+    {
+        if(_audio == null) return;
+        _audio.PlayWithVaryingPitch(clip);
+    }
 
     private void OnDestroy()
     {

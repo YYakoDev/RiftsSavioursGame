@@ -6,6 +6,8 @@ using UnityEngine;
 public class SOCharacterData : ScriptableObject
 {
     [SerializeField] SOPlayerStats _stats;
+    [SerializeField] AnimatorOverrideController _animator;
 
     public SOPlayerStats Stats => _stats;
+    public AnimatorOverrideController Animator => _animator;
 }

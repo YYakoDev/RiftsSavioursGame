@@ -334,7 +334,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _brain: {fileID: 0}
-  _knockbackForce: 0.9
+  _knockbackForce: 1.59
 --- !u!114 &4367117240559491877
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -395,7 +395,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 24300002, guid: 0f1db2f864493124196d3bb77d1a6e16, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.669
+  m_Volume: 0.805
   m_Pitch: 1
   Loop: 0
   Mute: 0

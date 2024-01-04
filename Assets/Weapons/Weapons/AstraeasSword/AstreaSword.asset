@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _name: Astraea's Sword
   _SpriteAndAnimationsData: {fileID: 11400000, guid: 543a019bc4eb7d54a901633dbe15a124, type: 2}
+  _effects: []
   _flipSprite: 1
   _spawnPosition: {x: -0.55, y: 0.25, z: 0}
   _spawnRotation: 0
@@ -22,6 +23,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 9c192f02e087c9140814059b4e042b82, type: 3}
   _pointCameraOnAttack: 1
   _attackCooldown: 0.51
+  _pullForce: 1.05
   _attackRange: 1.51
+  _rangeOffset: {x: 0, y: 0}
   _attackDamage: 10
+  _damageDelay: 0.2
   _knockbackForce: 0.4

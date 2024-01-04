@@ -23,7 +23,7 @@ MonoBehaviour:
   _pickUpRange: 1.5
   _collectingRange: 2.5
   _collectingDamage: 1
-  _interactCooldown: 0.75
+  _interactCooldown: 0.7
   _maxResourceInteractions: 1
-  _weaponBase: {fileID: 11400000, guid: 604115971fb2e7e4197cedb6d28893aa, type: 2}
+  _weaponBase: {fileID: 11400000, guid: c25353c1750cde74e8da8d9e9ac261f2, type: 2}
   _attackStats: {fileID: 11400000, guid: 5c0efc2d47ffa234c9cfe266e112553e, type: 2}

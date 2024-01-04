@@ -7,12 +7,10 @@ using UnityEngine.Tilemaps;
 [RequireComponent(typeof(Tilemap))]
 public class ChunkTileMap : MonoBehaviour
 {
-    public float xOffset = 0.5f;
-    public float yOffset = 0f;
+    [SerializeField] float xOffset = 0.5f;
+    [SerializeField] float yOffset = 0f;
     Tilemap _tileMap;
-    [SerializeField]ResourcePointer[] _resources;
-    public ResourcePointer[] Resources => _resources;
-
+    [SerializeField, Range(-1, 20), Tooltip("-1 Would be infinite, 0 Will not spawn any")] int _maxSpawnCount;
 
     Vector2Int _positionOnGrid;
 
