@@ -22,6 +22,9 @@ public class PlayerAttackEffects : MonoBehaviour
         _weaponPrefab = _weaponManager.WeaponPrefab.transform;
         _weaponManager.CurrentWeapon.onAttack += AttackEffects;
     }
+
+    
+
     void AttackEffects()
     {
         FlipPlayer();
@@ -34,48 +37,18 @@ public class PlayerAttackEffects : MonoBehaviour
         _player.MovementScript.CheckForFlip(xPoint, AttackDuration);
     }
 
-    void PlayAttackAnimation()
-    {
-        _player.AnimController.PlayStated(PlayerAnimationsNames.Attack);
-    }
+    void PlayAttackAnimation() => _player.AnimController.PlayStated(PlayerAnimationsNames.Attack);
+    public void SlowdownPlayer() => _player.MovementScript.SlowdownMovement(AttackDuration);   
+    public void SelfPush(float force) => _player.MovementScript.KnockbackLogic.SetKnockbackData(_weaponPrefab, -force);
+    void SelfPush() => _player.MovementScript.KnockbackLogic.SetKnockbackData(_weaponPrefab, -PullForce);
 
-    public void SlowdownPlayer()
-    {
-        _player.MovementScript.SlowdownMovement(AttackDuration);
-    }
+    public void KnockbackPlayer(float knockbackAmount) => _player.MovementScript.KnockbackLogic.SetKnockbackData(_weaponPrefab, knockbackAmount);
+    
 
-    /*public void SlowdownPlayer(float time)
-    {
-        _player.MovementScript.SlowdownMovement(time);
-    }*/
-
-    void SelfPush()
-    {
-        _player.MovementScript.KnockbackLogic.SetKnockbackData(_weaponPrefab, -PullForce);
-    }
-    /*public void SelfPush(float pullForce)
-    {
-        _player.MovementScript.KnockbackLogic.SetKnockbackData(_weaponPrefab, -pullForce);
-    }*/
-
-    public void KnockbackPlayer(float knockbackAmount)
-    {
-        _player.MovementScript.KnockbackLogic.SetKnockbackData(_weaponPrefab, knockbackAmount);
-    }
-
-    public void ScreenShake(float strength)
-    {
-        CameraShake.Shake(strength);
-    }
-    public void ScreenShake(float strength, float duration)
-    {
-        CameraShake.Shake(strength, duration);
-    }
-
-    public void FreezeGame(float time)
-    {
-        GameFreezer.FreezeGame(time);
-    }
+    public void ScreenShake(float strength) => CameraShake.Shake(strength);
+    public void ScreenShake(float strength, float duration) => CameraShake.Shake(strength, duration);
+    public void FreezeGame(float time) => GameFreezer.FreezeGame(time);
+    
 
     public void PlayAudio(AudioClip clip)
     {
@@ -86,12 +59,6 @@ public class PlayerAttackEffects : MonoBehaviour
     private void OnDestroy()
     {
         _weaponManager.CurrentWeapon.onAttack -= AttackEffects;
-        /*if(_weaponManager.CurrentWeapon.WeaponEffects == null) return;
-        foreach(WeaponEffects fx in _weaponManager.CurrentWeapon.WeaponEffects)
-        {
-            _weaponManager.CurrentWeapon.onAttack -= fx.OnAttackFX;
-            _weaponManager.CurrentWeapon.onEnemyHit -= fx.OnHitFX;
-        }*/
     }
 
 }

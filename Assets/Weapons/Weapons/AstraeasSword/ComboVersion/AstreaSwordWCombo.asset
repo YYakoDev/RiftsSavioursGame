@@ -37,6 +37,7 @@ MonoBehaviour:
   _knockbackForce: 0.3
   _attackSpeed: 1
   _speedUPComboAnimations: 1
+  speedUpFactor: 1.25
   _comboStats:
   - Cooldown: 0.1
     Range: 0.35

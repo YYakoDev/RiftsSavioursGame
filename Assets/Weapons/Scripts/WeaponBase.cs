@@ -52,6 +52,7 @@ public abstract class WeaponBase: ScriptableObject
     //sound stuff
     protected AudioClip _attackSound;
     public AudioClip Sound => _attackSound;
+    public PlayerAttackEffects FxsScript => _weaponManager.AtkEffects;
 
     public virtual void Initialize(WeaponManager weaponManager, Transform prefabTransform)
     {
@@ -64,11 +65,7 @@ public abstract class WeaponBase: ScriptableObject
     }
     protected virtual void InitializeFXS()
     {
-        PlayerAttackEffects fxsScript = _weaponManager.AtkEffects;
-        foreach(WeaponEffects fx in _effects)
-        {
-            fx.Initialize(fxsScript);
-        }
+        foreach(WeaponEffects fx in _effects) fx.Initialize(this);
     }
 
     protected virtual void Attack(float weaponCooldown)

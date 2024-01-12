@@ -6,10 +6,12 @@ public class WeaponEffects : ScriptableObject
 {
     public const string MenuPath = "ScriptableObjects/WeaponEffects/";
     protected PlayerAttackEffects _effects;
+    protected WeaponBase _weapon;
 
-    public virtual void Initialize(PlayerAttackEffects atkEffects)
+    public virtual void Initialize(WeaponBase weapon)
     {
-        _effects = atkEffects;
+        _weapon = weapon;
+        _effects = weapon.FxsScript;
     }
     public virtual void OnAttackFX()
     {

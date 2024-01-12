@@ -9,9 +9,8 @@ public class Knockbackeable
     Transform _emitterPos;
     float _force;
     Timer _knockbackTimer;
-    int _knockbackHits = 0;
     bool _enabled = false;
-    bool _alwaysApply = false;
+    bool _stopApplying = false;
 
     public bool Enabled => _enabled;
 
@@ -19,7 +18,6 @@ public class Knockbackeable
     {
         _ownTransform = ownTransform;
         _rb = rb;
-        _alwaysApply = alwaysApplyKnockback;
         _knockbackTimer = new(0.13f + Random.Range(0.01f, 0.1f), false);
         _knockbackTimer.onEnd += StopKnockback;
         _enabled = false;
@@ -27,23 +25,16 @@ public class Knockbackeable
 
     public void SetKnockbackData(Transform emitterPos, float force)
     {
+        if(_stopApplying) return;
         _emitterPos = emitterPos;
         _force = force * 2;
-        if(_alwaysApply)
-        {
-            EnableKnockback();
-            return;
-        }
-
-        _knockbackHits++;
-        if(_knockbackHits >= 0)
-        {
-            if(_knockbackHits > 3)
-            {
-                _knockbackHits = -2;
-                _enabled = false;
-            }else EnableKnockback();
-        }
+    }
+    public void SetKnockbackData(Transform emitterPos, float force, float duration)
+    {
+        if(_stopApplying) return;
+        _emitterPos = emitterPos;
+        _force = force * 2;
+        _knockbackTimer.ChangeTime(duration);
     }
 
     public void ApplyKnockback()
@@ -60,11 +51,8 @@ public class Knockbackeable
     {
         //Debug.Log("Stopping Knockback!");
         _enabled = false;
+        _stopApplying = false;
     }
 
-    void EnableKnockback()
-    {
-        _enabled = true;
-        _knockbackTimer.Start();
-    }
+    public void StopApplying() => _stopApplying = true;
 }

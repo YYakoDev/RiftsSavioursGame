@@ -37,11 +37,12 @@ MonoBehaviour:
   _knockbackForce: 0.3
   _attackSpeed: 1
   _speedUPComboAnimations: 1
+  _speedUpFactor: 1.1
   _comboStats:
   - Cooldown: 0
     Range: 0.42
     KnockbackForce: 0.5
-    AtkSpeed: 0.2
+    AtkSpeed: 0
     PullForce: 1
     AtkDelay: 0.08
     Damage: 5
@@ -69,9 +70,9 @@ MonoBehaviour:
   - Cooldown: 0
     Range: 1
     KnockbackForce: 2
-    AtkSpeed: 0.3
+    AtkSpeed: 0
     PullForce: 2
-    AtkDelay: 0
+    AtkDelay: 0.11
     Damage: 5
     RangeOffset: {x: 0, y: 0}
     WeaponFxs:

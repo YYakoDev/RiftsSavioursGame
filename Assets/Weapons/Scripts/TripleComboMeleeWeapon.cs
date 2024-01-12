@@ -12,6 +12,7 @@ public class TripleComboMeleeWeapon : MeleeWeapon
     const float TimeOffset = 0.125f;
     float _comboCooldown;
     [SerializeField]bool _speedUPComboAnimations = false;
+    [SerializeField]float _speedUpFactor = 1.8f;
     bool _checkForComboInput = false;
     bool _inputDetected = false;
     int _currentComboIndex = 0;
@@ -46,21 +47,16 @@ public class TripleComboMeleeWeapon : MeleeWeapon
 
         _modifiedStats = new(_attackCooldown, _attackRange, _knockbackForce, _attackSpeed, _pullForce , _attackDamage, _damageDelay, _rangeOffset, _effects);
         OnComboIndexChange(_currentComboIndex);
-
         ChangeAnimatorSpeed(_modifiedStats.AtkSpeed);
-        
+
         _checkForComboInput = false;
         _inputDetected = false;
     }
     protected override void InitializeFXS()
     {
-        PlayerAttackEffects fxsScript = _weaponManager.AtkEffects;
         foreach(ComboAttackStat comboAtk in _comboStats)
         {
-            foreach(WeaponEffects fx in comboAtk.WeaponFxs)
-            {
-                fx.Initialize(fxsScript);
-            }
+            foreach(WeaponEffects fx in comboAtk.WeaponFxs) fx.Initialize(this);
         }
     }
     public override void InputLogic()
@@ -79,13 +75,13 @@ public class TripleComboMeleeWeapon : MeleeWeapon
                 _inputDetected = true;
                 if(_speedUPComboAnimations)
                 {
-                    float speedUpFactor = 1.25f;
-                    ChangeAnimatorSpeed(_modifiedStats.AtkSpeed * speedUpFactor);
-                    _attackDuration /= speedUpFactor;
-                    _waitForRemainingDuration.ChangeTime(_waitForInputTimer.CurrentTime / speedUpFactor - (TimeOffset / 7f));
+                    ChangeAnimatorSpeed(_modifiedStats.AtkSpeed * _speedUpFactor);
+                    _attackDuration /= _speedUpFactor;
+                    float remainingDuration = _waitForInputTimer.CurrentTime / _speedUpFactor - (TimeOffset / _speedUpFactor * 2f);
+                    _waitForRemainingDuration.ChangeTime(remainingDuration);
                 }else
                 {
-                    _waitForRemainingDuration.ChangeTime(_waitForInputTimer.CurrentTime - (TimeOffset / 6f));
+                    _waitForRemainingDuration.ChangeTime(_waitForInputTimer.CurrentTime - (TimeOffset / 4f));
                 }
                 
                 _waitForRemainingDuration.Start();

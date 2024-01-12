@@ -10,10 +10,10 @@ public class SOSpawnAttackFX : WeaponEffects
     [SerializeField] Vector2 _offset = Vector2.zero;
     Transform _player;
 
-    public override void Initialize(PlayerAttackEffects atkEffects)
+    public override void Initialize(WeaponBase weapon)
     {
-        base.Initialize(atkEffects);
-        _player = atkEffects.transform;
+        base.Initialize(weapon);
+        _player = weapon.FxsScript.transform;
     }
 
     public override void OnAttackFX()

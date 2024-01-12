@@ -53,7 +53,7 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable
        _brain.Audio.PlayWithVaryingPitch(_onHitSFX);
        if(_health <= 0)
        {
-            _blinkFX.Stop();
+            //_blinkFX.Stop();
             Die();
        }
     }
