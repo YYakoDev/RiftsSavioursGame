@@ -30,9 +30,9 @@ public class World : ScriptableObject
     {
         _name = world._name;
         _wavesInterval = world._wavesInterval;
-        _waves = world._waves;
-        _chunks = world._chunks;
-        _enemyPrefabs = world._enemyPrefabs;
+        _waves = world._waves.Clone() as SOEnemyWave[];
+        _chunks = world._chunks.Clone() as ChunkTileMap[];
+        _enemyPrefabs = world._enemyPrefabs.Clone() as EnemyBrain[];
         _currentWaveIndex = 0;
         if(_waves.Length <= _currentWaveIndex)
         {

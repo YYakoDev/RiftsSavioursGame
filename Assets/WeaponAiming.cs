@@ -80,7 +80,6 @@ public class WeaponAiming : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(_stopAimingTime > 0) return;
         if(_autoAiming)
         {
             GetNearestEnemy();
@@ -93,14 +92,13 @@ public class WeaponAiming : MonoBehaviour
             SetTargetPoint(_mousePosition);
         }
 
-        if (_targetDirection.sqrMagnitude > 0.1f) PointToTarget(); //maybe is less expensive if we dont calculate the sqr magnitude and just point to target?
+        //if (_targetDirection.sqrMagnitude > 0.1f)
+        PointToTarget(); //maybe is less expensive if we dont calculate the sqr magnitude and just point to target?
      
     }
 
-    private void SetTargetPoint(Vector3 v)
-    {
-        _targetPoint = v;
-    }
+    private void SetTargetPoint(Vector3 v) => _targetPoint = v;
+    
 
     void DetectEnemy()
     {
@@ -138,12 +136,13 @@ public class WeaponAiming : MonoBehaviour
             _crosshair.gameObject.SetActive(false);
             return;
         }
-        _crosshair.gameObject.SetActive(true);
+        _crosshair.gameObject.SetActive(_stopAimingTime <= 0);
         SetTargetPoint(_closestEnemyPos);
     }
 
     void PointToTarget()
     {
+        if(_stopAimingTime > 0) return;
         //_targetDirection.Normalize();
         float angle = Mathf.Atan2(-_targetDirection.y, -_targetDirection.x) * Mathf.Rad2Deg;
         angle = Mathf.LerpAngle(transform.rotation.eulerAngles.z, angle, Time.fixedDeltaTime * _aimSmoothing);
@@ -164,7 +163,7 @@ public class WeaponAiming : MonoBehaviour
     }
     void StopAiming()
     {
-        _stopAimingTime = _currentWeapon.AtkDuration / 1.15f;
+        _stopAimingTime = _currentWeapon.AtkDuration / 1.25f;
         _crosshair.gameObject.SetActive(false);
     }
 

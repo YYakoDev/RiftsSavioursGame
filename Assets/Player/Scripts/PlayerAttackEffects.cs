@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class PlayerAttackEffects : MonoBehaviour
 {
-    [SerializeField]PlayerManager _player;
     [SerializeField]WeaponManager _weaponManager;
+    [SerializeField]PlayerManager _player;
+    [SerializeField]CameraTarget _cameraTargetting;
+    int _targetIndex = -1;
     [SerializeField]AudioSource _audio;
     Transform _weaponPrefab;
 
@@ -21,15 +23,19 @@ public class PlayerAttackEffects : MonoBehaviour
 
         _weaponPrefab = _weaponManager.WeaponPrefab.transform;
         _weaponManager.CurrentWeapon.onAttack += AttackEffects;
+        if(_weaponManager.CurrentWeapon.PointCameraOnAttack)
+        {
+            _targetIndex = _cameraTargetting.AddTarget(_weaponPrefab);
+        }
     }
 
-    
 
     void AttackEffects()
     {
         FlipPlayer();
         PlayAttackAnimation();
         SelfPush();
+        if(_targetIndex != -1)_cameraTargetting.SwitchTarget(_targetIndex, AttackDuration);
     }
     void FlipPlayer()
     {

@@ -92,7 +92,7 @@ public class UpgradesMenu : MonoBehaviour
         for (int i = 0; i < selectionCount; i++)
         {
             if(possibleUpgrades.Count == 0) break;
-            if(i >= _possibleUpgradesList.PossibleUpgrades.Count) break;
+            //if(i >= _possibleUpgradesList.PossibleUpgrades.Count) break;
             
             int index = Random.Range(0, possibleUpgrades.Count);
             _selectedUpgrades[i] = possibleUpgrades[index].GetUpgrade();
@@ -155,6 +155,11 @@ public class UpgradesMenu : MonoBehaviour
         }
         int randomIndex = Random.Range(0, list.Count);
         SOUpgradeBase randomUpgrade = list[randomIndex].GetUpgrade();
+        if(randomUpgrade == null)
+        {
+            _instantiatedItems[index].gameObject.SetActive(false);
+            return;
+        }
         _selectedUpgrades[index] = randomUpgrade;
         _instantiatedItems[index].Initialize(_playerInventory, randomUpgrade, CraftUpgrade, index);
     }

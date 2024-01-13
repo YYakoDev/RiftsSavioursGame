@@ -9,6 +9,7 @@ public class PointBetweenTarget_Player : MonoBehaviour
     Camera _mainCamera;
     private Vector3 TargetPosition => _aimingScript.TargetPoint;
     [SerializeField] float _mouseDistance = 1f;
+    float _realDistance;
     [SerializeField] float _distanceThreshold = 1f;
     float _realThreshold;
     private bool _autoAiming;
@@ -18,6 +19,7 @@ public class PointBetweenTarget_Player : MonoBehaviour
         _mainCamera = Camera.main;
         _aimingScript.OnAimingChange += ChangeAimMode;
         _realThreshold = _distanceThreshold;
+        _realDistance = _mouseDistance;
     }
 
     private void FixedUpdate() {
@@ -34,7 +36,7 @@ public class PointBetweenTarget_Player : MonoBehaviour
             return;
         }
         Vector3 dirTowardsMouse = TargetPosition - playerPosition;
-        dirTowardsMouse = Vector3.ClampMagnitude(dirTowardsMouse, _mouseDistance);
+        dirTowardsMouse = Vector3.ClampMagnitude(dirTowardsMouse, _realDistance);
         dirTowardsMouse.z = 0;
         transform.localPosition = playerPosition + dirTowardsMouse;
     }
@@ -48,8 +50,15 @@ public class PointBetweenTarget_Player : MonoBehaviour
     void ChangeAimMode(bool autoAiming)
     {
         _autoAiming = autoAiming;
-        if(_autoAiming) _realThreshold = _distanceThreshold / 3f;
-        else _realThreshold = _distanceThreshold;
+        if(_autoAiming)
+        {
+            _realDistance = _mouseDistance / 2f;
+            _realThreshold = _distanceThreshold / 3f;
+        }else
+        {
+            _realThreshold = _distanceThreshold;
+            _realDistance = _mouseDistance;
+        }
     }
     
     

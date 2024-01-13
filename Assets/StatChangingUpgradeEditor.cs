@@ -24,7 +24,7 @@ public class StatChangingUpgradeEditor : Editor
             var QueryResult = script.SearchVariables();
             if(QueryResult == null) return;
             int queryCount = QueryResult.Length;
-            Debug.Log(queryCount);
+            //Debug.Log(queryCount);
             if(queryCount != options.Length) Array.Resize<string>(ref options, queryCount);
             for (int i = 0; i < queryCount; i++)
             {

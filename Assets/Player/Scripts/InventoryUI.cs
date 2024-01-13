@@ -12,7 +12,7 @@ public class InventoryUI : MonoBehaviour
     UICraftingMaterialPrefab[] _instantiatedMaterials;
 
     const float InventoryVisibleTime = 2f;
-    float _countdown = 1f;
+    float _countdown = 0f;
 
     private void Awake() {
         _animator = GetComponent<Animator>();
@@ -23,7 +23,7 @@ public class InventoryUI : MonoBehaviour
     void Start()
     {
         _playerInventory.onInventoryChange += SetInventory;
-        SetInventory();
+        //SetInventory();
     }
 
 
@@ -90,7 +90,7 @@ public class InventoryUI : MonoBehaviour
 
     void OpenUI()
     {
-        if(_instantiatedMaterials == null || _instantiatedMaterials.Length == 0) return;
+        if(_playerInventory.OwnedMaterials.Count == 0) return;
         _animator.enabled = true;
         _animator.Play("OpenInventory");
         _countdown = InventoryVisibleTime;
@@ -98,6 +98,7 @@ public class InventoryUI : MonoBehaviour
     }
     void CloseUI()
     {
+        if(_playerInventory.OwnedMaterials.Count == 0) return;
         _animator.Play("CloseInventory");
     }
 

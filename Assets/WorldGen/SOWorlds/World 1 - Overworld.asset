@@ -20,11 +20,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c0e5d5754ca67a94c9c4396642a97c12, type: 2}
   - {fileID: 11400000, guid: 4be05f6db21bd2740a26b54eecc4f6a8, type: 2}
   - {fileID: 11400000, guid: a9d4ee8a2a2560c4bb3f3ff693a33d58, type: 2}
+  - {fileID: 11400000, guid: bb7718a5f534d684fa6850c6d5a9587b, type: 2}
   - {fileID: 11400000, guid: a1d4db9cb4ebc0748bb8bf3adb2a3439, type: 2}
   - {fileID: 11400000, guid: 2ed687e839df8994daf353b1420acec4, type: 2}
-  - {fileID: 11400000, guid: bb7718a5f534d684fa6850c6d5a9587b, type: 2}
-  - {fileID: 11400000, guid: 51d47d8f29f1058428f8943f2a021f78, type: 2}
   - {fileID: 11400000, guid: a1d4db9cb4ebc0748bb8bf3adb2a3439, type: 2}
+  - {fileID: 11400000, guid: 51d47d8f29f1058428f8943f2a021f78, type: 2}
   _enemyPrefabs:
   - {fileID: 779268523137980044, guid: 4966e3a35d824ee44a9850012833ae7f, type: 3}
   - {fileID: 7992409206138210505, guid: 17ccb786a8bca6f4584af54136d7f833, type: 3}
