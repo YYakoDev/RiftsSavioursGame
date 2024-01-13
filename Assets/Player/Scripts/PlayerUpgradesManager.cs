@@ -26,8 +26,8 @@ public class PlayerUpgradesManager : MonoBehaviour
 
     public float StatUp(float stat, float amount) => stat += amount;
     public float StatUp(float stat, int percent) => stat += GetPercentage(stat, percent);
-    public int StatUp(int stat, int amount) => stat += amount;
-    public int StatUpByPercent(int stat, int percent) => stat += (int)GetPercentage(stat, percent);
+    //public int StatUp(int stat, int amount) => stat += amount;
+    //public int StatUpByPercent(int stat, int percent) => stat += (int)GetPercentage(stat, percent);
 
     public void AddMaterial(CraftingMaterial mat)
     {

@@ -9,9 +9,10 @@ public class SOPlayerInventory : ScriptableObject
     Dictionary<CraftingMaterial, int> _ownedMaterials = new();
     Dictionary<SOUpgradeBase, int> _equippedUpgrades = new();
     [SerializeField]int _maxUpgradesCount = 5;
+    private PlayerUpgradesManager _upgradesManager;
     public event Action onInventoryChange;
     public event Action<SOUpgradeBase> onUpgradeAdded;
-
+    
     //properties
     public int MaxUpgradesCount 
     {
@@ -22,12 +23,13 @@ public class SOPlayerInventory : ScriptableObject
     public Dictionary<SOUpgradeBase, int> EquippedUpgrades => _equippedUpgrades;
  
 
-    public void Initialize()
+    public void Initialize(PlayerUpgradesManager upgradesManager)
     {
         //Here you can grab the materials and upgrades from the last save if there is any
         //also apply the equipped upgrades if there is any
         _ownedMaterials = new();
         _equippedUpgrades = new();
+        _upgradesManager = upgradesManager;
     }
 
     public void AddMaterial(CraftingMaterial craftingMaterial)
@@ -42,6 +44,13 @@ public class SOPlayerInventory : ScriptableObject
         onInventoryChange?.Invoke();
     }
 
+    public void RemoveMaterial(CraftingMaterial matToRemove, int amount)
+    {
+        if(_ownedMaterials.ContainsKey(matToRemove)) _ownedMaterials[matToRemove] -= amount;
+        
+        onInventoryChange?.Invoke();
+    }
+
     public void AddUpgrade(SOUpgradeBase upgrade)
     {
         if(_equippedUpgrades.ContainsKey(upgrade))
@@ -53,5 +62,6 @@ public class SOPlayerInventory : ScriptableObject
         }
         onUpgradeAdded?.Invoke(upgrade);
         Debug.Log($"added {upgrade.name} upgrade and now you have {_equippedUpgrades[upgrade]}");
+        upgrade.ApplyEffect(_upgradesManager);
     }
 }

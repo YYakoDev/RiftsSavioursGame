@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "ScriptableObjects/PlayerAttackStats")]
-public class SOPlayerAttackStats : ScriptableObject
+public class SOPlayerAttackStats : PlayerStatsBase
 {
     public event Action onStatsChange;
 

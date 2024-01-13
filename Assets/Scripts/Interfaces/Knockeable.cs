@@ -21,6 +21,7 @@ public class Knockbackeable
         _knockbackTimer = new(0.13f + Random.Range(0.01f, 0.1f), false);
         _knockbackTimer.onEnd += StopKnockback;
         _enabled = false;
+        _stopApplying = false;
     }
 
     public void SetKnockbackData(Transform emitterPos, float force)
@@ -28,6 +29,8 @@ public class Knockbackeable
         if(_stopApplying) return;
         _emitterPos = emitterPos;
         _force = force * 2;
+        _enabled = true;
+        _knockbackTimer.Start();
     }
     public void SetKnockbackData(Transform emitterPos, float force, float duration)
     {
@@ -35,6 +38,7 @@ public class Knockbackeable
         _emitterPos = emitterPos;
         _force = force * 2;
         _knockbackTimer.ChangeTime(duration);
+        _enabled = true;
     }
 
     public void ApplyKnockback()
@@ -47,7 +51,7 @@ public class Knockbackeable
         _rb.MovePosition(currentPos + direction.normalized * (_force * Time.fixedDeltaTime));
     }
 
-    public void StopKnockback()
+    void StopKnockback()
     {
         //Debug.Log("Stopping Knockback!");
         _enabled = false;

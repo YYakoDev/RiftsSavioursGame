@@ -33,14 +33,16 @@ public class NotMonoObjectPool
     {
         for (int i = 0; i < _pooledObjs.Length; i++)
         {
+            if(_pooledObjs[i] == null) continue;
             if(_pooledObjs[i].activeInHierarchy)continue;
             return _pooledObjs[i];
         }
         if(_resizable)
         {
-            Array.Resize<GameObject>(ref _pooledObjs, _amountToPool++);
-            CreateNew(_amountToPool);
-            return _pooledObjs[_amountToPool];
+            int currentLength = _pooledObjs.Length; // <- 5
+            Array.Resize<GameObject>(ref _pooledObjs, currentLength+1); // <-6
+            CreateNew(currentLength); // <-5
+            return _pooledObjs[currentLength];
         }
         return null;
     }

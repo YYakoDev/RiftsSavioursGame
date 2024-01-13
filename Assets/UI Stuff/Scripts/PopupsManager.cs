@@ -33,7 +33,7 @@ public static class PopupsManager
     static void InitializePool()
     {
         if(Parent == null) Parent = GameObject.FindGameObjectWithTag("PopupCanvas").transform;
-        ObjectPool = new(50, PopupPrefab, Parent, true);
+        ObjectPool = new(55, PopupPrefab, Parent, true);
         PoolCreated = true;
     }
 

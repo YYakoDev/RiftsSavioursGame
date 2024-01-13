@@ -15,8 +15,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField]SOPlayerInventory _inventory;
     [SerializeField]PlayerLevelManager _levelManager;
     [SerializeField]PlayerMovement _movementScript;
-    [SerializeField]CameraTarget _cameraTarget;
-    Transform _cachedTransform;
+    [SerializeField]PlayerUpgradesManager _upgradesManager;
 
     public SOPlayerStats Stats => _stats;
     public PlayerAnimationController AnimController => _animatorController;
@@ -25,10 +24,9 @@ public class PlayerManager : MonoBehaviour
     public SOPlayerInventory Inventory => _inventory;
     public PlayerLevelManager LevelManager => _levelManager;
     public PlayerMovement MovementScript => _movementScript;
-    public CameraTarget CameraTarget => _cameraTarget;
 
 
-    public Vector3 Position => _cachedTransform.position;
+    public Vector3 Position => transform.position;
 
     public void SetCharacterData(SOCharacterData data)
     {
@@ -38,7 +36,6 @@ public class PlayerManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        _cachedTransform = transform;
         if(_stats != null) _stats.Initialize(_charData);
         GameObject thisGO = gameObject;
         thisGO.CheckComponent<PlayerAnimationController>(ref _animatorController);
@@ -48,10 +45,7 @@ public class PlayerManager : MonoBehaviour
         thisGO.CheckComponent<PlayerLevelManager>(ref _levelManager);
         _levelManager.SetPlayerStats(_stats);
         thisGO.CheckComponent<PlayerMovement>(ref _movementScript);
-        thisGO.CheckComponent<CameraTarget>(ref _cameraTarget);
-        _inventory.Initialize();
-        
-        
+        _inventory.Initialize(_upgradesManager);
     
     }
     void Start()

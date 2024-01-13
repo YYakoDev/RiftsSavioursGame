@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,19 +7,19 @@ using UnityEngine;
 public class SOPossibleUpgradesList : ScriptableObject
 {
     [SerializeField]List<UpgradeGroup> _startingUpgrades;
-    UpgradeGroup[] _possibleUpgrades; 
+    List<UpgradeGroup>  _possibleUpgrades; 
 
     //properties
     public List<UpgradeGroup> StartingUpgrades => _startingUpgrades;
-    public UpgradeGroup[] PossibleUpgrades => _possibleUpgrades;
+    public List<UpgradeGroup>  PossibleUpgrades => _possibleUpgrades;
     
     public void Initialize()
     {
         foreach(var upgrade in _startingUpgrades)
         {
-            upgrade.Initialize();
+            upgrade.Initialize(this);
         }
-        _possibleUpgrades = _startingUpgrades.ToArray();
+        _possibleUpgrades = new(_startingUpgrades);
 
     }
 }

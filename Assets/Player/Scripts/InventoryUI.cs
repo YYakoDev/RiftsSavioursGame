@@ -7,7 +7,6 @@ public class InventoryUI : MonoBehaviour
 {
     Animator _animator;
     Transform _cachedTransform;
-    [SerializeField]World _currentWorld;
     [SerializeField]SOPlayerInventory _playerInventory;
     [SerializeField]UICraftingMaterialPrefab _craftingMaterialPrefab;
     UICraftingMaterialPrefab[] _instantiatedMaterials;
@@ -24,7 +23,6 @@ public class InventoryUI : MonoBehaviour
     void Start()
     {
         _playerInventory.onInventoryChange += SetInventory;
-        WorldManager.onWorldChange += WorldChange;
         SetInventory();
     }
 
@@ -61,6 +59,7 @@ public class InventoryUI : MonoBehaviour
             int matCount = _playerInventory.OwnedMaterials[mat];
             instantiatedMaterial.Initialize(mat, matCount);
             index++;
+            instantiatedMaterial.gameObject.SetActive((matCount > 0)); // maybe pass this responsability to the initialize method of the material itself but idk
         }
         /*for(int i = 0; i < _instantiatedMaterials.Length; i++)
         {
@@ -91,6 +90,7 @@ public class InventoryUI : MonoBehaviour
 
     void OpenUI()
     {
+        if(_instantiatedMaterials == null || _instantiatedMaterials.Length == 0) return;
         _animator.enabled = true;
         _animator.Play("OpenInventory");
         _countdown = InventoryVisibleTime;
@@ -106,15 +106,8 @@ public class InventoryUI : MonoBehaviour
         _animator.enabled = false;
     }
 
-    void WorldChange(World world)
-    {
-        _currentWorld = world;
-        SetInventory();
-    }
-
     private void OnDestroy()
     {
-        WorldManager.onWorldChange -= WorldChange;    
         _playerInventory.onInventoryChange -= SetInventory;
     }
 

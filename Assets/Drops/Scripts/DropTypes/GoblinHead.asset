@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sprite: {fileID: 21300000, guid: 66aebf6c2d113d945979170d60eb9f89, type: 3}
   _pickupSounds: []
-  _dropChance: 20
+  _dropChance: 10
   _craftingMaterial: {fileID: 11400000, guid: ccc82676898691444bf3ddaac80b30ee, type: 2}

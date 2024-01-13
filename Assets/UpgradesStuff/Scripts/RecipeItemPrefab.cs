@@ -16,10 +16,12 @@ public class RecipeItemPrefab : MonoBehaviour
         gameObject.CheckComponent<TextMeshProUGUI>(ref t_craftingCost);
     }
 
-    public void Initialize(UpgradeCost cost)
+    public void Initialize(UpgradeCost requirement, int ownedMaterials)
     {
-        i_itemIcon.sprite = cost.CraftingMaterial.Sprite;
-        t_craftingCost.text = cost.Cost.ToString();
+        i_itemIcon.sprite = requirement.CraftingMaterial.Sprite;
+        Color costTextColor = (ownedMaterials >= requirement.Cost) ? UIColors.GetColor() : UIColors.GetColor(UIColor.Red);
+        t_craftingCost.text = $"{ownedMaterials}/{requirement.Cost}";
+        t_craftingCost.color = costTextColor;
     }
     
 }

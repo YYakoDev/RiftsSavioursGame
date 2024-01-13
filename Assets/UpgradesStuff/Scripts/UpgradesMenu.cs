@@ -13,7 +13,8 @@ public class UpgradesMenu : MonoBehaviour
     [SerializeField]SOPossibleUpgradesList _possibleUpgradesList; // from here you should grab an x number of upgrades and show them everytime you open the menu
     [SerializeField]SOPlayerInventory _playerInventory;
     const int selectionCount = 3;
-    int _choicesAmount = 1;
+    [SerializeField]int _choicesAmount = 3;
+    [SerializeField,ReadOnly]int _craftingAttempts = 0;
     bool _isMenuActive = false;
     private SOUpgradeBase[] _selectedUpgrades;
     private UpgradeItemPrefab[] _instantiatedItems;
@@ -55,6 +56,7 @@ public class UpgradesMenu : MonoBehaviour
             //do the queue here mf
             return;
         }
+        _craftingAttempts = 0;
         PickRandomUpgrades();
         CheckCreatedItems();
         _isMenuActive = true;
@@ -75,24 +77,27 @@ public class UpgradesMenu : MonoBehaviour
         //ALSO add to the button eventListener the CraftUpgrade method and pass as a parameter the actual upgrade that you generated
     }
 
-    public void CraftUpgrade(SOUpgradeBase upgradeToCraft) //this method is being called by the upgrade button on the canvas
-    {
-        //deduce the cost of the upgrade from the players inventory if the player does not have enough materials then dont do that
-        DeactivateUpgradeMenu();
-        //apply the effect of the upgrade here
-    }
-
     void PickRandomUpgrades()
     {
         List<UpgradeGroup> possibleUpgrades = new(_possibleUpgradesList.PossibleUpgrades);
+        //foreach(UpgradeGroup group in possibleUpgrades) Debug.Log(group.name);
+        //if possibleupgrades.count is equal to zero then you shouldnt open the menu at all or maybe add bundle items or health replenish upgrades
+        if(possibleUpgrades.Count < selectionCount)
+        {
+            for (int i = selectionCount-1; i >= possibleUpgrades.Count; i--)
+            {
+                _selectedUpgrades[i] = null;
+            }
+        }
         for (int i = 0; i < selectionCount; i++)
         {
             if(possibleUpgrades.Count == 0) break;
+            if(i >= _possibleUpgradesList.PossibleUpgrades.Count) break;
+            
             int index = Random.Range(0, possibleUpgrades.Count);
             _selectedUpgrades[i] = possibleUpgrades[index].GetUpgrade();
             //remove the selected one from the list so the next iteration will get something different
             possibleUpgrades.Remove(possibleUpgrades[index]);
-            if(_selectedUpgrades[i] == null) _selectedUpgrades[i] = possibleUpgrades[index].GetUpgrade();
         }
     }
 
@@ -101,12 +106,65 @@ public class UpgradesMenu : MonoBehaviour
         if(_instantiatedItems == null) CreateUpgradeItems();
         for (int i = 0; i < _instantiatedItems.Length; i++)
         {
+            _instantiatedItems[i].gameObject.SetActive(true);
             if (_selectedUpgrades[i] == null)
             {
+                //Debug.Log($"Selected upgrade at index: '{i}' is null");
                 _instantiatedItems[i].gameObject.SetActive(false);
                 continue;
             }
-            _instantiatedItems[i].Initialize(_selectedUpgrades[i], CraftUpgrade);
+            _instantiatedItems[i].Initialize(_playerInventory, _selectedUpgrades[i], CraftUpgrade, i);
+        }
+    }
+    public void CraftUpgrade(SOUpgradeBase upgradeToCraft, int uiItemIndex) //this method is being called by the upgrade button on the canvas
+    {
+        _craftingAttempts++;
+        _audio.PlayWithVaryingPitch(_closingSound);
+        foreach (UpgradeCost requirement in upgradeToCraft.Costs)
+        {
+            if (requirement.Cost <= 0) continue;
+            _playerInventory.RemoveMaterial(requirement.CraftingMaterial, requirement.Cost);
+        }
+        _playerInventory.AddUpgrade(upgradeToCraft);
+        RecalculateCosts();
+        if (_craftingAttempts >= _choicesAmount) DeactivateUpgradeMenu();
+        else
+        {
+            //remove selected upgrade and generate another one
+            RepickUpgradeItem(upgradeToCraft, uiItemIndex);
+        }
+    }
+    void RepickUpgradeItem(SOUpgradeBase currentUpgrade, int index)
+    {
+        List<UpgradeGroup> list = new(_possibleUpgradesList.PossibleUpgrades);
+        foreach (SOUpgradeBase upgrade in _selectedUpgrades)
+        {
+            if(upgrade == null || upgrade.GroupParent == null)
+            {
+                //Debug.Log("Other Upgrade or other Upgrade Parent is null");
+                continue;
+            }
+            if(upgrade.GroupParent == currentUpgrade.GroupParent) continue;
+            list.Remove(upgrade.GroupParent);
+        }
+        if(list.Count == 0)
+        {
+            //Debug.Log("List count is equal to 0");
+            _instantiatedItems[index].gameObject.SetActive(false);
+            return;
+        }
+        int randomIndex = Random.Range(0, list.Count);
+        SOUpgradeBase randomUpgrade = list[randomIndex].GetUpgrade();
+        _selectedUpgrades[index] = randomUpgrade;
+        _instantiatedItems[index].Initialize(_playerInventory, randomUpgrade, CraftUpgrade, index);
+    }
+
+    void RecalculateCosts()
+    {
+        if (_instantiatedItems == null) return;
+        foreach (var item in _instantiatedItems)
+        {
+            item.RecalculateCosts();
         }
     }
 
@@ -123,13 +181,14 @@ public class UpgradesMenu : MonoBehaviour
 
     public void DeactivateUpgradeMenu()
     {
+        //when closing you should check if you have another levelup in the queue so you can do the multiple level up
         _audio.PlayWithVaryingPitch(_closingSound);
         _animations.PlayCloseAnimations(Resume);
         Cursor.visible = _previousCursorState;
         Cursor.lockState = _previousCursorLockMode;
-        
+
     }
-    
+
     void Resume()
     {
         TimeScaleManager.ForceTimeScale(1);
@@ -137,7 +196,8 @@ public class UpgradesMenu : MonoBehaviour
     }
 
 
-    private void OnDestroy() {
+    private void OnDestroy()
+    {
         PlayerLevelManager.onLevelUp -= ActivateUpgradeMenu;
     }
 

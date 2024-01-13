@@ -23,11 +23,11 @@ public class UpgradeMenuAnimations : MonoBehaviour
     
 
     [SerializeField]Vector3 _upgradeMenuStartPos, _toolsLeftStartPos, _toolsRightStartPos;
-    [SerializeField]Vector3 _openingIconEndSize = Vector3.one;
+    [SerializeField]Vector3 _openingIconEndSize = Vector3.one, _upgradeMenuStartSize;
 
     [SerializeField]Vector3 _upgradeMenuEndPos, _toolsLeftEndPos, _toolsRightEndPos, _tableEndPos;
 
-
+    public event Action OnOpenAnimationFinish;
 
     private void Awake() {
         gameObject.CheckComponent<Canvas>(ref _canvas);
@@ -77,7 +77,7 @@ public class UpgradeMenuAnimations : MonoBehaviour
         _tableAnimator.MoveTo(_table, _tableEndPos, 0.3f, CurveTypes.EaseInOut);
         _toolsRightAnimator.MoveTo(_toolsRight, _toolsRightEndPos, 0.4f, CurveTypes.EaseInOut);
         _toolsLeftAnimator.MoveTo(_toolsLeft, _toolsLeftEndPos, 0.4f, CurveTypes.EaseInOut); 
-        _upgradeAnimator.MoveTo(_upgradeMenu, _upgradeMenuEndPos, 0.65f, CurveTypes.EaseInOut);
+        _upgradeAnimator.MoveTo(_upgradeMenu, _upgradeMenuEndPos, 0.65f, CurveTypes.EaseInOut, onComplete: OnOpenAnimationFinish);
     }
 
     void ResetUIState()
@@ -88,7 +88,7 @@ public class UpgradeMenuAnimations : MonoBehaviour
         _bgImg.color = bgColor;
 
         _upgradeMenu.localPosition = _upgradeMenuStartPos;
-        _upgradeMenu.localScale = Vector3.one;
+        _upgradeMenu.localScale = _upgradeMenuStartSize;
         _table.localPosition = _upgradeMenuStartPos;
         _toolsLeft.localPosition = _toolsLeftStartPos;
         _toolsRight.localPosition = _toolsRightStartPos;
@@ -100,6 +100,7 @@ public class UpgradeMenuAnimations : MonoBehaviour
         //ClearAnimations();
 
     }
+
 
     public void PlayCloseAnimations(Action onComplete = null)
     {

@@ -16,14 +16,14 @@ MonoBehaviour:
   _currentHealth: 95
   _level: 1
   _currentXP: 40
-  _xpToNextLevel: 100
-  _speed: 4
-  _accelerationTime: 1.06
+  _xpToNextLevel: 55
+  _speed: 5
+  _accelerationTime: 0.66
   _slowdownMultiplier: 0.5
   _pickUpRange: 1.5
-  _collectingRange: 2.5
+  _collectingRange: 3
   _collectingDamage: 1
-  _interactCooldown: 0.7
+  _interactCooldown: 0.65
   _maxResourceInteractions: 1
   _weaponBase: {fileID: 11400000, guid: c25353c1750cde74e8da8d9e9ac261f2, type: 2}
   _attackStats: {fileID: 11400000, guid: 5c0efc2d47ffa234c9cfe266e112553e, type: 2}

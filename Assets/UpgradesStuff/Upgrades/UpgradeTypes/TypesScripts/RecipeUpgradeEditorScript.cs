@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-[CustomEditor(typeof(RecipeUpgrade)), CanEditMultipleObjects]
+[CustomEditor(typeof(RecipeUpgrade), true), CanEditMultipleObjects]
 public class RecipeUpgradeEditorScript : Editor
 {
     public override void OnInspectorGUI()

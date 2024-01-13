@@ -13,6 +13,6 @@ public class ScreenResolutionTest : MonoBehaviour
     }
 
     private void OnValidate() {
-        _text.text = Display.main.renderingWidth + "x" + Display.main.renderingHeight;
+        if(_text != null) _text.text = Display.main.renderingWidth + "x" + Display.main.renderingHeight;
     }
 }

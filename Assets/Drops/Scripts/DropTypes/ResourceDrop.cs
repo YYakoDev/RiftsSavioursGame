@@ -11,7 +11,12 @@ public class ResourceDrop : Drop
         pickUpsController.AddMaterial(_craftingMaterial);
     }
 
+    public void SetSprite()
+    {
+        if(_craftingMaterial != null) _craftingMaterial.Sprite = Sprite;
+    }
+
     private void OnValidate() {
-        _craftingMaterial.Sprite = Sprite;
+        SetSprite();
     }
 }

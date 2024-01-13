@@ -38,7 +38,6 @@ public class PlayerMovement : MonoBehaviour, IKnockback
     private float AccelerationTime => _player.Stats.AccelerationTime;
     private float MovementSpeed => _player.Stats.Speed;
     private float SlowdownMultiplier => _player.Stats.SlowdownMultiplier;
-    public event Action<Vector2> OnMovement;
     //Knockback Stuff
     Knockbackeable _knockbackLogic;
     public Knockbackeable KnockbackLogic { get => _knockbackLogic;}

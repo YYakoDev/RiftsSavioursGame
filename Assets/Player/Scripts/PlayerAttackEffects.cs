@@ -37,7 +37,7 @@ public class PlayerAttackEffects : MonoBehaviour
         _player.MovementScript.CheckForFlip(xPoint, AttackDuration);
     }
 
-    void PlayAttackAnimation() => _player.AnimController.PlayStated(PlayerAnimationsNames.Attack);
+    void PlayAttackAnimation() => _player.AnimController.PlayStated(PlayerAnimationsNames.Attack, AttackDuration);
     public void SlowdownPlayer() => _player.MovementScript.SlowdownMovement(AttackDuration);   
     public void SelfPush(float force) => _player.MovementScript.KnockbackLogic.SetKnockbackData(_weaponPrefab, -force);
     void SelfPush() => _player.MovementScript.KnockbackLogic.SetKnockbackData(_weaponPrefab, -PullForce);
@@ -53,6 +53,7 @@ public class PlayerAttackEffects : MonoBehaviour
     public void PlayAudio(AudioClip clip)
     {
         if(_audio == null) return;
+        _audio.Stop();
         _audio.PlayWithVaryingPitch(clip);
     }
 

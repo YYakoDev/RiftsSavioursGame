@@ -134,7 +134,7 @@ public class MeleeWeapon : WeaponBase
     }
     protected void SetMaxEnemiesToHit(float atkRange)
     {
-        _maxEnemiesToHit = 2 + (int)(atkRange * 5);
+        _maxEnemiesToHit = 5 + (int)(atkRange * 10);
     }
     protected override void EvaluateStats(SOPlayerAttackStats attackStats)
     {

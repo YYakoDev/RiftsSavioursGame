@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 786a0624aed0069498d5837622e246fc, type: 3}
   m_Name: SpeedUpGroup
   m_EditorClassIdentifier: 
-  _upgradesAmount: 5
   _upgrades:
-  - {fileID: 11400000, guid: 4079424eac282e44b907bb02f49dad12, type: 2}
-  - {fileID: 11400000, guid: 9cbfa0250db49674a98a63123d8e2cbf, type: 2}
+  - {fileID: 11400000, guid: 3965da4841de3ff438eaa7711000caaa, type: 2}
+  - {fileID: 11400000, guid: d468f3224dc346841b7ee25972df25e4, type: 2}

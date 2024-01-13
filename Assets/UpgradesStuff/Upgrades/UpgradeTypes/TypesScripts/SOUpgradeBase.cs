@@ -6,17 +6,18 @@ using UnityEngine;
 public class SOUpgradeBase : ScriptableObject
 {
     public const string MenuPath = "ScriptableObjects/Upgrades/";
-    UpgradeGroup _parent;
+    protected UpgradeGroup _parent;
 
     [SerializeField]private string _name;
-    [SerializeField]private string _effectDescription;
+    [SerializeField]private UpgradeDescription[] _descriptions;
     [SerializeField]private Sprite _sprite;
     [SerializeField]private UpgradeCost[] _costs;
     //[SerializeField]private CraftingMaterial[] _craftingMaterials;
 
     //properties
+    public UpgradeGroup GroupParent => _parent;
     public string Name => _name;
-    public string EffectDescription => _effectDescription;
+    public UpgradeDescription[] EffectDescriptions => _descriptions;
     public Sprite Sprite => _sprite;
     public UpgradeCost[] Costs => _costs;
 
@@ -38,5 +39,17 @@ public class SOUpgradeBase : ScriptableObject
 
     
 }
+
+[System.Serializable]
+public class UpgradeDescription : System.Object
+{
+    [SerializeField]private string text;
+    [SerializeField]UIColor color;
+
+    public string Text => text;
+    public Color Color => UIColors.GetColor(color);
+}
+
+
 
 

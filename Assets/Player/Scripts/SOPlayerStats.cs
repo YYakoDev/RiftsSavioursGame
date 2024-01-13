@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "ScriptableObjects/PlayerStats")]
-public class SOPlayerStats : ScriptableObject
+public class SOPlayerStats : PlayerStatsBase
 {   
     public event Action onStatsChange;
 
@@ -62,7 +62,6 @@ public class SOPlayerStats : ScriptableObject
     public int CurrentXP {get => _currentXP; set {_currentXP = value; onStatsChange?.Invoke();}}
     public int XPToNextLevel {get => _xpToNextLevel; set {_xpToNextLevel = value; onStatsChange?.Invoke();}}
 
-
     // WEAPON STATS
     public WeaponBase WeaponBase {get => _weaponBase;}
     public SOPlayerAttackStats AttackStats {get => _attackStats;}
@@ -73,7 +72,7 @@ public class SOPlayerStats : ScriptableObject
     {
         SOPlayerStats stats = data.Stats;
         _maxHealth = stats.MaxHealth;
-        _currentHealth = stats.CurrentHealth;
+        _currentHealth = _maxHealth;
 
         _level = 1;
         _currentXP = 0;

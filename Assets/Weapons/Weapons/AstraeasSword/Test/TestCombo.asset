@@ -24,7 +24,7 @@ MonoBehaviour:
   _spawnPosition: {x: -0.55, y: 0.25, z: 0}
   _spawnRotation: 0
   _weaponSounds:
-  - {fileID: 8300000, guid: d51a7987a1fc10e40b6c5297d3ccd117, type: 3}
+  - {fileID: 8300000, guid: 5f3a43ec23ce51345a07f63c6fe762c6, type: 3}
   - {fileID: 8300000, guid: 8aba69f5bbe09a047b7792f94a2c13dc, type: 3}
   - {fileID: 8300000, guid: b0de8e236bcb7f3429c7782391dcbf0d, type: 3}
   _pointCameraOnAttack: 1
@@ -37,7 +37,7 @@ MonoBehaviour:
   _knockbackForce: 0.3
   _attackSpeed: 1
   _speedUPComboAnimations: 1
-  _speedUpFactor: 1.1
+  _speedUpFactor: 1.15
   _comboStats:
   - Cooldown: 0
     Range: 0.42
@@ -47,11 +47,7 @@ MonoBehaviour:
     AtkDelay: 0.08
     Damage: 5
     RangeOffset: {x: 0, y: 0}
-    WeaponFxs:
-    - {fileID: 11400000, guid: a46798bb6b4605f46a88a7cb00606fc1, type: 2}
-    - {fileID: 11400000, guid: 9ddd7eda1b0d2ed44ab35738ce51d08c, type: 2}
-    - {fileID: 11400000, guid: c9c1e59da1cfa0d438f4301a1069edcd, type: 2}
-    - {fileID: 11400000, guid: f1b3174f673fb1a4b91613d5d1414674, type: 2}
+    WeaponFxs: []
   - Cooldown: 0
     Range: 0.7
     KnockbackForce: 0.69
@@ -60,13 +56,7 @@ MonoBehaviour:
     AtkDelay: 0.06
     Damage: 10
     RangeOffset: {x: 0, y: 0}
-    WeaponFxs:
-    - {fileID: 11400000, guid: 23196116de9b69d47a045c9e6a9b7e11, type: 2}
-    - {fileID: 11400000, guid: 4780209016f8aa349864b33bf7198c79, type: 2}
-    - {fileID: 11400000, guid: a46798bb6b4605f46a88a7cb00606fc1, type: 2}
-    - {fileID: 11400000, guid: 9ddd7eda1b0d2ed44ab35738ce51d08c, type: 2}
-    - {fileID: 11400000, guid: c9c1e59da1cfa0d438f4301a1069edcd, type: 2}
-    - {fileID: 11400000, guid: f1b3174f673fb1a4b91613d5d1414674, type: 2}
+    WeaponFxs: []
   - Cooldown: 0
     Range: 1
     KnockbackForce: 2
@@ -75,10 +65,4 @@ MonoBehaviour:
     AtkDelay: 0.11
     Damage: 5
     RangeOffset: {x: 0, y: 0}
-    WeaponFxs:
-    - {fileID: 11400000, guid: 4780209016f8aa349864b33bf7198c79, type: 2}
-    - {fileID: 11400000, guid: 4780209016f8aa349864b33bf7198c79, type: 2}
-    - {fileID: 11400000, guid: 4780209016f8aa349864b33bf7198c79, type: 2}
-    - {fileID: 11400000, guid: 9ddd7eda1b0d2ed44ab35738ce51d08c, type: 2}
-    - {fileID: 11400000, guid: f1b3174f673fb1a4b91613d5d1414674, type: 2}
-    - {fileID: 11400000, guid: c9c1e59da1cfa0d438f4301a1069edcd, type: 2}
+    WeaponFxs: []

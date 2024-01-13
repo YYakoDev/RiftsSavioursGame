@@ -18,6 +18,7 @@ public abstract class TweenAnimationBase
 
     public virtual void Play()
     {
+        if(_elapsedTime >= _totalDuration) return;
         if(_animator.timeUsage == TweenAnimator.TimeUsage.ScaledTime) _elapsedTime += Time.deltaTime;
         else if(_animator.timeUsage == TweenAnimator.TimeUsage.UnscaledTime) _elapsedTime += Time.unscaledDeltaTime;
         _percent = _elapsedTime / _totalDuration;

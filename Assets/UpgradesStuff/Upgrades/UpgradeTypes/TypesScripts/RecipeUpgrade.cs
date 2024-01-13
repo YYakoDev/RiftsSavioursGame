@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = MenuPath + "RecipeUpgrade")]
 public class RecipeUpgrade : SOUpgradeBase
 {
-    [SerializeField] CraftingMaterial _material;
+    [SerializeField]protected CraftingMaterial _material;
     public override void ApplyEffect(PlayerUpgradesManager upgradesManager)
     {
         base.ApplyEffect(upgradesManager);

@@ -34,16 +34,12 @@ public class PlayerAnimationController : MonoBehaviour
         _introAnim.UpdateLogic();
     }
 
-    public void PlayStated(int animationHash)
+    public void PlayStated(int animationHash, float duration = -0.05f)
     {
         if(Time.time < _lockedTill) return;
         if(animationHash == _currentAnimation)return;
 
-        if(animationHash == PlayerAnimationsNames.Attack)
-        {
-            LockState(0.3f);
-            //GET THE ANIM DURATION HERE!
-        }
+        LockState(duration);
         _currentAnimation = animationHash;
         _animator.Play(animationHash);
 

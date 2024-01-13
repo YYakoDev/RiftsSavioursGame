@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerMovementPoint : MonoBehaviour
 {
-    [SerializeField] PlayerMovement _movementScript;
+    /*[SerializeField] PlayerMovement _movementScript;
     Transform _ownTransform;
     [SerializeField] Transform _lightObj;
     void Start()
@@ -29,5 +29,5 @@ public class PlayerMovementPoint : MonoBehaviour
         Vector3 targetPos = _ownTransform.localPosition;
         var angle = Mathf.Atan2(targetPos.y, targetPos.x) * Mathf.Rad2Deg - 90f;
         _lightObj.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-    }
+    }*/
 }
