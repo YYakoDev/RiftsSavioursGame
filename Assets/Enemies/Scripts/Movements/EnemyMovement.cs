@@ -4,104 +4,33 @@ using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(AvoidanceBehaviourBrain))]
-public class EnemyMovement : MonoBehaviour, IMovement, IKnockback
-{
+public class EnemyMovement : MonoBehaviour, IKnockback, IEnemyMovement
+{   
+    [SerializeField] AvoidanceBehaviourBrain _avoidanceBehaviour;
+    EnemyBaseMovement _movementClass;
+
+    public Knockbackeable KnockbackLogic => _movementClass.KnockbackLogic;
+
+    public EnemyBaseMovement MovementLogic { get => _movementClass; set => _movementClass = value; }
+
     //references
-    [Header("References")]
-    EnemyBrain _enemy;
-    SortingOrderController _sortOrderController;
-    AvoidanceBehaviourBrain _avoidanceBehaviour;
+    private void Awake() {
+        gameObject.CheckComponent<AvoidanceBehaviourBrain>(ref _avoidanceBehaviour);
+    }
+    private void OnEnable() {
+        _movementClass?.ResumeMovement();
+    }
+    private void Update() {
+        _movementClass.UpdateLogic();
+    }
+    private void FixedUpdate() {
+        _movementClass.PhysicsLogic();
+        Movement();
+    }
 
-
-    [Header("Movement Stats")]
-    bool _stopMovement = false;
-    bool _isFlipped;
-
-    [Header("Sorting Sprite Order")]
-    [SerializeField]float _offsetSortOrderPosition;
-
-
-
-    //KNOCKBACK LOGIC
-    private Knockbackeable _knockbackLogic;
-    public Knockbackeable KnockbackLogic {get => _knockbackLogic;}
-
-    //properties
-    public int FacingDirection => (_isFlipped) ? -1 : 1;
-    public bool StopMoving { get => _stopMovement;}
-
-    private void Awake() 
+    void Movement()
     {
-        GameObject thisGO = gameObject;
-        thisGO.CheckComponent<EnemyBrain>(ref _enemy);
-        thisGO.CheckComponent<AvoidanceBehaviourBrain>(ref _avoidanceBehaviour);
-
-        _sortOrderController = new SortingOrderController(transform, _enemy.Renderer, _offsetSortOrderPosition);
-        _knockbackLogic = new(transform, _enemy.Rigidbody);
-        
+        if(!_movementClass.Enabled) return;
+        _movementClass.Move(_avoidanceBehaviour.ResultDirection.normalized, _avoidanceBehaviour.TargetInterestMap.InterestDirection);
     }
-    private void OnEnable()
-    {
-        _enemy.HealthManager.onDeath += StopMovement;
-        _stopMovement = false;
-    }
-    private void FixedUpdate() 
-    {
-        _knockbackLogic.ApplyKnockback();
-        if(_stopMovement || _knockbackLogic.Enabled) return;
-
-        if(_avoidanceBehaviour.ResultDirection.sqrMagnitude > 0.1f) Move();
-        else Iddle();
-
-    }
-
-    public void Move()
-    {
-        _enemy.Rigidbody.velocity = Vector2.zero;
-
-        Vector2 directionToMove = _avoidanceBehaviour.ResultDirection * (_enemy.Stats.Speed * Time.fixedDeltaTime);        
-        if(directionToMove == Vector2.zero) return;
-        _enemy.Rigidbody.MovePosition((Vector2)transform.position + directionToMove);
-
-        CheckForFlip(_avoidanceBehaviour.TargetInterestMap.InterestDirection);
-        
-        _sortOrderController.SortOrder();
-        _enemy.Animation.PlayMove();
-
-    }
-
-    public void Iddle()
-    {
-        _enemy.Animation.PlayIddle();
-    }
-
-    public void StopMovement()
-    {
-        _stopMovement = true;
-    }
-
-    void CheckForFlip(Vector2 direction)
-    {
-        if(direction.x > 0 && _isFlipped)
-        {
-            Flip();
-        }
-        else if(direction.x < 0 && !_isFlipped)
-        {
-            Flip();
-        }
-
-        void Flip()
-        {
-            _isFlipped = !_isFlipped;
-            Vector3 invertedScale = transform.localScale;
-            invertedScale.x *= -1;
-            transform.localScale = invertedScale;
-        }
-    }
-
-    private void OnDisable() {
-        _enemy.HealthManager.onDeath -= StopMovement;
-    }
-
 }

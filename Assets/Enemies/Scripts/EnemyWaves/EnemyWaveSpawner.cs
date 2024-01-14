@@ -68,17 +68,16 @@ public class EnemyWaveSpawner : MonoBehaviour
 
         GameObject enemy = _pool.GetPooledObject();
         if(enemy == null) yield break;
-        
+
         //i know all this comments are kinda pointless because the code speaks for itself
         //set the target in the avoidance data script of the enemy (if there is any)
-        if(enemy.TryGetComponent<ITargetPositionProvider>(out ITargetPositionProvider targetData))
-        {
-            targetData.TargetTransform = _playerTransform;
-        }
+        var list = enemy.GetComponents<ITargetPositionProvider>();
+        if(list != null) foreach(ITargetPositionProvider targetData in list) targetData.TargetTransform = _playerTransform;
+        
         //remove its parent and set the position to a random spawn point
 
-        enemy.transform.position = _selectedSpawnpoint.position + (Vector3)(Vector2.one * Random.Range(-1f, 1f));
-        enemy.transform.SetParent(null);
+        enemy.transform.position = _selectedSpawnpoint.position + (Vector3)(Vector2.one * Random.Range(-1.5f, 1.5f));
+        enemy.transform.SetParent(null); //aca setearlo al parent del objeto "Units" adentro de environment
         enemy.SetActive(true);
         
     }

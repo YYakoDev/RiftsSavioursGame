@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ce113e27fc9e04f44a6a222af9c0ab69
+guid: 8073220eb0b965147a65ccbe75a39fdf
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -210,7 +210,7 @@ TextureImporter:
         height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 10, y: 9, z: 10, w: 9}
+      border: {x: 9, y: 9, z: 9, w: 9}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -231,7 +231,7 @@ TextureImporter:
         height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 11, y: 9, z: 10, w: 9}
+      border: {x: 9, y: 9, z: 9, w: 9}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -252,7 +252,7 @@ TextureImporter:
         height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 13, y: 14, z: 13, w: 14}
+      border: {x: 9, y: 9, z: 9, w: 9}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -274,13 +274,13 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      RecipeItemAnimation_3: -1735572548
-      RecipeItemAnimation_6: -952411924
+      RecipeItemAnimation_0: -1545072180
       RecipeItemAnimation_1: -746391092
       RecipeItemAnimation_2: 1620353379
+      RecipeItemAnimation_3: -1735572548
       RecipeItemAnimation_4: 1979699741
       RecipeItemAnimation_5: -474624325
-      RecipeItemAnimation_0: -1545072180
+      RecipeItemAnimation_6: -952411924
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

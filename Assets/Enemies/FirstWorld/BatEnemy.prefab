@@ -195,6 +195,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _brain: {fileID: 7992409206138210505}
+  _bloodPrefab: {fileID: -2486305248213958785, guid: 329e704e453c1fd4c8c5db7ffbe677c7, type: 3}
   _deathDuration: 0.35
   _onHitSFX: {fileID: 8300000, guid: 57f421bd48ebe6b4196c0078bc50784e, type: 3}
   _onDeathSFX: {fileID: 8300000, guid: 57f421bd48ebe6b4196c0078bc50784e, type: 3}

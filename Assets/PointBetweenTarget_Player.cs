@@ -52,7 +52,7 @@ public class PointBetweenTarget_Player : MonoBehaviour
         _autoAiming = autoAiming;
         if(_autoAiming)
         {
-            _realDistance = _mouseDistance / 2f;
+            _realDistance = _mouseDistance / 1.75f;
             _realThreshold = _distanceThreshold / 3f;
         }else
         {

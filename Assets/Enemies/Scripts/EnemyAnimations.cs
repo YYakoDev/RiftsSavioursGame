@@ -8,23 +8,33 @@ public class EnemyAnimations : MonoBehaviour
     [SerializeField]private Animator _animator;
     private static readonly int Iddle = Animator.StringToHash("Iddle");
     private static readonly int Move = Animator.StringToHash("Move");
+    private static readonly int Hit = Animator.StringToHash("Hit");
     private static readonly int Attack = Animator.StringToHash("Attack");
     private static readonly int Death = Animator.StringToHash("Death");
 
     int _currentAnimation;
     float _lockedTill = 0f;
-
+    float _initialAnimatorSpeed = 1;
+    Timer _speedChangeTimer;
     //Properties
-    public Animator Animator => _animator;
+    //public Animator Animator => _animator;
+    public float InitialAnimatorSpeed => _initialAnimatorSpeed;
 
     private void Awake()
     {
         gameObject.CheckComponent<Animator>(ref _animator);
-        _animator.speed = 1 + Random.Range(-0.1f, 0.1f);
+        _initialAnimatorSpeed = 1f + Random.Range(-0.1f, 0.15f);
+        ChangeAnimatorSpeed(_initialAnimatorSpeed);
+        _speedChangeTimer = new(0.1f);
+        _speedChangeTimer.onEnd += ResetSpeed;
+        _speedChangeTimer.Stop();
     }
 
     private void OnEnable() {
         PlayIddle();
+    }
+    private void Update() {
+        _speedChangeTimer.UpdateTime();
     }
     public void PlayMove()
     {
@@ -38,25 +48,18 @@ public class EnemyAnimations : MonoBehaviour
     {
         PlayStated(Attack);
     }
-    public void PlayDeath()
+    public void PlayDeath(float animDuration)
     {
-        PlayStated(Death);
+        PlayStated(Death, animDuration);
     }
 
-    void PlayStated(int animHash)
+    void PlayStated(int animHash, float lockDuration = 0f)
     {
         if(Time.time <= _lockedTill) return;
         if(animHash == _currentAnimation)return;
         
         _currentAnimation = animHash;
-        if(animHash == Attack)
-        {
-            LockState(0.3f);
-        }
-        else if(animHash == Death)
-        {
-            LockState(1f);
-        }
+        LockState(lockDuration);
         _animator.Play(animHash);
 //        Debug.Log($"Playing enemy's <b>{animHash.GetHashCode()}</b> animation");
         void LockState( float time)
@@ -65,9 +68,27 @@ public class EnemyAnimations : MonoBehaviour
         }
     }
     
+    public void ChangeAnimatorSpeed(float newSpeed)
+    {
+        _animator.speed = newSpeed;
+    }
+    public void ChangeAnimatorSpeed(float newSpeed, float duration)
+    {
+        _animator.speed = newSpeed;
+        _speedChangeTimer.ChangeTime(duration);
+        _speedChangeTimer.Start();
+    }
+    public void ResetSpeed()
+    {
+        _animator.speed = InitialAnimatorSpeed;
+    }
+
     private void OnDisable() {
         _animator.StopPlayback();
         _currentAnimation = 0;
         _lockedTill = 0f;
+    }
+    private void OnDestroy() {
+        _speedChangeTimer.onEnd -= ResetSpeed;
     }
 }

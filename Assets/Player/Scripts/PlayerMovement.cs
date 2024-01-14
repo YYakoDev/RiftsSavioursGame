@@ -38,10 +38,14 @@ public class PlayerMovement : MonoBehaviour, IKnockback
     private float AccelerationTime => _player.Stats.AccelerationTime;
     private float MovementSpeed => _player.Stats.Speed;
     private float SlowdownMultiplier => _player.Stats.SlowdownMultiplier;
+
     //Knockback Stuff
     Knockbackeable _knockbackLogic;
+    bool _knockbackEnabled;
     public Knockbackeable KnockbackLogic { get => _knockbackLogic;}
-    
+    public bool KnockbackEnabled => _knockbackEnabled;
+
+
     void Awake()
     {
         //components
@@ -50,7 +54,7 @@ public class PlayerMovement : MonoBehaviour, IKnockback
         //script that handles the knockback effect
         //there is a problem with this part, you cant really update the speed if the player gets an upgrade
         //you should handle that through the onStatsChange Event on the playerstats script
-        if(_knockbackLogic == null)_knockbackLogic = new Knockbackeable(transform, _player.RigidBody, true);
+        if(_knockbackLogic == null)_knockbackLogic = new Knockbackeable(transform, _player.RigidBody, OnKnockbackChange);
         
         //script that handles the sorting order based on its position
         if(_sortingOrderController == null)_sortingOrderController = new SortingOrderController(transform, _player.Renderer, _sortingOrderOffset);
@@ -82,9 +86,9 @@ public class PlayerMovement : MonoBehaviour, IKnockback
 
     private void FixedUpdate()
     {
-        if(_movement.sqrMagnitude > 0.1f) Move();
+        if(KnockbackEnabled) _knockbackLogic.ApplyKnockback();
+        else if(_movement.sqrMagnitude > 0.1f) Move();
         else Iddle();
-        if(_knockbackLogic.Enabled) _knockbackLogic.ApplyKnockback();
     }
 
     void Iddle()
@@ -113,6 +117,11 @@ public class PlayerMovement : MonoBehaviour, IKnockback
         _player.AnimController.PlayStated(PlayerAnimationsNames.Run);
 
         //OnMovement.Invoke(_movement);
+    }
+
+    public void OnKnockbackChange(bool change)
+    {
+        _knockbackEnabled = change;
     }
 
     public void CheckForFlip(float direction, float lockFlipTime = 0f)

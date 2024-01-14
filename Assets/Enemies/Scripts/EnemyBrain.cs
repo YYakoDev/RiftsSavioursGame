@@ -18,6 +18,8 @@ public class EnemyBrain : MonoBehaviour
     Sprite _intialSprite = null;
     [SerializeField]AIStats _aiData;
     [SerializeField]EnemyHealthManager _healthManager;
+    [SerializeField]IEnemyMovement _movement;
+    EnemyBaseMovement _movementLogic;
     [SerializeField]EnemyAnimations _animation;
     Collider2D[] _colliders;
 
@@ -36,18 +38,30 @@ public class EnemyBrain : MonoBehaviour
         thisGO.CheckComponent<Rigidbody2D>(ref _rb);
         thisGO.CheckComponent<SpriteRenderer>(ref _renderer);
         //saving the initialsprite in case the original sprite gets overriden by an empty animation or stuff like that
-        if(_intialSprite == null) _intialSprite = _renderer.sprite;
+        if(_intialSprite == null) _intialSprite = _renderer.sprite; //this will need to be refactor if you delete the signature match part of the wave spawner
+        //this works because the prefab foreach enemy is based on the type of enemy but it would stop working when you create a base enemyprefab class
         thisGO.CheckComponent<AudioSource>(ref _audio);
         thisGO.CheckComponent<AIStats>(ref _aiData);
         thisGO.CheckComponent<EnemyHealthManager>(ref _healthManager);
         thisGO.CheckComponent<EnemyAnimations>(ref _animation);
+        _movementLogic = new(transform, this, 0.25f);
+        _movement = GetComponent<IEnemyMovement>(); // this component reference will be lost of the movement class change
+        // ie if you spawn a flying enemy it will not have the same movement class as a regular one you will need to get the component agaom
+        SetMovementLogic();
+
         if(_colliders == null || _colliders.Length <= 0) _colliders = thisGO.GetComponents<Collider2D>();
+        _healthManager.onDeath += DisableComponents;
         
     }
 
     public bool SignatureMatch(EnemySignature signature)
     {
         return signature == _signature;
+    }
+    
+    public void SetMovementLogic()
+    {
+        _movement.MovementLogic = _movementLogic;
     }
 
     #region Components State and enable & disable events
@@ -58,6 +72,7 @@ public class EnemyBrain : MonoBehaviour
             coll.enabled = state;
         }
         _healthManager.enabled = state;
+        _movementLogic.Enabled = state;
     }
     void EnableComponents()
     {
@@ -70,12 +85,16 @@ public class EnemyBrain : MonoBehaviour
     private void OnEnable() {
         EnableComponents();
         _renderer.enabled = true;
-        _healthManager.onDeath += DisableComponents;
     }
     private void OnDisable() {
-        _healthManager.onDeath -= DisableComponents;
+        
+        _renderer.sprite = _intialSprite;
         _renderer.enabled = false;
         _renderer.sprite = _intialSprite;
+    }
+
+    private void OnDestroy() {
+        _healthManager.onDeath -= DisableComponents;
     }
     #endregion
 

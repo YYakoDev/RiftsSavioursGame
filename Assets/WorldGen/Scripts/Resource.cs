@@ -29,7 +29,7 @@ public class Resource : MonoBehaviour, IResources, IComparable, IMaskeable
     AudioClip HitSFX => _hitSFXs[Random.Range(0, _hitSFXs.Length)];
 
     //Animation Stuff
-    bool _activeAnimatorOnStart = false;
+    //bool _activeAnimatorOnStart = false;
     private readonly int BreakingAnim = Animator.StringToHash("Breaking");
     private readonly int OnHitAnim = Animator.StringToHash("OnHit");
 

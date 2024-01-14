@@ -306,6 +306,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _brain: {fileID: 0}
+  _bloodPrefab: {fileID: -2486305248213958785, guid: 329e704e453c1fd4c8c5db7ffbe677c7, type: 3}
   _deathDuration: 0.643
   _onHitSFX: {fileID: 8300000, guid: 3fe221a89eb88674985f8b33737e4415, type: 3}
   _onDeathSFX: {fileID: 8300000, guid: 3fe221a89eb88674985f8b33737e4415, type: 3}

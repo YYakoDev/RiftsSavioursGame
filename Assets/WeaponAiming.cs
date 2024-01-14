@@ -89,7 +89,7 @@ public class WeaponAiming : MonoBehaviour
         {
             _mousePosition = _mainCamera.ScreenToWorldPoint(Input.mousePosition); 
             _targetDirection = _mousePosition - transform.position;
-            SetTargetPoint(_mousePosition);
+            SetCameraTargetPoint(_mousePosition);
         }
 
         //if (_targetDirection.sqrMagnitude > 0.1f)
@@ -97,7 +97,7 @@ public class WeaponAiming : MonoBehaviour
      
     }
 
-    private void SetTargetPoint(Vector3 v) => _targetPoint = v;
+    private void SetCameraTargetPoint(Vector3 v) => _targetPoint = v;
     
 
     void DetectEnemy()
@@ -111,7 +111,7 @@ public class WeaponAiming : MonoBehaviour
         {
             _crosshair.gameObject.SetActive(false);
             _mousePosition = _mainCamera.ScreenToWorldPoint(Input.mousePosition); 
-            SetTargetPoint(_mousePosition);
+            SetCameraTargetPoint(_mousePosition);
             return;
         }
         _closestEnemyPos = Vector2.zero;
@@ -137,7 +137,7 @@ public class WeaponAiming : MonoBehaviour
             return;
         }
         _crosshair.gameObject.SetActive(_stopAimingTime <= 0);
-        SetTargetPoint(_closestEnemyPos);
+        SetCameraTargetPoint(_closestEnemyPos);
     }
 
     void PointToTarget()
@@ -157,7 +157,7 @@ public class WeaponAiming : MonoBehaviour
 
         Vector2 scale = transform.localScale;
         if(xPoint < 0) scale.y = 1; 
-        else if(xPoint > 0) scale.y = -1; 
+        else if(xPoint >= 0) scale.y = -1; 
         
         transform.localScale = scale;
     }

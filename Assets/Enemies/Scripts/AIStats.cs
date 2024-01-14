@@ -7,11 +7,15 @@ public class AIStats : MonoBehaviour
     [Header("Stats")]
     [SerializeField]private bool _randomizeStats = false;
     [SerializeField]private float _speed = 3f;
+    [SerializeField]private float _stunDuration = 0.15f;
+    //[SerializeField] private float _stunResistance;
+    //[SerializeField] private float _knockbackResistance;
     [SerializeField]private int _maxHealth = 5;
     [SerializeField]private int _damage = 1;
 
     //properties
     public float Speed => _speed;
+    public float StunDuration => _stunDuration;
     public int MaxHealth => _maxHealth;
     public int Damage => _damage;
    

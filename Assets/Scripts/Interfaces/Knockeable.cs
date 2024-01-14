@@ -1,6 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Knockbackeable
 {
@@ -11,10 +11,9 @@ public class Knockbackeable
     Timer _knockbackTimer;
     bool _enabled = false;
     bool _stopApplying = false;
+    public event Action<bool> OnKnockbackChange;
 
-    public bool Enabled => _enabled;
-
-    public Knockbackeable(Transform ownTransform, Rigidbody2D rb, bool alwaysApplyKnockback = false)
+    public Knockbackeable(Transform ownTransform, Rigidbody2D rb, Action<bool> onKnockbackChange)
     {
         _ownTransform = ownTransform;
         _rb = rb;
@@ -22,23 +21,18 @@ public class Knockbackeable
         _knockbackTimer.onEnd += StopKnockback;
         _enabled = false;
         _stopApplying = false;
+        OnKnockbackChange = onKnockbackChange;
     }
 
-    public void SetKnockbackData(Transform emitterPos, float force)
+    public void SetKnockbackData(Transform emitterPos, float force, float duration = 0.13f)
     {
         if(_stopApplying) return;
         _emitterPos = emitterPos;
         _force = force * 2;
         _enabled = true;
+        _knockbackTimer.ChangeTime(duration + Random.Range(0.01f, 0.1f));
         _knockbackTimer.Start();
-    }
-    public void SetKnockbackData(Transform emitterPos, float force, float duration)
-    {
-        if(_stopApplying) return;
-        _emitterPos = emitterPos;
-        _force = force * 2;
-        _knockbackTimer.ChangeTime(duration);
-        _enabled = true;
+        OnKnockbackChange?.Invoke(_enabled);
     }
 
     public void ApplyKnockback()
@@ -56,7 +50,8 @@ public class Knockbackeable
         //Debug.Log("Stopping Knockback!");
         _enabled = false;
         _stopApplying = false;
+        OnKnockbackChange?.Invoke(_enabled);
     }
 
-    public void StopApplying() => _stopApplying = true;
+    public void StopOtherKnockbacks() => _stopApplying = true;
 }

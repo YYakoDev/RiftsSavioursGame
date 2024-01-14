@@ -28,7 +28,7 @@ MonoBehaviour:
   _attackRange: 1
   _rangeOffset: {x: 0, y: 0}
   _attackDamage: 5
-  _damageDelay: 0.023
+  _damageDelay: 0.05
   _knockbackForce: 0.3
   _attackSpeed: 1
   _speedUPComboAnimations: 1
@@ -44,11 +44,8 @@ MonoBehaviour:
     RangeOffset: {x: 0, y: 0}
     WeaponFxs:
     - {fileID: 11400000, guid: 23196116de9b69d47a045c9e6a9b7e11, type: 2}
-    - {fileID: 11400000, guid: 4780209016f8aa349864b33bf7198c79, type: 2}
     - {fileID: 11400000, guid: a46798bb6b4605f46a88a7cb00606fc1, type: 2}
-    - {fileID: 11400000, guid: 9ddd7eda1b0d2ed44ab35738ce51d08c, type: 2}
     - {fileID: 11400000, guid: c9c1e59da1cfa0d438f4301a1069edcd, type: 2}
-    - {fileID: 11400000, guid: 5aa96cb87718dbb42b53feddbbdae7b1, type: 2}
     - {fileID: 11400000, guid: f1b3174f673fb1a4b91613d5d1414674, type: 2}
   - Cooldown: 0
     Range: 0.7
@@ -63,7 +60,6 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 4780209016f8aa349864b33bf7198c79, type: 2}
     - {fileID: 11400000, guid: 7e4ed06a1b3572e41b715a285fbae5a3, type: 2}
     - {fileID: 11400000, guid: a46798bb6b4605f46a88a7cb00606fc1, type: 2}
-    - {fileID: 11400000, guid: 9ddd7eda1b0d2ed44ab35738ce51d08c, type: 2}
     - {fileID: 11400000, guid: c9c1e59da1cfa0d438f4301a1069edcd, type: 2}
     - {fileID: 11400000, guid: f1b3174f673fb1a4b91613d5d1414674, type: 2}
   - Cooldown: 0
@@ -76,7 +72,5 @@ MonoBehaviour:
     RangeOffset: {x: 0, y: 0}
     WeaponFxs:
     - {fileID: 11400000, guid: 4780209016f8aa349864b33bf7198c79, type: 2}
-    - {fileID: 11400000, guid: 7e4ed06a1b3572e41b715a285fbae5a3, type: 2}
-    - {fileID: 11400000, guid: 9ddd7eda1b0d2ed44ab35738ce51d08c, type: 2}
     - {fileID: 11400000, guid: f1b3174f673fb1a4b91613d5d1414674, type: 2}
     - {fileID: 11400000, guid: c9c1e59da1cfa0d438f4301a1069edcd, type: 2}

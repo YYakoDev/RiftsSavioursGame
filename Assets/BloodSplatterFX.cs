@@ -6,9 +6,10 @@ public class BloodSplatterFX : MonoBehaviour
 {
     [SerializeField]Animator _animator;
     [SerializeField] SpriteRenderer _renderer;
+    [SerializeField]AnimatorOverrideController[] _SplatterAnimatorVariants;
     Color _initialColor;
     Color _endColor = new Color(0.25f, 0, 0, 1);
-    [SerializeField]AnimatorOverrideController[] _SplatterAnimatorVariants;
+    Vector2 _offset = new Vector2(-0.51f, 0.1f);
     [SerializeField] float _coagulationTime = 10f;
     float _elapsedTime = 0f;
 
@@ -26,6 +27,17 @@ public class BloodSplatterFX : MonoBehaviour
         _elapsedTime += Time.deltaTime;
         float percent = _elapsedTime / _coagulationTime;
         _renderer.color = Color.Lerp(_initialColor, _endColor, percent);
+    }
+
+    public void Flip(Vector3 playerPos)
+    {
+        Transform obj = transform;
+        Vector3 flippedScale = obj.localScale;
+        Vector3 direction = obj.position - playerPos;
+        direction.Normalize();
+        flippedScale.x = (direction.x > 0) ? -1 : 1;
+        obj.localScale = flippedScale;
+        obj.position += (Vector3)(_offset * flippedScale.x);
     }
     
 }

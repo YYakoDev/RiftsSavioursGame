@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: PlayerStats
   m_EditorClassIdentifier: 
   _maxHealth: 100
-  _currentHealth: 107
-  _level: 6
+  _currentHealth: 100
+  _level: 1
   _currentXP: 0
   _xpToNextLevel: 55
-  _speed: 6.832
-  _accelerationTime: 1.1
+  _speed: 5
+  _accelerationTime: 0.66
   _slowdownMultiplier: 0.5
   _pickUpRange: 1.5
   _collectingRange: 3

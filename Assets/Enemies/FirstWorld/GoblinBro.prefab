@@ -215,7 +215,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46e6c5e658e00ce4eb562c4e7ad1eebe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _offsetSortOrderPosition: 0.25
+  _brain: {fileID: 779268523137980044}
+  _avoidanceBehaviour: {fileID: 2173043081193469781}
+  _stunDuration: 0
 --- !u!58 &2803423104678018290
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -306,6 +308,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _brain: {fileID: 0}
+  _bloodPrefab: {fileID: -2486305248213958785, guid: 329e704e453c1fd4c8c5db7ffbe677c7, type: 3}
   _deathDuration: 1
   _onHitSFX: {fileID: 8300000, guid: 3fe221a89eb88674985f8b33737e4415, type: 3}
   _onDeathSFX: {fileID: 8300000, guid: 3fe221a89eb88674985f8b33737e4415, type: 3}
