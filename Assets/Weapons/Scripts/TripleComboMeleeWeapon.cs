@@ -59,42 +59,48 @@ public class TripleComboMeleeWeapon : MeleeWeapon
             foreach(WeaponEffects fx in comboAtk.WeaponFxs) fx.Initialize(this);
         }
     }
-    public override void InputLogic()
+    protected override void SubscribeInput() => _attackKey.OnKeyHold += TryAttack;
+    
+    protected override void UnsubscribeInput() => _attackKey.OnKeyHold -= TryAttack;
+    
+
+    protected override void TryAttack()
+    {
+        if(Time.time < _nextAttackTime) return;
+        if(_inputDetected) return;
+        else if(_checkForComboInput)
+        {
+            _inputDetected = true;
+            if(_speedUPComboAnimations)
+            {
+                ChangeAnimatorSpeed(_modifiedStats.AtkSpeed * _speedUpFactor);
+                _attackDuration /= _speedUpFactor;
+                float remainingDuration = _waitForInputTimer.CurrentTime / _speedUpFactor - (TimeOffset / _speedUpFactor * 2f);
+                _waitForRemainingDuration.ChangeTime(remainingDuration);
+            }else
+            {
+                _waitForRemainingDuration.ChangeTime(_waitForInputTimer.CurrentTime - (TimeOffset / 4f));
+            }
+            _waitForRemainingDuration.Start();
+            return;
+        }
+        Attack(_modifiedStats.Cooldown);
+    }
+
+    public override void UpdateLogic()
     {
         _atkExecutionTimer.UpdateTime();
         if(Time.time < _nextAttackTime) return;
-
         if(_inputDetected)
         {
             _waitForRemainingDuration.UpdateTime();
             return;
         }else if(_checkForComboInput)
         {
-            if(Input.GetButtonDown("Attack") && !_inputDetected)
-            {
-                _inputDetected = true;
-                if(_speedUPComboAnimations)
-                {
-                    ChangeAnimatorSpeed(_modifiedStats.AtkSpeed * _speedUpFactor);
-                    _attackDuration /= _speedUpFactor;
-                    float remainingDuration = _waitForInputTimer.CurrentTime / _speedUpFactor - (TimeOffset / _speedUpFactor * 2f);
-                    _waitForRemainingDuration.ChangeTime(remainingDuration);
-                }else
-                {
-                    _waitForRemainingDuration.ChangeTime(_waitForInputTimer.CurrentTime - (TimeOffset / 4f));
-                }
-                
-                _waitForRemainingDuration.Start();
-                return;
-            }
             _waitForInputTimer.UpdateTime();
             return;
         }
         _waitForInputTimer.UpdateTime();
-        if(Input.GetButtonDown("Attack"))
-        {
-            Attack(_modifiedStats.Cooldown);
-        }
     }
     protected override void Attack(float cooldown)
     {

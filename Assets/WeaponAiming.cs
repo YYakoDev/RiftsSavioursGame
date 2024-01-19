@@ -4,9 +4,9 @@ using UnityEngine;
 public class WeaponAiming : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField]Camera _mainCamera;
-    [SerializeField]Transform _crosshair;
-
+    [SerializeField] Camera _mainCamera;
+    [SerializeField] Transform _crosshair;
+    KeyInput _switchAimKey;
     private Vector3 _mousePosition;
     Vector2 _targetDirection;
     WeaponBase _currentWeapon;
@@ -17,6 +17,13 @@ public class WeaponAiming : MonoBehaviour
     LayerMask _enemyLayer;
     Collider2D[] _targetsDetected = new Collider2D[15];
     int _resultsCount = 0;
+
+    //Flip
+    bool _isFlipped;
+    [SerializeField] private float _flipOffset = 2f;
+    public bool IsFlipped => _isFlipped;
+    private float Sign => (_isFlipped) ? -1 : 1;
+    private float MouseOffset => _flipOffset * Sign;
 
 
     [Header("Values")]
@@ -30,7 +37,7 @@ public class WeaponAiming : MonoBehaviour
     // properties
     Vector2 _targetPoint;
     public Vector2 TargetPoint => _targetPoint;
-    
+
 
     private void Awake()
     {
@@ -46,7 +53,9 @@ public class WeaponAiming : MonoBehaviour
 
     void Start()
     {
-        if(_mainCamera == null) _mainCamera = Camera.main;
+        if (_mainCamera == null) _mainCamera = Camera.main;
+        _switchAimKey = YYInputManager.GetKey(KeyInputTypes.SwitchAim);
+        if(_switchAimKey != null) _switchAimKey.OnKeyPressed += SwitchAim;
         _crosshair.gameObject.SetActive(false);
         _currentWeapon.onAttack += StopAiming;
     }
@@ -54,31 +63,32 @@ public class WeaponAiming : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(_stopAimingTime > 0)
+        if (_stopAimingTime > 0)
         {
             _stopAimingTime -= Time.deltaTime;
             return;
         }
-        if(Input.GetButtonDown("SwitchAim"))
-        {
-            _autoAiming = !_autoAiming;
-            if(_autoAiming)
-            {
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
-            }else
-            {
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
-                _crosshair.gameObject.SetActive(false);
-            }
-            OnAimingChange?.Invoke(_autoAiming);
-        }
-
-        if(_autoAiming) _enemyDetectionTimer.UpdateTime();
+        if (_autoAiming) _enemyDetectionTimer.UpdateTime();
     }
 
-    private void FixedUpdate()
+    void SwitchAim()
+    {
+        _autoAiming = !_autoAiming;
+        if (_autoAiming)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            _crosshair.gameObject.SetActive(false);
+        }
+        OnAimingChange?.Invoke(_autoAiming);
+    }
+
+private void FixedUpdate()
     {
         if(_autoAiming)
         {
@@ -87,7 +97,7 @@ public class WeaponAiming : MonoBehaviour
         }
         else
         {
-            _mousePosition = _mainCamera.ScreenToWorldPoint(Input.mousePosition); 
+            _mousePosition = _mainCamera.ScreenToWorldPoint(YYInputManager.MousePosition); 
             _targetDirection = _mousePosition - transform.position;
             SetCameraTargetPoint(_mousePosition);
         }
@@ -110,7 +120,7 @@ public class WeaponAiming : MonoBehaviour
         if(_resultsCount == 0)
         {
             _crosshair.gameObject.SetActive(false);
-            _mousePosition = _mainCamera.ScreenToWorldPoint(Input.mousePosition); 
+            _mousePosition = _mainCamera.ScreenToWorldPoint(YYInputManager.MousePosition); 
             SetCameraTargetPoint(_mousePosition);
             return;
         }
@@ -148,16 +158,24 @@ public class WeaponAiming : MonoBehaviour
         angle = Mathf.LerpAngle(transform.rotation.eulerAngles.z, angle, Time.fixedDeltaTime * _aimSmoothing);
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         _crosshair.position = (Vector3)_targetDirection + transform.position;
-        FlipWeapon(_targetDirection.x);
+        if(_autoAiming) CheckForFlip(_targetDirection.x, MouseOffset / 3f);
+        else CheckForFlip(_targetDirection.x, MouseOffset);
     }
 
-    void FlipWeapon(float xPoint)
+ void CheckForFlip(float xPoint, float offset)
     {
-        if(_stopAimingTime > 0) return;
-
         Vector2 scale = transform.localScale;
-        if(xPoint < 0) scale.y = 1; 
-        else if(xPoint >= 0) scale.y = -1; 
+        
+        if(xPoint < offset && _isFlipped)
+        {
+            scale.y = 1;
+            _isFlipped = false;
+        } 
+        else if(xPoint >= offset && !_isFlipped)
+        {
+            scale.y = -1;
+            _isFlipped = true;
+        }
         
         transform.localScale = scale;
     }
@@ -168,6 +186,7 @@ public class WeaponAiming : MonoBehaviour
     }
 
     private void OnDestroy() {
+        if(_switchAimKey != null) _switchAimKey.OnKeyPressed -= SwitchAim;
         _enemyDetectionTimer.onEnd -= DetectEnemy;
         _currentWeapon.onAttack -= StopAiming;
     }

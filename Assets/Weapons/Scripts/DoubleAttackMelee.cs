@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,10 +21,13 @@ public class DoubleAttackMelee : MeleeWeapon
         _slashInstance.gameObject.SetActive(false);
         _currentAnim = Animator.StringToHash("Attack");
         _atkIndex = 0;
+        _randomizeSounds = false;
+        SetSounds();
     }
     protected override void Attack(float cooldown)
     {
         base.Attack(cooldown);
+        _attackSound = _weaponSounds[_atkIndex];
         SetAtkIndex();
         SpawnSlash();
     }
@@ -58,5 +62,21 @@ public class DoubleAttackMelee : MeleeWeapon
         string AnimName = (_atkIndex > 0) ? "Attack2" : "Attack";
         _currentAnim = Animator.StringToHash(AnimName);
         _slashYDirection = (_atkIndex > 0) ? -1 : 1;
+    }
+
+    void SetSounds()
+    {
+        int? length = _weaponSounds?.Length;
+        if(length == 0)
+        {
+            Debug.LogError("You need to set a sound for the weapon");
+            return;
+        }
+        if(length != 2)
+            Array.Resize<AudioClip>(ref _weaponSounds, 2);
+        if(length < 2)
+            _weaponSounds[1] = _weaponSounds[0];
+        
+        
     }
 }

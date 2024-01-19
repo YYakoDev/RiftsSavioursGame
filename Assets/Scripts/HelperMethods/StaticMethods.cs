@@ -29,7 +29,7 @@ public static class HelperMethods
     public static bool IsOverUI()
     {
         EventSystem currentEventSys = EventSystem.current;
-        _eventDataCurrentPosition = new PointerEventData(currentEventSys) {position = Input.mousePosition};
+        _eventDataCurrentPosition = new PointerEventData(currentEventSys) {position = YYInputManager.MousePosition};
         _results = new();
         currentEventSys.RaycastAll(_eventDataCurrentPosition, _results);
         return _results.Count > 0;

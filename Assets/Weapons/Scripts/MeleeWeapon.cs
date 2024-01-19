@@ -39,11 +39,8 @@ public class MeleeWeapon : WeaponBase
         _atkExecutionTimer.Stop();
     }
 
-    public override void InputLogic()
-    {
-        _atkExecutionTimer.UpdateTime();
-        base.InputLogic();
-    }
+    public override void UpdateLogic() => _atkExecutionTimer.UpdateTime();
+    
 
     protected override void Attack(float cooldown)
     {

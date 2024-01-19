@@ -22,11 +22,6 @@ public class AStarPathfinding : MonoBehaviour
         _openSet = new(_grid.GridTotalSize);
         _closedSet = new();
     }
-    /*private void Update()
-    {
-        if(Input.GetButtonDown("Jump")) FindPath(_seeker.position, target.position);
-    }*/
-
     public void StartFindPath(Vector3 start, Vector3 end)
     {
         AStarPathResult result = FindPath(start, end);

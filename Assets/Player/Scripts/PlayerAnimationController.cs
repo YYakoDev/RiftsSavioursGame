@@ -15,7 +15,6 @@ public class PlayerAnimationController : MonoBehaviour
 
     public float AtkDuration => _attackDuration;*/
 
-
     void Awake()
     {
         GameObject thisGO = gameObject;
@@ -53,6 +52,12 @@ public class PlayerAnimationController : MonoBehaviour
     public void ChangeAnimator(AnimatorOverrideController animator)
     {
         _animator.runtimeAnimatorController = animator;
+    }
+
+    public void SetAnimatorFacing(Vector2 facing)
+    {
+        _animator.SetFloat("MoveX", facing.x);
+        _animator.SetFloat("MoveY", facing.y);
     }
 
     /*void GetAttackDuration()

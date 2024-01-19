@@ -41,6 +41,8 @@ public class PlayerAttackEffects : MonoBehaviour
     {
         float xPoint = _weaponPrefab.position.x - transform.position.x;
         _player.MovementScript.CheckForFlip(xPoint, AttackDuration);
+        /*var weaponDir = _weaponPrefab.position - transform.position;
+        _player.MovementScript.SetAnimatorFacing(weaponDir);*/
     }
 
     void PlayAttackAnimation() => _player.AnimController.PlayStated(PlayerAnimationsNames.Attack, AttackDuration);

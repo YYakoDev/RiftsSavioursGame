@@ -38,7 +38,7 @@ public class WeaponPrefab : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _weaponBase.InputLogic();
+        _weaponBase.UpdateLogic();
     }
 
     void AttackEffects()

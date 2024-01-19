@@ -25,6 +25,7 @@ MonoBehaviour:
   _spawnRotation: 0
   _weaponSounds:
   - {fileID: 8300000, guid: ba8fe44fc8785364a978c7ec7d17ce65, type: 3}
+  - {fileID: 8300000, guid: 62831dff93289e44786d140f137d6408, type: 3}
   _pointCameraOnAttack: 0
   _attackCooldown: 0.4
   _pullForce: 1.07

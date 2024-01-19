@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class PlayerMovementDirectional : MonoBehaviour
@@ -9,27 +8,29 @@ public class PlayerMovementDirectional : MonoBehaviour
     Vector2 _movement;
     [SerializeField]float _speed;
     float _lockedFacing = 0f;
-    Transform _weaponPrefab;
+    [SerializeField]Transform _weaponPrefab;
     SpriteRenderer _weaponSprite;
+    public event Action<Vector2> OnMovement;
 
     private void Awake() {
         _rigidbody = GetComponent<Rigidbody2D>();
         _animator = GetComponentInChildren<Animator>();
+        YYInputManager.OnMovement += TryMovement;
 
-        
     }
     private void Start() {
-        _weaponPrefab = GetComponentInChildren<WeaponManager>().WeaponPrefab.transform;
         _weaponSprite = _weaponPrefab.GetComponent<SpriteRenderer>();
     }
 
     void Update()
     {
-        _movement.x = Input.GetAxisRaw("Horizontal");
-        _movement.y = Input.GetAxisRaw("Vertical");
-        _movement.Normalize();
-
         if(_lockedFacing > 0) _lockedFacing -= Time.deltaTime;
+    }
+
+    private void TryMovement(Vector2 movementInput)
+    {
+        _movement = movementInput;
+        _movement.Normalize();
     }
 
     private void FixedUpdate() 
@@ -42,7 +43,7 @@ public class PlayerMovementDirectional : MonoBehaviour
     {
         Vector2 direction = _movement * _speed * Time.fixedDeltaTime;
         _rigidbody.MovePosition((Vector2)transform.position + direction);
-
+        OnMovement?.Invoke(_movement);
         PlayMovementAnimation(_movement);
         if(_movement.y > 0.1f) _weaponSprite.sortingOrder = -1;
         else _weaponSprite.sortingOrder = 10;
@@ -70,5 +71,9 @@ public class PlayerMovementDirectional : MonoBehaviour
     void PlayIddleAnimation()
     {
         _animator.Play("Iddle");
+    }
+
+    private void OnDestroy() {
+        YYInputManager.OnMovement -= TryMovement;
     }
 }

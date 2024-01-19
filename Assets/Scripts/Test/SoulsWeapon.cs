@@ -19,17 +19,12 @@ public class SoulsWeapon : MonoBehaviour
     string AttackAnim => (atkIndex > 0) ? "Atk2" : "Atk";
     float SlashYDirection => (atkIndex > 0) ? -1 : 1;
 
-    void Update()
+    private void Start() {
+        YYInputManager.GetKey(KeyInputTypes.Attack).OnKeyHold += TryAttack;
+    }
+    void TryAttack()
     {
-        /*float xFacing = _playerAnimator.GetFloat("MoveX");
-        float yFacing = _playerAnimator.GetFloat("MoveY");
-        _parentAnimator.SetFloat("FaceX", xFacing);
-        _parentAnimator.SetFloat("FaceY", yFacing);*/
-        if(Input.GetMouseButton(0) || Input.GetKeyDown(KeyCode.Space))
-        {
-
-            if(Time.time > _nextAttackTime) Attack();
-        }
+        if(Time.time > _nextAttackTime) Attack();
     }
 
     void Attack()
@@ -80,5 +75,9 @@ public class SoulsWeapon : MonoBehaviour
     {
         atkIndex++;
         if(atkIndex > 1) atkIndex = 0;
+    }
+
+    private void OnDestroy() {
+        YYInputManager.GetKey(KeyInputTypes.Attack).OnKeyHold -= TryAttack;
     }
 }

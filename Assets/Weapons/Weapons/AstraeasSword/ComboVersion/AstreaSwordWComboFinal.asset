@@ -36,7 +36,7 @@ MonoBehaviour:
   _damageDelay: 0.1
   _knockbackForce: 0.91
   _speedUPComboAnimations: 1
-  _speedUpFactor: 1.2
+  _speedUpFactor: 1.12
   _comboStats:
   - Cooldown: 0
     Range: 0.42

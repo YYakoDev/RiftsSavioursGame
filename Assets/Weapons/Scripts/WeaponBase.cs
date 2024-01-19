@@ -9,6 +9,7 @@ public abstract class WeaponBase: ScriptableObject
     public const string MenuPath = "ScriptableObjects/Weapons/";
     //references
     protected WeaponManager _weaponManager;
+    protected KeyInput _attackKey;
 
     //fields
     [Header("Weapon Properties")]
@@ -21,6 +22,7 @@ public abstract class WeaponBase: ScriptableObject
     [SerializeField]private float _spawnRotation = 0;
     protected int _currentAnim;
     [SerializeField]protected AudioClip[] _weaponSounds;
+    protected bool _randomizeSounds = true;
     [SerializeField]private bool _pointCameraOnAttack = false;
     protected Transform _weaponPrefabTransform;
 
@@ -60,9 +62,14 @@ public abstract class WeaponBase: ScriptableObject
         _weaponPrefabTransform = prefabTransform;
         _currentAnim = Animator.StringToHash(AtkAnimName);
         _attackDuration = GetAnimationDuration(AtkAnimName);
-
+        _attackKey = YYInputManager.GetKey(KeyInputTypes.Attack);
+        SubscribeInput();
         InitializeFXS();
     }
+    protected virtual void SubscribeInput() => _attackKey.OnKeyHold += TryAttack;
+
+    protected virtual void UnsubscribeInput() => _attackKey.OnKeyHold -= TryAttack;
+    
     protected virtual void InitializeFXS()
     {
         foreach(WeaponEffects fx in _effects) fx?.Initialize(this);
@@ -71,18 +78,15 @@ public abstract class WeaponBase: ScriptableObject
     protected virtual void Attack(float weaponCooldown)
     {
         _nextAttackTime = Time.time + weaponCooldown;
-        _attackSound = _weaponSounds[Random.Range(0, _weaponSounds.Length)];
+        if(_randomizeSounds) _attackSound = _weaponSounds[Random.Range(0, _weaponSounds.Length)];
         InvokeOnAttack();
     }
-
-    public virtual void InputLogic()
+    public virtual void UpdateLogic() {}
+    
+    protected virtual void TryAttack()
     {
         if(_nextAttackTime >= Time.time) return;
-        //if you dont put a cooldown here everything is going to be fucked
-        if(Input.GetButton("Attack"))
-        {
-            Attack(_attackCooldown);
-        }
+        Attack(_attackCooldown);
     }
 
     protected float GetAnimationDuration(string animName)
@@ -123,4 +127,9 @@ public abstract class WeaponBase: ScriptableObject
 
 
     public virtual void DrawGizmos(){}
+
+    ~WeaponBase()
+    {
+        UnsubscribeInput();
+    }
 }

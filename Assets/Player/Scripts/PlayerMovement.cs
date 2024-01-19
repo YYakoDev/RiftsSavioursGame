@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour, IKnockback
 
     //Movement
     Vector2 _movement;
+    Action<Vector2> OnMovement;
     float _realSpeed;
 
     [SerializeField]AnimationCurve _accelerationCurve;
@@ -62,6 +63,7 @@ public class PlayerMovement : MonoBehaviour, IKnockback
     }
     void Start()
     {
+        YYInputManager.OnMovement += SetMovement;
         _spriteGameObject = _player.Renderer.gameObject;
         _realSpeed = MovementSpeed;
         _elapsedAccelerationTime = 0f;
@@ -72,7 +74,6 @@ public class PlayerMovement : MonoBehaviour, IKnockback
     // Update is called once per frame
     void Update()
     {
-        _movement = new Vector2(Input.GetAxisRaw("Horizontal"),Input.GetAxisRaw("Vertical"));
         if(_slowdownTime > 0)
         {
             _slowdownTime -= Time.deltaTime;
@@ -82,6 +83,12 @@ public class PlayerMovement : MonoBehaviour, IKnockback
             _realSpeed = MovementSpeed;
         }
         
+    }
+
+    void SetMovement(Vector2 movementInput)
+    {
+        _movement = movementInput;
+        _movement.Normalize();
     }
 
     private void FixedUpdate()
@@ -106,22 +113,27 @@ public class PlayerMovement : MonoBehaviour, IKnockback
         float percent = _elapsedAccelerationTime / AccelerationTime;
         if(percent <= 1.1f) _realSpeed = Mathf.Lerp(0, MovementSpeed, _accelerationCurve.Evaluate(percent)) * _slowdown;
 
-        Vector2 direction = (Vector2)transform.position + _movement.normalized * (_realSpeed *Time.fixedDeltaTime);
+        Vector2 direction = (Vector2)transform.position + _movement * (_realSpeed *Time.fixedDeltaTime);
         _player.RigidBody.MovePosition(direction);
         
-        CheckForFlip(_movement.normalized.x);
+        CheckForFlip(_movement.x);
 
         //change sprite sorting order based on its position
         _sortingOrderController.SortOrder();
 
         _player.AnimController.PlayStated(PlayerAnimationsNames.Run);
-
-        //OnMovement.Invoke(_movement);
+        //SetAnimatorFacing(_movement);
+        OnMovement?.Invoke(_movement);
     }
 
     public void OnKnockbackChange(bool change)
     {
         _knockbackEnabled = change;
+    }
+
+    public void SetAnimatorFacing(Vector2 facing)
+    {
+        _player.AnimController.SetAnimatorFacing(facing);
     }
 
     public void CheckForFlip(float direction, float lockFlipTime = 0f)
@@ -154,5 +166,9 @@ public class PlayerMovement : MonoBehaviour, IKnockback
         _slowdownTime = slowdownTime;
         _slowdown = SlowdownMultiplier;
         _elapsedAccelerationTime = 0f;
+    }
+
+    private void OnDestroy() {
+        YYInputManager.OnMovement -= SetMovement;
     }
 }
