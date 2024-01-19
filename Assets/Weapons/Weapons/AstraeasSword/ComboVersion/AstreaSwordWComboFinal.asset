@@ -23,9 +23,9 @@ MonoBehaviour:
   _spawnPosition: {x: -0.55, y: 0.25, z: 0}
   _spawnRotation: 0
   _weaponSounds:
-  - {fileID: 8300000, guid: d51a7987a1fc10e40b6c5297d3ccd117, type: 3}
-  - {fileID: 8300000, guid: 8aba69f5bbe09a047b7792f94a2c13dc, type: 3}
-  - {fileID: 8300000, guid: b0de8e236bcb7f3429c7782391dcbf0d, type: 3}
+  - {fileID: 8300000, guid: bc1c86abc18a4824c8de230090611919, type: 3}
+  - {fileID: 8300000, guid: b84216003718d5943b73059e3b336319, type: 3}
+  - {fileID: 8300000, guid: ea652bf6f93bd6d418c9ca0f92dace0f, type: 3}
   _pointCameraOnAttack: 1
   _attackCooldown: 0.5
   _pullForce: 0.4
@@ -33,7 +33,7 @@ MonoBehaviour:
   _attackSpeed: 1
   _rangeOffset: {x: 0, y: 0}
   _attackDamage: 5
-  _damageDelay: 0.1
+  _damageDelay: 0.04
   _knockbackForce: 0.91
   _speedUPComboAnimations: 1
   _speedUpFactor: 1.12
@@ -43,7 +43,7 @@ MonoBehaviour:
     KnockbackForce: 0.5
     AtkSpeed: 0
     PullForce: 1
-    AtkDelay: 0.08
+    AtkDelay: 0
     Damage: 5
     RangeOffset: {x: 0, y: 0}
     WeaponFxs:
@@ -71,7 +71,7 @@ MonoBehaviour:
     KnockbackForce: 2
     AtkSpeed: 0
     PullForce: 2
-    AtkDelay: 0.11
+    AtkDelay: 0.05
     Damage: 4
     RangeOffset: {x: 0, y: 0}
     WeaponFxs:

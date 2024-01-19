@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Astraea
   m_EditorClassIdentifier: 
   _stats: {fileID: 11400000, guid: 0d2fc2edbd497ee459ba5cca65a0d494, type: 2}
-  _animator: {fileID: 22100000, guid: 27948e9720bf9414596eb31e74ea1224, type: 2}
+  _animator: {fileID: 22100000, guid: 628bbdfa7ffabca43bb3825e12cbc893, type: 2}

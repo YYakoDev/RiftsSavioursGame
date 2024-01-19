@@ -12,7 +12,7 @@ public class WeaponAiming : MonoBehaviour
     WeaponBase _currentWeapon;
 
     //enemy detection
-    Vector2 _closestEnemyPos;
+    Vector2 _closestEnemyPosition;
     Timer _enemyDetectionTimer;
     LayerMask _enemyLayer;
     Collider2D[] _targetsDetected = new Collider2D[15];
@@ -28,7 +28,7 @@ public class WeaponAiming : MonoBehaviour
 
     [Header("Values")]
     [SerializeField] float _aimSmoothing = 8f;
-    float _detectionRadius = 5f;
+    float _detectionRadius = 3.5f;
     float _stopAimingTime = 0f;
     bool _autoAiming = false;
     public event Action<bool> OnAimingChange;
@@ -93,7 +93,7 @@ private void FixedUpdate()
         if(_autoAiming)
         {
             GetNearestEnemy();
-            _targetDirection = _closestEnemyPos;
+            _targetDirection = _closestEnemyPosition;
         }
         else
         {
@@ -124,30 +124,28 @@ private void FixedUpdate()
             SetCameraTargetPoint(_mousePosition);
             return;
         }
-        _closestEnemyPos = Vector2.zero;
-
+        _closestEnemyPosition = Vector2.zero;
+        float distance = 51f;
+        int closestEnemyIndex = 0;
         for(int i = 0; i < _resultsCount; i++)
         {
-            if(!_targetsDetected[i].isTrigger) continue;
-            
-            Vector2 directionToTarget = _targetsDetected[i].bounds.center - transform.position;
-            if(_closestEnemyPos == Vector2.zero)
+            if(!_targetsDetected[i].isTrigger || !_targetsDetected[i].gameObject.activeInHierarchy) continue;
+            var distanceToEnemy = Vector3.Distance(_targetsDetected[i].bounds.center, transform.position);
+            if(distanceToEnemy < distance)
             {
-                _closestEnemyPos = directionToTarget;
-                continue;
-            }
-            if(directionToTarget.magnitude < _closestEnemyPos.magnitude)
-            {
-                _closestEnemyPos = directionToTarget;
+                distance = distanceToEnemy;
+                closestEnemyIndex = i;
             }
         }
-        if(_closestEnemyPos == Vector2.zero)
+        if(distance >= 50f)
         {
             _crosshair.gameObject.SetActive(false);
             return;
         }
+        Vector2 directionToEnemy = _targetsDetected[closestEnemyIndex].transform.position - transform.position;
+        _closestEnemyPosition = directionToEnemy;
         _crosshair.gameObject.SetActive(_stopAimingTime <= 0);
-        SetCameraTargetPoint(_closestEnemyPos);
+        SetCameraTargetPoint(_closestEnemyPosition);
     }
 
     void PointToTarget()

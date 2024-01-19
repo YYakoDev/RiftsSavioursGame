@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour, IKnockback
 {
     //References
     PlayerManager _player;
+    [SerializeField] WeaponAiming _aimingScript;
     GameObject _spriteGameObject;
     [SerializeField]ParticleSystem _dustEffect;
 
@@ -31,6 +32,9 @@ public class PlayerMovement : MonoBehaviour, IKnockback
     //sort the order of the sprite based on movement
     SortingOrderController _sortingOrderController;
     [SerializeField]private float _sortingOrderOffset; //this adds an offset to the position detected on the sprite    
+
+    //aiming
+    bool _autoAiming = false;
 
     //properties
     //public Vector2 Movement => _movement;
@@ -64,6 +68,7 @@ public class PlayerMovement : MonoBehaviour, IKnockback
     void Start()
     {
         YYInputManager.OnMovement += SetMovement;
+        _aimingScript.OnAimingChange += ChangeAimMode;
         _spriteGameObject = _player.Renderer.gameObject;
         _realSpeed = MovementSpeed;
         _elapsedAccelerationTime = 0f;
@@ -122,7 +127,7 @@ public class PlayerMovement : MonoBehaviour, IKnockback
         _sortingOrderController.SortOrder();
 
         _player.AnimController.PlayStated(PlayerAnimationsNames.Run);
-        //SetAnimatorFacing(_movement);
+
         OnMovement?.Invoke(_movement);
     }
 
@@ -131,21 +136,25 @@ public class PlayerMovement : MonoBehaviour, IKnockback
         _knockbackEnabled = change;
     }
 
-    public void SetAnimatorFacing(Vector2 facing)
-    {
-        _player.AnimController.SetAnimatorFacing(facing);
-    }
+    void ChangeAimMode(bool state) => _autoAiming = state;
+    
 
-    public void CheckForFlip(float direction, float lockFlipTime = 0f)
+
+    public void CheckForFlip(float xDirection, float lockFlipTime = 0f)
     {
+        if(_autoAiming)
+        {
+            _lockFlipTime = 0f;
+            xDirection = _aimingScript.TargetPoint.x;
+        }
         if(_lockFlipTime > Time.time)return;
         _lockFlipTime = Time.time + lockFlipTime;
 
-        if(direction < 0 && !isFlipped)
+        if(xDirection < 0 && !isFlipped)
         {
             Flip();
 
-        }else if(direction > 0 && isFlipped)
+        }else if(xDirection > 0 && isFlipped)
         {
             Flip();
         }
@@ -170,5 +179,6 @@ public class PlayerMovement : MonoBehaviour, IKnockback
 
     private void OnDestroy() {
         YYInputManager.OnMovement -= SetMovement;
+        _aimingScript.OnAimingChange -= ChangeAimMode;
     }
 }

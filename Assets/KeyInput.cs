@@ -17,8 +17,4 @@ public class KeyInput
     public void KeyPressed() => OnKeyPressed?.Invoke();
     public void KeyHolded() => OnKeyHold?.Invoke();
 
-    private void OnValidate() {
-        Debug.Log("Hey you baby");
-    }
-
 }

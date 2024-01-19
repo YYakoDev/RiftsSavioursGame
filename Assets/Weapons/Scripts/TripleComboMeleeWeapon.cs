@@ -105,6 +105,7 @@ public class TripleComboMeleeWeapon : MeleeWeapon
     protected override void Attack(float cooldown)
     {
         InvokeOnAttack();
+        _nextAttackTime = Time.time + (TimeOffset * 1.3f) / _speedUpFactor;
         _waitForInputTimer.ResetTime();
         _waitForInputTimer.Start();
         SetAttackPoint();
