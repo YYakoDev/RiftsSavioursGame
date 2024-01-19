@@ -10,21 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9bb8f0f7345247946ae9aa9f8f5fb969, type: 3}
-  m_Name: AstreaSword
+  m_Name: AstreaDualSword
   m_EditorClassIdentifier: 
   _name: Astraea's Sword
   _SpriteAndAnimationsData: {fileID: 11400000, guid: 543a019bc4eb7d54a901633dbe15a124, type: 2}
   _effects: []
   _flipSprite: 1
-  _spawnPosition: {x: -0.55, y: 0.25, z: 0}
+  _spawnPosition: {x: 0.215, y: 0.25, z: 0}
   _spawnRotation: 0
   _weaponSounds:
   - {fileID: 8300000, guid: 6cbb45dd3c204e04aae673889c597324, type: 3}
   - {fileID: 8300000, guid: 9c192f02e087c9140814059b4e042b82, type: 3}
   _pointCameraOnAttack: 1
   _attackCooldown: 0.51
-  _pullForce: 1.05
+  _pullForce: 0.49
   _attackRange: 1.51
+  _attackSpeed: 1.09
   _rangeOffset: {x: 0, y: 0}
   _attackDamage: 10
   _damageDelay: 0.2

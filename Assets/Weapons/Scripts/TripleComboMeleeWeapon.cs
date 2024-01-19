@@ -4,7 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = MenuPath + "TripleComboMeleeWeapon")]
 public class TripleComboMeleeWeapon : MeleeWeapon
 {
-    [SerializeField]float _attackSpeed = 1; // this value should change when evaluating stats
+    //new float _attackSpeed = 1; // this value should change when evaluating stats
     const int ComboAttacks = 3;
     Animator _weaponInstanceAnimator;
     Timer _waitForInputTimer;

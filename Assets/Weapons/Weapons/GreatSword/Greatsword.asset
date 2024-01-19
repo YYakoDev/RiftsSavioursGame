@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bb8f0f7345247946ae9aa9f8f5fb969, type: 3}
+  m_Name: Greatsword
+  m_EditorClassIdentifier: 
+  _name: GreatSword
+  _SpriteAndAnimationsData: {fileID: 11400000, guid: c4a6ab0ca1fb6634ab614941446af409, type: 2}
+  _effects:
+  - {fileID: 11400000, guid: 23196116de9b69d47a045c9e6a9b7e11, type: 2}
+  - {fileID: 11400000, guid: 4780209016f8aa349864b33bf7198c79, type: 2}
+  - {fileID: 11400000, guid: 7e4ed06a1b3572e41b715a285fbae5a3, type: 2}
+  - {fileID: 11400000, guid: a46798bb6b4605f46a88a7cb00606fc1, type: 2}
+  - {fileID: 11400000, guid: c9c1e59da1cfa0d438f4301a1069edcd, type: 2}
+  - {fileID: 11400000, guid: f1b3174f673fb1a4b91613d5d1414674, type: 2}
+  _flipSprite: 1
+  _spawnPosition: {x: -0.14, y: 0, z: 0}
+  _spawnRotation: 45
+  _weaponSounds:
+  - {fileID: 8300000, guid: 307ccd91c05d4ea4abb03bf8099fa3c3, type: 3}
+  _pointCameraOnAttack: 1
+  _attackCooldown: 0.5
+  _pullForce: 1.48
+  _attackRange: 2
+  _rangeOffset: {x: 0.31, y: 0.12}
+  _attackDamage: 11
+  _damageDelay: 0.139
+  _knockbackForce: 2.25

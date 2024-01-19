@@ -16,28 +16,24 @@ MonoBehaviour:
   _SpriteAndAnimationsData: {fileID: 11400000, guid: 3ffd0d601d729f44f946aefc00161325, type: 2}
   _effects:
   - {fileID: 11400000, guid: 23196116de9b69d47a045c9e6a9b7e11, type: 2}
-  - {fileID: 11400000, guid: 4780209016f8aa349864b33bf7198c79, type: 2}
-  - {fileID: 11400000, guid: 7e4ed06a1b3572e41b715a285fbae5a3, type: 2}
-  - {fileID: 11400000, guid: a46798bb6b4605f46a88a7cb00606fc1, type: 2}
-  - {fileID: 11400000, guid: 9ddd7eda1b0d2ed44ab35738ce51d08c, type: 2}
   _flipSprite: 1
   _spawnPosition: {x: -0.55, y: 0.25, z: 0}
   _spawnRotation: 0
   _weaponSounds:
-  - {fileID: 8300000, guid: d51a7987a1fc10e40b6c5297d3ccd117, type: 3}
+  - {fileID: 8300000, guid: 5f3a43ec23ce51345a07f63c6fe762c6, type: 3}
   - {fileID: 8300000, guid: 8aba69f5bbe09a047b7792f94a2c13dc, type: 3}
   - {fileID: 8300000, guid: b0de8e236bcb7f3429c7782391dcbf0d, type: 3}
   _pointCameraOnAttack: 1
   _attackCooldown: 0.5
   _pullForce: 0.2
   _attackRange: 1
+  _attackSpeed: 1
   _rangeOffset: {x: 0, y: 0}
   _attackDamage: 5
   _damageDelay: 0.185
   _knockbackForce: 0.3
-  _attackSpeed: 1
   _speedUPComboAnimations: 1
-  speedUpFactor: 1.25
+  _speedUpFactor: 1.3
   _comboStats:
   - Cooldown: 0.1
     Range: 0.35

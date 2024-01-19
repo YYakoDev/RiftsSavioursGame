@@ -65,7 +65,7 @@ public abstract class WeaponBase: ScriptableObject
     }
     protected virtual void InitializeFXS()
     {
-        foreach(WeaponEffects fx in _effects) fx.Initialize(this);
+        foreach(WeaponEffects fx in _effects) fx?.Initialize(this);
     }
 
     protected virtual void Attack(float weaponCooldown)
@@ -110,14 +110,14 @@ public abstract class WeaponBase: ScriptableObject
     {
         foreach(WeaponEffects fx in _effects)
         {
-            fx.OnAttackFX();
+            fx?.OnAttackFX();
         }
     }
     protected virtual void PlayHitFXS(Vector3 pos)
     {
         foreach(WeaponEffects fx in _effects)
         {
-            fx.OnHitFX(pos);
+            fx?.OnHitFX(pos);
         }
     }
 

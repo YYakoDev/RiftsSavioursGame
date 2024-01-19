@@ -29,7 +29,7 @@ MonoBehaviour:
   _rangeOffset: {x: 0, y: 0}
   _attackDamage: 5
   _damageDelay: 0.05
-  _knockbackForce: 0.3
+  _knockbackForce: 2.25
   _attackSpeed: 1
   _speedUPComboAnimations: 1
   _speedUpFactor: 1.15

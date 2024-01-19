@@ -25,5 +25,5 @@ MonoBehaviour:
   _collectingDamage: 1
   _interactCooldown: 0.65
   _maxResourceInteractions: 1
-  _weaponBase: {fileID: 11400000, guid: c25353c1750cde74e8da8d9e9ac261f2, type: 2}
+  _weaponBase: {fileID: 11400000, guid: 8f2b993e04490be4a95cc0b86f217589, type: 2}
   _attackStats: {fileID: 11400000, guid: 5c0efc2d47ffa234c9cfe266e112553e, type: 2}

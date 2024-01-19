@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: AstrikoSifosAnimatorFinal
+  m_Controller: {fileID: 9100000, guid: d1c193cd0a6ada34ca1697e6a8c64742, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: e71c5027bb363a64d9c485ed00adbc4a, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 153f17ae76b0b314cbc116e496df4133, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: d29e07e514650ee4ebcbeb7e1d8dbf04, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 744ea008e8b41124ba63fafcdb1de635, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 927c20837cd28b441b8cefb751530e01, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: d150dc051c0b36a46aab165f86119e44, type: 2}

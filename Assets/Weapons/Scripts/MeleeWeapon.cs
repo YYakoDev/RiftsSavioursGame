@@ -6,14 +6,13 @@ using UnityEngine;
 public class MeleeWeapon : WeaponBase
 {
     [Header("References")]
-    //[SerializeField]WeaponFX _weaponFXPrefab;
-    //GameObject _weaponFXObject;
-    //WeaponFX _weaponFXInstance;
     Transform _parentTransform;
+    protected Animator _weaponAnimator;
     protected LayerMask _enemyLayer;
 
     [Header("Stats")]
     [SerializeField]protected float _attackRange = 0.5f;
+    [SerializeField] protected float _attackSpeed = 1f;
     [SerializeField] protected Vector2 _rangeOffset;
     protected float _radiusOffset = 0;
     protected Vector3 _attackPoint = Vector2.zero;
@@ -28,6 +27,8 @@ public class MeleeWeapon : WeaponBase
     public override void Initialize(WeaponManager weaponManager, Transform prefabTransform)
     {
         base.Initialize(weaponManager, prefabTransform);
+        _weaponAnimator = prefabTransform.GetComponent<Animator>();
+        _weaponAnimator.speed = _attackSpeed;
         _nextAttackTime = 0;
         _parentTransform = prefabTransform.parent;
         _enemyLayer = weaponManager.EnemyLayer;

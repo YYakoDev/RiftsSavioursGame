@@ -43,9 +43,9 @@ public class PlayerManager : MonoBehaviour
         thisGO.CheckComponent<Rigidbody2D>(ref _rigidBody);
         thisGO.CheckComponent<SpriteRenderer>(ref _renderer);
         thisGO.CheckComponent<PlayerLevelManager>(ref _levelManager);
-        _levelManager.SetPlayerStats(_stats);
+        _levelManager?.SetPlayerStats(_stats);
         thisGO.CheckComponent<PlayerMovement>(ref _movementScript);
-        _inventory.Initialize(_upgradesManager);
+        _inventory?.Initialize(_upgradesManager);
     
     }
     void Start()

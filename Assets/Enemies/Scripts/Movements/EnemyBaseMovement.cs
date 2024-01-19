@@ -60,7 +60,7 @@ public class EnemyBaseMovement
 
     void MoveLogic(Vector2 direction, Vector2 flipDir)
     {
-        if(_stopMovement) return;
+        if(_stopMovement || _knockbackEnabled) return;
         _enemy.Rigidbody.velocity = Vector2.zero;
         //Vector2 directionToMove = _avoidanceBehaviour.ResultDirection * (_enemy.Stats.Speed * Time.fixedDeltaTime);        
         Vector2 directionToMove = direction * (_enemy.Stats.Speed * Time.fixedDeltaTime);
