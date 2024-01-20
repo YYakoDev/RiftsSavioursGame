@@ -11,7 +11,7 @@ public class NotMonoObjectPool
 
     public GameObject[] PooledObjects => _pooledObjs;
 
-    public NotMonoObjectPool(int amountToPool, GameObject objectToPool, Transform parent, bool isResizable)
+    public NotMonoObjectPool(int amountToPool, GameObject objectToPool, Transform parent = null, bool isResizable = true)
     {
         _amountToPool = amountToPool;
         _objToPool = objectToPool;

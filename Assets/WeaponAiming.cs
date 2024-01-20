@@ -37,7 +37,7 @@ public class WeaponAiming : MonoBehaviour
     // properties
     Vector2 _targetPoint;
     public Vector2 TargetPoint => _targetPoint;
-
+    public int EnemyResultsCount => _resultsCount;
 
     private void Awake()
     {
@@ -120,8 +120,8 @@ private void FixedUpdate()
         if(_resultsCount == 0)
         {
             _crosshair.gameObject.SetActive(false);
-            _mousePosition = _mainCamera.ScreenToWorldPoint(YYInputManager.MousePosition); 
-            SetCameraTargetPoint(_mousePosition);
+            //_mousePosition = _mainCamera.ScreenToWorldPoint(YYInputManager.MousePosition); 
+            SetCameraTargetPoint(transform.position);
             return;
         }
         _closestEnemyPosition = Vector2.zero;

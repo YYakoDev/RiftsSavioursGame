@@ -142,7 +142,7 @@ public class PlayerMovement : MonoBehaviour, IKnockback
 
     public void CheckForFlip(float xDirection, float lockFlipTime = 0f)
     {
-        if(_autoAiming)
+        if(_autoAiming && _aimingScript.EnemyResultsCount > 0)
         {
             _lockFlipTime = 0f;
             xDirection = _aimingScript.TargetPoint.x;
