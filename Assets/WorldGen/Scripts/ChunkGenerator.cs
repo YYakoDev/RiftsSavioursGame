@@ -48,6 +48,7 @@ public class ChunkGenerator : MonoBehaviour
         //get the valid chunks, just in case you add a chunk that is bigger or smaller than the others
         foreach(var chunk in chunks)
         {
+            if(chunk == null) continue;
             Tilemap tilemap = chunk.GetTilemap();
             tilemap.CompressBounds();
             if((Vector2Int)tilemap.size != _referenceSize) 

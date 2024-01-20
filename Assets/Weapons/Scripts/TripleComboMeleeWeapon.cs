@@ -26,6 +26,7 @@ public class TripleComboMeleeWeapon : MeleeWeapon
     private float[] _atkDurations = new float[ComboAttacks];
     [SerializeField] ComboAttackStat[] _comboStats = new ComboAttackStat[ComboAttacks];
     ComboAttackStat _modifiedStats;
+    ComboAttackStat _upgradeStats;
     public override void Initialize(WeaponManager weaponManager, Transform prefabTransform)
     {
         base.Initialize(weaponManager, prefabTransform);
@@ -46,11 +47,13 @@ public class TripleComboMeleeWeapon : MeleeWeapon
         _waitForRemainingDuration.Stop();
 
         _modifiedStats = new(_attackCooldown, _attackRange, _knockbackForce, _attackSpeed, _pullForce , _attackDamage, _damageDelay, _rangeOffset, _effects);
+        _upgradeStats = new(0, 0, 0, 0, 0, 0, 0, Vector2.zero, null);
         OnComboIndexChange(_currentComboIndex);
         ChangeAnimatorSpeed(_modifiedStats.AtkSpeed);
 
         _checkForComboInput = false;
         _inputDetected = false;
+        
     }
     protected override void InitializeFXS()
     {
@@ -195,13 +198,13 @@ public class TripleComboMeleeWeapon : MeleeWeapon
 
     void SetNewStats(ComboAttackStat stats)
     {
-        _modifiedStats.Range = _attackRange + stats.Range;
-        _modifiedStats.KnockbackForce = _knockbackForce + stats.KnockbackForce;
-        _modifiedStats.AtkSpeed = _attackSpeed + stats.AtkSpeed;
-        _modifiedStats.Damage = _attackDamage + stats.Damage;
-        _modifiedStats.Cooldown = _attackCooldown - stats.Cooldown;
-        _modifiedStats.PullForce = _pullForce + stats.PullForce;
-        _modifiedStats.AtkDelay = _damageDelay + stats.AtkDelay;
+        _modifiedStats.Range = _attackRange + stats.Range + _upgradeStats.Range;
+        _modifiedStats.KnockbackForce = _knockbackForce + stats.KnockbackForce + _upgradeStats.KnockbackForce;
+        _modifiedStats.AtkSpeed = _attackSpeed + stats.AtkSpeed + _upgradeStats.AtkSpeed;
+        _modifiedStats.Damage = _attackDamage + stats.Damage + _upgradeStats.Damage;
+        _modifiedStats.Cooldown = _attackCooldown - stats.Cooldown + _upgradeStats.Cooldown;
+        _modifiedStats.PullForce = _pullForce + stats.PullForce + _upgradeStats.PullForce;
+        _modifiedStats.AtkDelay = _damageDelay + stats.AtkDelay + _upgradeStats.AtkDelay;
         _modifiedStats.RangeOffset = _rangeOffset + stats.RangeOffset;
         _modifiedStats.WeaponFxs = stats.WeaponFxs;
         SetMaxEnemiesToHit(_modifiedStats.Range);
@@ -226,9 +229,13 @@ public class TripleComboMeleeWeapon : MeleeWeapon
         foreach(WeaponEffects fx in _modifiedStats.WeaponFxs) fx.OnHitFX(pos);
     }
 
-    protected override void EvaluateStats(SOPlayerAttackStats attackStats)
+    public override void EvaluateStats(SOPlayerAttackStats attackStats)
     {
-        base.EvaluateStats(attackStats);
+        _upgradeStats.Damage = (int)((float)(_attackDamage) * attackStats.DamageMultiplier) - _attackDamage;
+        _upgradeStats.Range = attackStats.AttackRange;
+        _upgradeStats.Cooldown = attackStats.AttackCooldown;
+        _upgradeStats.KnockbackForce = attackStats.AttackKnockback;
+        SetNewStats(_comboStats[_currentComboIndex]);
     }
 
     public override void DrawGizmos()

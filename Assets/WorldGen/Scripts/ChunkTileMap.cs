@@ -7,10 +7,11 @@ using UnityEngine.Tilemaps;
 [RequireComponent(typeof(Tilemap))]
 public class ChunkTileMap : MonoBehaviour
 {
+    [SerializeField] World _world;
     [SerializeField] float xOffset = 0.5f;
     [SerializeField] float yOffset = 0f;
     Tilemap _tileMap;
-    [SerializeField, Range(-1, 20), Tooltip("-1 Would be infinite, 0 Will not spawn any")] int _maxSpawnCount;
+    [SerializeField, Range(-1, 20), Tooltip("-1 Would be infinite, 0 Will not spawn any")] int _maxSpawnCount = -1;
 
     Vector2Int _positionOnGrid;
 
@@ -40,5 +41,10 @@ public class ChunkTileMap : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube( transform.position + (Vector3.right*xOffset) + (Vector3.up*yOffset),
                              chunkSize);
+    }
+
+    public void AddChunkToParentWorld()
+    {
+        _world?.AddNewChunk(this);
     }
 }

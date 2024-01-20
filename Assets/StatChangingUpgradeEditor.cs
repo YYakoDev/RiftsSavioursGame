@@ -10,10 +10,10 @@ using UnityEditor;
 public class StatChangingUpgradeEditor : Editor
 {
     string[] options = new string[0];
-    int index = 0;
+    //int index = 0;
     [SerializeField]int[] newDropdowns = new int[0];
-    GUIStyle dropdownAddButton = new();
-    GUIStyle dropdownRemoveButton = new();
+    //GUIStyle dropdownAddButton = new();
+    //GUIStyle dropdownRemoveButton = new();
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector();

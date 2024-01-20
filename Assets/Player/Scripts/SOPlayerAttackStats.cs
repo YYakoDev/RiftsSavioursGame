@@ -24,4 +24,14 @@ public class SOPlayerAttackStats : PlayerStatsBase
     public float AttackKnockback {get => _attackKnockback; set {_attackKnockback = value; onStatsChange?.Invoke();}}
     public int ProjectilesCount {get => _projectilesCount; set {_projectilesCount = value; onStatsChange?.Invoke();}}
     public float ProjectilesSpeed {get => _projectilesSpeed; set {_projectilesSpeed = value; onStatsChange?.Invoke();}}
+
+    public void Initialize(SOPlayerAttackStats stats)
+    {
+        _damageMultiplier = stats._damageMultiplier;
+        _attackRange = stats._attackRange;
+        _attackCooldown = stats._attackCooldown;
+        _attackKnockback = stats._attackKnockback;
+        _projectilesCount = stats._projectilesCount;
+        _projectilesSpeed = stats._projectilesSpeed;
+    }
 }

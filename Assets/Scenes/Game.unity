@@ -5878,6 +5878,54 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &582213553
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 582213554}
+  - component: {fileID: 582213555}
+  m_Layer: 2
+  m_Name: AttackEffects
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &582213554
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 582213553}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1242311248}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &582213555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 582213553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da9765d19855a054cb2ae4d5c0fe08dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _weaponManager: {fileID: 1242311250}
+  _player: {fileID: 2123491969}
+  _cameraTargetting: {fileID: 40023160}
+  _audio: {fileID: 1242311251}
 --- !u!1 &631405977
 GameObject:
   m_ObjectHideFlags: 0
@@ -12012,7 +12060,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1242311248}
   - component: {fileID: 1242311250}
-  - component: {fileID: 1242311249}
   - component: {fileID: 1242311251}
   m_Layer: 2
   m_Name: WeaponManager
@@ -12033,27 +12080,12 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 582213554}
   - {fileID: 1893449637}
   - {fileID: 1378892231}
   m_Father: {fileID: 2123491962}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1242311249
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1242311247}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da9765d19855a054cb2ae4d5c0fe08dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _weaponManager: {fileID: 1242311250}
-  _player: {fileID: 2123491969}
-  _cameraTargetting: {fileID: 40023160}
-  _audio: {fileID: 1242311251}
 --- !u!114 &1242311250
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12067,7 +12099,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerManager: {fileID: 2123491969}
-  _effects: {fileID: 1242311249}
+  _effects: {fileID: 582213555}
   _weaponPrefab: {fileID: 7259605076874394457, guid: ba0d429f8a07c2343b240e5733276149, type: 3}
   _weaponAiming: {fileID: 1893449638}
   _enemyLayer:
@@ -12772,7 +12804,7 @@ Transform:
   m_Children:
   - {fileID: 1649785077}
   m_Father: {fileID: 1242311248}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1378892232
 SpriteRenderer:
@@ -36577,7 +36609,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1242311248}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -343.187}
 --- !u!114 &1893449638
 MonoBehaviour:
@@ -38471,7 +38503,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f9920198459436459a00a0ac6e3393c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _charData: {fileID: 11400000, guid: 2dbea93f74c861548a0480746c3cfbf0, type: 2}
+  _charData: {fileID: 11400000, guid: 4a460ec2cb10d1a45935fef86b37d44c, type: 2}
   _stats: {fileID: 11400000, guid: 77f8be5469984ec4b92db0a6e8c44838, type: 2}
   _animatorController: {fileID: 2123491968}
   _rigidBody: {fileID: 2123491964}
@@ -39096,7 +39128,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1135728469557020930
 Transform:
   m_ObjectHideFlags: 0

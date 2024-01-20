@@ -98,7 +98,7 @@ public abstract class WeaponBase: ScriptableObject
         return _pullForce;
     }
 
-    protected abstract void EvaluateStats(SOPlayerAttackStats attackStats);
+    public abstract void EvaluateStats(SOPlayerAttackStats attackStats);
     protected void InvokeOnAttack()
     {
         onAttack?.Invoke();

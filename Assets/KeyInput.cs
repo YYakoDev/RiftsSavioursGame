@@ -4,7 +4,7 @@ using UnityEngine;
 [Serializable]
 public class KeyInput
 {
-    string _name = "KeyInput";
+    //string _name = "KeyInput";
     [SerializeField]KeyInputTypes _type;
     [SerializeField]KeyCode _keyCode, _secondaryKeyCode;
     public event Action OnKeyPressed;

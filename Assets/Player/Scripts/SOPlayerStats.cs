@@ -91,6 +91,7 @@ public class SOPlayerStats : PlayerStatsBase
 
         _weaponBase = stats.WeaponBase;
         _attackStats = stats.AttackStats;
+        _attackStats.Initialize(data.ATKStats);
     }
 
 }

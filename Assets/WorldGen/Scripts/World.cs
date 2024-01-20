@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 using UnityEngine.Tilemaps;
 
 [CreateAssetMenu(menuName = "ScriptableObjects/World")]
@@ -55,5 +57,12 @@ public class World : ScriptableObject
         }
         Debug.Log($"<b>Advancing to wave: {_waves[_currentWaveIndex].name} </b>");
         _currentWave = _waves[_currentWaveIndex];
+    }
+
+    public void AddNewChunk(ChunkTileMap chunk)
+    {
+        if(_chunks.Contains(chunk))return;
+        Array.Resize<ChunkTileMap>(ref _chunks, _chunks.Length + 1);
+        _chunks[_chunks.Length - 1] = chunk;
     }
 }

@@ -121,6 +121,7 @@ private void FixedUpdate()
         {
             _crosshair.gameObject.SetActive(false);
             //_mousePosition = _mainCamera.ScreenToWorldPoint(YYInputManager.MousePosition); 
+            _closestEnemyPosition = _currentWeapon.PrefabTransform.position;
             SetCameraTargetPoint(transform.position);
             return;
         }

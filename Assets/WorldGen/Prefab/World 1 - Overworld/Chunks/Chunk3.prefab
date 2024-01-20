@@ -8158,6 +8158,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96a66a5b71c56d346a387ec29a2ebd71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _world: {fileID: 0}
   xOffset: 0.5
   yOffset: 0
   _maxSpawnCount: 0

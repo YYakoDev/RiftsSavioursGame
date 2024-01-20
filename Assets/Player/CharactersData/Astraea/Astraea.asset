@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 211f9415e4a3bff409c0929835e67618, type: 3}
+  m_Name: Astraea
+  m_EditorClassIdentifier: 
+  _stats: {fileID: 11400000, guid: 0d2fc2edbd497ee459ba5cca65a0d494, type: 2}
+  _atkStats: {fileID: 11400000, guid: 33ffee2aeeab8f648a9686d369dcf2e0, type: 2}
+  _animator: {fileID: 22100000, guid: 628bbdfa7ffabca43bb3825e12cbc893, type: 2}

@@ -11,6 +11,7 @@ public class MeleeWeapon : WeaponBase
     protected LayerMask _enemyLayer;
 
     [Header("Stats")]
+    MeleeWeaponStats _modifiedStats;
     [SerializeField]protected float _attackRange = 0.5f;
     [SerializeField] protected float _attackSpeed = 1f;
     [SerializeField] protected Vector2 _rangeOffset;
@@ -37,10 +38,18 @@ public class MeleeWeapon : WeaponBase
         _atkExecutionTimer = new(_damageDelay, false);
         _atkExecutionTimer.onEnd += DoAttackLogic;
         _atkExecutionTimer.Stop();
+
+        _modifiedStats = new(_attackCooldown, _pullForce, _attackRange, _attackSpeed, _knockbackForce, _damageDelay, _attackDamage);
     }
 
     public override void UpdateLogic() => _atkExecutionTimer.UpdateTime();
-    
+
+
+    protected override void TryAttack()
+    {
+        if(_nextAttackTime >= Time.time) return;
+        Attack(_modifiedStats._cooldown);
+    }
 
     protected override void Attack(float cooldown)
     {
@@ -48,7 +57,7 @@ public class MeleeWeapon : WeaponBase
         base.Attack(cooldown);
         //InstantiateFX();
         SetAttackPoint();
-        if(!DetectEnemies(_attackRange)) return;
+        if(!DetectEnemies(_modifiedStats._atkRange)) return;
 
         _atkExecutionTimer.ResetTime();
         _atkExecutionTimer.Start();
@@ -77,7 +86,7 @@ public class MeleeWeapon : WeaponBase
     }
     protected virtual void DoAttackLogic()
     {
-        AttackLogic(_attackDamage, _knockbackForce);
+        AttackLogic(_modifiedStats._atkDmg, _modifiedStats._knockbackForce);
     }
     protected void AttackLogic(int damage, float knockbackForce)
     {
@@ -134,10 +143,17 @@ public class MeleeWeapon : WeaponBase
     {
         _maxEnemiesToHit = 5 + (int)(atkRange * 10);
     }
-    protected override void EvaluateStats(SOPlayerAttackStats attackStats)
+    public override void EvaluateStats(SOPlayerAttackStats attackStats)
     {
         //codear esto para que se modifiquen las stats del arma pero sin escalar hasta el infinito sin querer
         //Mirar el oldweapon system!
+        _modifiedStats._atkDmg = (int)(_attackDamage * attackStats.DamageMultiplier);
+        _modifiedStats._atkRange = _attackRange + attackStats.AttackRange;
+        _modifiedStats._cooldown = _attackCooldown + attackStats.AttackCooldown;
+        _modifiedStats._knockbackForce = _knockbackForce + attackStats.AttackKnockback;
+        SetRadiusOffset(_modifiedStats._atkRange);
+        SetMaxEnemiesToHit(_modifiedStats._atkRange);
+        _modifiedStats._atkDelay = _damageDelay / _modifiedStats._atkSpeed;
     }
 
     public override void DrawGizmos()
@@ -153,5 +169,21 @@ public class MeleeWeapon : WeaponBase
         Vector2 rangeOffset = new Vector2(_rangeOffset.x * Mathf.Sign(directionFromParent.x), _rangeOffset.y * Mathf.Sign(directionFromParent.y));
         Vector3 point = _weaponPrefabTransform.position + (Vector3)rangeOffset + directionFromParent * _radiusOffset;
         Gizmos.DrawWireSphere(point, atkRange);
+    }
+    struct MeleeWeaponStats
+    {
+        public float _cooldown, _pullForce, _atkRange, _atkSpeed, _knockbackForce, _atkDelay;
+        public int _atkDmg;
+
+        public MeleeWeaponStats(float cooldown, float pullForce, float atkRange, float atkSpeed, float knockbackForce, float delay, int atkDmg)
+        {
+            _cooldown = cooldown;
+            _pullForce = pullForce;
+            _atkRange = atkRange;
+            _atkSpeed = atkSpeed;
+            _knockbackForce = knockbackForce;
+            _atkDelay = delay;
+            _atkDmg = atkDmg;
+        }
     }
 }

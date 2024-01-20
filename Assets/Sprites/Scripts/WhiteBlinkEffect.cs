@@ -5,16 +5,19 @@ using UnityEngine;
 public class WhiteBlinkEffect : MonoBehaviour
 {
     private static Material _blinkMat;
+    private Material _originalMat;
     [SerializeField]private float _duration = 0.15f;
     [SerializeField]private SpriteRenderer _spriteRenderer;
-    private Material _originalMat;
-    private Coroutine _blinkRoutine;
-    bool isRoutineRunning;
+    Timer _blinkTimer;
 
     void Awake()
     {
         if(_spriteRenderer == null) _spriteRenderer = this.GetComponent<SpriteRenderer>();
         _originalMat = _spriteRenderer.material;
+        _blinkTimer = new(_duration);
+        _blinkTimer.Stop();
+        _blinkTimer.onStart += BlinkEffect;
+        _blinkTimer.onEnd += Stop;
     }
 
     // Start is called before the first frame update
@@ -26,35 +29,29 @@ public class WhiteBlinkEffect : MonoBehaviour
             _originalMat = _spriteRenderer.material;
         }
     }
+
+    private void Update() {
+        _blinkTimer.UpdateTime();
+    }
+
     public void Play()
     {
-        //this checks if the blink effect coroutine is currently running
-        if(isRoutineRunning)
-        {
-            //if so stop it so we dont have any errors
-//            Debug.Log("Stopping blink routine");
-            Stop();
-        }
-
-        _blinkRoutine = StartCoroutine(BlinkEffect());
-//        Debug.Log("Starting blink routine");
-
+        _blinkTimer.ChangeTime(_duration);
+        _blinkTimer.Start();
     }
 
     public void Stop()
     {
-        if(_blinkRoutine != null)StopCoroutine(_blinkRoutine);
-        isRoutineRunning = false;
         _spriteRenderer.material = _originalMat;
     }
 
-    private IEnumerator BlinkEffect()
+    void BlinkEffect()
     {
-        isRoutineRunning = true;
         _spriteRenderer.material = _blinkMat;
-        yield return new WaitForSecondsRealtime(_duration);
-        _spriteRenderer.material = _originalMat;
+    }
 
-        isRoutineRunning = false;
+    private void OnDestroy() {
+        _blinkTimer.onStart -= BlinkEffect;
+        _blinkTimer.onEnd -= Stop;
     }
 }

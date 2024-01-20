@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(ResourceDrop), true)]
+[CustomEditor(typeof(ResourceDrop), true), CanEditMultipleObjects]
 public class DropEditorScript : Editor
 {
     public override void OnInspectorGUI()

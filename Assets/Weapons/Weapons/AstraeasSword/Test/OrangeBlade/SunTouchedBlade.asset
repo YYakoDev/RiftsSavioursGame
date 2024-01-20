@@ -18,7 +18,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 23196116de9b69d47a045c9e6a9b7e11, type: 2}
   - {fileID: 11400000, guid: a46798bb6b4605f46a88a7cb00606fc1, type: 2}
   - {fileID: 11400000, guid: 67c6ca3a55024ea40a9dc7c21f219eda, type: 2}
-  - {fileID: 11400000, guid: 991c0113af06d224c9168cdf079fb751, type: 2}
+  - {fileID: 11400000, guid: 4780209016f8aa349864b33bf7198c79, type: 2}
   - {fileID: 11400000, guid: f1b3174f673fb1a4b91613d5d1414674, type: 2}
   _flipSprite: 1
   _spawnPosition: {x: -0.55, y: 0.33, z: 0}

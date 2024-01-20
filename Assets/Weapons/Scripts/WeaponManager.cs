@@ -9,11 +9,11 @@ public class WeaponManager : MonoBehaviour
     [SerializeField]private PlayerManager _playerManager;
     [SerializeField]private PlayerAttackEffects _effects;
     private SOPlayerStats _playerStats;
+    private SOPlayerAttackStats _playerAttackStats;
     [SerializeField]private GameObject _weaponPrefab;
     [SerializeField]private WeaponAiming _weaponAiming;
     [SerializeField]private LayerMask _enemyLayer;
     private GameObject _weaponPrefabInstance;
-    private SOPlayerAttackStats _attackStats;
     private WeaponBase _currentWeapon;
     //properties
     //public SOPlayerAttackStats AttackStats => _attackStats;
@@ -30,11 +30,12 @@ public class WeaponManager : MonoBehaviour
         if(_weaponAiming == null) _weaponAiming = GetComponentInChildren<WeaponAiming>();
         gameObject.CheckComponent<PlayerAttackEffects>(ref _effects);
         _playerStats = _playerManager.Stats;
+        _playerAttackStats = _playerStats.AttackStats;
+        _playerAttackStats.onStatsChange += ApplyNewAttackStats;
     }
 
     void Start()
     {
-        _attackStats = _playerStats.AttackStats;
         _currentWeapon = _playerStats.WeaponBase;
         if(_weaponPrefab == null || _currentWeapon == null || _weaponAiming == null)
         {
@@ -60,6 +61,13 @@ public class WeaponManager : MonoBehaviour
         _currentWeapon.Initialize(this, _weaponPrefabInstance.transform);
     }
 
+    void ApplyNewAttackStats()
+    {
+        _currentWeapon.EvaluateStats(_playerAttackStats);
+    }
 
+    private void OnDestroy() {
+        _playerAttackStats.onStatsChange -= ApplyNewAttackStats;
+    }
 
 }

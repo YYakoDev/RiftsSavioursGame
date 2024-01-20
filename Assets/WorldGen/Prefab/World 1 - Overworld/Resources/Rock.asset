@@ -20,7 +20,7 @@ MonoBehaviour:
     - {fileID: -1270938569, guid: 3f1920c055b0eb94d8036eb07da824fb, type: 3}
     - {fileID: 1322626094, guid: 3f1920c055b0eb94d8036eb07da824fb, type: 3}
     _spriteOrderOffset: -1.5
-    _maxHealth: 3
+    _maxHealth: 2
     _dissapearingTime: 1
     _type: 0
     _resourceDrops:
