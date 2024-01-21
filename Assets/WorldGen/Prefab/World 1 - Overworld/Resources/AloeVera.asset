@@ -27,7 +27,7 @@ MonoBehaviour:
     _posOffset: {x: -0.03, y: 0}
     _radius: 0.5
     _hitSFXs:
-    - {fileID: 8300000, guid: 5c08d93707aa55943a9fa4b0b6c259c6, type: 3}
+    - {fileID: 8300000, guid: d853585534ccd064a8b96e34e3cf4a5d, type: 3}
     _breakSFX: {fileID: 0}
     _animOverrider: {fileID: 22100000, guid: 191b7b518d4a22e40891879c5ae1365f, type: 2}
     _activeAnimatorOnStart: 0

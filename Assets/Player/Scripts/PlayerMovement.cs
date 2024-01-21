@@ -2,17 +2,25 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(PlayerManager))]
 public class PlayerMovement : MonoBehaviour, IKnockback
 {
     //References
-    PlayerManager _player;
+    [Header("References")]
     [SerializeField] WeaponAiming _aimingScript;
-    GameObject _spriteGameObject;
     [SerializeField]ParticleSystem _dustEffect;
+    PlayerManager _player;
+    GameObject _spriteGameObject;
 
+    [Header("AudioStuff")]
+    [SerializeField] AudioSource _audio;
+    [SerializeField] float _stepSoundCooldown = 0.3f;
+    float _nextStepSound = 0f;
+    [SerializeField] AudioClip[] _stepSounds;
+    private AudioClip _stepSound => _stepSounds[Random.Range(0, _stepSounds.Length)];
     //Movement
     Vector2 _movement;
     Action<Vector2> OnMovement;
@@ -114,6 +122,7 @@ public class PlayerMovement : MonoBehaviour, IKnockback
     void Move()
     {
         _dustEffect.Play();
+        _audio.PlayWithCooldown(_stepSound, _stepSoundCooldown, ref _nextStepSound);
         _elapsedAccelerationTime += Time.fixedDeltaTime;
         float percent = _elapsedAccelerationTime / AccelerationTime;
         if(percent <= 1.1f) _realSpeed = Mathf.Lerp(0, MovementSpeed, _accelerationCurve.Evaluate(percent)) * _slowdown;

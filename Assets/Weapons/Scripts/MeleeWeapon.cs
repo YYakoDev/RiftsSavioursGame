@@ -11,7 +11,7 @@ public class MeleeWeapon : WeaponBase
     protected LayerMask _enemyLayer;
 
     [Header("Stats")]
-    MeleeWeaponStats _modifiedStats;
+    protected MeleeWeaponStats _modifiedStats;
     [SerializeField]protected float _attackRange = 0.5f;
     [SerializeField] protected float _attackSpeed = 1f;
     [SerializeField] protected Vector2 _rangeOffset;
@@ -170,7 +170,7 @@ public class MeleeWeapon : WeaponBase
         Vector3 point = _weaponPrefabTransform.position + (Vector3)rangeOffset + directionFromParent * _radiusOffset;
         Gizmos.DrawWireSphere(point, atkRange);
     }
-    struct MeleeWeaponStats
+    protected struct MeleeWeaponStats
     {
         public float _cooldown, _pullForce, _atkRange, _atkSpeed, _knockbackForce, _atkDelay;
         public int _atkDmg;

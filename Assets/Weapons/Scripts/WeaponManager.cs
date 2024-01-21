@@ -13,12 +13,14 @@ public class WeaponManager : MonoBehaviour
     [SerializeField]private GameObject _weaponPrefab;
     [SerializeField]private WeaponAiming _weaponAiming;
     [SerializeField]private LayerMask _enemyLayer;
+    private Dictionary<WeaponBase, GameObject> _instantiatedWeapons = new();
     private GameObject _weaponPrefabInstance;
     private WeaponBase _currentWeapon;
+    
     //properties
     //public SOPlayerAttackStats AttackStats => _attackStats;
     public PlayerAttackEffects AtkEffects => _effects;
-    public WeaponAiming WeaponAiming => _weaponAiming;
+    //public WeaponAiming WeaponAiming => _weaponAiming;
     public GameObject WeaponPrefab => _weaponPrefabInstance;
     public LayerMask EnemyLayer => _enemyLayer;
     public WeaponBase CurrentWeapon => _currentWeapon;
@@ -59,6 +61,11 @@ public class WeaponManager : MonoBehaviour
             _weaponPrefabInstance.GetComponent<WeaponPrefab>().SetWeaponBase(_currentWeapon);
         }
         _currentWeapon.Initialize(this, _weaponPrefabInstance.transform);
+    }
+
+    void SpawnWeapon()
+    {
+    
     }
 
     void ApplyNewAttackStats()

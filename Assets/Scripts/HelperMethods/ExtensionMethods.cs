@@ -44,11 +44,18 @@ public static class ExtensionMethods
     }
 
     //AUDIO STUFF
-    public static void PlayWithVaryingPitch(this AudioSource audio, AudioClip clip)
+    public static void PlayWithVaryingPitch(this AudioSource audio, AudioClip clip, float startingPitch = 1f)
     {
         float pitchOffset = Random.Range(-0.02f, 0.035f);
-        audio.pitch = 1 + pitchOffset;
+        audio.pitch = startingPitch + pitchOffset;
         audio.PlayOneShot(clip);
+    }
+
+    public static void PlayWithCooldown(this AudioSource audio, AudioClip clip, float cooldown, ref float nextPlayTime)
+    {
+        if(Time.time < nextPlayTime) return;
+        nextPlayTime = Time.time + cooldown;
+        audio.PlayWithVaryingPitch(clip);
     }
 
 

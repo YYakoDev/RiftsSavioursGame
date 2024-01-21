@@ -14510,15 +14510,15 @@ MonoBehaviour:
   _collectingManager: {fileID: 181674684}
   _pickaxePrefab: {fileID: 4581196321252612989, guid: 04363d852768d68439ff9951b0923a61, type: 3}
   _pickaxeSounds:
-  - {fileID: 8300000, guid: 0d3024a7398661d418c279a96e9222e9, type: 3}
+  - {fileID: 8300000, guid: b32a87f6ab2c7ec4e8a6368aa4a54c60, type: 3}
   _axePrefab: {fileID: 1324504210675134747, guid: c36a1eee0d7ab164db40620b8b85bca8, type: 3}
   _axeSounds:
-  - {fileID: 8300000, guid: eef4966e44b47a84690fb52adf1c4497, type: 3}
-  - {fileID: 8300000, guid: ece31912af045084bbd1524bbbbf637c, type: 3}
+  - {fileID: 8300000, guid: c2f1f5d5a1b06d3438f878f6008de986, type: 3}
   _hoePrefab: {fileID: 3604988635639056965, guid: 9b6048c85be8c95429b461cc3ac69176, type: 3}
   _hoeSounds:
-  - {fileID: 8300000, guid: f582dbc552340314c9c2e297de6b6e15, type: 3}
-  - {fileID: 8300000, guid: 1403c36041851a944a6c0fbc1b5ba593, type: 3}
+  - {fileID: 8300000, guid: 0d4e0b23ad68d3d41ae12eac51d20fce, type: 3}
+  - {fileID: 8300000, guid: 3f1b81294644dd54ca86c5097547634d, type: 3}
+  - {fileID: 8300000, guid: 0d4e0b23ad68d3d41ae12eac51d20fce, type: 3}
   _handPrefab: {fileID: 1796055623782892380, guid: 905ddced055c67a48a5c9906775da4d8, type: 3}
 --- !u!114 &1625956449
 MonoBehaviour:
@@ -15779,6 +15779,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96a66a5b71c56d346a387ec29a2ebd71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _world: {fileID: 0}
   xOffset: 0.5
   yOffset: 0
   _maxSpawnCount: 0
@@ -36433,6 +36434,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96a66a5b71c56d346a387ec29a2ebd71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _world: {fileID: 0}
   xOffset: 0.5
   yOffset: 0
   _maxSpawnCount: 0
@@ -38360,6 +38362,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _aimingScript: {fileID: 1893449638}
   _dustEffect: {fileID: 2134075648}
+  _audio: {fileID: 1046658802}
+  _stepSoundCooldown: 0.3
+  _stepSounds:
+  - {fileID: 8300000, guid: ffa78dd99f76f1740b5cc0c1687dc6ac, type: 3}
+  - {fileID: 8300000, guid: db9a468a835992547966609358de8b5a, type: 3}
+  - {fileID: 8300000, guid: 07be6d728e98e0a4fa733f9a39acd663, type: 3}
+  - {fileID: 8300000, guid: 5f43bdc370fd7554a854851f80bd7816, type: 3}
+  - {fileID: 8300000, guid: 58432a33ca0480340a0333065010bbc3, type: 3}
   _accelerationCurve:
     serializedVersion: 2
     m_Curve:

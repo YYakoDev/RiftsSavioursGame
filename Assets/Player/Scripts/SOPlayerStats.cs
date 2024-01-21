@@ -34,10 +34,10 @@ public class SOPlayerStats : PlayerStatsBase
     [Header("Weapon & Attack Stats")]
     [SerializeField]private WeaponBase _weaponBase;
     [SerializeField]private SOPlayerAttackStats _attackStats;
+    [SerializeField]private WeaponBase[] _otherWeapons = new WeaponBase[2];
 
-    
     //properties
-    
+
     // HEALTH MANAGER
     public int MaxHealth {get => _maxHealth; set {_maxHealth = value; onStatsChange?.Invoke();}}
     public int CurrentHealth {get => _currentHealth; set {_currentHealth = value; onStatsChange?.Invoke();}}
@@ -65,6 +65,7 @@ public class SOPlayerStats : PlayerStatsBase
     // WEAPON STATS
     public WeaponBase WeaponBase {get => _weaponBase;}
     public SOPlayerAttackStats AttackStats {get => _attackStats;}
+    public WeaponBase[] OtherWeapons {get => _otherWeapons;}
 
 
 
@@ -94,4 +95,7 @@ public class SOPlayerStats : PlayerStatsBase
         _attackStats.Initialize(data.ATKStats);
     }
 
+    private void OnValidate() {
+        if(_otherWeapons.Length > 2)Array.Resize<WeaponBase>(ref _otherWeapons, 2);
+    }
 }

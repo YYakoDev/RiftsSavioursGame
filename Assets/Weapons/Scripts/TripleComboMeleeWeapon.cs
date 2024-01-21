@@ -25,7 +25,7 @@ public class TripleComboMeleeWeapon : MeleeWeapon
     private int[] _animationsHash = new int[ComboAttacks];
     private float[] _atkDurations = new float[ComboAttacks];
     [SerializeField] ComboAttackStat[] _comboStats = new ComboAttackStat[ComboAttacks];
-    ComboAttackStat _modifiedStats;
+    new ComboAttackStat _modifiedStats;
     ComboAttackStat _upgradeStats;
     public override void Initialize(WeaponManager weaponManager, Transform prefabTransform)
     {

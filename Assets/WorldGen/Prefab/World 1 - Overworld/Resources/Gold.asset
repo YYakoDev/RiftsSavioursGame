@@ -29,9 +29,8 @@ MonoBehaviour:
     _posOffset: {x: 0, y: -0.05}
     _radius: 0.375
     _hitSFXs:
-    - {fileID: 8300000, guid: de3f09ad7c2c7824da0072b96c3e4840, type: 3}
-    - {fileID: 8300000, guid: d66997bc128b8d0498268b47191394c3, type: 3}
-    - {fileID: 8300000, guid: d66997bc128b8d0498268b47191394c3, type: 3}
-    _breakSFX: {fileID: 0}
+    - {fileID: 8300000, guid: fe465e1aed4010e42abced11aba306a0, type: 3}
+    - {fileID: 8300000, guid: 90d1214a0833ae6438a0707f701c870a, type: 3}
+    _breakSFX: {fileID: 8300000, guid: e1cd936eb95fc604b9e3ca66a5b54582, type: 3}
     _animOverrider: {fileID: 22100000, guid: df73b3bbaee32fc4abb71748bfc2f07e, type: 2}
     _activeAnimatorOnStart: 0
