@@ -69,6 +69,7 @@ public class TripleComboMeleeWeapon : MeleeWeapon
 
     protected override void TryAttack()
     {
+        if(_deactivated) return;
         if(Time.time < _nextAttackTime) return;
         if(_inputDetected) return;
         else if(_checkForComboInput)

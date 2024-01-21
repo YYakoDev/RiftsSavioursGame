@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7538fad3ad443744a70c71139de5262, type: 3}
   m_Name: WeakSelfKnock
   m_EditorClassIdentifier: 
-  _amount: 0
+  _amount: 0.37

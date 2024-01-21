@@ -11,6 +11,8 @@ public abstract class WeaponBase: ScriptableObject
     protected WeaponManager _weaponManager;
     protected KeyInput _attackKey;
 
+    protected bool _deactivated = false;
+
     //fields
     [Header("Weapon Properties")]
     [SerializeField]private string _name;
@@ -81,10 +83,14 @@ public abstract class WeaponBase: ScriptableObject
         if(_randomizeSounds) _attackSound = _weaponSounds[Random.Range(0, _weaponSounds.Length)];
         InvokeOnAttack();
     }
-    public virtual void UpdateLogic() {}
+    public virtual void UpdateLogic()
+    {
+        if(_deactivated) return;
+    }
     
     protected virtual void TryAttack()
     {
+        if(_deactivated) return;
         if(_nextAttackTime >= Time.time) return;
         Attack(_attackCooldown);
     }
@@ -96,6 +102,11 @@ public abstract class WeaponBase: ScriptableObject
     public virtual float GetPullForce()
     {
         return _pullForce;
+    }
+
+    public void SetWeaponActive(bool active)
+    {
+        _deactivated = !active;
     }
 
     public abstract void EvaluateStats(SOPlayerAttackStats attackStats);

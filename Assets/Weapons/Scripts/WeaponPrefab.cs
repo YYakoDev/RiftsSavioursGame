@@ -17,6 +17,9 @@ public class WeaponPrefab : MonoBehaviour
     private AudioSource _audio;
     [SerializeField]private AudioClip _onEquipSFX;
 
+    public SpriteRenderer Renderer => _spriteRenderer;
+    public Animator Animator => _animator;
+
     private void Awake() {
         GameObject thisGO = gameObject;
         thisGO.CheckComponent<SpriteRenderer>(ref _spriteRenderer);
@@ -27,12 +30,13 @@ public class WeaponPrefab : MonoBehaviour
     IEnumerator Start()
     {
         yield return null;
-        _spriteRenderer.sprite = _weaponBase.SpriteAndAnimationData.Sprite;
-        _spriteRenderer.flipX = _weaponBase.FlipSprite;
-
-        _animator.runtimeAnimatorController = _weaponBase.SpriteAndAnimationData.AnimatorOverride;
-        _animator.ForcePlay(OnEquipAnim);
+       
+        //_animator.ForcePlay(OnEquipAnim);
         _weaponBase.onAttack += AttackEffects;
+    }
+
+    private void OnEnable() {
+        _animator.ForcePlay(OnEquipAnim);
     }
 
     // Update is called once per frame
@@ -49,6 +53,7 @@ public class WeaponPrefab : MonoBehaviour
     void PlayAttackAnimation()
     {
         _animator.Play(_weaponBase.Animation);
+        Debug.Log("Playing attack animation");
         if(_animator.GetCurrentAnimatorStateInfo(0).shortNameHash == _weaponBase.Animation)
         {
             StartCoroutine(ReplayAnimation(_animator, _weaponBase.Animation));
@@ -71,6 +76,10 @@ public class WeaponPrefab : MonoBehaviour
     public void SetWeaponBase(WeaponBase weapon)
     {
         _weaponBase = weapon;
+        _spriteRenderer.sprite = _weaponBase.SpriteAndAnimationData.Sprite;
+        _spriteRenderer.flipX = _weaponBase.FlipSprite;
+
+        _animator.runtimeAnimatorController = _weaponBase.SpriteAndAnimationData.AnimatorOverride;
     }
 
     //THIS IS BEING CALLED BY AN ANIMATION EVENT

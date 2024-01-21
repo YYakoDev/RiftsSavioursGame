@@ -15,6 +15,7 @@ public class YYInputManager : MonoBehaviour
     static Vector3 _mousePosition;
     static KeyInput[] KeyInputs;
     public static event Action<Vector2> OnMovement;
+    public static event Action<float> OnMouseScroll;
     //public static event Action<Vector3> OnMouseInput;
     //public static Vector2 MovementInput => _movementAxis;
     public static Vector3 MousePosition => _mousePosition;
@@ -42,10 +43,16 @@ public class YYInputManager : MonoBehaviour
             if (Input.GetKeyDown(key.PrimaryKey) || Input.GetKeyDown(key.SecondayKey)) key.KeyPressed();
             if (Input.GetKey(key.PrimaryKey) || Input.GetKey(key.SecondayKey)) key.KeyHolded();
         }
+
+        //movement
         _movementAxis.x = Input.GetAxisRaw(HorizontalAxis);
         _movementAxis.y = Input.GetAxisRaw(VerticalAxis);
         OnMovement?.Invoke(_movementAxis);
+
+        //mouse
         _mousePosition = Input.mousePosition;
+        var mouseScroll = Input.GetAxisRaw("Mouse ScrollWheel");
+        OnMouseScroll?.Invoke(mouseScroll);
     }
 
     public static KeyInput GetKey(KeyInputTypes type)

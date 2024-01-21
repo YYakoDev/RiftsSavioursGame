@@ -32,9 +32,8 @@ public class SOPlayerStats : PlayerStatsBase
     [SerializeField, Range(1, 100)]int _maxResourceInteractions = 1; // a cap to the amount of resource you can interact with
 
     [Header("Weapon & Attack Stats")]
-    [SerializeField]private WeaponBase _weaponBase;
+    [SerializeField]private WeaponBase[] _weapons = new WeaponBase[3];
     [SerializeField]private SOPlayerAttackStats _attackStats;
-    [SerializeField]private WeaponBase[] _otherWeapons = new WeaponBase[2];
 
     //properties
 
@@ -63,9 +62,8 @@ public class SOPlayerStats : PlayerStatsBase
     public int XPToNextLevel {get => _xpToNextLevel; set {_xpToNextLevel = value; onStatsChange?.Invoke();}}
 
     // WEAPON STATS
-    public WeaponBase WeaponBase {get => _weaponBase;}
+    public WeaponBase[] Weapons {get => _weapons;}
     public SOPlayerAttackStats AttackStats {get => _attackStats;}
-    public WeaponBase[] OtherWeapons {get => _otherWeapons;}
 
 
 
@@ -90,12 +88,12 @@ public class SOPlayerStats : PlayerStatsBase
         _interactCooldown = stats.InteractCooldown;
         _maxResourceInteractions = stats.MaxResourceInteractions;
 
-        _weaponBase = stats.WeaponBase;
+        _weapons = stats.Weapons;
         _attackStats = stats.AttackStats;
         _attackStats.Initialize(data.ATKStats);
     }
 
     private void OnValidate() {
-        if(_otherWeapons.Length > 2)Array.Resize<WeaponBase>(ref _otherWeapons, 2);
+        if(_weapons.Length > 2)Array.Resize<WeaponBase>(ref _weapons, 3);
     }
 }

@@ -47,6 +47,7 @@ public class MeleeWeapon : WeaponBase
 
     protected override void TryAttack()
     {
+        if(_deactivated) return;
         if(_nextAttackTime >= Time.time) return;
         Attack(_modifiedStats._cooldown);
     }

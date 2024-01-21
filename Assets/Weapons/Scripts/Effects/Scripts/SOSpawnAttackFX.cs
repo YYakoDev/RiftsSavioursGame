@@ -18,7 +18,7 @@ public class SOSpawnAttackFX : WeaponEffects
 
     public override void OnAttackFX()
     {
-        Vector3 weaponPos = _effects.WeaponPrefab.position;
+        Vector3 weaponPos = _weapon.PrefabTransform.position;
         Transform obj = Instantiate(_fxPrefab, weaponPos + (Vector3)_offset, Quaternion.identity).transform;
         if(_flipOnDirection)
         {
