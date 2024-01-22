@@ -26,17 +26,17 @@ MonoBehaviour:
   _attackCooldown: 0.5
   _pullForce: 0.56
   _attackRange: 1
+  _attackSpeed: 1
   _rangeOffset: {x: 0, y: 0}
   _attackDamage: 5
   _damageDelay: 0.05
-  _knockbackForce: 2.25
-  _attackSpeed: 1
+  _knockbackForce: 0.77
   _speedUPComboAnimations: 1
   _speedUpFactor: 1.15
   _comboStats:
   - Cooldown: 0
     Range: 0.42
-    KnockbackForce: 0.5
+    KnockbackForce: 0
     AtkSpeed: 0
     PullForce: 1
     AtkDelay: 0.08
@@ -49,7 +49,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: f1b3174f673fb1a4b91613d5d1414674, type: 2}
   - Cooldown: 0
     Range: 0.7
-    KnockbackForce: 0.69
+    KnockbackForce: 0
     AtkSpeed: 0
     PullForce: 0
     AtkDelay: 0.06
@@ -64,7 +64,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: f1b3174f673fb1a4b91613d5d1414674, type: 2}
   - Cooldown: 0
     Range: 1
-    KnockbackForce: 2
+    KnockbackForce: 0
     AtkSpeed: 0
     PullForce: 2
     AtkDelay: 0.11

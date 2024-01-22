@@ -35,6 +35,11 @@ public class SOPlayerStats : PlayerStatsBase
     [SerializeField]private WeaponBase[] _weapons = new WeaponBase[3];
     [SerializeField]private SOPlayerAttackStats _attackStats;
 
+    [Header("Defense Stats")]
+    [SerializeField, Range(0, 100)] private int _stunResistance = 0;
+    [SerializeField, Range(0, 100)] private int _knockbackResistance = 10;
+    [SerializeField, Range(0, 100)] private int _damageResistance = 0;
+
     //properties
 
     // HEALTH MANAGER
@@ -65,6 +70,10 @@ public class SOPlayerStats : PlayerStatsBase
     public WeaponBase[] Weapons {get => _weapons;}
     public SOPlayerAttackStats AttackStats {get => _attackStats;}
 
+    // DEFENSE STATS
+    public int StunResistance { get => _stunResistance; set { _stunResistance = value; onStatsChange?.Invoke(); } }
+    public int KnockbackResistance { get => _knockbackResistance; set { _knockbackResistance = value; onStatsChange?.Invoke(); } }
+    public int DamageResistance { get => _damageResistance; set { _damageResistance = value; onStatsChange?.Invoke(); } }
 
 
     public void Initialize(SOCharacterData data)
@@ -91,6 +100,12 @@ public class SOPlayerStats : PlayerStatsBase
         _weapons = stats.Weapons;
         _attackStats = stats.AttackStats;
         _attackStats.Initialize(data.ATKStats);
+
+        _stunResistance = stats.StunResistance;
+        _knockbackResistance = stats.KnockbackResistance;
+        _damageResistance = stats.DamageResistance;
+
+        //onStatsChange?.Invoke();
     }
 
     private void OnValidate() {

@@ -41,8 +41,8 @@ public class PlayerHealthBar : MonoBehaviour
     {
         _currentHealth = _playerStats.CurrentHealth;
         _maxHealth = _playerStats.MaxHealth;
-        _healthBar.value = _currentHealth;
         _healthBar.maxValue = _maxHealth;
+        _healthBar.value = _currentHealth;
         //UpdateHealthBar();
         yield return null;
         yield return null;
@@ -60,22 +60,10 @@ public class PlayerHealthBar : MonoBehaviour
         _animations.ShakeAnimation();
     }
 
-    void UpdateHealthBar()
-    {
-        if(_healthBar.value != _playerStats.CurrentHealth)
-        {
-            _healthBar.value = _playerStats.CurrentHealth;
-        }
-        if(_healthBar.maxValue != _playerStats.MaxHealth)
-        {
-            _healthBar.maxValue = _playerStats.MaxHealth;
-        }
-    }
-
     void CheckValues()
     {
-        if(CurrentHealth != _playerStats.CurrentHealth) CurrentHealth = _playerStats.CurrentHealth;
         if(MaxHealth != _playerStats.MaxHealth) MaxHealth = _playerStats.MaxHealth;
+        if(CurrentHealth != _playerStats.CurrentHealth) CurrentHealth = _playerStats.CurrentHealth;
     }
 
     void PlayAnimations()

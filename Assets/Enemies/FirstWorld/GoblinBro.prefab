@@ -46,8 +46,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyLayer:
     serializedVersion: 2
-    m_Bits: 64
-  _detectionRadius: 0.45
+    m_Bits: 72
+  _detectionRadius: 1.03
 --- !u!1 &779268523137980041
 GameObject:
   m_ObjectHideFlags: 0
@@ -201,6 +201,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _randomizeStats: 1
   _speed: 2.08
+  _stunDuration: 0.25
   _maxHealth: 20
   _damage: 1
 --- !u!114 &2108419061
@@ -215,9 +216,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46e6c5e658e00ce4eb562c4e7ad1eebe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _brain: {fileID: 779268523137980044}
   _avoidanceBehaviour: {fileID: 2173043081193469781}
-  _stunDuration: 0
 --- !u!58 &2803423104678018290
 CircleCollider2D:
   m_ObjectHideFlags: 0

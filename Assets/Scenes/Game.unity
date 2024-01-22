@@ -12955,6 +12955,15 @@ MonoBehaviour:
   - _type: 2
     _keyCode: 306
     _secondaryKeyCode: 308
+  - _type: 3
+    _keyCode: 49
+    _secondaryKeyCode: 0
+  - _type: 4
+    _keyCode: 50
+    _secondaryKeyCode: 0
+  - _type: 5
+    _keyCode: 51
+    _secondaryKeyCode: 0
 --- !u!1 &1434514378
 GameObject:
   m_ObjectHideFlags: 0
@@ -13391,7 +13400,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 779268523137980041, guid: f82fd7828c71afe4fb8befa5cd774117, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 779268523137980047, guid: f82fd7828c71afe4fb8befa5cd774117, type: 3}
       propertyPath: m_RootOrder
@@ -38513,7 +38522,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f9920198459436459a00a0ac6e3393c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _charData: {fileID: 11400000, guid: 4a460ec2cb10d1a45935fef86b37d44c, type: 2}
+  _charData: {fileID: 11400000, guid: 2dbea93f74c861548a0480746c3cfbf0, type: 2}
   _stats: {fileID: 11400000, guid: 77f8be5469984ec4b92db0a6e8c44838, type: 2}
   _animatorController: {fileID: 2123491968}
   _rigidBody: {fileID: 2123491964}
@@ -39037,9 +39046,9 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: aafc5b07a1f2bb84cbdbb9059238fe4c, type: 3}
-  m_Color: {r: 1, g: 0.72507626, b: 0.25, a: 1}
-  m_FlipX: 1
+  m_Sprite: {fileID: 21300000, guid: 3b9e0e3f56251794d9aa4cb2bd3bd981, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1.4375, y: 1.1875}
@@ -39057,8 +39066,8 @@ Transform:
   m_GameObject: {fileID: 779268523077806943}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.25, y: 1.13, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.4, y: 1.2656, z: 1.12}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1135728469557020930}
   - {fileID: 8351470143794188748}
@@ -39302,7 +39311,9 @@ MonoBehaviour:
   _randomizeStats: 0
   _speed: 0
   _stunDuration: 0.15
-  _maxHealth: 1170
+  _stunResistance: 0
+  _knockbackResistance: 90
+  _maxHealth: 1266
   _damage: 0
 --- !u!1001 &3496017022232617266
 PrefabInstance:
@@ -39317,11 +39328,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3496017023596266568, guid: 329e704e453c1fd4c8c5db7ffbe677c7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -7.39
       objectReference: {fileID: 0}
     - target: {fileID: 3496017023596266568, guid: 329e704e453c1fd4c8c5db7ffbe677c7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -1.08
       objectReference: {fileID: 0}
     - target: {fileID: 3496017023596266568, guid: 329e704e453c1fd4c8c5db7ffbe677c7, type: 3}
       propertyPath: m_LocalPosition.z
@@ -39358,6 +39369,10 @@ PrefabInstance:
     - target: {fileID: 3496017023596266571, guid: 329e704e453c1fd4c8c5db7ffbe677c7, type: 3}
       propertyPath: m_Name
       value: BloodSplatter
+      objectReference: {fileID: 0}
+    - target: {fileID: 3496017023596266571, guid: 329e704e453c1fd4c8c5db7ffbe677c7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 329e704e453c1fd4c8c5db7ffbe677c7, type: 3}
@@ -39478,7 +39493,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.9375, y: 1.5}
+    oldSize: {x: 1, y: 1.5}
     newSize: {x: 1.4375, y: 1.1875}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -39509,7 +39524,7 @@ Animator:
   m_GameObject: {fileID: 779268523077806943}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 22100000, guid: b869af702a4907a4dba565533e1ba8ff, type: 2}
+  m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

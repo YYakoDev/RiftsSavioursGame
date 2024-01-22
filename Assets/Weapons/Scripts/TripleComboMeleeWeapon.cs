@@ -27,6 +27,14 @@ public class TripleComboMeleeWeapon : MeleeWeapon
     [SerializeField] ComboAttackStat[] _comboStats = new ComboAttackStat[ComboAttacks];
     new ComboAttackStat _modifiedStats;
     ComboAttackStat _upgradeStats;
+
+    //properties
+    public override float GetPullForce() => _modifiedStats.PullForce;
+    public override float GetPullDuration()
+    {
+        return base.GetPullDuration();
+    }
+
     public override void Initialize(WeaponManager weaponManager, Transform prefabTransform)
     {
         base.Initialize(weaponManager, prefabTransform);
@@ -46,8 +54,9 @@ public class TripleComboMeleeWeapon : MeleeWeapon
         _waitForRemainingDuration.onEnd += SetNextAttack;
         _waitForRemainingDuration.Stop();
 
-        _modifiedStats = new(_attackCooldown, _attackRange, _knockbackForce, _attackSpeed, _pullForce , _attackDamage, _damageDelay, _rangeOffset, _effects);
-        _upgradeStats = new(0, 0, 0, 0, 0, 0, 0, Vector2.zero, null);
+        _modifiedStats =
+         new(_attackCooldown, _attackRange, _knockbackForce, _attackSpeed, _pullForce , _attackDamage, _damageDelay, _pullDuration, _rangeOffset, null);
+        _upgradeStats = new(0, 0, 0, 0, 0, 0, 0, 0, Vector2.zero, null);
         OnComboIndexChange(_currentComboIndex);
         ChangeAnimatorSpeed(_modifiedStats.AtkSpeed);
 
@@ -59,7 +68,8 @@ public class TripleComboMeleeWeapon : MeleeWeapon
     {
         foreach(ComboAttackStat comboAtk in _comboStats)
         {
-            foreach(WeaponEffects fx in comboAtk.WeaponFxs) fx.Initialize(this);
+            comboAtk?.Initialize();
+            foreach(WeaponEffects fx in comboAtk.UsedEffects) fx?.Initialize(this);
         }
     }
     protected override void SubscribeInput() => _attackKey.OnKeyHold += TryAttack;
@@ -206,16 +216,12 @@ public class TripleComboMeleeWeapon : MeleeWeapon
         _modifiedStats.Cooldown = _attackCooldown - stats.Cooldown + _upgradeStats.Cooldown;
         _modifiedStats.PullForce = _pullForce + stats.PullForce + _upgradeStats.PullForce;
         _modifiedStats.AtkDelay = _damageDelay + stats.AtkDelay + _upgradeStats.AtkDelay;
+        _modifiedStats.PullDuration = _pullDuration + stats.PullDuration;
         _modifiedStats.RangeOffset = _rangeOffset + stats.RangeOffset;
-        _modifiedStats.WeaponFxs = stats.WeaponFxs;
+        _modifiedStats.UsedEffects = stats.UsedEffects;
         SetMaxEnemiesToHit(_modifiedStats.Range);
         SetRadiusOffset(_modifiedStats.Range);
     }
-    public override float GetPullForce()
-    {
-        return _modifiedStats.PullForce;
-    }
-
     void ChangeAnimatorSpeed(float newSpeed)
     {
         _weaponInstanceAnimator.speed = newSpeed;
@@ -223,11 +229,11 @@ public class TripleComboMeleeWeapon : MeleeWeapon
 
     protected override void PlayAtkFXS()
     {
-        foreach(WeaponEffects fx in _modifiedStats.WeaponFxs)  fx.OnAttackFX();
+        foreach(WeaponEffects fx in _modifiedStats.UsedEffects)  fx?.OnAttackFX();
     }
     protected override void PlayHitFXS(Vector3 pos)
     {
-        foreach(WeaponEffects fx in _modifiedStats.WeaponFxs) fx.OnHitFX(pos);
+        foreach(WeaponEffects fx in _modifiedStats.UsedEffects) fx?.OnHitFX(pos);
     }
 
     public override void EvaluateStats(SOPlayerAttackStats attackStats)

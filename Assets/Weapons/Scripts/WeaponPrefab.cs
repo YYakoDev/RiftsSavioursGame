@@ -37,6 +37,7 @@ public class WeaponPrefab : MonoBehaviour
 
     private void OnEnable() {
         _animator.ForcePlay(OnEquipAnim);
+        
     }
 
     // Update is called once per frame

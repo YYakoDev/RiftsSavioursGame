@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEditor;
 
+#if UNITY_EDITOR
 [CustomEditor(typeof(ResourceDrop), true), CanEditMultipleObjects]
 public class DropEditorScript : Editor
 {
@@ -15,3 +16,4 @@ public class DropEditorScript : Editor
         }
     }
 }
+#endif

@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _stats: {fileID: 11400000, guid: 9e9255f3caa668a48a4d1db9b6079ab6, type: 2}
   _atkStats: {fileID: 11400000, guid: fb637baf54ecc0042986a0affa9dbbbe, type: 2}
-  _animator: {fileID: 22100000, guid: 628bbdfa7ffabca43bb3825e12cbc893, type: 2}
+  _animator: {fileID: 22100000, guid: f885df4ae41625a4d8a466c9a2a44a86, type: 2}

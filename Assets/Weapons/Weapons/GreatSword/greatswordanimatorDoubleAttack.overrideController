@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: greatswordanimatorDoubleAttack
+  m_Controller: {fileID: 9100000, guid: 2b21ff457e4ade542bb20e88d9391952, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: bb5c9cfd9ab880f48afda44c78120e02, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 729b79245e1d8fe4ab6d32ce293cd2fa, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 9dd0a0a0e2e6a9e49a1ad7e69e1b328c, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 6c3be77b0a71bd240b04c4609f520e58, type: 2}

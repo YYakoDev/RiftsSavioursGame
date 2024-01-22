@@ -67,7 +67,7 @@ public class DoubleAttackMelee : MeleeWeapon
 
     void SetSounds()
     {
-        int? length = _weaponSounds?.Length;
+        int length = _weaponSounds.Length;
         if(length == 0)
         {
             Debug.LogError("You need to set a sound for the weapon");

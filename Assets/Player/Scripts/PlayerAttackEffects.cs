@@ -12,7 +12,6 @@ public class PlayerAttackEffects : MonoBehaviour
     WeaponBase _currentWeapon;
     Transform weaponPrefab => _currentWeapon.PrefabTransform;
 
-    float PullForce => _currentWeapon.GetPullForce();
     float AttackDuration => _currentWeapon.AtkDuration;
     private void Awake() {
         _weaponManager.OnWeaponChange += SwitchCurrentWeapon;
@@ -38,7 +37,6 @@ public class PlayerAttackEffects : MonoBehaviour
     {
         FlipPlayer();
         PlayAttackAnimation();
-        SelfPush();
         if(_currentWeapon.PointCameraOnAttack)_cameraTargetting.SwitchTarget(_targetIndex, AttackDuration);
     }
     void FlipPlayer()
@@ -51,8 +49,10 @@ public class PlayerAttackEffects : MonoBehaviour
 
     void PlayAttackAnimation() => _player.AnimController.PlayStated(PlayerAnimationsNames.Attack, AttackDuration);
     public void SlowdownPlayer() => _player.MovementScript.SlowdownMovement(AttackDuration);   
-    public void SelfPush(float force) => _player.MovementScript.KnockbackLogic.SetKnockbackData(weaponPrefab, -force);
-    void SelfPush() => _player.MovementScript.KnockbackLogic.SetKnockbackData(weaponPrefab, -PullForce);
+    public void SlowdownPlayer(float force) => _player.MovementScript.SlowdownMovement(AttackDuration, force);   
+    public void SlowdownPlayer(float duration, float force) => _player.MovementScript.SlowdownMovement(duration, force);   
+    public void SelfPush(float force) => _player.MovementScript.KnockbackLogic.SetKnockbackData(weaponPrefab, -force, ignoreResistance: true);
+    public void SelfPush(float force, float duration) => _player.MovementScript.KnockbackLogic.SetKnockbackData(weaponPrefab, -force, duration, true);
 
     public void KnockbackPlayer(float knockbackAmount) => _player.MovementScript.KnockbackLogic.SetKnockbackData(weaponPrefab, knockbackAmount);
     

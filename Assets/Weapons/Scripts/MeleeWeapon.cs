@@ -12,18 +12,25 @@ public class MeleeWeapon : WeaponBase
 
     [Header("Stats")]
     protected MeleeWeaponStats _modifiedStats;
+    [SerializeField, Range(0f, 10f)] protected float _pullForce = 0;
+    [SerializeField, Range(0f,1.5f)] protected float _pullDuration = 0.1f;
     [SerializeField]protected float _attackRange = 0.5f;
-    [SerializeField] protected float _attackSpeed = 1f;
+    [SerializeField, Range(0.1f, 4f)] protected float _attackSpeed = 1f;
     [SerializeField] protected Vector2 _rangeOffset;
     protected float _radiusOffset = 0;
     protected Vector3 _attackPoint = Vector2.zero;
     [SerializeField]protected int _attackDamage = 5;
     [SerializeField, Range(0f, 1f)] protected float _damageDelay = 0.2f;
     protected int _maxEnemiesToHit = 10;
-    [SerializeField, Range(0,2.25f)]protected float _knockbackForce = 0.35f;
+    [SerializeField, Range(0f, 3.25f)]protected float _knockbackForce = 0.35f;
     private readonly int AtkAnim = Animator.StringToHash("Attack");
     protected List<GameObject> _hittedEnemiesGO = new();
     protected Timer _atkExecutionTimer;
+
+
+    //properties
+    public virtual float GetPullForce() => _pullForce;
+    public virtual float GetPullDuration() => _pullDuration;
 
     public override void Initialize(WeaponManager weaponManager, Transform prefabTransform)
     {

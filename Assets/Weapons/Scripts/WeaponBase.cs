@@ -17,7 +17,8 @@ public abstract class WeaponBase: ScriptableObject
     [Header("Weapon Properties")]
     [SerializeField]private string _name;
     [SerializeField]protected SOWeaponSpriteAnimationData _SpriteAndAnimationsData;
-    [SerializeField]protected WeaponEffects[] _effects;
+    [SerializeField]private WeaponEffects[] _effects;
+    protected WeaponEffects[] _usedEffects = new WeaponEffects[0];
     private const string AtkAnimName = "Attack";
     [SerializeField]private bool _flipSprite = true;
     [SerializeField]private Vector3 _spawnPosition = new Vector3(-0.55f, 0.25f, 0f);
@@ -30,7 +31,6 @@ public abstract class WeaponBase: ScriptableObject
 
     [Header("Weapon Attack Stats")]
     [SerializeField]protected float _attackCooldown = 0.5f;
-    [SerializeField, Range(0f, 2f)] protected float _pullForce = 0;
     protected float _attackDuration = 0.35f;
     protected float _nextAttackTime = 0f;
 
@@ -74,7 +74,14 @@ public abstract class WeaponBase: ScriptableObject
     
     protected virtual void InitializeFXS()
     {
-        foreach(WeaponEffects fx in _effects) fx?.Initialize(this);
+        if(_effects == null) return;
+        Array.Resize<WeaponEffects>(ref _usedEffects, _effects.Length);
+        for (int i = 0; i < _usedEffects.Length; i++)
+        {
+            var baseFx = _effects[i];
+            _usedEffects[i] = GameObject.Instantiate(baseFx);
+            _usedEffects[i].Initialize(this);
+        }
     }
 
     protected virtual void Attack(float weaponCooldown)
@@ -99,10 +106,6 @@ public abstract class WeaponBase: ScriptableObject
     {
         return _SpriteAndAnimationsData.AnimatorOverride[animName].averageDuration;
     }
-    public virtual float GetPullForce()
-    {
-        return _pullForce;
-    }
 
     public void SetWeaponActive(bool active)
     {
@@ -123,19 +126,31 @@ public abstract class WeaponBase: ScriptableObject
 
     protected virtual void PlayAtkFXS()
     {
-        foreach(WeaponEffects fx in _effects)
+        foreach(WeaponEffects fx in _usedEffects)
         {
             fx?.OnAttackFX();
         }
     }
     protected virtual void PlayHitFXS(Vector3 pos)
     {
-        foreach(WeaponEffects fx in _effects)
+        foreach(WeaponEffects fx in _usedEffects)
         {
             fx?.OnHitFX(pos);
         }
     }
-
+    public void RemoveFxFromList(WeaponEffects fx)
+    {
+        int index = -1;
+        for (int i = 0; i < _usedEffects.Length; i++)
+        {
+            if(_effects[i] == fx)
+            {
+                index = i;
+                break;
+            }
+        }
+        if(index != -1) _usedEffects[index] = null;
+    }
 
     public virtual void DrawGizmos(){}
 

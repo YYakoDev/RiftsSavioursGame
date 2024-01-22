@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93fe133b00f61ba4cb106b67db658a5b, type: 3}
+  m_Name: GreatSwordDoubleAttack
+  m_EditorClassIdentifier: 
+  _name: GreatSword
+  _SpriteAndAnimationsData: {fileID: 11400000, guid: c4a6ab0ca1fb6634ab614941446af409, type: 2}
+  _effects:
+  - {fileID: 11400000, guid: bc668329a2d90574a91d7f07ac9991c9, type: 2}
+  - {fileID: 11400000, guid: 4780209016f8aa349864b33bf7198c79, type: 2}
+  - {fileID: 11400000, guid: 4780209016f8aa349864b33bf7198c79, type: 2}
+  - {fileID: 11400000, guid: 7e4ed06a1b3572e41b715a285fbae5a3, type: 2}
+  - {fileID: 11400000, guid: a46798bb6b4605f46a88a7cb00606fc1, type: 2}
+  - {fileID: 11400000, guid: c9c1e59da1cfa0d438f4301a1069edcd, type: 2}
+  - {fileID: 11400000, guid: f1b3174f673fb1a4b91613d5d1414674, type: 2}
+  - {fileID: 11400000, guid: 3961fbaed97e0aa4ea6fed7535dadd51, type: 2}
+  - {fileID: 11400000, guid: 5aa96cb87718dbb42b53feddbbdae7b1, type: 2}
+  - {fileID: 11400000, guid: b38795998130cfd4e9799775cf5b0360, type: 2}
+  _flipSprite: 1
+  _spawnPosition: {x: -0.908, y: 0.533, z: 0}
+  _spawnRotation: 0
+  _weaponSounds:
+  - {fileID: 8300000, guid: 307ccd91c05d4ea4abb03bf8099fa3c3, type: 3}
+  - {fileID: 8300000, guid: 9a2ca58f29ba35f448ab633a27613e31, type: 3}
+  _pointCameraOnAttack: 1
+  _attackCooldown: 0.76
+  _pullForce: 1.84
+  _pullDuration: 0.259
+  _attackRange: 2
+  _attackSpeed: 0.81
+  _rangeOffset: {x: 0.31, y: 0.12}
+  _attackDamage: 12
+  _damageDelay: 0.18
+  _knockbackForce: 2.25
+  _weaponSlashPrefab: {fileID: 3849386732562224976, guid: fc43b93d849be6c4b83d4696ed635697, type: 3}
+  _slashOffset: {x: 0.4, y: 0.1, z: 0}

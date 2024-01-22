@@ -31,7 +31,7 @@ public class EnemyBaseMovement
         _transform = transform;
         _enemy = enemy;
         _sortOrderController = new SortingOrderController(transform, _enemy.Renderer, spriteOffset);
-        _knockbackLogic = new(transform, _enemy.Rigidbody, OnKnockbackChange);
+        _knockbackLogic = new(transform, _enemy.Rigidbody, OnKnockbackChange, _enemy.Stats.KnockbackResistance);
         _movementStopTimer = new(0f);
         _movementStopTimer.onEnd += ResumeMovement;
         _movementStopTimer.Stop();
