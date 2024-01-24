@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b859866239636294f98f74455c2a7e94, type: 3}
   m_Name: BladeHit2
   m_EditorClassIdentifier: 
-  _clip: {fileID: 0}
+  _clip: {fileID: 8300000, guid: 81a4a8b5123e6cf49ac4a2a26e1b4604, type: 3}

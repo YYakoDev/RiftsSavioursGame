@@ -80,7 +80,7 @@ public abstract class WeaponBase: ScriptableObject
         {
             var baseFx = _effects[i];
             _usedEffects[i] = GameObject.Instantiate(baseFx);
-            _usedEffects[i].Initialize(this);
+            _usedEffects[i]?.Initialize(this);
         }
     }
 

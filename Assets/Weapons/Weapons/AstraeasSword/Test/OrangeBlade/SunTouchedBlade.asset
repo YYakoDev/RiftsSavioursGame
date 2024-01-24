@@ -35,7 +35,7 @@ MonoBehaviour:
   _attackSpeed: 0.77
   _rangeOffset: {x: 0, y: 0}
   _attackDamage: 10
-  _damageDelay: 0.05
+  _damageDelay: 0.1
   _knockbackForce: 0.8
   _weaponSlashPrefab: {fileID: 3849386732562224976, guid: 518320ae3e20a2641a7d96a44985633f, type: 3}
   _slashOffset: {x: 0.5, y: 0.1, z: 0}

@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 3496017023596266568}
   - component: {fileID: 3496017023596266575}
   - component: {fileID: 3496017023596266572}
-  - component: {fileID: 7095591508414498415}
   - component: {fileID: -2486305248213958785}
   m_Layer: 0
   m_Name: BloodSplatter
@@ -107,19 +106,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &7095591508414498415
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3496017023596266571}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49a0f9355156cc14f9b84f9dc5f0bd04, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _duration: -1
 --- !u!114 &-2486305248213958785
 MonoBehaviour:
   m_ObjectHideFlags: 0

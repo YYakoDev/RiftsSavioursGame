@@ -21,7 +21,7 @@ public class Knockbackeable
         get => _force;
         set
         {
-            _force = (_ignoreResistance) ? value : value - (value * _resistance) / 100;
+            _force = (_ignoreResistance) ? value : value - (value * _resistance) / 100f;
         }
     }
 
@@ -37,24 +37,26 @@ public class Knockbackeable
         OnKnockbackChange = onKnockbackChange;
     }
 
-    public void SetKnockbackData(Transform emitterPos, float force, float duration = 0.13f, bool ignoreResistance = false)
+    public void SetKnockbackData(Transform emitterPos, float force, float duration = 0.13f, bool ignoreResistance = false, float forceMultiplier = 2f)
     {
         if(_stopApplying) return;
         _ignoreResistance = ignoreResistance;
         if(_enabled)
         {
+            if(_newKnockbackDir != Vector2.zero) return;
             _newKnockbackDir = _emitterPos.position;
             _knockbackTimer.ChangeTime(_knockbackTimer.CurrentTime + duration / 1.5f + Random.Range(0.01f, 0.07f));
-            Force += force / 1.2f;
+            Force += force / 1.25f;
             return;
         }
         _emitterPos = emitterPos;
-        Force = force * 2f;
+        Force = force * forceMultiplier;
 
         _enabled = true;
         _knockbackTimer.ChangeTime(duration + Random.Range(0.01f, 0.1f));
         _knockbackTimer.Start();
         OnKnockbackChange?.Invoke(_enabled);
+        _rb.velocity = Vector2.zero;
     }
 
     public void ApplyKnockback()

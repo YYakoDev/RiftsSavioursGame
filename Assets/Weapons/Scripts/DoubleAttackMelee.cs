@@ -26,8 +26,8 @@ public class DoubleAttackMelee : MeleeWeapon
     }
     protected override void Attack(float cooldown)
     {
-        base.Attack(cooldown);
         _attackSound = _weaponSounds[_atkIndex];
+        base.Attack(cooldown);
         SetAtkIndex();
         SpawnSlash();
     }

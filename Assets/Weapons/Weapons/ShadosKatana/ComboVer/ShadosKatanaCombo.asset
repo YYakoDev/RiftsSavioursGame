@@ -20,9 +20,9 @@ MonoBehaviour:
   _spawnPosition: {x: -0.55, y: 0.25, z: 0}
   _spawnRotation: 0
   _weaponSounds:
-  - {fileID: 8300000, guid: b84216003718d5943b73059e3b336319, type: 3}
-  - {fileID: 8300000, guid: 47433e00789a13a4cb6367fe767b3609, type: 3}
-  - {fileID: 8300000, guid: b4839994d88671e4d947cb8625abbd32, type: 3}
+  - {fileID: 8300000, guid: bf6e2b4df56b93e45b6323a7837b73f2, type: 3}
+  - {fileID: 8300000, guid: bb5a381345214dc469cd56d7f8b12a03, type: 3}
+  - {fileID: 8300000, guid: 63576143d8a33204288b7f37ff6c7dd4, type: 3}
   _pointCameraOnAttack: 1
   _attackCooldown: 0.4
   _pullForce: 1.75
@@ -40,7 +40,7 @@ MonoBehaviour:
     Range: 1
     KnockbackForce: 0
     AtkSpeed: 0
-    PullForce: -1
+    PullForce: 0
     AtkDelay: 0
     PullDuration: 0
     Damage: 6
@@ -52,7 +52,9 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 3961fbaed97e0aa4ea6fed7535dadd51, type: 2}
     - {fileID: 11400000, guid: c9c1e59da1cfa0d438f4301a1069edcd, type: 2}
     - {fileID: 11400000, guid: f1b3174f673fb1a4b91613d5d1414674, type: 2}
+    - {fileID: 11400000, guid: 0f1731e4c0912a34eabf484ba539aa9c, type: 2}
     UsedEffects:
+    - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
@@ -71,9 +73,11 @@ MonoBehaviour:
     WeaponFxs:
     - {fileID: 11400000, guid: a46798bb6b4605f46a88a7cb00606fc1, type: 2}
     - {fileID: 11400000, guid: 3961fbaed97e0aa4ea6fed7535dadd51, type: 2}
-    - {fileID: 11400000, guid: f1b3174f673fb1a4b91613d5d1414674, type: 2}
+    - {fileID: 11400000, guid: fd169d3702aceec4e91005959470890e, type: 2}
     - {fileID: 11400000, guid: c9c1e59da1cfa0d438f4301a1069edcd, type: 2}
+    - {fileID: 11400000, guid: 0f1731e4c0912a34eabf484ba539aa9c, type: 2}
     UsedEffects:
+    - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
@@ -90,9 +94,11 @@ MonoBehaviour:
     WeaponFxs:
     - {fileID: 11400000, guid: a46798bb6b4605f46a88a7cb00606fc1, type: 2}
     - {fileID: 11400000, guid: 3961fbaed97e0aa4ea6fed7535dadd51, type: 2}
-    - {fileID: 11400000, guid: f1b3174f673fb1a4b91613d5d1414674, type: 2}
+    - {fileID: 11400000, guid: fd169d3702aceec4e91005959470890e, type: 2}
     - {fileID: 11400000, guid: c9c1e59da1cfa0d438f4301a1069edcd, type: 2}
+    - {fileID: 11400000, guid: 0f1731e4c0912a34eabf484ba539aa9c, type: 2}
     UsedEffects:
+    - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}

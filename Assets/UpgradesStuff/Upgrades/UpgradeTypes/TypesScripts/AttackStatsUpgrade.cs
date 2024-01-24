@@ -44,22 +44,13 @@ public class AttackStatsUpgrade : StatChangingUpgrade
     public override void ApplyEffect(PlayerUpgradesManager upgradesManager)
     {
         _parent.AdvanceIndex();
-        if(_queryResult == null) SearchVariables();
-        else SetArray();
-        for (int i = 0; i < _indexes.Length; i++)
+        for (int i = 0; i < _savedProperties.Length; i++)
         {
             int index = _indexes[i];
-            if(index >= _queryPropertiesArray.Length) continue;
             PlayerStatsBase SOStats = (index >= _statsPropertiesCount) ? _statsArray[1] : _statsArray[0];
-
             UpgradeStatChange statChange = _statsChanges[i];
-            var property = _queryPropertiesArray[index];
-            object currentValue = property.GetValue(SOStats);
-            float newValue = 0;
-            var currentValueAsFloat = (float)Convert.ChangeType(currentValue, newValue.GetType());
-            newValue = (statChange.UsePercentage) ?
-            upgradesManager.StatUp(currentValueAsFloat, statChange.Percentage) : upgradesManager.StatUp(currentValueAsFloat, statChange.EffectAmount);
-            property.SetValue(SOStats, Convert.ChangeType(newValue, currentValue.GetType()));
+            var property = _savedProperties[i];
+            ApplyValueToProperty(property, statChange, upgradesManager, SOStats);
         }
     }
 }

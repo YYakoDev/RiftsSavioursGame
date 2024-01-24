@@ -22,4 +22,10 @@ public class SOPossibleUpgradesList : ScriptableObject
         _possibleUpgrades = new(_startingUpgrades);
 
     }
+
+    public void AddNewGroup(UpgradeGroup newUpgrades)
+    {
+        newUpgrades.Initialize(this);
+        _possibleUpgrades.Add(newUpgrades);
+    }
 }

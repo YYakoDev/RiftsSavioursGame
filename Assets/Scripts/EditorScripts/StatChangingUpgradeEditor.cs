@@ -12,6 +12,7 @@ public class StatChangingUpgradeEditor : Editor
     string[] options = new string[0];
     //int index = 0;
     [SerializeField]int[] newDropdowns = new int[0];
+    System.Reflection.PropertyInfo[] queryResult;
     //GUIStyle dropdownAddButton = new();
     //GUIStyle dropdownRemoveButton = new();
     public override void OnInspectorGUI()
@@ -21,16 +22,17 @@ public class StatChangingUpgradeEditor : Editor
         
         if(GUILayout.Button("SEARCH"))
         {
-            var QueryResult = script.SearchVariables();
-            if(QueryResult == null) return;
-            int queryCount = QueryResult.Length;
+            queryResult = script.SearchVariables();
+            if(queryResult == null) return;
+            int queryCount = queryResult.Length;
             //Debug.Log(queryCount);
             if(queryCount != options.Length) Array.Resize<string>(ref options, queryCount);
             for (int i = 0; i < queryCount; i++)
             {
-                var item = QueryResult[i];
+                var item = queryResult[i];
                 options[i] = item.Name;
             }
+            if(script.Indexes != null) newDropdowns = script.Indexes;
         }
         if(GUILayout.Button("ADD NEW STAT ELEMENT"))
         {
@@ -48,12 +50,16 @@ public class StatChangingUpgradeEditor : Editor
         {
             newDropdowns[i] = EditorGUILayout.Popup(newDropdowns[i], options);
         }
-;
         if(GUILayout.Button("SAVE INDEX")) SaveIndexes(script);
     }
 
     void SaveIndexes(StatChangingUpgrade script)
     {
+        if(queryResult == null)
+        {
+            Debug.Log("<b>YOU NEED TO SEARCH BEFORE SAVING THE INDEXES</b>");
+            return;
+        }
         script.SetIndexes(newDropdowns);
     }
 

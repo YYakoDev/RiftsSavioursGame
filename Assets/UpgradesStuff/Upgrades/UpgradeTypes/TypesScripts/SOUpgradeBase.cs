@@ -27,7 +27,7 @@ public class SOUpgradeBase : ScriptableObject
             Array.Resize<UpgradeCost>(ref _costs, 3);
         }
     }
-    public void SetGroup(UpgradeGroup group)
+    public virtual void SetGroup(UpgradeGroup group)
     {
         _parent = group;
     }
