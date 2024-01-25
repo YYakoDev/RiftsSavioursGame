@@ -52,9 +52,10 @@ public class PlayerAttackEffects : MonoBehaviour
     public void SlowdownPlayer(float force) => _player.MovementScript.SlowdownMovement(AttackDuration, force);   
     public void SlowdownPlayer(float duration, float force) => _player.MovementScript.SlowdownMovement(duration, force);   
     public void SelfPush(float force) => _player.MovementScript.KnockbackLogic.SetKnockbackData(weaponPrefab, -force, ignoreResistance: true);
-    public void SelfPush(float force, float duration) => _player.MovementScript.KnockbackLogic.SetKnockbackData(weaponPrefab, -force, duration, true, 1.2f);
+    public void SelfPush(float force, float duration) => _player.MovementScript.KnockbackLogic.SetKnockbackData(weaponPrefab, -force, duration, true, 2f);
 
     public void KnockbackPlayer(float knockbackAmount) => _player.MovementScript.KnockbackLogic.SetKnockbackData(weaponPrefab, knockbackAmount, forceMultiplier: 0.25f);
+    public void KnockbackPlayer(Vector3 emitterPosition, float knockbackAmount) => _player.MovementScript.KnockbackLogic.SetKnockbackData(emitterPosition, knockbackAmount, forceMultiplier: 0.25f);
     
 
     public void ScreenShake(float strength) => CameraShake.Shake(strength);

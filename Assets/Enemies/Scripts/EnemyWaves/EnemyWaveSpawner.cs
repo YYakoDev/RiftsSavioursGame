@@ -38,15 +38,15 @@ public class EnemyWaveSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(_nextSpawnTime < Time.time)
+        if(Input.GetKeyDown(KeyCode.Backspace))
         {
-            _nextSpawnTime = Time.time + _spawnCooldown;
+            
             int amountOfEnemiesToSpawn = Random.Range(2, _currentWave.EnemiesToSpawn);
-
             for(int i = 0; i<amountOfEnemiesToSpawn; i++)
             {
                 StartCoroutine(Spawn());
             }
+    
         }
         if(_nextSpawnLocationCooldown < Time.time)
         {

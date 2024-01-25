@@ -18,6 +18,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f1b3174f673fb1a4b91613d5d1414674, type: 2}
   - {fileID: 11400000, guid: c9c1e59da1cfa0d438f4301a1069edcd, type: 2}
   - {fileID: 11400000, guid: 991c0113af06d224c9168cdf079fb751, type: 2}
+  - {fileID: 11400000, guid: 0f1731e4c0912a34eabf484ba539aa9c, type: 2}
+  - {fileID: 11400000, guid: bc668329a2d90574a91d7f07ac9991c9, type: 2}
   _flipSprite: 1
   _spawnPosition: {x: -0.55, y: 0.25, z: 0}
   _spawnRotation: 0
@@ -25,14 +27,14 @@ MonoBehaviour:
   - {fileID: 8300000, guid: c2f1f5d5a1b06d3438f878f6008de986, type: 3}
   _pointCameraOnAttack: 0
   _attackCooldown: 0.55
-  _pullForce: 0
+  _pullForce: 0.2
   _pullDuration: 0
   _attackRange: 1
   _attackSpeed: 1
   _rangeOffset: {x: 0, y: 0}
   _attackDamage: 1
-  _damageDelay: 0.077
-  _knockbackForce: 0.35
+  _damageDelay: 0.09
+  _knockbackForce: 1
   _resourcesLayer:
     serializedVersion: 2
     m_Bits: 8

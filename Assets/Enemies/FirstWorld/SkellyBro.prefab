@@ -46,8 +46,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyLayer:
     serializedVersion: 2
-    m_Bits: 72
-  _detectionRadius: 1.01
+    m_Bits: 64
+  _detectionRadius: 0.55
 --- !u!1 &779268523137980041
 GameObject:
   m_ObjectHideFlags: 0
@@ -202,6 +202,8 @@ MonoBehaviour:
   _randomizeStats: 1
   _speed: 2.57
   _stunDuration: 0.25
+  _stunResistance: 0
+  _knockbackResistance: 0
   _maxHealth: 11
   _damage: 1
 --- !u!114 &2108419061

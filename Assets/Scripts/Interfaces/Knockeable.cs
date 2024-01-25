@@ -6,7 +6,8 @@ public class Knockbackeable
 {
     Transform _ownTransform;
     Rigidbody2D _rb;
-    Transform _emitterPos;
+    Transform _emitterTransform;
+    Vector3 _emitterPosition; //alternative way if you dont want to use a transform
     Vector2 _newKnockbackDir = Vector2.zero;
     float _force;
     int _resistance;
@@ -37,19 +38,30 @@ public class Knockbackeable
         OnKnockbackChange = onKnockbackChange;
     }
 
-    public void SetKnockbackData(Transform emitterPos, float force, float duration = 0.13f, bool ignoreResistance = false, float forceMultiplier = 2f)
+    public void SetKnockbackData(Transform emitterTransform, float force, float duration = 0.13f, bool ignoreResistance = false, float forceMultiplier = 2f)
+    {
+        SetLogic(emitterTransform, Vector3.zero, force, duration, ignoreResistance, forceMultiplier);
+    }
+    public void SetKnockbackData(Vector3 emitterPos, float force, float duration = 0.13f, bool ignoreResistance = false, float forceMultiplier = 2f)
+    {
+        SetLogic(null, emitterPos, force, duration, ignoreResistance, forceMultiplier);
+    }
+    void SetLogic(Transform emitterTransform, Vector3 emitterPos,  float force, float duration, bool ignoreResistance, float forceMultiplier)
     {
         if(_stopApplying) return;
+        if(force == 0 || duration <= 0) return;
         _ignoreResistance = ignoreResistance;
         if(_enabled)
         {
             if(_newKnockbackDir != Vector2.zero) return;
-            _newKnockbackDir = _emitterPos.position;
+            if(_emitterTransform != null) _newKnockbackDir = _emitterTransform.position;
+            else _newKnockbackDir = emitterPos;
             _knockbackTimer.ChangeTime(_knockbackTimer.CurrentTime + duration / 1.5f + Random.Range(0.01f, 0.07f));
             Force += force / 1.25f;
             return;
         }
-        _emitterPos = emitterPos;
+        _emitterTransform = emitterTransform;
+        _emitterPosition = emitterPos;
         Force = force * forceMultiplier;
 
         _enabled = true;
@@ -65,7 +77,14 @@ public class Knockbackeable
         _knockbackTimer.UpdateTime();
         //Debug.Log("Applying Knockback!");
         Vector2 currentPos = _ownTransform.position;
-        Vector2 direction = currentPos - ((Vector2)_emitterPos.position + _newKnockbackDir);
+        Vector2 firstDirection = (_emitterTransform != null) ?
+        currentPos - (Vector2)_emitterTransform.position :
+        currentPos - (Vector2)_emitterPosition;
+        Vector2 secondDirection = currentPos - _newKnockbackDir;
+        Vector2 direction;
+        if(secondDirection == currentPos) direction = firstDirection.normalized;
+        else direction = firstDirection.normalized + secondDirection.normalized;
+
         _rb.MovePosition(currentPos + direction.normalized * (Force * Time.fixedDeltaTime));
     }
 
