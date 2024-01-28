@@ -45,8 +45,9 @@ public class EnemyBrain : MonoBehaviour
         thisGO.CheckComponent<EnemyHealthManager>(ref _healthManager);
         thisGO.CheckComponent<EnemyAnimations>(ref _animation);
         _movementLogic = new(transform, this, 0.25f);
-        _movement = GetComponent<IEnemyMovement>(); // this component reference will be lost of the movement class change
-        // ie if you spawn a flying enemy it will not have the same movement class as a regular one you will need to get the component agaom
+        _movement = GetComponent<IEnemyMovement>(); // this component reference will be lost if the movement class change
+        // ie if you spawn a flying enemy it will not have the same movement class as a regular one you will need to get the component again
+        // a way to bypass this is assigning the reference in the inspector
         SetMovementLogic();
 
         if(_colliders == null || _colliders.Length <= 0) _colliders = thisGO.GetComponents<Collider2D>();

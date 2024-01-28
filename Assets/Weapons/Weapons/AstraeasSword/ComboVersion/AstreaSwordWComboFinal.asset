@@ -94,7 +94,7 @@ MonoBehaviour:
     KnockbackForce: 2
     AtkSpeed: 0
     PullForce: 2
-    AtkDelay: 0.05
+    AtkDelay: 0
     PullDuration: 0
     Damage: 1
     RangeOffset: {x: 0, y: 0}

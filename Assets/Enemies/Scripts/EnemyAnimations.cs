@@ -24,10 +24,10 @@ public class EnemyAnimations : MonoBehaviour
     {
         gameObject.CheckComponent<Animator>(ref _animator);
         _initialAnimatorSpeed = 1f + Random.Range(-0.1f, 0.15f);
-        ChangeAnimatorSpeed(_initialAnimatorSpeed);
         _speedChangeTimer = new(0.1f);
         _speedChangeTimer.onEnd += ResetSpeed;
         _speedChangeTimer.Stop();
+        ChangeAnimatorSpeed(_initialAnimatorSpeed);
     }
 
     private void OnEnable() {

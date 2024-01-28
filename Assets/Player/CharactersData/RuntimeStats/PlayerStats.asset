@@ -15,7 +15,7 @@ MonoBehaviour:
   _maxHealth: 320
   _currentHealth: 320
   _level: 1
-  _currentXP: 0
+  _currentXP: 2
   _xpToNextLevel: 100
   _speed: 5
   _accelerationTime: 0.94

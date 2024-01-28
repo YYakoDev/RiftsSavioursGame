@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Wave1 - Z-S-M more mummies
   m_EditorClassIdentifier: 
   _enemiesSignatures: 030000000200000004000000040000000400000004000000
-  _enemySpawnCooldown: 0.688
-  enemiesToSpawn: 10
+  _enemySpawnCooldown: 0.59
+  _enemiesToSpawn: 10
+  _waveDuration: 10
   _enemiesSpeed: 1

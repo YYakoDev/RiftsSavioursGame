@@ -88,7 +88,7 @@ public class Knockbackeable
         _rb.MovePosition(currentPos + direction.normalized * (Force * Time.fixedDeltaTime));
     }
 
-    void StopKnockback()
+    public void StopKnockback()
     {
         //Debug.Log("Stopping Knockback!");
         _enabled = false;
@@ -98,4 +98,9 @@ public class Knockbackeable
     }
 
     public void StopOtherKnockbacks() => _stopApplying = true;
+
+    ~Knockbackeable()
+    {
+        _knockbackTimer.onEnd -= StopKnockback;
+    }
 }

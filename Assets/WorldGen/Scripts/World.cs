@@ -9,9 +9,8 @@ using UnityEngine.Tilemaps;
 public class World : ScriptableObject
 {
     [SerializeField]private string _name;
-    public const float RiftDuration = 325f; // 5mins, 25 seconds
-    //public const float RiftDuration = 5f; // just for debugging
-    [SerializeField]private float _wavesInterval = 30f; // seconds
+    public const float RiftDuration = 900f; // 15mins
+    float _restInterval = 10f;
     [SerializeField]private SOEnemyWave[] _waves;
     [SerializeField]private EnemyBrain[] _enemyPrefabs;
     [SerializeField]private ChunkTileMap[] _chunks = new ChunkTileMap[0];
@@ -22,16 +21,16 @@ public class World : ScriptableObject
     
 
     //properties
-    public float RiftDurationInSeconds => RiftDuration;
-    public float WavesInterval => _wavesInterval;
+    public static float RiftDurationInSeconds => RiftDuration;
     public SOEnemyWave CurrentWave => _currentWave;
+    public float WavesInterval => _currentWave.WaveDuration;
+    public float RestInterval => _restInterval;
     public EnemyBrain[] EnemyPrefabs => _enemyPrefabs;
     public ChunkTileMap[] Chunks => _chunks;
 
     public void Initialize(World world)
     {
         _name = world._name;
-        _wavesInterval = world._wavesInterval;
         _waves = world._waves.Clone() as SOEnemyWave[];
         _chunks = world._chunks.Clone() as ChunkTileMap[];
         _enemyPrefabs = world._enemyPrefabs.Clone() as EnemyBrain[];
@@ -57,6 +56,7 @@ public class World : ScriptableObject
         }
         Debug.Log($"<b>Advancing to wave: {_waves[_currentWaveIndex].name} </b>");
         _currentWave = _waves[_currentWaveIndex];
+        SetRestInterval(_currentWave.WaveDuration);
     }
 
     public void AddNewChunk(ChunkTileMap chunk)
@@ -64,5 +64,10 @@ public class World : ScriptableObject
         if(_chunks.Contains(chunk))return;
         Array.Resize<ChunkTileMap>(ref _chunks, _chunks.Length + 1);
         _chunks[_chunks.Length - 1] = chunk;
+    }
+
+    void SetRestInterval(float waveDuration)
+    {
+        _restInterval = 1f + ((3f + 1f * _currentWave.EnemiesToSpawn) - 50f / waveDuration);
     }
 }

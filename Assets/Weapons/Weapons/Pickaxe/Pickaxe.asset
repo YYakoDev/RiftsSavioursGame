@@ -15,7 +15,6 @@ MonoBehaviour:
   _name: Pickaxe
   _SpriteAndAnimationsData: {fileID: 11400000, guid: 98f3976cc0523d8489adf45498b28895, type: 2}
   _effects:
-  - {fileID: 11400000, guid: f1b3174f673fb1a4b91613d5d1414674, type: 2}
   - {fileID: 11400000, guid: c9c1e59da1cfa0d438f4301a1069edcd, type: 2}
   - {fileID: 11400000, guid: 991c0113af06d224c9168cdf079fb751, type: 2}
   - {fileID: 11400000, guid: 0f1731e4c0912a34eabf484ba539aa9c, type: 2}

@@ -19,7 +19,7 @@ public class EnemyBaseMovement
 
     //KNOCKBACK LOGIC
     private Knockbackeable _knockbackLogic;
-    bool _knockbackEnabled;
+    bool knockbackEnabled;
     public Knockbackeable KnockbackLogic => _knockbackLogic;
 
 
@@ -35,6 +35,7 @@ public class EnemyBaseMovement
         _movementStopTimer = new(0f);
         _movementStopTimer.onEnd += ResumeMovement;
         _movementStopTimer.Stop();
+        knockbackEnabled = false;
     }
 
     public void UpdateLogic()
@@ -45,7 +46,7 @@ public class EnemyBaseMovement
     public void PhysicsLogic()
     {
         if(!Enabled) return;
-        if(_knockbackEnabled) _knockbackLogic.ApplyKnockback();
+        if(knockbackEnabled) _knockbackLogic.ApplyKnockback();
         
     }
 
@@ -60,7 +61,7 @@ public class EnemyBaseMovement
 
     void MoveLogic(Vector2 direction, Vector2 flipDir)
     {
-        if(_stopMovement || _knockbackEnabled) return;
+        if(_stopMovement || knockbackEnabled) return;
         _enemy.Rigidbody.velocity = Vector2.zero;
         //Vector2 directionToMove = _avoidanceBehaviour.ResultDirection * (_enemy.Stats.Speed * Time.fixedDeltaTime);        
         Vector2 directionToMove = direction * (_enemy.Stats.Speed * Time.fixedDeltaTime);
@@ -82,15 +83,9 @@ public class EnemyBaseMovement
     
     void OnKnockbackChange(bool change)
     {
-        _knockbackEnabled = change;
+        knockbackEnabled = change;
         if(!change)Stun(_enemy.Stats.StunDuration); // the !change means the knockback has been deactivated/finished
         //apply knockback/hit animation
-    }
-
-    void StopMovement()
-    {
-        _stopMovement = true;
-        _movementStopTimer.Stop();
     }
 
     void Stun(float duration)
@@ -99,7 +94,7 @@ public class EnemyBaseMovement
         _stopMovement = true;
         _movementStopTimer.ChangeTime(duration);
         _movementStopTimer.Start();
-        _enemy.Animation.ChangeAnimatorSpeed(0.5f, duration + 0.1f);
+        _enemy.Animation?.ChangeAnimatorSpeed(0.5f, duration + 0.1f);
         Iddle(); // <--- hit animation instead of iddle
     }
     public void ResumeMovement()
