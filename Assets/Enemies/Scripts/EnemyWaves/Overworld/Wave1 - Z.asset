@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemiesSignatures: 02000000
   _enemySpawnCooldown: 0.4
-  _enemiesToSpawn: 8
-  _waveDuration: 15
+  _enemiesToSpawn: 9
+  _waveDuration: 20
   _enemiesSpeed: 1

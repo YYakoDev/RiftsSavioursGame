@@ -20,10 +20,7 @@ public class EnemyFlyingMovement : MonoBehaviour, ITargetPositionProvider, IKnoc
 
     private void OnEnable()
     {
-        _movementClass.Enabled = false;
-        _movementClass?.KnockbackLogic.StopKnockback();
-        _movementClass.Enabled = true;
-        _movementClass.ResumeMovement();
+        _movementClass?.OnEnableLogic();
     }
     void Start()
     {

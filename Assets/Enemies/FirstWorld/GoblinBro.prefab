@@ -200,11 +200,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _randomizeStats: 1
-  _speed: 2.08
-  _stunDuration: 0.25
-  _stunResistance: 0
-  _knockbackResistance: 0
-  _maxHealth: 20
+  _speed: 2.1
+  _stunDuration: 0.3
+  _stunResistance: 5
+  _knockbackResistance: 5
+  _maxHealth: 23
   _damage: 1
 --- !u!114 &2108419061
 MonoBehaviour:

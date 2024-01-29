@@ -10,7 +10,10 @@ public class EnemyBaseMovement
     Transform _transform;
     EnemyBrain _enemy;
     SortingOrderController _sortOrderController;
-
+    float _realSpeed;
+    float _elapsedTime = 0f;
+    float _accelerationTime = 1f;
+    AnimationCurve _accelerationCurve;
     //
     Timer _movementStopTimer;
     bool _stopMovement;
@@ -36,6 +39,16 @@ public class EnemyBaseMovement
         _movementStopTimer.onEnd += ResumeMovement;
         _movementStopTimer.Stop();
         knockbackEnabled = false;
+        _accelerationCurve = TweenCurveLibrary.GetCurve(CurveTypes.EaseInOut);
+    }
+
+    public void OnEnableLogic()
+    {
+        Enabled = false;
+        KnockbackLogic.StopKnockback();
+        Enabled = true;
+        ResumeMovement();
+        _elapsedTime = 0;
     }
 
     public void UpdateLogic()
@@ -64,7 +77,10 @@ public class EnemyBaseMovement
         if(_stopMovement || knockbackEnabled) return;
         _enemy.Rigidbody.velocity = Vector2.zero;
         //Vector2 directionToMove = _avoidanceBehaviour.ResultDirection * (_enemy.Stats.Speed * Time.fixedDeltaTime);        
-        Vector2 directionToMove = direction * (_enemy.Stats.Speed * Time.fixedDeltaTime);
+        _elapsedTime += Time.fixedDeltaTime;
+        float percent = _elapsedTime / _accelerationTime;
+        if(percent <= 1.1f)  _realSpeed = Mathf.Lerp(0, _enemy.Stats.Speed, _accelerationCurve.Evaluate(percent));
+        Vector2 directionToMove = direction * (_realSpeed * Time.fixedDeltaTime);
         if(directionToMove == Vector2.zero) return;
         _enemy.Rigidbody.MovePosition((Vector2)_transform.position + directionToMove);
 
@@ -92,9 +108,11 @@ public class EnemyBaseMovement
     {
         if(!Enabled) return;
         _stopMovement = true;
-        _movementStopTimer.ChangeTime(duration);
+        float realDuration = duration - duration * _enemy.Stats.StunResistance / 100f;
+        _movementStopTimer.ChangeTime(realDuration);
         _movementStopTimer.Start();
-        _enemy.Animation?.ChangeAnimatorSpeed(0.5f, duration + 0.1f);
+        _enemy.Animation?.ChangeAnimatorSpeed(0.5f, realDuration + 0.1f);
+        _elapsedTime = _accelerationTime / 2f + _accelerationTime * _enemy.Stats.StunResistance / 100f;
         Iddle(); // <--- hit animation instead of iddle
     }
     public void ResumeMovement()

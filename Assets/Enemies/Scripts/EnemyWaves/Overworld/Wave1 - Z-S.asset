@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Wave1 - Z-S
   m_EditorClassIdentifier: 
   _enemiesSignatures: 0300000002000000
-  _enemySpawnCooldown: 0.988
-  _enemiesToSpawn: 6
-  _waveDuration: 25
+  _enemySpawnCooldown: 0.88
+  _enemiesToSpawn: 7
+  _waveDuration: 30
   _enemiesSpeed: 1

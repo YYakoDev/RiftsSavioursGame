@@ -18,11 +18,7 @@ public class EnemyMovement : MonoBehaviour, IKnockback, IEnemyMovement
         gameObject.CheckComponent<AvoidanceBehaviourBrain>(ref _avoidanceBehaviour);
     }
     private void OnEnable() {
-        if(_movementClass == null) return;
-        _movementClass.Enabled = false;
-        _movementClass?.KnockbackLogic.StopKnockback();
-        _movementClass.Enabled = true;
-        _movementClass?.ResumeMovement();
+        _movementClass?.OnEnableLogic();
     }
     private void Update() {
         _movementClass.UpdateLogic();

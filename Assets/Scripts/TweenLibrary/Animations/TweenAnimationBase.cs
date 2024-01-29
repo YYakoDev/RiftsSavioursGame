@@ -10,6 +10,7 @@ public abstract class TweenAnimationBase
     protected Action _onComplete;
 
     public bool Loop => _loop;
+    public float Percent => _percent;
 
     public TweenAnimationBase(TweenAnimator animator)
     {

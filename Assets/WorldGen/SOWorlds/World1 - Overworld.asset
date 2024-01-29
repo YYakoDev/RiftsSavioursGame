@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: World1 - Overworld
   m_EditorClassIdentifier: 
   _name: Overworld
-  _restInterval: 15
   _waves:
   - {fileID: 11400000, guid: 0413687fd332e7d468b0cb4c327a0c3d, type: 2}
+  - {fileID: 11400000, guid: f09782490aaf4934780b08afada760f2, type: 2}
   - {fileID: 11400000, guid: 98c067d14ad053b4bbcb7f226d4a5fc0, type: 2}
   - {fileID: 11400000, guid: c0e5d5754ca67a94c9c4396642a97c12, type: 2}
   - {fileID: 11400000, guid: 4be05f6db21bd2740a26b54eecc4f6a8, type: 2}

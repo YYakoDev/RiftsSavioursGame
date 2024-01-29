@@ -131,7 +131,7 @@ public class TweenAnimator : MonoBehaviour
         SwitchCurrentAnimation(anim); 
     }
 
-    void SwitchCurrentAnimation(TweenAnimationBase animationBase)
+    protected virtual void SwitchCurrentAnimation(TweenAnimationBase animationBase)
     {
         _animationQueue.Enqueue(animationBase);
         TryPlayNext();
@@ -152,7 +152,7 @@ public class TweenAnimator : MonoBehaviour
         _isAnimationPlaying = state;
     }
 
-    public void AnimationComplete()
+    public virtual void AnimationComplete()
     {
         _isAnimationPlaying = false;
         TryPlayNext();

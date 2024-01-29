@@ -201,7 +201,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _randomizeStats: 1
   _speed: 2.52
-  _maxHealth: 10
+  _stunDuration: 0.3
+  _stunResistance: 10
+  _knockbackResistance: 0
+  _maxHealth: 11
   _damage: 1
 --- !u!114 &2108419061
 MonoBehaviour:
@@ -215,7 +218,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46e6c5e658e00ce4eb562c4e7ad1eebe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _offsetSortOrderPosition: 0.25
+  _avoidanceBehaviour: {fileID: 0}
 --- !u!58 &2803423104678018290
 CircleCollider2D:
   m_ObjectHideFlags: 0

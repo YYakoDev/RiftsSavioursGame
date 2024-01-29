@@ -199,9 +199,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c6a91d3aecd45e48ac4985c79230807, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _randomizeStats: 0
-  _speed: 1.85
-  _maxHealth: 40
+  _randomizeStats: 1
+  _speed: 2
+  _stunDuration: 0.3
+  _stunResistance: 35
+  _knockbackResistance: 76
+  _maxHealth: 45
   _damage: 3
 --- !u!114 &2108419061
 MonoBehaviour:
@@ -215,7 +218,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46e6c5e658e00ce4eb562c4e7ad1eebe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _offsetSortOrderPosition: 0.25
+  _avoidanceBehaviour: {fileID: 0}
 --- !u!114 &7366686537130794102
 MonoBehaviour:
   m_ObjectHideFlags: 0

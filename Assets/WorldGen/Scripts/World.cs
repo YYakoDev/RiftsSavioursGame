@@ -68,6 +68,7 @@ public class World : ScriptableObject
 
     void SetRestInterval(float waveDuration)
     {
-        _restInterval = 1f + ((3f + 1f * _currentWave.EnemiesToSpawn) - 50f / waveDuration);
+        if(_currentWaveIndex % 3 == 0) _restInterval = 1f + ((3f + 1f * _currentWave.EnemiesToSpawn) - 50f / waveDuration);
+        else _restInterval = 0.1f;
     }
 }

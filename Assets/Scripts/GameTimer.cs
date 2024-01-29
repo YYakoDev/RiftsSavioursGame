@@ -35,14 +35,14 @@ public class GameTimer : MonoBehaviour
             //also advance the world into a new scene or fire an event?
             onRiftTimerEnd?.Invoke();
         }
-        UpdateTimer();
+        UpdateRiftTimer();
         UpdateWaveInterval();
         UpdateRestInterval();
     }
 
-    void UpdateTimer()
+    void UpdateRiftTimer()
     {
-        _currentRiftTime -= 1 * Time.deltaTime;
+        _currentRiftTime -= Time.deltaTime;
     }
 
     void UpdateWaveInterval()
@@ -53,7 +53,7 @@ public class GameTimer : MonoBehaviour
         {
             //_waveIntervalTime = _currentWorld.WavesInterval;
             _restInterval = _currentWorld.RestInterval;
-            Debug.Log("Starting Rest");
+            //Debug.Log("Starting Rest");
             OnRestStart?.Invoke(_restInterval);
             onWaveIntervalEnd?.Invoke();
         }

@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 931b96bd6377f414c80f00c7b67ed1c2, type: 3}
-  m_Name: Wave1 - Z-S-M
+  m_Name: Wave 1 - G
   m_EditorClassIdentifier: 
-  _enemiesSignatures: 04000000030000000200000002000000
-  _enemySpawnCooldown: 0.75
-  _enemiesToSpawn: 8
-  _waveDuration: 35
+  _enemiesSignatures: 0500000005000000
+  _enemySpawnCooldown: 0.77
+  _enemiesToSpawn: 2
+  _waveDuration: 15
   _enemiesSpeed: 1
