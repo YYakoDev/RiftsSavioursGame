@@ -2,10 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
 
-public class UpgradeItemPrefab : MonoBehaviour
+public class UpgradeItemPrefab : MonoBehaviour, ISelectHandler
 {
     [SerializeField] private RectTransform _itemsParent;
     [SerializeField] private TextMeshProUGUI _upgradeName;
@@ -52,6 +53,9 @@ public class UpgradeItemPrefab : MonoBehaviour
             return;
         }
         CheckCostItems();
+
+        SetTextMeshAutoSize(true);
+        StartCoroutine(DisableAutoSize());
     }
 
     private void OnEnable()
@@ -179,6 +183,18 @@ public class UpgradeItemPrefab : MonoBehaviour
         _upgradeName.enableAutoSizing = state;
         if(_instantiatedDescriptions == null) return;
         foreach(TextMeshProUGUI text in _instantiatedDescriptions) text.enableAutoSizing = state;
-    }        
-    
+    }
+
+    public void OnSelect(BaseEventData eventData)
+    {
+        StartCoroutine(SelectButton());
+    }
+
+    IEnumerator SelectButton()
+    {
+        yield return null;
+        yield return null;
+        yield return null;
+        EventSystem.current.SetSelectedGameObject(_craftUpgradeButton.gameObject);
+    }
 }

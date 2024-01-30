@@ -23,7 +23,7 @@ public class YYInputManager : MonoBehaviour
     private void Awake() {
         if(i != null && i != this) Destroy(this);
         else i = this;
-        DontDestroyOnLoad(i);//
+        //DontDestroyOnLoad(i);//
         KeyInputs = _keys; // if you have a save system this is where you would change the keycodes to the saved ones (modified by the player)
     }
 
@@ -65,7 +65,7 @@ public class YYInputManager : MonoBehaviour
         return key;
     }
 
-    private static void ResumeInput() => _stopInput = false;
+    public static void ResumeInput() => _stopInput = false;
     public static void StopInput() => _stopInput = true;
     
     public static void StopInput(float duration)

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class TimerUI : MonoBehaviour
 {
-    [SerializeField] GameTimer _gameTimer;
+    [SerializeField] GameStateManager _gameTimer;
     [SerializeField]Image _img;
     float currentRiftTime => _gameTimer.CurrentRiftTime;
     // Update is called once per frame

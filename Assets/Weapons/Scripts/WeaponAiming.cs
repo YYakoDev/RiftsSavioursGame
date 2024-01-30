@@ -131,7 +131,7 @@ private void FixedUpdate()
         for(int i = 0; i < _resultsCount; i++)
         {
             if(!_targetsDetected[i].isTrigger || !_targetsDetected[i].gameObject.activeInHierarchy) continue;
-            var distanceToEnemy = Vector3.Distance(_targetsDetected[i].bounds.center, transform.position);
+            var distanceToEnemy = Vector3.Distance(_targetsDetected[i].transform.position, transform.position);
             if(distanceToEnemy < distance)
             {
                 distance = distanceToEnemy;

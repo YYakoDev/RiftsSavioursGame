@@ -2,34 +2,43 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using Random = UnityEngine.Random;
 
+[RequireComponent(typeof(LevelUpSequence))]
 public class UpgradesMenu : MonoBehaviour
 {
     [SerializeField]private RectTransform _upgradesMenu;
-    [SerializeField]private RectTransform _upgradesContainer;
+    [SerializeField]private UpgradeUILayout _upgradesContainer;
+    [SerializeField]private Button _continueButton;
     [SerializeField]private UpgradeMenuAnimations _animations;
     [SerializeField]private UpgradeItemPrefab _upgradeItemPrefab;
     [SerializeField]SOPossibleUpgradesList _possibleUpgradesList; // from here you should grab an x number of upgrades and show them everytime you open the menu
     [SerializeField]SOPlayerInventory _playerInventory;
+    LevelUpSequence _levelupSequence;
     const int selectionCount = 3;
     [SerializeField]int _choicesAmount = 3;
     [SerializeField,ReadOnly]int _craftingAttempts = 0;
-    bool _isMenuActive = false;
     private SOUpgradeBase[] _selectedUpgrades;
     private UpgradeItemPrefab[] _instantiatedItems;
 
     [SerializeField]bool _activeMenuOnStart = false;
+    public event Action OnMenuClose;
+
 
     [Header("VFX & SFX")]
     [SerializeField]AudioSource _audio;
     [SerializeField]AudioClip _openingSound, _closingSound;
 
-
-
     //cursor stuff
     bool _previousCursorState;
     CursorLockMode _previousCursorLockMode;
+
+
+    private void Awake() {
+        _levelupSequence = GetComponent<LevelUpSequence>();
+    }
 
     private void Start() {
         if(_playerInventory == null || _possibleUpgradesList == null)
@@ -38,31 +47,30 @@ public class UpgradesMenu : MonoBehaviour
             DeactivateUpgradeMenu();
             this.enabled = false;
         }
-        PlayerLevelManager.onLevelUp += ActivateUpgradeMenu;
+        //PlayerLevelManager.onLevelUp += ActivateUpgradeMenu;
         _selectedUpgrades = new SOUpgradeBase[selectionCount];
         CreateUpgradeItems();
-        if(_activeMenuOnStart)
-        {
-            //CreateUpgradeItems();
-            ActivateUpgradeMenu();
-        }
+        if(_activeMenuOnStart) ActivateUpgradeMenu();
+        else _upgradesMenu.gameObject.SetActive(false);
     }
 
-    public void ActivateUpgradeMenu()
+    public void DoLevelUpSequence()
     {
-        if(_isMenuActive)
-        {
-            Debug.Log("UPGRADE MENU IS ALREADY ACTIVE, queueing another level up");
-            //do the queue here mf
-            return;
-        }
+        YYInputManager.StopInput();
+        _upgradesContainer.SetStopTimer(0.5f);
+        _levelupSequence.Play(ActivateUpgradeMenu);
+    }
+
+    void ActivateUpgradeMenu()
+    {
+        TimeScaleManager.ForceTimeScale(0);
+
         _craftingAttempts = 0;
         PickRandomUpgrades();
         CheckCreatedItems();
-        _isMenuActive = true;
         _upgradesMenu.gameObject.SetActive(true);
-        _animations.ClearAnimations();
-        _animations.PlayAnimations();
+        //_animations.ClearAnimations();
+        //_animations.PlayAnimations();
         _audio.PlayWithVaryingPitch(_openingSound);
         //Cursor stuff
         _previousCursorState = Cursor.visible;
@@ -70,7 +78,7 @@ public class UpgradesMenu : MonoBehaviour
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
 
-        TimeScaleManager.ForceTimeScale(0);
+
         
         //do the setup here and get the possible upgrades and show 3
         //every time the player gets an upgrade they are "popped" from the list
@@ -104,6 +112,7 @@ public class UpgradesMenu : MonoBehaviour
     void CheckCreatedItems()
     {
         if(_instantiatedItems == null) CreateUpgradeItems();
+        bool playerHasEnoughMaterials = false;
         for (int i = 0; i < _instantiatedItems.Length; i++)
         {
             _instantiatedItems[i].gameObject.SetActive(true);
@@ -114,7 +123,9 @@ public class UpgradesMenu : MonoBehaviour
                 continue;
             }
             _instantiatedItems[i].Initialize(_playerInventory, _selectedUpgrades[i], CraftUpgrade, i);
+            if (_instantiatedItems[i].CraftBtn.interactable) playerHasEnoughMaterials = true;
         }
+        if(!playerHasEnoughMaterials) ChangeFocusToContinueButton();
     }
     public void CraftUpgrade(SOUpgradeBase upgradeToCraft, int uiItemIndex) //this method is being called by the upgrade button on the canvas
     {
@@ -167,10 +178,17 @@ public class UpgradesMenu : MonoBehaviour
     void RecalculateCosts()
     {
         if (_instantiatedItems == null) return;
+
         foreach (var item in _instantiatedItems)
         {
             item.RecalculateCosts();
+
         }
+    }
+
+    void ChangeFocusToContinueButton()
+    {
+        EventSystem.current.SetSelectedGameObject(_continueButton.gameObject);
     }
 
     void CreateUpgradeItems()
@@ -182,28 +200,31 @@ public class UpgradesMenu : MonoBehaviour
             _instantiatedItems[i] = Instantiate(_upgradeItemPrefab, cachedTransform);
             _instantiatedItems[i].gameObject.SetActive(true);
         }
+        _upgradesContainer.SetElements(_instantiatedItems);
     }
 
     public void DeactivateUpgradeMenu()
     {
         //when closing you should check if you have another levelup in the queue so you can do the multiple level up
         _audio.PlayWithVaryingPitch(_closingSound);
-        _animations.PlayCloseAnimations(Resume);
+        //_animations.PlayCloseAnimations(Resume);
+        _upgradesMenu.gameObject.SetActive(false);
+        Resume();
         Cursor.visible = _previousCursorState;
         Cursor.lockState = _previousCursorLockMode;
-
+        OnMenuClose?.Invoke();
+        YYInputManager.ResumeInput();
     }
 
     void Resume()
     {
         TimeScaleManager.ForceTimeScale(1);
-        _isMenuActive = false;
     }
 
 
     private void OnDestroy()
     {
-        PlayerLevelManager.onLevelUp -= ActivateUpgradeMenu;
+        //PlayerLevelManager.onLevelUp -= ActivateUpgradeMenu;
     }
 
 }

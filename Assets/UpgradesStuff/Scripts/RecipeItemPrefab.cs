@@ -20,6 +20,7 @@ public class RecipeItemPrefab : MonoBehaviour
     {
         i_itemIcon.sprite = requirement.CraftingMaterial.Sprite;
         Color costTextColor = (ownedMaterials >= requirement.Cost) ? UIColors.GetColor() : UIColors.GetColor(UIColor.Red);
+        if(ownedMaterials >= 1000) ownedMaterials = 1000;
         t_craftingCost.text = $"{ownedMaterials}/{requirement.Cost}";
         t_craftingCost.color = costTextColor;
     }

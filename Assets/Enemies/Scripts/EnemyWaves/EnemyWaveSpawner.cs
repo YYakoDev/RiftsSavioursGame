@@ -41,8 +41,7 @@ public class EnemyWaveSpawner : MonoBehaviour
 
         _nextSpawnTime = _spawnCooldown;
 
-        GameTimer.onWaveIntervalEnd += _currentWorld.AdvanceWave;
-        GameTimer.OnRestStart += StopSpawning;
+        GameStateManager.OnRestStart += StopSpawning;
         _stopSpawningTimer.onEnd += ResumeSpawning;
 
         SelectSpawnPosition();
@@ -96,7 +95,7 @@ public class EnemyWaveSpawner : MonoBehaviour
 
     void StopSpawning(float time)
     {
-        _stopSpawningTimer.ChangeTime(time);
+        _stopSpawningTimer.ChangeTime(time + 0.5f);
         _stopSpawningTimer.Start();
         _stopped = true;
     }
@@ -124,8 +123,7 @@ public class EnemyWaveSpawner : MonoBehaviour
 
     private void OnDestroy()
     {
-        GameTimer.onWaveIntervalEnd -= _currentWorld.AdvanceWave;
-        GameTimer.OnRestStart -= StopSpawning;
+        GameStateManager.OnRestStart -= StopSpawning;
         _stopSpawningTimer.onEnd -= ResumeSpawning;
     }
 
