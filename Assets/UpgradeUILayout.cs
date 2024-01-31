@@ -13,8 +13,8 @@ public class UpgradeUILayout : MonoBehaviour
 
     [Header("Navigation Stuff")]
     [SerializeField] Vector2 _behindScale;
-    [SerializeField]RectTransform[] _upgradeElements = new RectTransform[3];
-    [SerializeField]RectTransform[] _bottomButtons = new RectTransform[0];
+    [SerializeField] RectTransform[] _upgradeElements = new RectTransform[3];
+    [SerializeField] RectTransform[] _bottomButtons = new RectTransform[0];
     RectTransform[] _currentGroup;
     [SerializeField] Vector3[] _upgradesBackPositions = new Vector3[2];
     Vector3[] _positions;
@@ -34,23 +34,25 @@ public class UpgradeUILayout : MonoBehaviour
         set
         {
             _currentIndex = value;
-            if(value < 0) _currentIndex = _upgradeElements.Length - 1;
-            if(value >= _upgradeElements.Length) _currentIndex = 0;
+            if (value < 0) _currentIndex = _upgradeElements.Length - 1;
+            if (value >= _upgradeElements.Length) _currentIndex = 0;
         }
     }
 
 
-    private void Awake() {
+    private void Awake()
+    {
         Initialize();
     }
 
-    private void Start() {
+    private void Start()
+    {
         _eventSystem = EventSystem.current;
     }
 
     void Initialize()
     {
-        if(_initialized) return;
+        if (_initialized) return;
         _initialized = true;
 
         _animator = this.CheckOrAddComponent<TweenAnimatorMultiple>();
@@ -88,22 +90,22 @@ public class UpgradeUILayout : MonoBehaviour
     void Update()
     {
         _stopTimer.UpdateTime();
-        if(_stop) return;
+        if (_stop) return;
         _verticalDirection = Input.GetAxisRaw("Vertical");
         _inputDirection = Input.GetAxisRaw("Horizontal");
-        if(_inputDirection != 0) SwitchUIElement();
-        if(_verticalDirection != 0) SwitchGroup();
+        if (_inputDirection != 0) SwitchUIElement();
+        if (_verticalDirection != 0) SwitchGroup();
     }
 
     void SwitchUIElement()
     {
-        if(_inputDirection > 0.1f) CurrentIndex++;
+        if (_inputDirection < -0.01f) CurrentIndex++;
         else CurrentIndex--;
 
         SetStopTimer(_movementAnimDuration + 0.1f);
         GameObject selectedElement = null;
 
-        if(_currentGroup == _upgradeElements)
+        if (_currentGroup == _upgradeElements)
         {
             for (int i = 0; i < _upgradeElements.Length; i++)
             {
@@ -112,16 +114,16 @@ public class UpgradeUILayout : MonoBehaviour
                 Vector3 scale = (CurrentIndex == 1) ? Vector3.one : _behindScale;
                 PlayMovementAnimation(element, position);
                 PlayScaleAnimation(element, scale);
-                if(CurrentIndex == 1) selectedElement = element.gameObject;
+                if (CurrentIndex == 1) selectedElement = element.gameObject;
                 CurrentIndex++;
             }
         }
-        else if(_currentGroup == _bottomButtons)
+        else if (_currentGroup == _bottomButtons)
         {
             selectedElement = _bottomButtons[0].gameObject;
         }
 
-        if(selectedElement != null) SwitchFocus(selectedElement);
+        if (selectedElement != null) SwitchFocus(selectedElement);
     }
 
     void SwitchFocus(GameObject selectedElement)
@@ -132,7 +134,7 @@ public class UpgradeUILayout : MonoBehaviour
     void SwitchGroup()
     {
         var group = (_verticalDirection > 0.1f) ? _upgradeElements : _bottomButtons;
-        if(group == _currentGroup) return;
+        if (group == _currentGroup) return;
         SetStopTimer(0.2f);
         _currentGroup = group;
         for (int i = 0; i < _currentGroup.Length; i++)
@@ -160,6 +162,12 @@ public class UpgradeUILayout : MonoBehaviour
     {
         _stopTimer.ChangeTime(time);
         _stopTimer.Start();
+    }
+
+    public void ResumeInput()
+    {
+        _stopTimer.Stop();
+        Resume();
     }
 
     void Stop() => _stop = true;

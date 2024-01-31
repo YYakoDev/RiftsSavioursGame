@@ -37,4 +37,9 @@ public class TweenAnimatorMultiple : TweenAnimator
             if(animation.Percent >= 1f) _animations[i] = null;
         }
     }
+
+    public override void Clear()
+    {
+        _animations = new TweenAnimationBase[0];
+    }
 }

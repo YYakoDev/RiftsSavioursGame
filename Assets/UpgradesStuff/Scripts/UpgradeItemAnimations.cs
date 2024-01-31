@@ -20,7 +20,7 @@ public class UpgradeItemAnimations : MonoBehaviour
         _animationTimer.onEnd += ActivateUiItems;
         _animationTimer.Stop();
         _menuAnimations = go.transform.parent.GetComponentInParent<UpgradeMenuAnimations>();
-        _menuAnimations.OnOpenAnimationFinish += PlayAnimations;
+        //_menuAnimations.OnOpenAnimationFinish += PlayAnimations;
     }
 
     private void Update() {
@@ -56,7 +56,7 @@ public class UpgradeItemAnimations : MonoBehaviour
 
     private void OnDestroy() {
         _animationTimer.onEnd -= ActivateUiItems;
-        _menuAnimations.OnOpenAnimationFinish -= PlayAnimations;
+        //_menuAnimations.OnOpenAnimationFinish -= PlayAnimations;
     }
 
     

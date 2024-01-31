@@ -7,13 +7,13 @@ public class PlayerUpgradesManager : MonoBehaviour
 
     [SerializeField]PlayerManager _playerManager;
     [SerializeField]SOPossibleUpgradesList _possibleUpgradesList;
-    SOUpgradeBase[] _equipedUpgrades;
+    //SOUpgradeBase[] _equipedUpgrades;
 
     //properties
     //public SOUpgradeBase[] PossibleUpgrades => _possibleUpgrades;
-    public SOPossibleUpgradesList PossibleUpgradesList => _possibleUpgradesList;
-    public SOUpgradeBase[] EquippedUpgrades => _equipedUpgrades;
-    public SOPlayerStats Stats => _playerManager.Stats;
+    //public SOPossibleUpgradesList PossibleUpgradesList => _possibleUpgradesList;
+    //public SOUpgradeBase[] EquippedUpgrades => _equipedUpgrades;
+    //public SOPlayerStats Stats => _playerManager.Stats;
 
 
     private void Awake()

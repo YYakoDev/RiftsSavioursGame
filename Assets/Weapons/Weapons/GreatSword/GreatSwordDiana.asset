@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 93fe133b00f61ba4cb106b67db658a5b, type: 3}
-  m_Name: GreatSwordDoubleAttack
+  m_Name: GreatSwordDiana
   m_EditorClassIdentifier: 
-  _name: GreatSword
+  _name: Diana
   _SpriteAndAnimationsData: {fileID: 11400000, guid: c4a6ab0ca1fb6634ab614941446af409, type: 2}
   _effects:
   - {fileID: 11400000, guid: bc668329a2d90574a91d7f07ac9991c9, type: 2}
@@ -33,7 +33,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 9a2ca58f29ba35f448ab633a27613e31, type: 3}
   _pointCameraOnAttack: 1
   _attackCooldown: 0.77
-  _pullForce: 2.1
+  _pullForce: 1.58
   _pullDuration: 0.259
   _attackRange: 2
   _attackSpeed: 0.81

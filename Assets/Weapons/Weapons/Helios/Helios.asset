@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 93fe133b00f61ba4cb106b67db658a5b, type: 3}
-  m_Name: SunTouchedBlade
+  m_Name: Helios
   m_EditorClassIdentifier: 
-  _name: SunTouchedBlade
+  _name: Helios
   _SpriteAndAnimationsData: {fileID: 11400000, guid: a9b4cb78cbdc1d549ae8dcf73f6b73cb, type: 2}
   _effects:
   - {fileID: 11400000, guid: 23196116de9b69d47a045c9e6a9b7e11, type: 2}

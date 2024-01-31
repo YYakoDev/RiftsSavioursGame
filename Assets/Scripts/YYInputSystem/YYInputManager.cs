@@ -28,7 +28,8 @@ public class YYInputManager : MonoBehaviour
     }
 
     private void Start() {
-   
+
+        ResumeInput();
         _stopInputTime = new(0f);
         _stopInputTime.Stop();
         _stopInputTime.onEnd += ResumeInput;

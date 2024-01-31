@@ -29,7 +29,7 @@ public class TweenAnimator : MonoBehaviour
     }
 
 
-    public void Clear()
+    public virtual void Clear()
     {
         SetAnimatorState(false);
         _animationQueue.Clear();
@@ -53,15 +53,34 @@ public class TweenAnimator : MonoBehaviour
 
         if(iteration >= maxIterations)
         {
-            onBounceComplete?.Invoke();
+            MoveTo(rect, endPos, duration / maxIterations, onComplete: onBounceComplete);
             return;   
         }
         int sign = (iteration % 2 == 0) ? -1 : 1;
-        offset *= sign * (1f / iteration * 1.1f);
+        offset *= sign / (iteration * 1.4f);
         float timeDivision = iteration * 1.75f;
         MoveTo(rect, endPos + offset, duration / timeDivision, onComplete: () => 
         {
             TweenMoveToBouncy(rect, endPos, offset, duration, iteration, maxIterations, curve, loop, onBounceComplete);
+        });
+    }
+
+    public void TweenScaleBouncy(RectTransform rect, Vector3 endScale, Vector3 offset, float duration, int iteration, int maxIterations,
+    CurveTypes curve = CurveTypes.EaseInOut, bool loop = false, Action onBounceComplete = null)
+    {
+        iteration++;
+
+        if(iteration >= maxIterations)
+        {
+            Scale(rect, endScale, duration / maxIterations, onComplete: onBounceComplete);
+            return;   
+        }
+        int sign = (iteration % 2 == 0) ? -1 : 1;
+        offset *= sign * (1f / iteration);
+        float timeDivision = iteration * 1.75f;
+        Scale(rect, endScale + offset, duration / timeDivision, onComplete: () => 
+        {
+            TweenScaleBouncy(rect, endScale, offset, duration, iteration, maxIterations, curve, loop, onBounceComplete);
         });
     }
 

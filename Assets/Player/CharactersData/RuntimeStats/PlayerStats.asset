@@ -12,23 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc8b826c734252e40b580fc4ef82deb2, type: 3}
   m_Name: PlayerStats
   m_EditorClassIdentifier: 
-  _maxHealth: 100
-  _currentHealth: 98
-  _level: 2
-  _currentXP: 0
-  _xpToNextLevel: 25
+  _maxHealth: 320
+  _currentHealth: 311
+  _level: 1
+  _currentXP: 30
+  _xpToNextLevel: 100
   _speed: 5
-  _accelerationTime: 0.66
-  _slowdownMultiplier: 0.5
-  _pickUpRange: 1.5
-  _collectingRange: 3
+  _accelerationTime: 0.94
+  _slowdownMultiplier: 0.28
+  _pickUpRange: 5
+  _collectingRange: 3.91
   _collectingDamage: 1
-  _interactCooldown: 0.65
+  _interactCooldown: 0.8
   _maxResourceInteractions: 1
   _weapons:
-  - {fileID: 11400000, guid: 8f2b993e04490be4a95cc0b86f217589, type: 2}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 8390c2ced3f8d9c4c812adc9b4489ea0, type: 2}
+  - {fileID: 11400000, guid: 8390c2ced3f8d9c4c812adc9b4489ea0, type: 2}
   _attackStats: {fileID: 11400000, guid: 5c0efc2d47ffa234c9cfe266e112553e, type: 2}
   _stunResistance: 0
   _knockbackResistance: 10

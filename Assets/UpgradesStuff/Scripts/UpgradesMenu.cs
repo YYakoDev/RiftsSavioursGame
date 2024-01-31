@@ -28,8 +28,8 @@ public class UpgradesMenu : MonoBehaviour
 
 
     [Header("VFX & SFX")]
-    [SerializeField]AudioSource _audio;
-    [SerializeField]AudioClip _openingSound, _closingSound;
+    //[SerializeField]AudioSource _audio;
+    //[SerializeField]AudioClip _openingSound, _closingSound;
 
     //cursor stuff
     bool _previousCursorState;
@@ -50,28 +50,36 @@ public class UpgradesMenu : MonoBehaviour
         //PlayerLevelManager.onLevelUp += ActivateUpgradeMenu;
         _selectedUpgrades = new SOUpgradeBase[selectionCount];
         CreateUpgradeItems();
-        if(_activeMenuOnStart) ActivateUpgradeMenu();
+        if(_activeMenuOnStart) PlayMenuAnimations();
         else _upgradesMenu.gameObject.SetActive(false);
     }
 
     public void DoLevelUpSequence()
     {
         YYInputManager.StopInput();
-        _upgradesContainer.SetStopTimer(0.5f);
-        _levelupSequence.Play(ActivateUpgradeMenu);
+        _upgradesContainer.SetStopTimer(4f);
+        _levelupSequence.Play(PlayMenuAnimations);
+    }
+
+    void PlayMenuAnimations()
+    {
+        _animations.SetElements(_instantiatedItems);
+        _upgradesMenu.gameObject.SetActive(true);
+        _animations.Play(ActivateUpgradeMenu);
     }
 
     void ActivateUpgradeMenu()
     {
         TimeScaleManager.ForceTimeScale(0);
-
+        _upgradesContainer.ResumeInput();
         _craftingAttempts = 0;
         PickRandomUpgrades();
         CheckCreatedItems();
-        _upgradesMenu.gameObject.SetActive(true);
+
         //_animations.ClearAnimations();
         //_animations.PlayAnimations();
-        _audio.PlayWithVaryingPitch(_openingSound);
+        //_audio.PlayWithVaryingPitch(_openingSound);
+        
         //Cursor stuff
         _previousCursorState = Cursor.visible;
         _previousCursorLockMode = Cursor.lockState;
@@ -130,7 +138,7 @@ public class UpgradesMenu : MonoBehaviour
     public void CraftUpgrade(SOUpgradeBase upgradeToCraft, int uiItemIndex) //this method is being called by the upgrade button on the canvas
     {
         _craftingAttempts++;
-        _audio.PlayWithVaryingPitch(_closingSound);
+        //_audio.PlayWithVaryingPitch(_closingSound);
         foreach (UpgradeCost requirement in upgradeToCraft.Costs)
         {
             if (requirement.Cost <= 0) continue;
@@ -206,9 +214,10 @@ public class UpgradesMenu : MonoBehaviour
     public void DeactivateUpgradeMenu()
     {
         //when closing you should check if you have another levelup in the queue so you can do the multiple level up
-        _audio.PlayWithVaryingPitch(_closingSound);
+        //_audio.PlayWithVaryingPitch(_closingSound);
         //_animations.PlayCloseAnimations(Resume);
         _upgradesMenu.gameObject.SetActive(false);
+        _levelupSequence.DisableVisuals();
         Resume();
         Cursor.visible = _previousCursorState;
         Cursor.lockState = _previousCursorLockMode;

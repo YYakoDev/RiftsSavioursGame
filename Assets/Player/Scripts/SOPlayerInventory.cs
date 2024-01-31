@@ -61,7 +61,7 @@ public class SOPlayerInventory : ScriptableObject
             _equippedUpgrades.Add(upgrade, 1);
         }
         onUpgradeAdded?.Invoke(upgrade);
-        Debug.Log($"added {upgrade.name} upgrade and now you have {_equippedUpgrades[upgrade]}");
+        //Debug.Log($"added {upgrade.name} upgrade and now you have {_equippedUpgrades[upgrade]}");
         upgrade.ApplyEffect(_upgradesManager);
     }
 }

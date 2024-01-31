@@ -17,6 +17,8 @@ public class LevelUpSequence : MonoBehaviour
     [SerializeField] Image _levelUpBG;
     [SerializeField] Image _anvilImg;
     [SerializeField] Animator _anvilAnimator;
+    [SerializeField] Image _anvilFX;
+    [SerializeField] Animator _anvilFxAnimator;
     [SerializeField] Transform _playerTransform;
     [SerializeField] LayerMask _enemyLayer;
     TweenAnimatorMultiple _animator;
@@ -32,8 +34,9 @@ public class LevelUpSequence : MonoBehaviour
     int _flashAttempts = 0, _maxFlashAttempts = 2;
 
 
-    [Header("Audio Stuff")]
+    [Space]
     [SerializeField] AudioSource _audioSource;
+    [SerializeField] AudioClip _anvilFallSfx, _anvilFallingSfx, _levelUpSfx, _flashSfx;
 
     bool _hasLeveledUp = false;
 
@@ -54,10 +57,12 @@ public class LevelUpSequence : MonoBehaviour
     private void Start() {
         if(_playerTransform == null) _playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         if(_playOnStart) Play(null);
+        else DisableVisuals();
     }
 
     void SetInitialStates()
     {
+        _animator.Clear();
         _visualsParent.SetActive(true);
         var newColor = _levelUpImg.color;
         newColor.a = 0;
@@ -84,9 +89,10 @@ public class LevelUpSequence : MonoBehaviour
         if(!_hasLeveledUp)
         {
             onComplete?.Invoke();
-            _visualsParent.SetActive(false);
+            //_visualsParent.SetActive(false);
             return;
         }
+        PlayAudio(_levelUpSfx);
         _animator?.TweenImageOpacity(_levelUpImg.rectTransform, 255, _levelTxtFadeInDuration, onComplete: () => 
         {
             //this animation is only being played because i need the oncomplete to happen after a certain time, is a fake animation if you will
@@ -94,7 +100,7 @@ public class LevelUpSequence : MonoBehaviour
             {
                 onComplete?.Invoke();
                 _hasLeveledUp = false;
-                _visualsParent.SetActive(false);
+                //_visualsParent.SetActive(false);
             });
         });
         _levelUpTxtAnimator.enabled = true;
@@ -105,6 +111,8 @@ public class LevelUpSequence : MonoBehaviour
 
     void StartFlash()
     {
+        //do the flash sfxs here
+        PlayAudio(_flashSfx);
         _animator?.TweenImageOpacity(_levelUpBG.rectTransform, _flashOpacity, _flashDuration, onComplete: () =>
         {
             _animator?.TweenImageOpacity(_levelUpBG.rectTransform, 0, _flashDuration / 3f);
@@ -125,11 +133,22 @@ public class LevelUpSequence : MonoBehaviour
     {
         _anvilAnimator.enabled = true;
         _anvilAnimator.Play("Animation");
-        _animator?.TweenMoveToBouncy(_anvilImg.rectTransform, Vector3.zero + _anvilOffset, Vector3.down * 8f, _anvilFallDuration, 0, 4, curve: CurveTypes.Linear, onBounceComplete: () => 
+        _anvilFxAnimator.enabled = true;
+        _anvilFxAnimator.Play("Animation");
+        PlayAudio(_anvilFallingSfx);
+        StartCoroutine(PlayFallSFX(_anvilFallDuration / 1.3f));
+        _animator?.TweenMoveToBouncy(_anvilImg.rectTransform, Vector3.zero + _anvilOffset, Vector3.down * 25f, _anvilFallDuration, 0, 3, curve: CurveTypes.Linear, onBounceComplete: () => 
         {
+
             onComplete?.Invoke();
             AffectSurroundingEntities();
         });
+    }
+
+    IEnumerator PlayFallSFX(float waitTime)
+    {
+        yield return new WaitForSecondsRealtime(waitTime);
+        PlayAudio(_anvilFallSfx);
     }
     void AffectSurroundingEntities()
     {
@@ -139,7 +158,7 @@ public class LevelUpSequence : MonoBehaviour
         {
             if(enemyColl.TryGetComponent<IDamageable>(out var damageable))
             {
-                damageable.TakeDamage(1);
+                damageable.TakeDamage(7);
                 if(enemyColl.TryGetComponent<IKnockback>(out var knockbackable))
                 {
                     knockbackable.KnockbackLogic.SetKnockbackData(_playerTransform, 5f, ignoreResistance: true);
@@ -147,8 +166,8 @@ public class LevelUpSequence : MonoBehaviour
             }
         }
     }
+    public void DisableVisuals() => _visualsParent.gameObject.SetActive(false);
     void PlayAudio(AudioClip clip) => _audioSource?.PlayWithVaryingPitch(clip);
-
     void PlayerHasLeveledUp() => _hasLeveledUp = true;
 
     private void OnDestroy() {

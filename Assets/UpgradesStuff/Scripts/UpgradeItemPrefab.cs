@@ -55,7 +55,7 @@ public class UpgradeItemPrefab : MonoBehaviour, ISelectHandler
         CheckCostItems();
 
         SetTextMeshAutoSize(true);
-        StartCoroutine(DisableAutoSize());
+        if(gameObject.activeInHierarchy)StartCoroutine(DisableAutoSize());
     }
 
     private void OnEnable()
