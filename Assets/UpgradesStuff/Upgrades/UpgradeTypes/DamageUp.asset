@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _name: Blade sharpening
   _descriptions:
-  - text: + 10% to Damage Multiplier
+  - text: + 20% to Damage Multiplier
     color: 2
-  - text: + 2 to Speed
+  - text: + 10% to Attack Range
     color: 2
   _sprite: {fileID: 21300000, guid: aded84e402d76ba42a5641517d7c6ae8, type: 3}
   _costs:
@@ -25,14 +25,15 @@ MonoBehaviour:
   - CraftingMaterial: {fileID: 11400000, guid: b13362f075742974d9b87d69b98b5b63, type: 2}
     Cost: 3
   _stats: {fileID: 11400000, guid: 77f8be5469984ec4b92db0a6e8c44838, type: 2}
-  _indexes: 1000000002000000
+  _indexes: 1200000002000000
   _statsChanges:
-  - _usePercentage: 1
-    _percentage: 15
-    _flatAmount: 0
   - _usePercentage: 0
-    _percentage: 1
-    _flatAmount: 2
+    _percentage: 15
+    _flatAmount: 25
+  - _usePercentage: 1
+    _percentage: 10
+    _flatAmount: 0.11
   ElementCount: 2
+  _savedText: DamageMultiplier,Speed
   _attackStats: {fileID: 11400000, guid: 5c0efc2d47ffa234c9cfe266e112553e, type: 2}
-  _statsPropertiesCount: 16
+  _statsPropertiesCount: 18

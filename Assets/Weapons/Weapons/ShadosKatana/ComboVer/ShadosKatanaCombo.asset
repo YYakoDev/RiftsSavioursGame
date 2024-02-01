@@ -24,26 +24,26 @@ MonoBehaviour:
   - {fileID: 8300000, guid: bb5a381345214dc469cd56d7f8b12a03, type: 3}
   - {fileID: 8300000, guid: 63576143d8a33204288b7f37ff6c7dd4, type: 3}
   _pointCameraOnAttack: 1
-  _attackCooldown: 0.4
+  _attackCooldown: 0.45
   _pullForce: 1.75
-  _pullDuration: 0.075
+  _pullDuration: 0.07
   _attackRange: 1
   _attackSpeed: 1.42
   _rangeOffset: {x: -0.4, y: 0.18}
-  _attackDamage: 5
-  _damageDelay: 0.139
+  _attackDamage: 10
+  _damageDelay: 0.12
   _knockbackForce: 1.26
   _speedUPComboAnimations: 1
-  _speedUpFactor: 1.3
+  _speedUpFactor: 1.25
   _comboStats:
   - Cooldown: 0
-    Range: 1
+    Range: 0.75
     KnockbackForce: 0
     AtkSpeed: 0
     PullForce: 0
     AtkDelay: 0
     PullDuration: 0
-    Damage: 6
+    Damage: 0
     RangeOffset: {x: 0.12, y: 0.12}
     WeaponFxs:
     - {fileID: 11400000, guid: 23196116de9b69d47a045c9e6a9b7e11, type: 2}
@@ -65,10 +65,10 @@ MonoBehaviour:
     Range: 0.65
     KnockbackForce: 0.5
     AtkSpeed: -0.05
-    PullForce: 0.09
+    PullForce: 0.42
     AtkDelay: 0
     PullDuration: 0
-    Damage: 4
+    Damage: -1
     RangeOffset: {x: 0.18, y: 0.18}
     WeaponFxs:
     - {fileID: 11400000, guid: a46798bb6b4605f46a88a7cb00606fc1, type: 2}
@@ -83,13 +83,13 @@ MonoBehaviour:
     - {fileID: 0}
     - {fileID: 0}
   - Cooldown: 0
-    Range: 0.7
+    Range: 0.59
     KnockbackForce: 0.5
     AtkSpeed: 0.18
-    PullForce: 0.09
+    PullForce: 0.25
     AtkDelay: 0
     PullDuration: 0
-    Damage: 5
+    Damage: 0
     RangeOffset: {x: 0.18, y: 0.18}
     WeaponFxs:
     - {fileID: 11400000, guid: a46798bb6b4605f46a88a7cb00606fc1, type: 2}

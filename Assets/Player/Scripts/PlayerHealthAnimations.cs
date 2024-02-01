@@ -5,34 +5,22 @@ using UnityEngine.UI;
 
 public class PlayerHealthAnimations : MonoBehaviour
 {
-    [SerializeField]TweenAnimator _heartAnimator, _barAnimator;
-    [SerializeField]RectTransform _heartIcon, _healthBar;
+    [SerializeField]TweenAnimator _barAnimator;
+    [SerializeField]RectTransform _healthBar;
     [SerializeField] Image _fillImg;
     RectTransform _fillRect;
     Color _startingColor;
     [SerializeField]Color _blinkColor;
-    Vector3 _initialSize;
     int _blinkLoops = 0;
-    int _maxBlinkTimes = 2;
+    int _maxBlinkTimes = 3;
 
     private void Awake() {
-        _heartAnimator = _heartIcon.GetComponent<TweenAnimator>();
         _barAnimator = _healthBar.GetComponent<TweenAnimator>();
-        _initialSize = _heartIcon.localScale;
         if(_fillImg != null)
         {
             _fillRect = _fillImg.rectTransform;
             _startingColor = _fillImg.color;
         }
-    }
-
-    public void ShakeAnimation()
-    {
-        _heartAnimator.Scale(_heartIcon, _initialSize * 0.5f, 0.1f,
-        onComplete: () => 
-        {
-            _heartAnimator.Scale(_heartIcon, _initialSize, 0.1f);
-        });
     }
 
     public void BlinkBarAnim()
@@ -60,7 +48,7 @@ public class PlayerHealthAnimations : MonoBehaviour
 
     public void Stop()
     {
-        _heartAnimator.Clear();
+        //_heartAnimator.Clear();
         _barAnimator.Clear();
     }
 }

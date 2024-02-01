@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc8b826c734252e40b580fc4ef82deb2, type: 3}
   m_Name: ShadosStats
   m_EditorClassIdentifier: 
-  _maxHealth: 100
+  _maxHealth: 50
   _currentHealth: 95
   _level: 1
   _currentXP: 40
   _xpToNextLevel: 100
-  _speed: 4.57
+  _speed: 4
   _accelerationTime: 0.33
   _slowdownMultiplier: 0.665
   _pickUpRange: 1.5
@@ -30,3 +30,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   _attackStats: {fileID: 11400000, guid: 5c0efc2d47ffa234c9cfe266e112553e, type: 2}
+  _stunResistance: 1
+  _knockbackResistance: 4
+  _damageResistance: 1

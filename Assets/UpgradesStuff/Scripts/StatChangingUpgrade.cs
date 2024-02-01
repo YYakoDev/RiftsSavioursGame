@@ -33,6 +33,8 @@ public class StatChangingUpgrade : SOUpgradeBase
 
     void SaveText()
     {
+        QueryCheck();
+        _savedText = string.Empty;
         for (int i = 0; i < _indexes.Length; i++)
         {
             int index = _indexes[i];
@@ -45,6 +47,7 @@ public class StatChangingUpgrade : SOUpgradeBase
 
     void ReadSavedText()
     {
+        QueryCheck();
         string[] propertiesName = _savedText.Split(",");
         if(_savedProperties == null || _savedProperties.Length != _indexes.Length) Array.Resize<PropertyInfo>(ref _savedProperties, _indexes.Length);
         for (int i = 0; i < propertiesName.Length; i++)
@@ -55,6 +58,7 @@ public class StatChangingUpgrade : SOUpgradeBase
                 {
                     _savedProperties[i] = _queryPropertiesArray[j];
                     _indexes[i] = j;
+                    Debug.Log($"new index of {Name} is   " + j);
                     break;
                 }
             }
@@ -114,7 +118,6 @@ public class StatChangingUpgrade : SOUpgradeBase
         }
         
     }
-
     protected void ApplyValueToProperty
     (PropertyInfo property, UpgradeStatChange statChange, PlayerUpgradesManager upgradesManager, PlayerStatsBase stats = null)
     {
@@ -125,5 +128,26 @@ public class StatChangingUpgrade : SOUpgradeBase
         newValue = (statChange.UsePercentage) ?
         upgradesManager.StatUp(currentValueAsFloat, statChange.Percentage) : upgradesManager.StatUp(currentValueAsFloat, statChange.EffectAmount);
         property.SetValue(stats, Convert.ChangeType(newValue, currentValue.GetType()));
+    }
+
+
+    public void TryReadText()
+    {
+        if(_savedText == null || _savedText == string.Empty)
+        {
+            Debug.Log("Saved text was empty at the upgrade:   " + Name);
+            return;
+        }
+        ReadSavedText();
+    }
+
+    public void SaveTextAndRead()
+    {
+        SaveText();
+        ReadSavedText();
+    }
+
+    private void OnValidate() {
+        TryReadText();
     }
 }

@@ -53,7 +53,11 @@ public class Knockbackeable
         _ignoreResistance = ignoreResistance;
         if(_enabled)
         {
-            if(_newKnockbackDir != Vector2.zero) return;
+            if(_newKnockbackDir != Vector2.zero)
+            {
+                _ignoreResistance = false;
+                return;
+            }
             if(_emitterTransform != null) _newKnockbackDir = _emitterTransform.position;
             else _newKnockbackDir = emitterPos;
             _knockbackTimer.ChangeTime(_knockbackTimer.CurrentTime + duration / 1.5f + Random.Range(0.01f, 0.07f));

@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc8b826c734252e40b580fc4ef82deb2, type: 3}
   m_Name: AstraeaStats
   m_EditorClassIdentifier: 
-  _maxHealth: 100
+  _maxHealth: 75
   _currentHealth: 95
   _level: 1
   _currentXP: 40
   _xpToNextLevel: 55
-  _speed: 5
-  _accelerationTime: 0.66
-  _slowdownMultiplier: 0.5
+  _speed: 3.94
+  _accelerationTime: 0.8
+  _slowdownMultiplier: 0.6
   _pickUpRange: 1.5
   _collectingRange: 3
   _collectingDamage: 1
@@ -30,3 +30,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   _attackStats: {fileID: 11400000, guid: 5c0efc2d47ffa234c9cfe266e112553e, type: 2}
+  _stunResistance: 10
+  _knockbackResistance: 10
+  _damageResistance: 10

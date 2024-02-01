@@ -57,7 +57,7 @@ public class EnemyWaveSpawner : MonoBehaviour
             _nextSpawnTime = _spawnCooldown + Time.time;
             SelectSpawnPosition();
             SpawnPortalFx(_selectedSpawnpoint);
-            int amountOfEnemiesToSpawn = Random.Range(1, _currentWave.EnemiesToSpawn);
+            int amountOfEnemiesToSpawn = Random.Range(1, _currentWave.EnemiesToSpawn + 1);
             for (int i = 0; i < amountOfEnemiesToSpawn; i++)
             {
                 StartCoroutine(Spawn());

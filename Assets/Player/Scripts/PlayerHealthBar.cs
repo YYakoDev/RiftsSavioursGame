@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using TMPro;
 public class PlayerHealthBar : MonoBehaviour
 {
     [SerializeField]SOPlayerStats _playerStats;
     [SerializeField]PlayerHealthAnimations _animations;
+    [SerializeField] TextMeshProUGUI _healthPointsTxt;
     Slider _healthBar;
     int _currentHealth, _maxHealth;
 
@@ -43,6 +44,7 @@ public class PlayerHealthBar : MonoBehaviour
         _maxHealth = _playerStats.MaxHealth;
         _healthBar.maxValue = _maxHealth;
         _healthBar.value = _currentHealth;
+        UpdateText();
         //UpdateHealthBar();
         yield return null;
         yield return null;
@@ -52,12 +54,19 @@ public class PlayerHealthBar : MonoBehaviour
     void UpdateBarValue()
     {
         _healthBar.value = _currentHealth;
+        UpdateText();
         PlayAnimations();
     }
     void UpdateBarMaxValue()
     {
         _healthBar.maxValue = _maxHealth;
-        _animations.ShakeAnimation();
+        UpdateText();
+        //_animations.ShakeAnimation();
+    }
+
+    void UpdateText()
+    {
+        _healthPointsTxt.text = $"{_currentHealth}/{_maxHealth}";
     }
 
     void CheckValues()
@@ -71,7 +80,7 @@ public class PlayerHealthBar : MonoBehaviour
         _animations.Stop();
         CameraShake.Shake(1f);
         _animations.BlinkBarAnim();
-        _animations.ShakeAnimation();
+        //_animations.ShakeAnimation();
     }
 
     private void OnDestroy() {

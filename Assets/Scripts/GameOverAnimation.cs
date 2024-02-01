@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class GameOverAnimation : MonoBehaviour
 {
@@ -118,6 +119,7 @@ public class GameOverAnimation : MonoBehaviour
     {
         _visualsParent.SetActive(true);
         CheckAnimators();
+        YYInputManager.StopInput();
         TimeScaleManager.ForceTimeScale(0f);
         SetInitialStates();
         PlayAnimations();
@@ -238,6 +240,7 @@ public class GameOverAnimation : MonoBehaviour
 
     void ButtonAnimations()
     {
+        EventSystem.current.SetSelectedGameObject(_buttons[0].gameObject);
         //here maybe you could add the game over stats and not just the buttons
         for (int i = 0; i < _buttons.Length; i++)
         {

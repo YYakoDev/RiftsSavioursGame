@@ -6,6 +6,13 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObjects/PlayerStats")]
 public class SOPlayerStats : PlayerStatsBase
 {   
+
+    //
+
+    // IF YOU ADD ANY STAT TO THIS CLASS DO NOT SAVE BEFORE UPDATING THE TEXTS FROM THE UPGRADES, OTHERWISE SOME UPGRADES WILL LOSE THE REFERENCE TO THE STATS
+
+    //
+
     public event Action onStatsChange;
 
     [Header("Health Stats")]
@@ -39,6 +46,10 @@ public class SOPlayerStats : PlayerStatsBase
     [SerializeField, Range(0, 100)] private int _stunResistance = 0;
     [SerializeField, Range(0, 100)] private int _knockbackResistance = 10;
     [SerializeField, Range(0, 100)] private int _damageResistance = 0;
+
+    [Header("Luck Stats")]
+    [SerializeField] private int _faith = 1;
+    [SerializeField] private float _harvestMultiplier;
 
     //properties
 
@@ -75,6 +86,10 @@ public class SOPlayerStats : PlayerStatsBase
     public int KnockbackResistance { get => _knockbackResistance; set { _knockbackResistance = value; onStatsChange?.Invoke(); } }
     public int DamageResistance { get => _damageResistance; set { _damageResistance = value; onStatsChange?.Invoke(); } }
 
+
+    // LUCK STATAS
+    public int Faith { get => _faith;  set { _faith = value; onStatsChange?.Invoke(); } }
+    public float HarvestMultiplier { get => _harvestMultiplier;  set { _harvestMultiplier = value; onStatsChange?.Invoke(); } }
 
     public void Initialize(SOCharacterData data)
     {

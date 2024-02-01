@@ -17,6 +17,8 @@ public class GameStateManager : MonoBehaviour
     [SerializeField] UpgradesMenu _upgradesMenu;
 
 
+    public static event Action<GameStateBase> OnStateSwitch;
+
     public float CurrentRiftTime => _currentRiftTime;
     public World CurrentWorld => _currentWorld;
     public UpgradesMenu UpgradesMenu => _upgradesMenu;
@@ -58,6 +60,7 @@ public class GameStateManager : MonoBehaviour
         if(state.GetType() == typeof(RestState)) OnRestStart?.Invoke(_currentWorld.RestInterval);
         _currentState = state;
         _currentState.Start();
+        OnStateSwitch?.Invoke(_currentState);
     }
 
 

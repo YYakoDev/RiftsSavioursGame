@@ -10,6 +10,7 @@ public class PlayerLevelXPBar : MonoBehaviour
     Slider _xpBar;
     int _currentLevel;
     [SerializeField]TextMeshProUGUI t_levelNumber;
+    [SerializeField] XPBarAnimations _barAnimations;
     private void Awake() {
         
         gameObject.SetActive(_playerStats != null);
@@ -17,7 +18,12 @@ public class PlayerLevelXPBar : MonoBehaviour
         if(t_levelNumber == null) t_levelNumber = GetComponentInChildren<TextMeshProUGUI>();
         
         _playerStats.onStatsChange += UpdateXPBar;
-        UpdateXPBar();
+    }
+
+    private void Start() {
+        _xpBar.value = _playerStats.CurrentXP;
+        _xpBar.maxValue = _playerStats.XPToNextLevel;
+        //UpdateXPBar();
     }
 
 
@@ -26,22 +32,23 @@ public class PlayerLevelXPBar : MonoBehaviour
         if(_xpBar.value != _playerStats.CurrentXP)
         {
             _xpBar.value = _playerStats.CurrentXP;
+            _barAnimations?.FlashBar();
         }
         if(_xpBar.maxValue != _playerStats.XPToNextLevel)
         {
             _xpBar.maxValue = _playerStats.XPToNextLevel;
         }
-        
         if(_currentLevel != _playerStats.Level)
         {
             _currentLevel = _playerStats.Level;
             UpdateLevelText();
         }
+        
     }
-
     void UpdateLevelText()
-    {   
-        t_levelNumber.text = _currentLevel.ToString();
+    {
+        _barAnimations?.ShakeNumber();
+        t_levelNumber.text = $"LVL: {_currentLevel}";
     }
 
     private void OnDestroy() {
