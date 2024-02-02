@@ -22,8 +22,7 @@ MonoBehaviour:
     _type: 0
     _resourceDrops:
     - {fileID: 11400000, guid: 0b8810f9c9bb3cd409989ec152e791f7, type: 2}
-    - {fileID: 11400000, guid: 0b8810f9c9bb3cd409989ec152e791f7, type: 2}
-    - {fileID: 11400000, guid: c9607e2ebbafafd40a2e0a580f705a50, type: 2}
+    - {fileID: 11400000, guid: a0185c03c6c3e6d4cb2228fa9fb588bd, type: 2}
     - {fileID: 11400000, guid: a0185c03c6c3e6d4cb2228fa9fb588bd, type: 2}
     _isTrigger: 0
     _posOffset: {x: 0, y: -0.05}

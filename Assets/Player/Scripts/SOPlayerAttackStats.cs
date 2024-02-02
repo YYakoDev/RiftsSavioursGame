@@ -9,6 +9,7 @@ public class SOPlayerAttackStats : PlayerStatsBase
     public event Action onStatsChange;
 
     [SerializeField]private float _damageMultiplier = 1;
+    [SerializeField] private int _baseDamageAddition = 0;
     [SerializeField]private float _attackRange;
     [SerializeField]private float _attackCooldown;
     [SerializeField, Range(0f , 2.25f)]private float _attackKnockback;
@@ -19,6 +20,7 @@ public class SOPlayerAttackStats : PlayerStatsBase
 
     //properties
     public float DamageMultiplier {get => _damageMultiplier; set {_damageMultiplier = value; onStatsChange?.Invoke();}}
+    public int BaseDamageAddtion {get => _baseDamageAddition; set {_baseDamageAddition = value; onStatsChange?.Invoke();}}
     public float AttackRange {get => _attackRange; set {_attackRange = value; onStatsChange?.Invoke();}}
     public float AttackCooldown {get => _attackCooldown; set {_attackCooldown = value; onStatsChange?.Invoke();}}
     public float AttackKnockback {get => _attackKnockback; set {_attackKnockback = value; onStatsChange?.Invoke();}}

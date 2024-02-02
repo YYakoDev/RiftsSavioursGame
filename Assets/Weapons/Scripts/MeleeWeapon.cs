@@ -20,6 +20,8 @@ public class MeleeWeapon : WeaponBase
     protected float _radiusOffset = 0;
     protected Vector3 _attackPoint = Vector2.zero;
     [SerializeField]protected int _attackDamage = 5;
+    [SerializeField, Range(0, 100)] protected int _criticalChance = 10;
+    [SerializeField] protected float _criticalDamageMultiplier = 2;
     [SerializeField, Range(0f, 1f)] protected float _damageDelay = 0.2f;
     protected int _maxEnemiesToHit = 10;
     [SerializeField, Range(0f, 3.25f)]protected float _knockbackForce = 0.35f;
@@ -155,7 +157,7 @@ public class MeleeWeapon : WeaponBase
     {
         //codear esto para que se modifiquen las stats del arma pero sin escalar hasta el infinito sin querer
         //Mirar el oldweapon system!
-        _modifiedStats._atkDmg = (int)(_attackDamage * attackStats.DamageMultiplier);
+        _modifiedStats._atkDmg = (int)((_attackDamage + attackStats.BaseDamageAddtion) * attackStats.DamageMultiplier);
         _modifiedStats._atkRange = _attackRange + attackStats.AttackRange;
         _modifiedStats._cooldown = _attackCooldown + attackStats.AttackCooldown;
         _modifiedStats._knockbackForce = _knockbackForce + attackStats.AttackKnockback;

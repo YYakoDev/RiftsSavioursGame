@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7811882d790f5c24c8976f83ed84e62f, type: 3}
+  m_Name: DamageUp+1
+  m_EditorClassIdentifier: 
+  _name: Handle Reinforcement
+  _descriptions:
+  - text: + 1 To Base Weapon Damage
+    color: 2
+  _sprite: {fileID: 21300000, guid: aded84e402d76ba42a5641517d7c6ae8, type: 3}
+  _costs:
+  - CraftingMaterial: {fileID: 11400000, guid: b4ba9f582bfaddb44855f718a50fcc0b, type: 2}
+    Cost: 4
+  - CraftingMaterial: {fileID: 11400000, guid: 90c7f30cd1d98304390d49368ab6eef9, type: 2}
+    Cost: 2
+  _stats: {fileID: 11400000, guid: 77f8be5469984ec4b92db0a6e8c44838, type: 2}
+  _indexes: 13000000
+  _statsChanges:
+  - _usePercentage: 0
+    _percentage: 12
+    _flatAmount: 1
+  ElementCount: 1
+  _savedText: BaseDamageAddtion
+  _attackStats: {fileID: 11400000, guid: 5c0efc2d47ffa234c9cfe266e112553e, type: 2}
+  _statsPropertiesCount: 18

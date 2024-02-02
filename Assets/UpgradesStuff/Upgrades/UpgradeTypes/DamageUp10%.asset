@@ -10,30 +10,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7811882d790f5c24c8976f83ed84e62f, type: 3}
-  m_Name: DamageUp
+  m_Name: DamageUp10%
   m_EditorClassIdentifier: 
-  _name: Blade sharpening
+  _name: Blade sharpening II
   _descriptions:
-  - text: + 20% to Damage Multiplier
-    color: 2
-  - text: + 10% to Attack Range
+  - text: + 10% to Damage Multiplier
     color: 2
   _sprite: {fileID: 21300000, guid: aded84e402d76ba42a5641517d7c6ae8, type: 3}
   _costs:
-  - CraftingMaterial: {fileID: 11400000, guid: b4ba9f582bfaddb44855f718a50fcc0b, type: 2}
-    Cost: 2
   - CraftingMaterial: {fileID: 11400000, guid: b13362f075742974d9b87d69b98b5b63, type: 2}
-    Cost: 3
+    Cost: 5
+  - CraftingMaterial: {fileID: 11400000, guid: a999cb05a6d39794691b6257801dcddf, type: 2}
+    Cost: 1
   _stats: {fileID: 11400000, guid: 77f8be5469984ec4b92db0a6e8c44838, type: 2}
-  _indexes: 1200000002000000
+  _indexes: 12000000
   _statsChanges:
-  - _usePercentage: 0
-    _percentage: 15
-    _flatAmount: 25
   - _usePercentage: 1
-    _percentage: 10
-    _flatAmount: 0.11
-  ElementCount: 2
-  _savedText: DamageMultiplier,Speed
+    _percentage: 12
+    _flatAmount: 0
+  ElementCount: 1
+  _savedText: DamageMultiplier
   _attackStats: {fileID: 11400000, guid: 5c0efc2d47ffa234c9cfe266e112553e, type: 2}
   _statsPropertiesCount: 18

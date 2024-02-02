@@ -338,7 +338,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _brain: {fileID: 0}
-  _knockbackForce: 0.9
+  _knockbackForce: 1.16
 --- !u!114 &6124761155502390654
 MonoBehaviour:
   m_ObjectHideFlags: 0

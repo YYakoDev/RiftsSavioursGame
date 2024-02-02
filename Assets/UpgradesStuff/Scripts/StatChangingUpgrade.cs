@@ -58,7 +58,6 @@ public class StatChangingUpgrade : SOUpgradeBase
                 {
                     _savedProperties[i] = _queryPropertiesArray[j];
                     _indexes[i] = j;
-                    Debug.Log($"new index of {Name} is   " + j);
                     break;
                 }
             }

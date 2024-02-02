@@ -238,7 +238,7 @@ public class TripleComboMeleeWeapon : MeleeWeapon
 
     public override void EvaluateStats(SOPlayerAttackStats attackStats)
     {
-        _upgradeStats.Damage = (int)((float)(_attackDamage) * attackStats.DamageMultiplier) - _attackDamage;
+        _upgradeStats.Damage = (int)((float)(_attackDamage + attackStats.BaseDamageAddtion) * attackStats.DamageMultiplier) - _attackDamage;
         _upgradeStats.Range = attackStats.AttackRange;
         _upgradeStats.Cooldown = attackStats.AttackCooldown;
         _upgradeStats.KnockbackForce = attackStats.AttackKnockback;

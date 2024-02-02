@@ -32,3 +32,4 @@ MonoBehaviour:
     _percentage: 1
     _flatAmount: 0.44
   ElementCount: 2
+  _savedText: Speed,AccelerationTime

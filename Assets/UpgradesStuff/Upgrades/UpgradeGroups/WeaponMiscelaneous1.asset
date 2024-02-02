@@ -10,10 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 786a0624aed0069498d5837622e246fc, type: 3}
-  m_Name: DamageUpGroup
+  m_Name: WeaponMiscelaneous1
   m_EditorClassIdentifier: 
   _upgrades:
-  - {fileID: 11400000, guid: 872ce4380ddcab94d80e0e0bbc7c988e, type: 2}
-  - {fileID: 11400000, guid: d6d1983ce2be0654fa580160824c32d3, type: 2}
-  - {fileID: 11400000, guid: 403072b7e4d36bb40b9e708b69d1e34e, type: 2}
-  - {fileID: 11400000, guid: d6d1983ce2be0654fa580160824c32d3, type: 2}
+  - {fileID: 11400000, guid: 24921b027d84f74488a7b3ed3e996526, type: 2}

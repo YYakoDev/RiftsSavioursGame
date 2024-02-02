@@ -200,11 +200,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _randomizeStats: 1
-  _speed: 2.52
+  _speed: 2.7
   _stunDuration: 0.3
   _stunResistance: 10
-  _knockbackResistance: 0
-  _maxHealth: 11
+  _knockbackResistance: 4
+  _maxHealth: 12
   _damage: 1
 --- !u!114 &2108419061
 MonoBehaviour:
@@ -338,7 +338,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _brain: {fileID: 0}
-  _knockbackForce: 0.9
+  _knockbackForce: 1.09
 --- !u!114 &4367117240559491877
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(TweenAnimatorMultiple))]
 public class GameStatePopup : MonoBehaviour
 {
     GameStateBase _currentState;
+    TweenAnimatorMultiple _animator;
     private void Awake() {
+        _animator = GetComponent<TweenAnimatorMultiple>();
         GameStateManager.OnStateSwitch += SwitchedState;
     }
     // Start is called before the first frame update

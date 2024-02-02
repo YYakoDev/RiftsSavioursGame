@@ -179,7 +179,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _randomizeStats: 1
-  _speed: 2.4
+  _speed: 2.3
+  _stunDuration: 0.25
+  _stunResistance: 0
+  _knockbackResistance: 0
   _maxHealth: 5
   _damage: 1
 --- !u!114 &7992409206138210506
@@ -225,7 +228,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6aa44ca9bf7ee6746b1e39a4cbcd8f12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _brain: {fileID: 0}
   _enemyDetector: {fileID: 5661728133328247362}
 --- !u!114 &7992409206138210499
 MonoBehaviour:
@@ -240,7 +242,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _brain: {fileID: 7992409206138210505}
-  _knockbackForce: 0.03
+  _knockbackForce: 0.4
 --- !u!114 &7992409206138210496
 MonoBehaviour:
   m_ObjectHideFlags: 0

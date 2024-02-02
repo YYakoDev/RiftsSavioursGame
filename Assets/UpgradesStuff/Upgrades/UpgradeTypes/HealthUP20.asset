@@ -34,3 +34,4 @@ MonoBehaviour:
     _percentage: 1
     _flatAmount: 5
   ElementCount: 2
+  _savedText: MaxHealth,CurrentHealth

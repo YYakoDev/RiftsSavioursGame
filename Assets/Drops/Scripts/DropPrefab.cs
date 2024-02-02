@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 [RequireComponent(typeof(SpriteRenderer))]
 public class DropPrefab : MonoBehaviour
 {
     SpriteRenderer _renderer;
     PickUpsController _pickUpsController;
+    Light2D _light;
     Drop _drop;
     Transform _target;
     [SerializeField]float _pickupVelocity;
@@ -22,7 +24,7 @@ public class DropPrefab : MonoBehaviour
     private void Awake() {
         GameObject thisGO = gameObject;
         thisGO.CheckComponent<SpriteRenderer>(ref _renderer);
-
+        thisGO.CheckComponent<Light2D>(ref _light);
         _timer = new(0.3f);
     }
 
@@ -36,6 +38,7 @@ public class DropPrefab : MonoBehaviour
     {
         _drop = drop;
         _renderer.sprite = _drop.Sprite;
+        _light.intensity = _drop.LightIntensity;
         //_animator.runtimeAnimatorController = _drop.AnimatorOverride;
     }
 

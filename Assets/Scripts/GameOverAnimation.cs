@@ -101,6 +101,7 @@ public class GameOverAnimation : MonoBehaviour
         {
             Debug.Log("<b>Game Over :( </b>");
             _playGameOver = true;
+            YYInputManager.StopInput();
             //GameOver();
         }
     }
@@ -119,7 +120,6 @@ public class GameOverAnimation : MonoBehaviour
     {
         _visualsParent.SetActive(true);
         CheckAnimators();
-        YYInputManager.StopInput();
         TimeScaleManager.ForceTimeScale(0f);
         SetInitialStates();
         PlayAnimations();

@@ -27,3 +27,4 @@ MonoBehaviour:
     _percentage: 12
     _flatAmount: 3
   ElementCount: 1
+  _savedText: Speed
