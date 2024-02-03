@@ -8,18 +8,16 @@ using UnityEngine;
 public class EnemyHealthManager : MonoBehaviour, IDamageable, ITargetPositionProvider
 {
     [SerializeField]EnemyBrain _brain;
+    SOEnemyBehaviour _deathBehaviour;
     Dropper _dropper;
     WhiteBlinkEffect _blinkFX;
     private int _health;
-    [SerializeField] private BloodSplatterFX _bloodPrefab;
-    [SerializeField]private float _deathDuration = 0.35f;
+    private float _deathDuration = 0.35f;
     WaitForSeconds _deathDurationWait;
     public event Action onDeath;
     Transform _player;
 
     //SFX STUFF
-    [SerializeField]AudioClip _onHitSFX, _onDeathSFX;
-
     public Transform TargetTransform { get => _player; set => _player = value; }
 
     private void Awake()
@@ -31,6 +29,7 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable, ITargetPositionPro
         _deathDurationWait = new(_deathDuration);
         
     }
+    public void Init(SOEnemyBehaviour deathBehaviour) => _deathBehaviour = deathBehaviour;
 
     private void OnEnable() 
     {
@@ -42,12 +41,12 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable, ITargetPositionPro
     void Start()
     {
         SetHealth();
-         if(_player == null) _player = GameObject.FindGameObjectWithTag("Player").transform;
+        if(_player == null) _player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     void SetHealth()
     {
-        if(_brain == null)return;
+        if(_brain == null || _brain.Stats == null)return;
         _health = _brain.Stats.MaxHealth;
     }
     public void TakeDamage(int damage)
@@ -57,7 +56,7 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable, ITargetPositionPro
         _health -= damage;
         _blinkFX.Play();
         SpawnBlood();
-        _brain.Audio.PlayWithVaryingPitch(_onHitSFX);
+        _brain.PlaySound(_brain.GetOnHitSfx());
         if(_health <= 0)
         {
             //_blinkFX.Stop();
@@ -67,17 +66,18 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable, ITargetPositionPro
 
     void SpawnBlood()
     {
-        if(_bloodPrefab == null) return;
-        BloodSplatterFX blood = Instantiate(_bloodPrefab, transform.position, Quaternion.identity);
+        if(_brain.BloodFX == null) return;
+        BloodSplatterFX blood = Instantiate(_brain.BloodFX, transform.position, Quaternion.identity);
         blood.Flip(_player.position);
     }
 
     public void Die()
     {
         StartCoroutine(DeactivateObject());
-        _brain.Audio.PlayWithVaryingPitch(_onDeathSFX);
+        _brain.PlaySound(_brain.GetOnDeathSfx());
         _brain.Animation.PlayDeath(_deathDuration);
         _dropper.Drop();
+        _deathBehaviour?.Action();
         onDeath?.Invoke();
     }
 

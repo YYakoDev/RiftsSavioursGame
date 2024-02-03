@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyDetector : MonoBehaviour
 {
     [SerializeField]LayerMask _enemyLayer;
-    [SerializeField]float _detectionRadius = 1f;
+    float _detectionRadius = 1f;
     Collider2D[] _colliders;
     Vector3 _avoidanceDirection = Vector2.zero;
     Transform _parent;
@@ -16,6 +16,8 @@ public class EnemyDetector : MonoBehaviour
 
     //properties
     public Vector2 AvoidanceDirection => _avoidanceDirection;
+
+    public void SetRadius(float radius) => _detectionRadius = radius;
 
     // Start is called before the first frame update
     void Start()
@@ -49,22 +51,6 @@ public class EnemyDetector : MonoBehaviour
             if(_colliders[i] == null || _colliders[i].transform == _parent) continue;
             _avoidanceDirection += selfPosition - _colliders[i].transform.position;
         }
-        //_avoidanceDirection.Normalize();
-
     }
 
-    private void OnDrawGizmosSelected() {
-        if(Application.isPlaying)
-        {
-            foreach(Collider2D col in _colliders)
-            {
-                if(col == null || col.gameObject == _parent) continue;
-                Gizmos.DrawWireSphere(col.transform.position, 0.2f);
-            }
-        }else
-        {
-            Gizmos.DrawWireSphere(transform.position, _detectionRadius);
-            Gizmos.color = Color.red;
-        }
-    }
 }

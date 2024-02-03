@@ -19,7 +19,7 @@ public class EnemyAnimations : MonoBehaviour
     //Properties
     //public Animator Animator => _animator;
     public float InitialAnimatorSpeed => _initialAnimatorSpeed;
-
+    public Animator Animator => _animator;
     private void Awake()
     {
         gameObject.CheckComponent<Animator>(ref _animator);
@@ -36,22 +36,14 @@ public class EnemyAnimations : MonoBehaviour
     private void Update() {
         _speedChangeTimer.UpdateTime();
     }
-    public void PlayMove()
-    {
-        PlayStated(Move);
-    }
-    public void PlayIddle()
-    {
-        PlayStated(Iddle);
-    }
-    public void PlayAttack()
-    {
-        PlayStated(Attack);
-    }
-    public void PlayDeath(float animDuration)
-    {
-        PlayStated(Death, animDuration);
-    }
+    public void PlayMove() => PlayStated(Move);
+    
+    public void PlayIddle() => PlayStated(Iddle);
+    
+    public void PlayAttack() => PlayStated(Attack);
+    
+    public void PlayDeath(float animDuration) => PlayStated(Death, animDuration);
+    
 
     void PlayStated(int animHash, float lockDuration = 0f)
     {

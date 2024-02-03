@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbe3cf0a793b5614c85902cac6991d8a, type: 3}
+  m_Name: SkellyBro
+  m_EditorClassIdentifier: 
+  _sprite: {fileID: 21300000, guid: be4daa75fcee05740a28f8e378e11bb4, type: 3}
+  _animator: {fileID: 22100000, guid: 95a673bc9af60b644a8098715751a431, type: 2}
+  _stats:
+    _speed: 2.6
+    _stunDuration: 0.3
+    _stunResistance: 10
+    _knockbackResistance: 10
+    _maxHealth: 12
+    _damage: 1
+    _knockbackForce: 1.1
+  _drops:
+  - {fileID: 11400000, guid: d0ab46bbe532d364a8d370efba7ef95e, type: 2}
+  _isBoxTrigger: 1
+  _boxColliderSize: {x: 0.4, y: 1}
+  _isCircleTrigger: 0
+  _circleColliderOffset: {x: -0.03, y: -0.55}
+  _circleColliderRadius: 0.2
+  _enableEnemyDetector: 1
+  _enemyDetectionRadius: 0.6
+  _movementBehaviour: {fileID: 11400000, guid: 9506340d249ee2f4aa6eaa1981b01eda, type: 2}
+  _attackBehaviour: {fileID: 0}
+  _deathBehaviour: {fileID: 0}
+  _bloodSplatter: {fileID: -2486305248213958785, guid: 329e704e453c1fd4c8c5db7ffbe677c7, type: 3}
+  _hasShadow: 1
+  _shadowPosition: {x: -0.1, y: 0.1, z: 0}
+  _shadowSize: {x: 1, y: 1, z: 1}
+  _moveSFXs: []
+  _onHitSFXs:
+  - {fileID: 8300000, guid: 71c829a5e41de894b82a37d4a929a1c4, type: 3}
+  - {fileID: 8300000, guid: 3fa87740dad12f640bdc3cc39c6e48b2, type: 3}
+  _attackSFXs: []
+  _deathSFXs: []

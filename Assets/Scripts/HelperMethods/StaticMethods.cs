@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 public static class HelperMethods
 {
-    private static Camera _camera;
+    /*private static Camera _camera;
     public static Camera MainCamera
     {
         get{
@@ -21,7 +21,7 @@ public static class HelperMethods
 
         WaitDictionary[time] = new WaitForSeconds(time);
         return WaitDictionary[time];
-    }
+    }*/
 
     private static PointerEventData _eventDataCurrentPosition;
     private static List<RaycastResult> _results;

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1a28bd004efc7e4792f911722680c47, type: 3}
+  m_Name: BasicXPDrop 50%
+  m_EditorClassIdentifier: 
+  _sprite: {fileID: 21300000, guid: 5828be1c90e689a459bf6a9942e0757e, type: 3}
+  _pickupSounds:
+  - {fileID: 8300000, guid: be516c7c0fb403b40bb56c7a04b7955c, type: 3}
+  - {fileID: 8300000, guid: 870ab905baf493440995062d982b7176, type: 3}
+  _dropChance: 50
+  _lightIntensity: 0.55
+  _xpAmount: 1

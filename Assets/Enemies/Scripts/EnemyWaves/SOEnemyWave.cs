@@ -6,21 +6,16 @@ using UnityEngine;
 public class SOEnemyWave : ScriptableObject
 {
     //[SerializeField]private EnemyBrain[] enemyPrefabs;
-    [SerializeField]EnemySignature[] _enemiesSignatures;
-    [SerializeField, Range(0.1f,3f)]private float _enemySpawnCooldown = 1f; // seconds
-    [SerializeField, Range(0, 15)]private int _enemiesToSpawn = 1;
+    [SerializeField]SOEnemy[] _enemies;
+    [SerializeField, Range(0.05f, 5f)]private float _enemySpawnCooldown = 1f; // seconds
+    [SerializeField, Range(0, 20)]private int _enemiesToSpawn = 1;
     [SerializeField] private float _waveDuration = 30f;
-
-
-    [Header("Enemy Stats To Apply")]
-    [SerializeField]private float _enemiesSpeed = 1f;
+    [SerializeField] bool _changeStatsOvertime = true;
 
     //Properties
-    public EnemySignature[] EnemiesSignatures => _enemiesSignatures;
+    public SOEnemy[] Enemies => _enemies;
     public float EnemySpawnCooldown => _enemySpawnCooldown;
     public int EnemiesToSpawn => _enemiesToSpawn;
     public float WaveDuration => _waveDuration;
-
-    //Enemy Stats To Apply
-    public float EnemiesSpeed => _enemiesSpeed;
+    public bool ChangeStatsOvertime => _changeStatsOvertime;
 }

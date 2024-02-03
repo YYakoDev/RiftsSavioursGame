@@ -2,35 +2,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(AvoidanceBehaviourBrain))]
-public class EnemyMovement : MonoBehaviour, IKnockback, IEnemyMovement
-{   
-    [SerializeField] AvoidanceBehaviourBrain _avoidanceBehaviour;
+public class EnemyMovement : MonoBehaviour, IKnockback
+{
     EnemyBaseMovement _movementClass;
-
+    SOEnemyMovementBehaviour _behaviour;
     public Knockbackeable KnockbackLogic => _movementClass.KnockbackLogic;
-
-    public EnemyBaseMovement MovementLogic { get => _movementClass; set => _movementClass = value; }
-
     //references
-    private void Awake() {
-        gameObject.CheckComponent<AvoidanceBehaviourBrain>(ref _avoidanceBehaviour);
+    public void Init(EnemyBaseMovement movementLogic, SOEnemyMovementBehaviour movementBehaviour)
+    {
+        _movementClass = movementLogic;
+        _behaviour = movementBehaviour;
     }
     private void OnEnable() {
         _movementClass?.OnEnableLogic();
+        
     }
     private void Update() {
         _movementClass.UpdateLogic();
+        _behaviour.UpdateLogic();
     }
     private void FixedUpdate() {
+        if(!_movementClass.Enabled) return;
         _movementClass.PhysicsLogic();
+        _behaviour.PhysicsLogic();
         Movement();
     }
 
-    void Movement()
+    private void Movement()
     {
-        if(!_movementClass.Enabled) return;
-        _movementClass.Move(_avoidanceBehaviour.ResultDirection.normalized, _avoidanceBehaviour.TargetInterestMap.InterestDirection);
+        _behaviour.Action();
+        _movementClass.Move(_behaviour.GetDirection());
     }
 }

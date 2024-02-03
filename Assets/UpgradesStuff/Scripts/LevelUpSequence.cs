@@ -158,7 +158,7 @@ public class LevelUpSequence : MonoBehaviour
         {
             if(enemyColl.TryGetComponent<IDamageable>(out var damageable))
             {
-                damageable.TakeDamage(7);
+                damageable.TakeDamage(2);
                 if(enemyColl.TryGetComponent<IKnockback>(out var knockbackable))
                 {
                     knockbackable.KnockbackLogic.SetKnockbackData(_playerTransform, 5f, ignoreResistance: true);

@@ -42,6 +42,17 @@ public class EnemyBaseMovement
         _accelerationCurve = TweenCurveLibrary.GetCurve(CurveTypes.EaseInOut);
     }
 
+    public void ReInitialize(Transform transform, EnemyBrain enemy, float spriteOffset = 0.25f)
+    {
+        _transform = transform;
+        _enemy = enemy;
+        _sortOrderController.ReInitialize(transform, _enemy.Renderer, spriteOffset);
+        _knockbackLogic.ReInitialize(transform, enemy.Rigidbody, OnKnockbackChange, enemy.Stats.KnockbackResistance);
+        _movementStopTimer.ChangeTime(0f);
+        _movementStopTimer.Stop();
+        knockbackEnabled = false;
+    }
+
     public void OnEnableLogic()
     {
         Enabled = false;
@@ -80,7 +91,7 @@ public class EnemyBaseMovement
         _elapsedTime += Time.fixedDeltaTime;
         float percent = _elapsedTime / _accelerationTime;
         if(percent <= 1.1f)  _realSpeed = Mathf.Lerp(0, _enemy.Stats.Speed, _accelerationCurve.Evaluate(percent));
-        Vector2 directionToMove = direction * (_realSpeed * Time.fixedDeltaTime);
+        Vector2 directionToMove = (direction + _enemy.EnemyDetector.AvoidanceDirection).normalized * (_realSpeed * Time.fixedDeltaTime);
         if(directionToMove == Vector2.zero) return;
         _enemy.Rigidbody.MovePosition((Vector2)_transform.position + directionToMove);
 

@@ -16,6 +16,14 @@ public class SortingOrderController
         _extraOrder = extraOrder;
     }
     
+    public void ReInitialize(Transform currentTransform, SpriteRenderer spriteRenderer, float offset = 0, int extraOrder = 0)
+    {
+        _spriteRenderer = spriteRenderer;
+        _currentPosition = currentTransform;
+        _offset = offset;
+        _extraOrder = extraOrder;
+    }
+
     public void SortOrder()
     {
         int sortOrder = _extraOrder -(int)((_currentPosition.position.y - _offset) *35);

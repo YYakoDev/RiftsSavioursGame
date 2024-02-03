@@ -13,6 +13,13 @@ public class EnemyAttackLogic
         _knockbackForce = knockbackForce;
     }
 
+    public void ReInitialize(Transform ownTransform, int damage, float knockbackForce)
+    {
+        _transform = ownTransform;
+        _damage = damage;
+        _knockbackForce = knockbackForce;
+    }
+
     public void Attack(GameObject objective)
     {
         if(objective.TryGetComponent<IDamageable>(out IDamageable damageable))

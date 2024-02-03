@@ -19,9 +19,8 @@ public class EnemyWaveSpawner : MonoBehaviour
 
     bool _stopped;
     Timer _stopSpawningTimer;
-
     //private float _nextSpawnLocationCooldown = 0f;
-
+    SOEnemy[] _enemiesInfo => _currentWave.Enemies;
 
     //also you will need to pass all the stats from that wave to the enemies to spawn
 
@@ -68,29 +67,19 @@ public class EnemyWaveSpawner : MonoBehaviour
 
     IEnumerator Spawn()
     {
-        bool signatureLength = _currentWave.EnemiesSignatures.Length <= 0;
-        bool prefabLength = _currentWorld.EnemyPrefabs.Length <= 0;
-        if(signatureLength || prefabLength)
-        {
-            if(signatureLength)Debug.LogError($"<b> No enemy SIGNATURE found in the wave: {_currentWave.name} </b>");
-            if(prefabLength)Debug.LogError($"<b> No enemy PREFABS found in the world: {_currentWorld.name} </b>");
-            yield break;
-        }
         yield return null;
 
-        GameObject enemy = _pool.GetPooledObject();
-        if(enemy == null) yield break;
-
-        //i know all this comments are kinda pointless because the code speaks for itself
-        //set the target in the avoidance data script of the enemy (if there is any)
-        var list = enemy.GetComponents<ITargetPositionProvider>();
-        if(list != null) foreach(ITargetPositionProvider targetData in list) targetData.TargetTransform = _playerTransform;
+        var data = _enemiesInfo[Random.Range(0, _enemiesInfo.Length)];
+        var enemy = _pool.GetPooledObject();
+        if(enemy.Value == null) yield break;
         
-        //remove its parent and set the position to a random spawn point
+        var targetProvider = enemy.Key.GetComponent<ITargetPositionProvider>();
+        targetProvider.TargetTransform = _playerTransform;
+        enemy.Value.Initialize(data);
 
-        enemy.transform.position = _selectedSpawnpoint + (Vector3)(Vector2.one * Random.Range(-0.8f, 0.8f));
-        enemy.transform.SetParent(null); //aca setearlo al parent del objeto "Units" adentro de environment
-        enemy.SetActive(true);
+        enemy.Key.transform.SetParent(null); //aca setearlo al parent del objeto "Units" adentro de environment
+        enemy.Key.transform.position = _selectedSpawnpoint + (Vector3)(Vector2.one * Random.Range(-0.8f, 0.8f));
+        enemy.Key.SetActive(true);
     }
 
     void StopSpawning(float time)

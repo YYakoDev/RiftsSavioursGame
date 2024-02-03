@@ -31,9 +31,21 @@ public class Knockbackeable
         _ownTransform = ownTransform;
         _rb = rb;
         _knockbackTimer = new(0.13f + Random.Range(0.01f, 0.1f), false);
+        _knockbackTimer.Stop();
         _knockbackTimer.onEnd += StopKnockback;
         _enabled = false;
         _stopApplying = false;
+        _resistance = knockbackResistance;
+        OnKnockbackChange = onKnockbackChange;
+    }
+
+    public void ReInitialize(Transform ownTransform, Rigidbody2D rb, Action<bool> onKnockbackChange, int knockbackResistance)
+    {
+        _ownTransform = ownTransform;
+        _rb = rb;
+        _enabled = false;
+        _stopApplying = false;
+        _knockbackTimer.Stop();
         _resistance = knockbackResistance;
         OnKnockbackChange = onKnockbackChange;
     }

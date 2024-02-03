@@ -12,7 +12,6 @@ public class World : ScriptableObject
     public const float RiftDuration = 900f; // 15mins
     float _restInterval = 10f;
     [SerializeField]private SOEnemyWave[] _waves;
-    [SerializeField]private EnemyBrain[] _enemyPrefabs;
     [SerializeField]private ChunkTileMap[] _chunks = new ChunkTileMap[0];
 
     private SOEnemyWave _currentWave;
@@ -25,7 +24,6 @@ public class World : ScriptableObject
     public SOEnemyWave CurrentWave => _currentWave;
     public float WavesInterval => _currentWave.WaveDuration;
     public float RestInterval => _restInterval;
-    public EnemyBrain[] EnemyPrefabs => _enemyPrefabs;
     public ChunkTileMap[] Chunks => _chunks;
 
     public void Initialize(World world)
@@ -33,7 +31,6 @@ public class World : ScriptableObject
         _name = world._name;
         _waves = world._waves.Clone() as SOEnemyWave[];
         _chunks = world._chunks.Clone() as ChunkTileMap[];
-        _enemyPrefabs = world._enemyPrefabs.Clone() as EnemyBrain[];
         _currentWaveIndex = 0;
         if(_waves.Length <= _currentWaveIndex)
         {
