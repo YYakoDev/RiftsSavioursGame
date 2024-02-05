@@ -33,7 +33,7 @@ public class PlayerHealthManager : MonoBehaviour, IDamageable
         if(_player.Stats.CurrentHealth <= 0) return;
         _player.Stats.CurrentHealth -= damage;
         _audio.PlayOneShot(_onHitSfx);
-        GameFreezer.FreezeGame(0.04f);
+        GameFreezer.FreezeGame(0.03f);
         _blinkFX.Play();
         if(_player.Stats.CurrentHealth <= 0)
         {

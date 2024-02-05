@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class ResourcePool : MonoBehaviour
 {
-    [SerializeField] GameObject _resourcePrefab;
+    [SerializeField] Resource _resourcePrefab;
     [SerializeField] ChunkGenerator _chunkGenerator;
     [SerializeField] int _amountToPool = 10;
     ObjectAndComponentPool<Resource> _resourcesPool;
 
     private void Awake()
     {
-        _resourcesPool = new(_amountToPool, _resourcePrefab, transform, true, SkipCondition);
+        _resourcesPool = new(_amountToPool, _resourcePrefab.gameObject, transform, true, SkipCondition);
         ResourcePointer.OnSignal += OnPointerSignal;
     }
 

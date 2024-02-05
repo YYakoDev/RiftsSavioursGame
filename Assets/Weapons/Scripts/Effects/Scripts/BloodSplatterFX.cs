@@ -17,9 +17,11 @@ public class BloodSplatterFX : MonoBehaviour
         gameObject.SetActive(_animator != null || _renderer != null);
         _animator.runtimeAnimatorController = _SplatterAnimatorVariants[Random.Range(0, _SplatterAnimatorVariants.Length)];
         _initialColor = _renderer.color;
+        
     }
     private void OnEnable() {
         _renderer.color = _initialColor;
+        _animator.enabled = true;
     }
 
     private void Update() {
@@ -27,6 +29,7 @@ public class BloodSplatterFX : MonoBehaviour
         _elapsedTime += Time.deltaTime;
         float percent = _elapsedTime / _coagulationTime;
         _renderer.color = Color.Lerp(_initialColor, _endColor, percent);
+        if(_elapsedTime >= _coagulationTime) _animator.enabled = false;
     }
 
     public void Flip(Vector3 playerPos)

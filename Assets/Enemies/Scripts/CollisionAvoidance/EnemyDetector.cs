@@ -23,10 +23,10 @@ public class EnemyDetector : MonoBehaviour
     void Start()
     {
         _parent = transform.parent;
-        _randomizedFrameWait = Random.Range(-0.035f,0.049f);
+        _randomizedFrameWait = Random.Range(-0.019f, 0.0555f);
         _nextDetectionTime = _detectionRate + _randomizedFrameWait;
         _colliders = new Collider2D[_maxCollidersToDetect + Random.Range(-1,2)];
-        _detectionRadius += Random.Range(-0.24f,0.25f);
+        _detectionRadius += Random.Range(-0.31f,0.155f);
     }
 
     // Update is called once per frame

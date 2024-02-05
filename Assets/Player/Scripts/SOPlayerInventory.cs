@@ -30,6 +30,7 @@ public class SOPlayerInventory : ScriptableObject
         _ownedMaterials = new();
         _equippedUpgrades = new();
         _upgradesManager = upgradesManager;
+        AssetMenuUpdators.UpdateCraftingMaterialIcons();
     }
 
     public void AddMaterial(CraftingMaterial craftingMaterial)
@@ -40,6 +41,17 @@ public class SOPlayerInventory : ScriptableObject
         }else
         {
             _ownedMaterials.Add(craftingMaterial,1);
+        }
+        onInventoryChange?.Invoke();
+    }
+    public void AddMaterial(CraftingMaterial craftingMaterial, int amount)
+    {
+        if(_ownedMaterials.ContainsKey(craftingMaterial))
+        {
+            _ownedMaterials[craftingMaterial] += amount;
+        }else
+        {
+            _ownedMaterials.Add(craftingMaterial,amount);
         }
         onInventoryChange?.Invoke();
     }

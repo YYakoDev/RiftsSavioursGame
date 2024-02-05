@@ -17,11 +17,12 @@ public class World : ScriptableObject
     private SOEnemyWave _currentWave;
     private int _currentWaveIndex = 0;
 
-    
+    public event Action<SOEnemyWave> OnWaveChange;
 
     //properties
     public static float RiftDurationInSeconds => RiftDuration;
     public SOEnemyWave CurrentWave => _currentWave;
+    public SOEnemyWave[] Waves => _waves;
     public float WavesInterval => _currentWave.WaveDuration;
     public float RestInterval => _restInterval;
     public ChunkTileMap[] Chunks => _chunks;
@@ -51,9 +52,10 @@ public class World : ScriptableObject
             _currentWave = _waves[_currentWaveIndex];
             return;
         }
-        Debug.Log($"<b>Advancing to wave: {_waves[_currentWaveIndex].name} </b>");
+        //Debug.Log($"<b>Advancing to wave: {_waves[_currentWaveIndex].name} </b>");
         _currentWave = _waves[_currentWaveIndex];
         SetRestInterval(_currentWave.WaveDuration);
+        OnWaveChange?.Invoke(_currentWave);
     }
 
     public void AddNewChunk(ChunkTileMap chunk)
@@ -65,6 +67,6 @@ public class World : ScriptableObject
 
     void SetRestInterval(float waveDuration)
     {
-        _restInterval = 1f + ((3f + 1f * _currentWave.EnemiesToSpawn) - 50f / waveDuration);
+        _restInterval = 8f + (3f + _currentWave.EnemiesToSpawn - 25f / waveDuration) + 5f / _currentWave.EnemySpawnCooldown;
     }
 }

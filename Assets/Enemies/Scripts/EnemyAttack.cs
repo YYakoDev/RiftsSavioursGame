@@ -15,10 +15,13 @@ public class EnemyAttack : MonoBehaviour
         _behaviour = attackBehaviour;
     }
 
+    private void Update() {
+        _behaviour?.UpdateLogic();
+    }
 
     public void DoAttack()
     {
-        _behaviour.Action();
+        _behaviour?.Action();
     }
 
 

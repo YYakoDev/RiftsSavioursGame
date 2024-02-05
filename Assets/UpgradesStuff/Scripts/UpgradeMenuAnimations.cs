@@ -10,6 +10,7 @@ public class UpgradeMenuAnimations : MonoBehaviour
     [Header("References")]
     [SerializeField] Image _BG;
     [SerializeField] Image _anvilImg;
+    [SerializeField] Image _choicesLeftImg;
     RectTransform[] _upgradeItemsInstance = new RectTransform[0];
     Vector3[] _itemStartingScales = new Vector3[0];
     TweenAnimatorMultiple _animator;
@@ -25,6 +26,7 @@ public class UpgradeMenuAnimations : MonoBehaviour
     [SerializeField] float _itemScaleAnimDuration = 1f;
     [SerializeField] int _scaleBounces = 5;
     [SerializeField] Vector3 _itemsScaleOffset;
+    [SerializeField] float _choicesAmountAnimDuration = 0.35f;
 
     [Header("Audio Stuff")]
     [SerializeField] AudioSource _audio;
@@ -65,6 +67,8 @@ public class UpgradeMenuAnimations : MonoBehaviour
         _anvilImg.color = anvilNewColor;
 
         foreach(var item in _upgradeItemsInstance) item.localScale = new Vector3(0, 1, 1);
+
+        _choicesLeftImg.rectTransform.localScale = Vector3.zero;
     }
 
     public void Play(Action onComplete)
@@ -75,6 +79,7 @@ public class UpgradeMenuAnimations : MonoBehaviour
         {
             PlayAudio(_anvilSFX);
             _animator.TweenImageOpacity(_anvilImg.rectTransform, 255, _anvilAnimDuration);
+            _animator.Scale(_choicesLeftImg.rectTransform, Vector3.one, _choicesAmountAnimDuration);
             _animator.TweenMoveToBouncy
             (_anvilImg.rectTransform, _anvilEndPosition, _anvilMovementOffset, _anvilAnimDuration, 0, _anvilMovementBounces, onBounceComplete: () =>
             {

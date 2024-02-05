@@ -104,46 +104,28 @@ public class MeleeWeapon : WeaponBase
         for(int i = 0; i < _hittedEnemiesGO.Count; i++)
         {
             if(i >= _maxEnemiesToHit)break;
-            if(_hittedEnemiesGO[i] == null || !_hittedEnemiesGO[i].activeSelf)continue;
+            var hitEnemy = _hittedEnemiesGO[i];
+            if(hitEnemy == null || !hitEnemy.activeSelf)continue;
 
-            if(_hittedEnemiesGO[i].TryGetComponent<IDamageable>(out IDamageable damageable))
-            {
-                damageable.TakeDamage(damage);
-                PopupsManager.Create(_hittedEnemiesGO[i].transform.position + Vector3.up * 0.75f, damage);
-                InvokeOnEnemyHit(_hittedEnemiesGO[i].transform.position);
-            }
-            if(_hittedEnemiesGO[i].TryGetComponent<IKnockback>(out var knockbackable))
-            {
+            if(hitEnemy.TryGetComponent<IDamageable>(out IDamageable damageable)) 
+                ApplyDamage(hitEnemy.transform, damageable, damage);
+            
+            if(hitEnemy.TryGetComponent<IKnockback>(out var knockbackable)) 
                 knockbackable.KnockbackLogic.SetKnockbackData(_parentTransform, knockbackForce);
-            }
-
-            //you can spawn hit fx in this part
+            
 
         }
     }
 
-    /*public void InstantiateFX()
+    protected virtual void ApplyDamage(Transform enemy, IDamageable entity, int damage)
     {
-        Vector3 spawnPosition = _weaponPrefabTransform.position + _weaponPrefabTransform.right * -1 * _attackRange;
-        Vector3 flippedScale = _parentTransform.localScale;
-        flippedScale.x *= flippedScale.y * -1;
-
-
-        if(_weaponFXInstance == null)
-        {
-            _weaponFXObject = Instantiate(_weaponFXPrefab.gameObject, spawnPosition, Quaternion.identity);
-            _weaponFXObject.transform.localScale = flippedScale;
-            //_weaponFXObject.transform.parent = _parentTransform;
-            _weaponFXInstance = _weaponFXObject.GetComponent<WeaponFX>();
-            _weaponFXInstance.Initialize(_attackDuration);
-        }else
-        {
-            _weaponFXObject.SetActive(true);
-            _weaponFXObject.transform.position = spawnPosition;
-            _weaponFXObject.transform.localScale = flippedScale;
-            _weaponFXInstance.Initialize(_attackDuration);
-        }
-    }*/
+        int critRoll = Random.Range(0, 101);
+        bool critHit = (_criticalChance > critRoll);
+        int realDamage = (critHit) ? (int)(damage * _criticalDamageMultiplier) : damage;
+        entity.TakeDamage(realDamage);
+        PopupsManager.CreateDamagePopup(enemy.position + Vector3.up * 0.8f, realDamage, critHit);
+        InvokeOnEnemyHit(enemy.position);
+    }
 
     protected void SetRadiusOffset(float atkRange)
     {

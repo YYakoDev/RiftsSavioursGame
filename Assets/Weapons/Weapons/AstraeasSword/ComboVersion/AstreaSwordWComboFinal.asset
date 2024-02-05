@@ -27,13 +27,15 @@ MonoBehaviour:
   - {fileID: 8300000, guid: b84216003718d5943b73059e3b336319, type: 3}
   - {fileID: 8300000, guid: ea652bf6f93bd6d418c9ca0f92dace0f, type: 3}
   _pointCameraOnAttack: 1
-  _attackCooldown: 0.5
+  _attackCooldown: 0.55
   _pullForce: 0.4
   _pullDuration: 0.1
   _attackRange: 1
-  _attackSpeed: 1
+  _attackSpeed: 0.9
   _rangeOffset: {x: 0, y: 0}
   _attackDamage: 10
+  _criticalChance: 15
+  _criticalDamageMultiplier: 2.2
   _damageDelay: 0.04
   _knockbackForce: 0.91
   _speedUPComboAnimations: 1

@@ -31,14 +31,13 @@ public class EnemyWaveSpawner : MonoBehaviour
         _portalPool = new(60, _portalFx, this.transform, true);
         _stopSpawningTimer = new(0.1f);
         _stopSpawningTimer.Stop();
+        _nextSpawnTime = Time.time + 3f;
     }
     
     // Start is called before the first frame update
     void Start()
     {
         if(_playerTransform == null) _playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-
-        _nextSpawnTime = _spawnCooldown;
 
         GameStateManager.OnRestStart += StopSpawning;
         _stopSpawningTimer.onEnd += ResumeSpawning;
@@ -53,7 +52,7 @@ public class EnemyWaveSpawner : MonoBehaviour
         if(_stopped) return;
         if (_nextSpawnTime < Time.time)
         {
-            _nextSpawnTime = _spawnCooldown + Time.time;
+            _nextSpawnTime = _spawnCooldown + 0.15f + Time.time;
             SelectSpawnPosition();
             SpawnPortalFx(_selectedSpawnpoint);
             int amountOfEnemiesToSpawn = Random.Range(1, _currentWave.EnemiesToSpawn + 1);
@@ -73,9 +72,7 @@ public class EnemyWaveSpawner : MonoBehaviour
         var enemy = _pool.GetPooledObject();
         if(enemy.Value == null) yield break;
         
-        var targetProvider = enemy.Key.GetComponent<ITargetPositionProvider>();
-        targetProvider.TargetTransform = _playerTransform;
-        enemy.Value.Initialize(data);
+        enemy.Value.Initialize(data, _playerTransform);
 
         enemy.Key.transform.SetParent(null); //aca setearlo al parent del objeto "Units" adentro de environment
         enemy.Key.transform.position = _selectedSpawnpoint + (Vector3)(Vector2.one * Random.Range(-0.8f, 0.8f));

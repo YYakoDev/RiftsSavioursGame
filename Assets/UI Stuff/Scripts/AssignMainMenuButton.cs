@@ -7,6 +7,7 @@ public class AssignMainMenuButton : MonoBehaviour
 {
     public void PlayButton()
     {
+        Debug.Log("You should be using a loading screen for this, use the prefab asyncloader");
         SceneManager.LoadScene(1);
     }
     public void QuitButton()

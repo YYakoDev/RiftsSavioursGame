@@ -15,6 +15,8 @@ public class SOPlayerAttackStats : PlayerStatsBase
     [SerializeField, Range(0f , 2.25f)]private float _attackKnockback;
     [SerializeField]private int _projectilesCount;
     [SerializeField]private float _projectilesSpeed;
+    [SerializeField] private int _summonDamage = 5;
+    [SerializeField] private float _summonSpeed = 1.5f;
 
 
 
@@ -26,6 +28,8 @@ public class SOPlayerAttackStats : PlayerStatsBase
     public float AttackKnockback {get => _attackKnockback; set {_attackKnockback = value; onStatsChange?.Invoke();}}
     public int ProjectilesCount {get => _projectilesCount; set {_projectilesCount = value; onStatsChange?.Invoke();}}
     public float ProjectilesSpeed {get => _projectilesSpeed; set {_projectilesSpeed = value; onStatsChange?.Invoke();}}
+    public int SummonDamage {get => _summonDamage; set {_summonDamage = value; onStatsChange?.Invoke();}}
+    public float SummonSpeed {get => _summonSpeed; set {_summonSpeed = value; onStatsChange?.Invoke();}}
 
     public void Initialize(SOPlayerAttackStats stats)
     {
@@ -35,5 +39,7 @@ public class SOPlayerAttackStats : PlayerStatsBase
         _attackKnockback = stats._attackKnockback;
         _projectilesCount = stats._projectilesCount;
         _projectilesSpeed = stats._projectilesSpeed;
+        _summonDamage = stats.SummonDamage;
+        _summonSpeed = stats.SummonSpeed;
     }
 }

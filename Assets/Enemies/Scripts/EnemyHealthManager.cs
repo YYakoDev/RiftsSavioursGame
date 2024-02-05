@@ -7,12 +7,12 @@ using UnityEngine;
 [RequireComponent(typeof(WhiteBlinkEffect))]
 public class EnemyHealthManager : MonoBehaviour, IDamageable, ITargetPositionProvider
 {
-    [SerializeField]EnemyBrain _brain;
+    EnemyBrain _brain;
     SOEnemyBehaviour _deathBehaviour;
     Dropper _dropper;
     WhiteBlinkEffect _blinkFX;
     private int _health;
-    private float _deathDuration = 0.35f;
+    private float _deathDuration = 1.5f;
     WaitForSeconds _deathDurationWait;
     public event Action onDeath;
     Transform _player;
@@ -29,21 +29,19 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable, ITargetPositionPro
         _deathDurationWait = new(_deathDuration);
         
     }
-    public void Init(SOEnemyBehaviour deathBehaviour) => _deathBehaviour = deathBehaviour;
+    public void Init(EnemyBrain brain, SOEnemyBehaviour deathBehaviour)
+    {
+        _brain = brain;
+        _player = brain.TargetTransform;
+        _deathBehaviour = deathBehaviour;
+        SetHealth();
+    }
 
     private void OnEnable() 
     {
         StopAllCoroutines();  
         SetHealth();
     }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        SetHealth();
-        if(_player == null) _player = GameObject.FindGameObjectWithTag("Player").transform;
-    }
-
     void SetHealth()
     {
         if(_brain == null || _brain.Stats == null)return;

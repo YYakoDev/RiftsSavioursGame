@@ -19,4 +19,15 @@ public class AIStats
     public float KnockbackForce => _knockbackForce;
     public int StunResistance => _stunResistance;
     public int KnockbackResistance => _knockbackResistance;
+
+    public void SetValues(AIStats stats)
+    {
+        this._speed = stats.Speed;
+        _stunDuration = stats.StunDuration;
+        _stunResistance = stats.StunResistance;
+        _knockbackResistance = stats.KnockbackResistance;
+        _maxHealth = stats.MaxHealth;
+        _damage = stats.Damage;
+        _knockbackForce = stats.KnockbackForce;
+    }
 }

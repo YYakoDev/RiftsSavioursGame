@@ -74,7 +74,7 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_text
-    value: 123
+    value: Text
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_isRightToLeft
@@ -106,15 +106,15 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_fontColor.r
-    value: 0.28235295
+    value: 0.9245283
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_fontColor.g
-    value: 0.44705883
+    value: 0.9177915
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_fontColor.b
-    value: 0.70980394
+    value: 0.87655747
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_fontColor.a
@@ -222,11 +222,11 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_fontSize
-    value: 30.25
+    value: 20
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_fontSizeBase
-    value: 36
+    value: 20
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_fontWeight
@@ -234,7 +234,7 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_enableAutoSizing
-    value: 1
+    value: 0
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_fontSizeMin
@@ -262,7 +262,7 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_characterSpacing
-    value: 1.38
+    value: 2
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_wordSpacing
@@ -282,7 +282,7 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_charWidthMaxAdj
-    value: 50
+    value: 0
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_enableWordWrapping
@@ -366,19 +366,19 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_margin.x
-    value: -17.839529
+    value: 0
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_margin.y
-    value: -9.8133955
+    value: 0
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_margin.z
-    value: -19.664768
+    value: 0
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_margin.w
-    value: -11.040016
+    value: 0
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_isUsingLegacyAnimationComponent

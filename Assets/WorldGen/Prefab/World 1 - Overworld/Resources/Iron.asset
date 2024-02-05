@@ -25,6 +25,8 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 9a99132d48dad904e88d70b3677e6db3, type: 2}
     - {fileID: 11400000, guid: a55415ad21c555745b9e6e73faa154e8, type: 2}
     - {fileID: 11400000, guid: a55415ad21c555745b9e6e73faa154e8, type: 2}
+    - {fileID: 11400000, guid: 298a4dd873174a24594722d55abb6306, type: 2}
+    - {fileID: 11400000, guid: 298a4dd873174a24594722d55abb6306, type: 2}
     _isTrigger: 0
     _posOffset: {x: 0, y: -0.05}
     _radius: 0.375

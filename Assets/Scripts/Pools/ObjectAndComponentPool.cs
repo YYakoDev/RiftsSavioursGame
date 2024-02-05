@@ -71,7 +71,7 @@ where TComponent : Component
         GameObject obj = GameObject.Instantiate(_objToPool, Vector3.zero, Quaternion.identity);
         obj.transform.SetParent(_parent);
         obj.SetActive(false);
-        var addedComponent = obj.AddComponent<TComponent>();
+        var addedComponent = obj.GetComponent<TComponent>();
         _objsAndComponents.Add(obj, addedComponent);
         KeyValuePair<GameObject, TComponent> pairedObj = new(obj, addedComponent);
         return pairedObj;

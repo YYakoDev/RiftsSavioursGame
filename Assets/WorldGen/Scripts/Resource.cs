@@ -33,6 +33,8 @@ public class Resource : MonoBehaviour, IResources, IComparable, IMaskeable
     private readonly int BreakingAnim = Animator.StringToHash("Breaking");
     private readonly int OnHitAnim = Animator.StringToHash("OnHit");
 
+    Vector3 _dmgPopupOffset = Vector3.up / 2f;
+
     //properties
 
     public int CurrentHealth => _currentHealth;
@@ -116,7 +118,7 @@ public class Resource : MonoBehaviour, IResources, IComparable, IMaskeable
 
         _currentHealth -= damage;
         _blinkFX.Play();
-        PopupsManager.Create(transform.position, damage);
+        PopupsManager.CreateDamagePopup(transform.position + _dmgPopupOffset, damage, false);
         _animator.enabled = true;
         _animator.Play(OnHitAnim);
         if(HitSFX != null)

@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class SOEnemyAttackBehaviour : SOEnemyBehaviour
 {
-    
+    public virtual void UpdateLogic(){}
 }

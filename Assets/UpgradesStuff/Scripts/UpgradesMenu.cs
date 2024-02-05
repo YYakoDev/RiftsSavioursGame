@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TMPro;
 using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(LevelUpSequence))]
@@ -14,11 +15,12 @@ public class UpgradesMenu : MonoBehaviour
     [SerializeField]private Button _continueButton;
     [SerializeField]private UpgradeMenuAnimations _animations;
     [SerializeField]private UpgradeItemPrefab _upgradeItemPrefab;
+    [SerializeField] private TextMeshProUGUI t_uiChoicesText;
     [SerializeField]SOPossibleUpgradesList _possibleUpgradesList; // from here you should grab an x number of upgrades and show them everytime you open the menu
     [SerializeField]SOPlayerInventory _playerInventory;
     LevelUpSequence _levelupSequence;
     const int selectionCount = 3;
-    [SerializeField]int _choicesAmount = 3;
+    int _choicesAmount = 1;
     [SerializeField,ReadOnly]int _craftingAttempts = 0;
     private SOUpgradeBase[] _selectedUpgrades;
     private UpgradeItemPrefab[] _instantiatedItems;
@@ -38,6 +40,7 @@ public class UpgradesMenu : MonoBehaviour
 
     private void Awake() {
         _levelupSequence = GetComponent<LevelUpSequence>();
+        _choicesAmount = 1;
     }
 
     private void Start() {
@@ -47,7 +50,7 @@ public class UpgradesMenu : MonoBehaviour
             DeactivateUpgradeMenu();
             this.enabled = false;
         }
-        //PlayerLevelManager.onLevelUp += ActivateUpgradeMenu;
+        PlayerLevelManager.onLevelUp += AddMoreChoices;
         _selectedUpgrades = new SOUpgradeBase[selectionCount];
         CreateUpgradeItems();
         if(_activeMenuOnStart) PlayMenuAnimations();
@@ -57,40 +60,35 @@ public class UpgradesMenu : MonoBehaviour
     public void DoLevelUpSequence()
     {
         YYInputManager.StopInput();
-        _upgradesContainer.SetStopTimer(4f);
+        _upgradesContainer.SetStopTimer(3f);
         _levelupSequence.Play(PlayMenuAnimations);
     }
 
     void PlayMenuAnimations()
     {
+        _craftingAttempts = 0;
+        SetChoicesAmountOnUI();
         _animations.SetElements(_instantiatedItems);
         _upgradesMenu.gameObject.SetActive(true);
         _animations.Play(ActivateUpgradeMenu);
     }
 
+    void AddMoreChoices() => _choicesAmount += 2;
+
+    void SetChoicesAmountOnUI() => t_uiChoicesText.text = Mathf.Abs(_choicesAmount - _craftingAttempts).ToString();
+
+
     void ActivateUpgradeMenu()
     {
         TimeScaleManager.ForceTimeScale(0);
         _upgradesContainer.ResumeInput();
-        _craftingAttempts = 0;
         PickRandomUpgrades();
         CheckCreatedItems();
-
-        //_animations.ClearAnimations();
-        //_animations.PlayAnimations();
-        //_audio.PlayWithVaryingPitch(_openingSound);
-        
         //Cursor stuff
         _previousCursorState = Cursor.visible;
         _previousCursorLockMode = Cursor.lockState;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
-
-
-        
-        //do the setup here and get the possible upgrades and show 3
-        //every time the player gets an upgrade they are "popped" from the list
-        //ALSO add to the button eventListener the CraftUpgrade method and pass as a parameter the actual upgrade that you generated
     }
 
     void PickRandomUpgrades()
@@ -138,6 +136,7 @@ public class UpgradesMenu : MonoBehaviour
     public void CraftUpgrade(SOUpgradeBase upgradeToCraft, int uiItemIndex) //this method is being called by the upgrade button on the canvas
     {
         _craftingAttempts++;
+        SetChoicesAmountOnUI();
         //_audio.PlayWithVaryingPitch(_closingSound);
         foreach (UpgradeCost requirement in upgradeToCraft.Costs)
         {
@@ -183,6 +182,16 @@ public class UpgradesMenu : MonoBehaviour
         _instantiatedItems[index].Initialize(_playerInventory, randomUpgrade, CraftUpgrade, index);
     }
 
+    void RerollUpgrades()
+    {
+
+    }
+
+    void SaveUpgrade(SOUpgradeBase upgrade)
+    {
+
+    }
+
     void RecalculateCosts()
     {
         if (_instantiatedItems == null) return;
@@ -221,6 +230,7 @@ public class UpgradesMenu : MonoBehaviour
         Resume();
         Cursor.visible = _previousCursorState;
         Cursor.lockState = _previousCursorLockMode;
+        _choicesAmount = 1;
         OnMenuClose?.Invoke();
         YYInputManager.ResumeInput();
     }
@@ -233,7 +243,7 @@ public class UpgradesMenu : MonoBehaviour
 
     private void OnDestroy()
     {
-        //PlayerLevelManager.onLevelUp -= ActivateUpgradeMenu;
+        PlayerLevelManager.onLevelUp -= AddMoreChoices;
     }
 
 }

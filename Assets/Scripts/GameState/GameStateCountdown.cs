@@ -3,7 +3,7 @@ using UnityEngine;
 public class GameStateCountdown : GameStateBase
 {
     protected float _countdownTime;
-
+    public float CountdownTime => _countdownTime;
     public GameStateCountdown(GameStateManager manager) : base(manager)
     {
     }

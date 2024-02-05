@@ -58,7 +58,7 @@ public class SoulsWeapon : MonoBehaviour
             if(hittedEnemiesGO[i].TryGetComponent<IDamageable>(out IDamageable damageable))
             {
                 damageable.TakeDamage(11);
-                PopupsManager.Create(hittedEnemiesGO[i].transform.position + Vector3.up * 0.75f, 11);
+                //PopupsManager.Create(hittedEnemiesGO[i].transform.position + Vector3.up * 0.75f, 11);
             }
             if(hittedEnemiesGO[i].gameObject.TryGetComponent<IKnockback>(out IKnockback knockbackable))
             {

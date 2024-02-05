@@ -472,12 +472,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 27
+  m_fontSize: 24.7
   m_fontSizeBase: 27
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 45
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 15
+  m_fontSizeMax: 30
   m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -487,7 +487,7 @@ MonoBehaviour:
   m_lineSpacing: 0
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
-  m_charWidthMaxAdj: 1
+  m_charWidthMaxAdj: 0
   m_enableWordWrapping: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
@@ -508,7 +508,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: -7.7741737, z: 0, w: 0}
+  m_margin: {x: 0, y: -7, z: 0, w: -3}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -966,7 +966,7 @@ MonoBehaviour:
     m_SelectedColor: {r: 0.7372549, g: 0.72156864, b: 0.6039216, a: 1}
     m_DisabledColor: {r: 0.5647059, g: 0.44705886, b: 0.27450982, a: 0.84313726}
     m_ColorMultiplier: 1
-    m_FadeDuration: 0.15
+    m_FadeDuration: 0.09
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
     m_PressedSprite: {fileID: 0}
@@ -1073,26 +1073,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 463176325238634056, guid: 07017ffb236c17d4e8df8df1f544b4bb, type: 3}
       propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 463176325238634058, guid: 07017ffb236c17d4e8df8df1f544b4bb, type: 3}
-      propertyPath: m_fontSize
-      value: 33.85
-      objectReference: {fileID: 0}
-    - target: {fileID: 463176325238634058, guid: 07017ffb236c17d4e8df8df1f544b4bb, type: 3}
-      propertyPath: m_margin.w
-      value: 5.935219
-      objectReference: {fileID: 0}
-    - target: {fileID: 463176325238634058, guid: 07017ffb236c17d4e8df8df1f544b4bb, type: 3}
-      propertyPath: m_margin.y
-      value: 2.4730403
-      objectReference: {fileID: 0}
-    - target: {fileID: 463176325238634058, guid: 07017ffb236c17d4e8df8df1f544b4bb, type: 3}
-      propertyPath: m_fontSizeBase
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 463176325238634058, guid: 07017ffb236c17d4e8df8df1f544b4bb, type: 3}
-      propertyPath: m_enableAutoSizing
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 463176325238634059, guid: 07017ffb236c17d4e8df8df1f544b4bb, type: 3}

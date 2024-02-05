@@ -20,7 +20,7 @@ public class PlayerLevelManager : MonoBehaviour
         this.enabled = (_playerStats != null);
         _playerStats.Level = 1;
         _playerStats.CurrentXP = 0;
-
+        SetNextLevelXP();
         onLevelUp += SetNextLevelXP;
     }
 
@@ -38,11 +38,16 @@ public class PlayerLevelManager : MonoBehaviour
     {
         _playerStats.Level++;
         onLevelUp?.Invoke();
+        var currentHealth = _playerStats.CurrentHealth;
+        currentHealth += 5;
+        currentHealth = Mathf.Clamp(currentHealth, 5, _playerStats.MaxHealth);
+        _playerStats.CurrentHealth = currentHealth;
     }
 
     void SetNextLevelXP()
     {
         //do the nextXPToLevelUP FORMULA
+        _playerStats.XPToNextLevel = 20 * _playerStats.Level + 5 * _playerStats.Level;
     }
 
     private void OnDestroy() {

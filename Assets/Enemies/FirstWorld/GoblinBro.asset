@@ -26,6 +26,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d0ab46bbe532d364a8d370efba7ef95e, type: 2}
   - {fileID: 11400000, guid: c45b0533b77ae1545b2ba1e7cd1a6314, type: 2}
   - {fileID: 11400000, guid: 653ab1a504c5f7648bc8422c4294a24f, type: 2}
+  - {fileID: 11400000, guid: d3b5f47d488573044a4ef812cd4113ee, type: 2}
   _isBoxTrigger: 1
   _boxColliderSize: {x: 0.5, y: 0.945}
   _isCircleTrigger: 0
@@ -34,7 +35,7 @@ MonoBehaviour:
   _enableEnemyDetector: 1
   _enemyDetectionRadius: 0.73
   _movementBehaviour: {fileID: 11400000, guid: 9506340d249ee2f4aa6eaa1981b01eda, type: 2}
-  _attackBehaviour: {fileID: 0}
+  _attackBehaviour: {fileID: 11400000, guid: fa81f5ed01e62f145b9699053d248833, type: 2}
   _deathBehaviour: {fileID: 0}
   _bloodSplatter: {fileID: -2486305248213958785, guid: 329e704e453c1fd4c8c5db7ffbe677c7, type: 3}
   _hasShadow: 1

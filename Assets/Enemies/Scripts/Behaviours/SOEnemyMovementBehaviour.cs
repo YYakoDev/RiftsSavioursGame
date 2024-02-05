@@ -12,10 +12,16 @@ public class SOEnemyMovementBehaviour : SOEnemyBehaviour
         base.Initialize(brain);
         _target = brain.TargetTransform;
         _enemyTransform = brain.transform;
+        //Debug.Log(_target);
     }
     public virtual void UpdateLogic(){}
     public virtual void PhysicsLogic(){}
-    
+
+    public void UpdateTarget(Transform target) 
+    {
+        _target = target;
+    }
+
     public override void Action()
     {
         base.Action();

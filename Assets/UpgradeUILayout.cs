@@ -20,7 +20,7 @@ public class UpgradeUILayout : MonoBehaviour
     Vector3[] _positions;
     float _inputDirection;
     float _verticalDirection;
-    int _currentIndex;
+    UISelectionIndex[] _indexes = new UISelectionIndex[2];
 
     [Header("Animation Stuff")]
     [SerializeField] float _movementAnimDuration = 0.5f;
@@ -28,16 +28,7 @@ public class UpgradeUILayout : MonoBehaviour
     TweenAnimatorMultiple _animator;
 
 
-    private int CurrentIndex
-    {
-        get => _currentIndex;
-        set
-        {
-            _currentIndex = value;
-            if (value < 0) _currentIndex = _upgradeElements.Length - 1;
-            if (value >= _upgradeElements.Length) _currentIndex = 0;
-        }
-    }
+
 
 
     private void Awake()
@@ -62,6 +53,12 @@ public class UpgradeUILayout : MonoBehaviour
             Vector3.zero,
             _upgradesBackPositions[1]
         };
+
+        for (int i = 0; i < _indexes.Length; i++)
+        {
+            int maxLength = (i == 0) ? _upgradeElements.Length : _bottomButtons.Length;
+            _indexes[i] = new(maxLength);
+        }
 
         _stopTimer = new(0.2f, useUnscaledTime: true);
         _stopTimer.Stop();
@@ -99,10 +96,11 @@ public class UpgradeUILayout : MonoBehaviour
 
     void SwitchUIElement()
     {
-        if (_inputDirection < -0.01f) CurrentIndex++;
-        else CurrentIndex--;
+        int dir = (_inputDirection < -0.01f) ? 1 : -1;
+        int groupIndex = (_currentGroup == _upgradeElements) ? 0 : 1;
+        _indexes[groupIndex].CurrentIndex += dir;
 
-        SetStopTimer(_movementAnimDuration + 0.1f);
+        SetStopTimer(_movementAnimDuration + 0.05f);
         GameObject selectedElement = null;
 
         if (_currentGroup == _upgradeElements)
@@ -110,17 +108,17 @@ public class UpgradeUILayout : MonoBehaviour
             for (int i = 0; i < _upgradeElements.Length; i++)
             {
                 var element = _upgradeElements[i];
-                var position = _positions[CurrentIndex];
-                Vector3 scale = (CurrentIndex == 1) ? Vector3.one : _behindScale;
+                var position = _positions[_indexes[groupIndex].CurrentIndex];
+                Vector3 scale = (_indexes[groupIndex].CurrentIndex == 1) ? Vector3.one : _behindScale;
                 PlayMovementAnimation(element, position);
                 PlayScaleAnimation(element, scale);
-                if (CurrentIndex == 1) selectedElement = element.gameObject;
-                CurrentIndex++;
+                if (_indexes[groupIndex].CurrentIndex == 1) selectedElement = element.gameObject;
+                _indexes[groupIndex].CurrentIndex++;
             }
         }
         else if (_currentGroup == _bottomButtons)
         {
-            selectedElement = _bottomButtons[0].gameObject;
+            selectedElement = _bottomButtons[_indexes[groupIndex].CurrentIndex].gameObject;
         }
 
         if (selectedElement != null) SwitchFocus(selectedElement);
@@ -134,9 +132,9 @@ public class UpgradeUILayout : MonoBehaviour
     void SwitchGroup()
     {
         var group = (_verticalDirection > 0.1f) ? _upgradeElements : _bottomButtons;
-        if (group == _currentGroup) return;
-        SetStopTimer(0.2f);
+        SetStopTimer(_scaleAnimDuration + 0.05f);
         _currentGroup = group;
+        var groupIndex = (_currentGroup == _upgradeElements) ? 0 : 1;
         for (int i = 0; i < _currentGroup.Length; i++)
         {
             RectTransform element = _currentGroup[i];
@@ -146,12 +144,12 @@ public class UpgradeUILayout : MonoBehaviour
                 _animator?.Scale(element, currentScale, _scaleAnimDuration / 4f);
             });
         }
-        SwitchFocus(_currentGroup[0].gameObject);
+        SwitchFocus(_currentGroup[_indexes[groupIndex].CurrentIndex].gameObject);
     }
 
     void PlayMovementAnimation(RectTransform element, Vector3 endPos)
     {
-        _animator?.TweenMoveToBouncy(element, endPos, Vector3.right * 5f, _movementAnimDuration, 0, 3);
+        _animator?.TweenMoveToBouncy(element, endPos, Vector3.right * 10f, _movementAnimDuration, 0, 4);
     }
     void PlayScaleAnimation(RectTransform element, Vector3 endScale)
     {
@@ -183,3 +181,25 @@ public class UpgradeUILayout : MonoBehaviour
         _stopTimer.onEnd -= Resume;
     }
 }
+
+public struct UISelectionIndex
+{
+    int _currentIndex;
+    int _maxLength;
+    public UISelectionIndex(int maxLength, int startingIndex = 0)
+    {
+        _currentIndex = startingIndex;
+        _maxLength = maxLength;
+    }
+    public int CurrentIndex
+    {
+        get => _currentIndex;
+        set
+        {
+            _currentIndex = value;
+            if (value < 0) _currentIndex = _maxLength - 1;
+            if (value >= _maxLength) _currentIndex = 0;
+        }
+    }
+}
+

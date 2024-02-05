@@ -197,4 +197,8 @@ public class UpgradeItemPrefab : MonoBehaviour, ISelectHandler
         yield return null;
         EventSystem.current.SetSelectedGameObject(_craftUpgradeButton.gameObject);
     }
+
+    private void OnDestroy() {
+        _craftUpgradeButton.RemoveAllEvents();
+    }
 }

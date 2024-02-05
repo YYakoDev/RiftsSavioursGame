@@ -32,7 +32,7 @@ MonoBehaviour:
   _enableEnemyDetector: 1
   _enemyDetectionRadius: 0.35
   _movementBehaviour: {fileID: 11400000, guid: 9e8c1beda22808f4386f411a5f542f0c, type: 2}
-  _attackBehaviour: {fileID: 0}
+  _attackBehaviour: {fileID: 11400000, guid: fa81f5ed01e62f145b9699053d248833, type: 2}
   _deathBehaviour: {fileID: 0}
   _bloodSplatter: {fileID: -2486305248213958785, guid: f357a13af3ad47242bbf327e86de7df1, type: 3}
   _hasShadow: 0

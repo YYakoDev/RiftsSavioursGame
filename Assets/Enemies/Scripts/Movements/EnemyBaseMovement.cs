@@ -14,7 +14,8 @@ public class EnemyBaseMovement
     float _elapsedTime = 0f;
     float _accelerationTime = 1f;
     AnimationCurve _accelerationCurve;
-    //
+    private bool _stopStun = false;
+    Timer _stunStopperTimer;
     Timer _movementStopTimer;
     bool _stopMovement;
     bool _isFlipped;
@@ -37,6 +38,8 @@ public class EnemyBaseMovement
         _knockbackLogic = new(transform, _enemy.Rigidbody, OnKnockbackChange, _enemy.Stats.KnockbackResistance);
         _movementStopTimer = new(0f);
         _movementStopTimer.onEnd += ResumeMovement;
+        _stunStopperTimer = new(0f);
+        _stunStopperTimer.onEnd += ResumeStunLogic;
         _movementStopTimer.Stop();
         knockbackEnabled = false;
         _accelerationCurve = TweenCurveLibrary.GetCurve(CurveTypes.EaseInOut);
@@ -58,6 +61,7 @@ public class EnemyBaseMovement
         Enabled = false;
         KnockbackLogic.StopKnockback();
         Enabled = true;
+        _stopStun = false;
         ResumeMovement();
         _elapsedTime = 0;
     }
@@ -66,6 +70,7 @@ public class EnemyBaseMovement
     {
         if(!Enabled) return;
         _movementStopTimer.UpdateTime();
+        _stunStopperTimer.UpdateTime();
     }
     public void PhysicsLogic()
     {
@@ -76,30 +81,23 @@ public class EnemyBaseMovement
 
     public void Move(Vector2 direction)
     {
-        MoveLogic(direction, direction);
-    }
-    public void Move(Vector2 direction, Vector2 flipCheckDirection)
-    {
-        MoveLogic(direction, flipCheckDirection);
-    }
-
-    void MoveLogic(Vector2 direction, Vector2 flipDir)
-    {
         if(_stopMovement || knockbackEnabled) return;
-        _enemy.Rigidbody.velocity = Vector2.zero;
+        var fixedDeltaTime = Time.fixedDeltaTime;
+        var vectorZero = Vector2.zero;
+        var rigidbody = _enemy.Rigidbody;
+        rigidbody.velocity = vectorZero;
         //Vector2 directionToMove = _avoidanceBehaviour.ResultDirection * (_enemy.Stats.Speed * Time.fixedDeltaTime);        
-        _elapsedTime += Time.fixedDeltaTime;
+        _elapsedTime += fixedDeltaTime;
         float percent = _elapsedTime / _accelerationTime;
         if(percent <= 1.1f)  _realSpeed = Mathf.Lerp(0, _enemy.Stats.Speed, _accelerationCurve.Evaluate(percent));
-        Vector2 directionToMove = (direction + _enemy.EnemyDetector.AvoidanceDirection).normalized * (_realSpeed * Time.fixedDeltaTime);
-        if(directionToMove == Vector2.zero) return;
-        _enemy.Rigidbody.MovePosition((Vector2)_transform.position + directionToMove);
+        Vector2 directionToMove = (direction + _enemy.EnemyDetector.AvoidanceDirection).normalized * (_realSpeed * fixedDeltaTime);
+        if(directionToMove == vectorZero) return;
+        rigidbody.MovePosition((Vector2)_transform.position + directionToMove);
 
-        CheckForFlip(flipDir);
+        CheckForFlip(direction);
         
         _sortOrderController.SortOrder();
         _enemy.Animation.PlayMove();
-
     }
 
     public void Iddle()
@@ -117,7 +115,7 @@ public class EnemyBaseMovement
 
     void Stun(float duration)
     {
-        if(!Enabled) return;
+        if(!Enabled || _stopStun) return;
         _stopMovement = true;
         float realDuration = duration - duration * _enemy.Stats.StunResistance / 100f;
         _movementStopTimer.ChangeTime(realDuration);
@@ -126,6 +124,13 @@ public class EnemyBaseMovement
         _elapsedTime = _accelerationTime / 2f + _accelerationTime * _enemy.Stats.StunResistance / 100f;
         Iddle(); // <--- hit animation instead of iddle
     }
+    public void StopStun(float time)
+    {
+        _stopStun = true;
+        _stunStopperTimer.ChangeTime(time);
+        _stunStopperTimer.Start();
+    }
+    void ResumeStunLogic() => _stopStun = false;
     public void ResumeMovement()
     {
         _stopMovement = false;
@@ -153,6 +158,7 @@ public class EnemyBaseMovement
     ~EnemyBaseMovement()
     {
         _movementStopTimer.onEnd -= ResumeMovement;
+        _stunStopperTimer.onEnd -= ResumeStunLogic;
     }
 
 }

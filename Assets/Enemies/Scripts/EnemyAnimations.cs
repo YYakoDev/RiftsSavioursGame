@@ -31,7 +31,7 @@ public class EnemyAnimations : MonoBehaviour
     }
 
     private void OnEnable() {
-        PlayIddle();
+        //PlayIddle();
     }
     private void Update() {
         _speedChangeTimer.UpdateTime();
