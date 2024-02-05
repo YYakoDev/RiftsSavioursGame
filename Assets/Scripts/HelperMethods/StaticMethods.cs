@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 public static class HelperMethods
 {
-    /*private static Camera _camera;
+    private static Camera _camera;
     public static Camera MainCamera
     {
         get{
@@ -14,7 +14,7 @@ public static class HelperMethods
         }
     }
 
-    private static readonly Dictionary<float, WaitForSeconds> WaitDictionary = new();
+    /*private static readonly Dictionary<float, WaitForSeconds> WaitDictionary = new();
     public static WaitForSeconds GetWait(float time)
     {
         if(WaitDictionary.TryGetValue(time, out var waitForSeconds)) return waitForSeconds;

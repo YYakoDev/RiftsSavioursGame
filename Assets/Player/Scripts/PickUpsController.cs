@@ -7,6 +7,7 @@ public class PickUpsController : MonoBehaviour
 {
     [Header("References")]
     [SerializeField]PlayerManager _playerManager;
+    [SerializeField] ResourcesUIPopupManager _pickupsPopupManager;
     [SerializeField] AudioSource _audio;
     CircleCollider2D _collider;
 
@@ -46,6 +47,7 @@ public class PickUpsController : MonoBehaviour
     public void AddMaterial(CraftingMaterial material)
     {
         _playerManager.Inventory.AddMaterial(material);
+        _pickupsPopupManager?.SpawnMaterialPopup(material);
     }
 
     public void PlayAudioClip(AudioClip sound)

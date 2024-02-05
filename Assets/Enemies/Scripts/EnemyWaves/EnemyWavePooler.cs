@@ -9,7 +9,7 @@ public class EnemyWavePooler : MonoBehaviour
     [SerializeField] int _amountToPool = 400;
     World _currentWorld;
     private void Awake() {
-        _pool = new(0, _enemyPrefab.gameObject, transform, true);
+        _pool = new(_amountToPool, _enemyPrefab.gameObject, transform, true);
     }
 
     public KeyValuePair<GameObject,EnemyBrain> GetPooledObject()
