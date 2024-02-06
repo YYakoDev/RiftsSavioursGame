@@ -21,6 +21,11 @@ public class MainMenuUI : MonoBehaviour
         _selectionMenu?.SetActive(false);
         _currentEventSys.SetSelectedGameObject(_startButton.gameObject);
     }
+
+    private void OnEnable() {
+        TimeScaleManager.ForceTimeScale(1f);
+    }
+
     public void SetSelectionMenuActive()
     {
         gameObject.SetActive(false);

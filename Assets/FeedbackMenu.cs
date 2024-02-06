@@ -23,7 +23,7 @@ public class FeedbackMenu : MonoBehaviour, ISelectHandler
 
     public void SendEmail()
     {
-        string path = $"https://mail.google.com/mail/?view=cm&fs=1&to=riftsavioursfeedback@gmail.com&su=Feedback&body={_body}";
+        string path = $"https://mail.google.com/mail/?view=cm&fs=1&to=riftsaviours@gmail.com&su=Feedback&body={_body}";
         Application.OpenURL(path);
     }
 

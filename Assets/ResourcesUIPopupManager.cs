@@ -59,7 +59,7 @@ public class ResourcesUIPopupManager : MonoBehaviour
         popup.GetAnimator().Clear();
         popup.GetAnimator().Scale(popup.GetRect(), _startingScale, _animDuration, onComplete: () =>
         {
-            _animator.Scale(popup.GetRect(), _startingScale * 1.05f, _animDuration / 2.5f, onComplete: () =>
+            _animator.Scale(popup.GetRect(), _startingScale * 1.1f, _animDuration / 1.5f, onComplete: () =>
             {
                 _animator.Scale(popup.GetRect(), Vector3.zero, _scaleOutDuration, onComplete: () =>
                 {

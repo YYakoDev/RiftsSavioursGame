@@ -34,6 +34,7 @@ public class SOPlayerAttackStats : PlayerStatsBase
     public void Initialize(SOPlayerAttackStats stats)
     {
         _damageMultiplier = stats._damageMultiplier;
+        _baseDamageAddition = stats.BaseDamageAddtion;
         _attackRange = stats._attackRange;
         _attackCooldown = stats._attackCooldown;
         _attackKnockback = stats._attackKnockback;

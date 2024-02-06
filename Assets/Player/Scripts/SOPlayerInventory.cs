@@ -7,7 +7,7 @@ using UnityEngine;
 public class SOPlayerInventory : ScriptableObject
 {
     Dictionary<CraftingMaterial, int> _ownedMaterials = new();
-    Dictionary<SOUpgradeBase, int> _equippedUpgrades = new();
+    List<UpgradeGroup> _equippedUpgrades = new();
     [SerializeField]int _maxUpgradesCount = 5;
     private PlayerUpgradesManager _upgradesManager;
     public event Action onInventoryChange;
@@ -20,7 +20,7 @@ public class SOPlayerInventory : ScriptableObject
         set => _maxUpgradesCount = value;
     }
     public Dictionary<CraftingMaterial, int> OwnedMaterials => _ownedMaterials;
-    public Dictionary<SOUpgradeBase, int> EquippedUpgrades => _equippedUpgrades;
+    public List<UpgradeGroup> EquippedUpgrades => _equippedUpgrades;
  
 
     public void Initialize(PlayerUpgradesManager upgradesManager)
@@ -30,7 +30,7 @@ public class SOPlayerInventory : ScriptableObject
         _ownedMaterials = new();
         _equippedUpgrades = new();
         _upgradesManager = upgradesManager;
-        AssetMenuUpdators.UpdateCraftingMaterialIcons();
+        //AssetMenuUpdators.UpdateCraftingMaterialIcons();
     }
 
     public void AddMaterial(CraftingMaterial craftingMaterial)
@@ -65,13 +65,7 @@ public class SOPlayerInventory : ScriptableObject
 
     public void AddUpgrade(SOUpgradeBase upgrade)
     {
-        if(_equippedUpgrades.ContainsKey(upgrade))
-        {
-            _equippedUpgrades[upgrade]++;
-        }else
-        {
-            _equippedUpgrades.Add(upgrade, 1);
-        }
+        _equippedUpgrades.Add(upgrade.GroupParent);
         onUpgradeAdded?.Invoke(upgrade);
         //Debug.Log($"added {upgrade.name} upgrade and now you have {_equippedUpgrades[upgrade]}");
         upgrade.ApplyEffect(_upgradesManager);

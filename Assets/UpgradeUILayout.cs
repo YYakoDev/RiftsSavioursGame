@@ -118,13 +118,19 @@ public class UpgradeUILayout : MonoBehaviour
         }
         else if (_currentGroup == _bottomButtons)
         {
-            selectedElement = _bottomButtons[_indexes[groupIndex].CurrentIndex].gameObject;
+            var rect = _bottomButtons[_indexes[groupIndex].CurrentIndex];
+            selectedElement = rect.gameObject;
+            var startingScale = selectedElement.transform.localScale;
+            _animator.Scale(rect, startingScale * 1.3f, _scaleAnimDuration / 2f, onComplete: () =>
+            {
+                _animator.Scale(rect, startingScale, _scaleAnimDuration / 2f);
+            });
         }
 
         if (selectedElement != null) SwitchFocus(selectedElement);
     }
 
-    void SwitchFocus(GameObject selectedElement)
+    public void SwitchFocus(GameObject selectedElement)
     {
         _eventSystem.SetSelectedGameObject(selectedElement);
     }

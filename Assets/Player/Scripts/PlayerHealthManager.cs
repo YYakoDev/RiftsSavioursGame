@@ -31,7 +31,8 @@ public class PlayerHealthManager : MonoBehaviour, IDamageable
     public void TakeDamage(int damage)
     {
         if(_player.Stats.CurrentHealth <= 0) return;
-        _player.Stats.CurrentHealth -= damage;
+        int realDamage = damage - Mathf.FloorToInt((damage * _player.Stats.DamageResistance) / 100f);
+        _player.Stats.CurrentHealth -= realDamage;
         _audio.PlayOneShot(_onHitSfx);
         GameFreezer.FreezeGame(0.03f);
         _blinkFX.Play();
@@ -43,6 +44,7 @@ public class PlayerHealthManager : MonoBehaviour, IDamageable
     }
     public void Die()
     {
+        _player.Stats.CurrentHealth = 0;
         //Debug.Log("Player is dead lmao");
     }
 

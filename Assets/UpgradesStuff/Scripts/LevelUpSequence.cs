@@ -76,7 +76,7 @@ public class LevelUpSequence : MonoBehaviour
 
     public void Play(Action onComplete)
     {
-        TimeScaleManager.ForceTimeScale(0f);
+        //TimeScaleManager.ForceTimeScale(0f);
         SetInitialStates();
         AnvilFall(CheckLevelUpAnim);
         void CheckLevelUpAnim() => LevelUpImageAnimation(onComplete);

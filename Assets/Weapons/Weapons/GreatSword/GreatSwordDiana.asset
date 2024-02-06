@@ -35,8 +35,8 @@ MonoBehaviour:
   _attackCooldown: 0.85
   _pullForce: 1.7
   _pullDuration: 0.275
-  _attackRange: 1.9
-  _attackSpeed: 0.8
+  _attackRange: 1.85
+  _attackSpeed: 0.77
   _rangeOffset: {x: 0.31, y: 0.12}
   _attackDamage: 15
   _criticalChance: 15

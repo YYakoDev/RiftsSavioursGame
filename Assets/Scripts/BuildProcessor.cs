@@ -1,4 +1,5 @@
 
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
@@ -12,3 +13,4 @@ public class BuildProcessor : IPreprocessBuildWithReport
         AssetMenuUpdators.UpdateCraftingMaterialIcons();
     }
 }
+#endif

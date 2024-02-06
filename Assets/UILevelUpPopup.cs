@@ -42,7 +42,15 @@ public class UILevelUpPopup : MonoBehaviour
     void SetInitialStates()
     {
         _animator.Clear();
-        CheckItem(ChooseRandomUpgrade(), CloseMenu);
+        var upgrade = ChooseRandomUpgrade();
+        if(upgrade == null)
+        {
+            Debug.Log("Player has all the upgrades, closing rewards menu");
+            TimeScaleManager.ForceTimeScale(1f);
+            gameObject.SetActive(false);
+            return;
+        }
+        CheckItem(upgrade, CloseMenu);
         _levelUpRewardMenu.localScale = Vector3.one;
         _rewardItemInstance.transform.localScale = Vector3.right;
         //maybe the position of the menu itself here
@@ -76,7 +84,9 @@ public class UILevelUpPopup : MonoBehaviour
 
     SOUpgradeBase ChooseRandomUpgrade()
     {
-        return _possibleUpgradesManager.PossibleUpgrades[Random.Range(0, _possibleUpgradesManager.PossibleUpgrades.Count)].GetUpgrade();
+        var possibleUpgrades = _possibleUpgradesManager.PossibleUpgrades;
+        if(possibleUpgrades == null || possibleUpgrades.Count <= 0) return null;
+        return possibleUpgrades[Random.Range(0, possibleUpgrades.Count)]?.GetUpgrade();
     }
 
     void SelectItemOnUI()

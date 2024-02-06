@@ -103,6 +103,7 @@ public class UpgradeItemPrefab : MonoBehaviour, ISelectHandler
     public void RecalculateCosts()
     {
         SetButton(true);
+        if(_upgradeCosts == null || _upgradeCosts.Length <= 0) return;
         for (int i = 0; i < _upgradeCosts.Length; i++)
         {
             var item = _instantiatedCosts[i];
@@ -137,6 +138,7 @@ public class UpgradeItemPrefab : MonoBehaviour, ISelectHandler
         else
         {
             _craftUpgradeButton.interactable = false;
+            _btnText.fontStyle = FontStyles.Normal;
             _btnText.fontStyle = FontStyles.Strikethrough;
         }
     }
@@ -168,6 +170,18 @@ public class UpgradeItemPrefab : MonoBehaviour, ISelectHandler
             _instantiatedDescriptions[i] = Instantiate(_upgradeDescriptionPrefab, _descriptionsParent);
             _instantiatedDescriptions[i].gameObject.SetActive(false);
         }
+    }
+
+    public void ChangeButtonEvent(Action<SOUpgradeBase, int> onClick, SOUpgradeBase upgrade, int index)
+    {
+        _craftUpgradeButton.RemoveAllEvents();
+        _craftUpgradeButton.AddEventListener<SOUpgradeBase, int>(onClick, upgrade, index);
+    }
+
+    public void ChangeButtonText(string text)
+    {
+        _btnText.fontStyle = FontStyles.Normal;
+        _btnText.text = text;
     }
 
 

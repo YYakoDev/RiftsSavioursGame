@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc8b826c734252e40b580fc4ef82deb2, type: 3}
   m_Name: PlayerStats
   m_EditorClassIdentifier: 
-  _maxHealth: 61
-  _currentHealth: 2008
-  _level: 8
-  _currentXP: 1561
-  _xpToNextLevel: 2221
-  _speed: 4
-  _accelerationTime: 0.33
+  _maxHealth: 50
+  _currentHealth: 28
+  _level: 2
+  _currentXP: 46
+  _xpToNextLevel: 50
+  _speed: 4.88
+  _accelerationTime: 0.77
   _slowdownMultiplier: 0.665
   _pickUpRange: 1.5
   _collectingRange: 2

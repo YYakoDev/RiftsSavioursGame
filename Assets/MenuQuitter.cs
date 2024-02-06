@@ -10,7 +10,7 @@ public class MenuQuitter : MonoBehaviour
     [SerializeField] AudioClip _closingUISfx;
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if(Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Backspace))
         {
             CloseCurrentMenu();
         }
@@ -21,9 +21,9 @@ public class MenuQuitter : MonoBehaviour
 
     public void CloseCurrentMenu()
     {
+        if(_currentMenu != null && !_menuToReturnTo.activeInHierarchy)PlayCloseSound();
         _menuToReturnTo.SetActive(true);
         _currentMenu?.SetActive(false);
-        if(_currentMenu != null)PlayCloseSound();
     }
 
     void PlayCloseSound()

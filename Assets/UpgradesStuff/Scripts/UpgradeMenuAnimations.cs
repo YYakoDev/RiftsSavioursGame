@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class UpgradeMenuAnimations : MonoBehaviour
 {
     [Header("References")]
+    [SerializeField] RectTransform _menuParent;
     [SerializeField] Image _BG;
     [SerializeField] Image _anvilImg;
     [SerializeField] Image _choicesLeftImg;
@@ -95,6 +96,11 @@ public class UpgradeMenuAnimations : MonoBehaviour
 
             });
         });
+    }
+
+    public void PlayCloseAnimation(Action onComplete)
+    {
+        _animator.Scale(_menuParent, Vector3.zero, _bgFadeInDuration, onComplete: onComplete);
     }
 
     void PlayAudio(AudioClip clip) => _audio?.PlayWithVaryingPitch(clip);

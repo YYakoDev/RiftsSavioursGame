@@ -30,15 +30,15 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 62831dff93289e44786d140f137d6408, type: 3}
   _pointCameraOnAttack: 0
   _attackCooldown: 0.555
-  _pullForce: 1.5
-  _pullDuration: 0.2
-  _attackRange: 1.88
-  _attackSpeed: 0.77
+  _pullForce: 1.6
+  _pullDuration: 0.25
+  _attackRange: 1.7
+  _attackSpeed: 0.8
   _rangeOffset: {x: 0, y: 0}
   _attackDamage: 10
-  _criticalChance: 10
+  _criticalChance: 5
   _criticalDamageMultiplier: 2
-  _damageDelay: 0.1
-  _knockbackForce: 0.8
+  _damageDelay: 0.085
+  _knockbackForce: 1
   _weaponSlashPrefab: {fileID: 3849386732562224976, guid: 518320ae3e20a2641a7d96a44985633f, type: 3}
   _slashOffset: {x: 0.5, y: 0.1, z: 0}
