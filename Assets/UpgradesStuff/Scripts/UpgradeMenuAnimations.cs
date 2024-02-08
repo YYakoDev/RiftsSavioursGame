@@ -12,6 +12,7 @@ public class UpgradeMenuAnimations : MonoBehaviour
     [SerializeField] Image _BG;
     [SerializeField] Image _anvilImg;
     [SerializeField] Image _choicesLeftImg;
+    [SerializeField] RectTransform _buttonsParent;
     RectTransform[] _upgradeItemsInstance = new RectTransform[0];
     Vector3[] _itemStartingScales = new Vector3[0];
     TweenAnimatorMultiple _animator;
@@ -67,7 +68,11 @@ public class UpgradeMenuAnimations : MonoBehaviour
         anvilNewColor.a = 0;
         _anvilImg.color = anvilNewColor;
 
-        foreach(var item in _upgradeItemsInstance) item.localScale = new Vector3(0, 1, 1);
+        foreach(var item in _upgradeItemsInstance)
+        {
+            item.localScale = new Vector3(0, 1, 1);
+            item.gameObject.SetActive(false);
+        }
 
         _choicesLeftImg.rectTransform.localScale = Vector3.zero;
     }
@@ -84,15 +89,17 @@ public class UpgradeMenuAnimations : MonoBehaviour
             _animator.TweenMoveToBouncy
             (_anvilImg.rectTransform, _anvilEndPosition, _anvilMovementOffset, _anvilAnimDuration, 0, _anvilMovementBounces, onBounceComplete: () =>
             {
-                onComplete?.Invoke();
                 for (int i = 0; i < _upgradeItemsInstance.Length; i++)
                 {
                     var item = _upgradeItemsInstance[i];
                     var endScale = _itemStartingScales[i];
 
+                    item.gameObject.SetActive(true);
+
                     _animator.TweenScaleBouncy(item, endScale, _itemsScaleOffset, _itemScaleAnimDuration, 0, _scaleBounces);
                     PlayAudio(_upgradeItemSFX);
                 }
+                onComplete?.Invoke();
 
             });
         });

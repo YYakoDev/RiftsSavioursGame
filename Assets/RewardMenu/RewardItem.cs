@@ -25,6 +25,7 @@ public class RewardItem : MonoBehaviour, ISelectHandler
         _getButton.AddEventListener<SOUpgradeBase, Action>(GetUpgrade, upgrade, closeMenuAction);
         _dismantleButton.AddEventListener<SOUpgradeBase, Action>(DismantleUpgrade, upgrade, closeMenuAction);
         CheckDescriptionItems(upgrade);
+        SetButtons(true);
     }
 
     void CheckDescriptionItems(SOUpgradeBase upgrade)
@@ -57,6 +58,7 @@ public class RewardItem : MonoBehaviour, ISelectHandler
     void GetUpgrade(SOUpgradeBase upgrade, Action closeMenuAction)
     {
         _inventory.AddUpgrade(upgrade);
+        SetButtons(false);
         closeMenuAction?.Invoke();
     }
 
@@ -66,7 +68,14 @@ public class RewardItem : MonoBehaviour, ISelectHandler
         {
             _inventory.AddMaterial(upgradeCost.CraftingMaterial, upgradeCost.Cost);
         }
+        SetButtons(false);
         closeMenuAction?.Invoke();
+    }
+
+    void SetButtons(bool state)
+    {
+        _getButton.interactable = state;
+        _dismantleButton.interactable = state;
     }
 
     private void OnDestroy() {

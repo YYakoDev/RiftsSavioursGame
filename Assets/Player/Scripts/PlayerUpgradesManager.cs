@@ -31,6 +31,10 @@ public class PlayerUpgradesManager : MonoBehaviour
     {
         _playerManager.Inventory.AddMaterial(mat);
     }
+    public void AddMaterial(CraftingMaterial mat, int amount)
+    {
+        _playerManager.Inventory.AddMaterial(mat, amount);
+    }
 
     float GetPercentage(float stat, int percent) => stat * (percent / 100f);
 

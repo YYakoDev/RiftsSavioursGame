@@ -17,19 +17,21 @@ MonoBehaviour:
   _level: 1
   _currentXP: 40
   _xpToNextLevel: 55
-  _speed: 3.94
-  _accelerationTime: 0.8
-  _slowdownMultiplier: 0.6
-  _pickUpRange: 1.5
-  _collectingRange: 3
+  _speed: 3.7
+  _accelerationTime: 0.25
+  _slowdownMultiplier: 0.86
+  _pickUpRange: 2
+  _collectingRange: 2.61
   _collectingDamage: 1
-  _interactCooldown: 0.65
+  _interactCooldown: 0.6
   _maxResourceInteractions: 1
   _weapons:
   - {fileID: 11400000, guid: 8f2b993e04490be4a95cc0b86f217589, type: 2}
   - {fileID: 0}
   - {fileID: 0}
-  _attackStats: {fileID: 11400000, guid: 5c0efc2d47ffa234c9cfe266e112553e, type: 2}
+  _attackStats: {fileID: 11400000, guid: 33ffee2aeeab8f648a9686d369dcf2e0, type: 2}
   _stunResistance: 10
   _knockbackResistance: 10
   _damageResistance: 10
+  _faith: 1
+  _harvestMultiplier: 0

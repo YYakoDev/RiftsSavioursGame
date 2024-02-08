@@ -39,17 +39,10 @@ public class UILevelUpPopup : MonoBehaviour
         else _rewardMenuObj.SetActive(false);
     }
 
-    void SetInitialStates()
+    void SetInitialStates(SOUpgradeBase upgrade)
     {
         _animator.Clear();
-        var upgrade = ChooseRandomUpgrade();
-        if(upgrade == null)
-        {
-            Debug.Log("Player has all the upgrades, closing rewards menu");
-            TimeScaleManager.ForceTimeScale(1f);
-            gameObject.SetActive(false);
-            return;
-        }
+
         CheckItem(upgrade, CloseMenu);
         _levelUpRewardMenu.localScale = Vector3.one;
         _rewardItemInstance.transform.localScale = Vector3.right;
@@ -58,7 +51,15 @@ public class UILevelUpPopup : MonoBehaviour
 
     void Play()
     {
-        SetInitialStates();
+        var upgrade = ChooseRandomUpgrade();
+        if(upgrade == null)
+        {
+            //Debug.Log("Player has all the upgrades, closing rewards menu");
+            TimeScaleManager.ForceTimeScale(1f);
+            _levelUpRewardMenu.gameObject.SetActive(false);
+            return;
+        }
+        SetInitialStates(upgrade);
         PlaySound(_levelUpSfx);
         _rewardMenuObj.SetActive(true);
         TimeScaleManager.ForceTimeScale(0f);

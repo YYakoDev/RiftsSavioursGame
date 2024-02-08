@@ -10,7 +10,7 @@ public class MenuQuitter : MonoBehaviour
     [SerializeField] AudioClip _closingUISfx;
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Backspace))
+        if(Input.GetKeyDown(KeyCode.Escape))
         {
             CloseCurrentMenu();
         }

@@ -18,7 +18,7 @@ public class UpgradesMenu : MonoBehaviour
     [SerializeField] private TextMeshProUGUI t_uiChoicesText;
     [SerializeField]SOPossibleUpgradesList _possibleUpgradesList; // from here you should grab an x number of upgrades and show them everytime you open the menu
     [SerializeField]SOPlayerInventory _playerInventory;
-    [SerializeField] SavedUpgradesInventory _savedUpgradesInventory;
+    [SerializeField]SavedUpgradesInventory _savedUpgradesInventory;
     LevelUpSequence _levelupSequence;
     const int selectionCount = 3;
     int _choicesAmount = 1;
@@ -49,7 +49,7 @@ public class UpgradesMenu : MonoBehaviour
 
     [Header("VFX & SFX")]
     [SerializeField]AudioSource _audio;
-    [SerializeField]AudioClip _closingSound, _rerollSFX, _saveSFX, _craftSfx;
+    [SerializeField]AudioClip _closingSound, _rerollSFX, _saveSFX, _failedSaveSFX, _craftSfx;
 
     //cursor stuff
     bool _previousCursorState;
@@ -83,7 +83,7 @@ public class UpgradesMenu : MonoBehaviour
     public void DoLevelUpSequence()
     {
         YYInputManager.StopInput();
-        _upgradesContainer.SetStopTimer(3f);
+        _upgradesContainer.SetStopTimer(4.5f);
         _previousTimeScaleState = TimeScaleManager.IsForced;
         TimeScaleManager.ForceTimeScale(0);
         _upgradesMenu.localScale = Vector3.one;
@@ -162,7 +162,7 @@ public class UpgradesMenu : MonoBehaviour
         }
         if(!playerHasEnoughMaterials) Select(_continueButton.gameObject);
     }
-    public void CraftUpgrade(SOUpgradeBase upgradeToCraft, int uiItemIndex) //this method is being called by the upgrade button on the canvas
+    void CraftUpgrade(SOUpgradeBase upgradeToCraft, int uiItemIndex) //this method is being called by the upgrade button on the canvas
     {
         CraftingAttempts++;
         //_audio.PlayWithVaryingPitch(_closingSound);
@@ -174,13 +174,15 @@ public class UpgradesMenu : MonoBehaviour
         _playerInventory.AddUpgrade(upgradeToCraft);
         RecalculateCosts();
         PlaySound(_craftSfx);
-        if (CraftingAttempts >= _choicesAmount) DeactivateUpgradeMenu();
-        else
-        {
-            //remove selected upgrade and generate another one
-            RepickUpgradeItem(upgradeToCraft, uiItemIndex);
-        }
+        _instantiatedItems[uiItemIndex].gameObject.SetActive(false);
     }
+
+    /*void CraftAndRepick(SOUpgradeBase upgradeToCraft, int uiItemIndex)
+    {
+        CraftUpgrade(upgradeToCraft, uiItemIndex);
+        RepickUpgradeItem(upgradeToCraft, uiItemIndex);
+    }
+
     void RepickUpgradeItem(SOUpgradeBase currentUpgrade, int index)
     {
         List<UpgradeGroup> list = new(_possibleUpgradesList.PossibleUpgrades);
@@ -212,12 +214,12 @@ public class UpgradesMenu : MonoBehaviour
             return;
         }
         _selectedUpgrades[index] = randomUpgrade;
-        _instantiatedItems[index].Initialize(_playerInventory, randomUpgrade, CraftUpgrade, index);
-    }
+        _instantiatedItems[index].Initialize(_playerInventory, randomUpgrade, CraftAndRepick, index);
+    }*/
 
+    //this is being called by a button on the ui
     public void RerollUpgrades()
     {
-
         CraftingAttempts++;
         PickRandomUpgrades();
         PlaySound(_rerollSFX);
@@ -229,12 +231,14 @@ public class UpgradesMenu : MonoBehaviour
         _rerollButton.interactable = (_choicesAmount - CraftingAttempts) > 1;
     }
 
+    //this is being called by a button on the ui
     public void OpenSavedUpgrades()
     {
         _savedUpgradesInventory.Initialize(_savedUpgrades, _playerInventory, CraftUpgrade, _instantiatedItems.Length);
         _savedUpgradesInventory.Open();
     }
 
+    //this is being called by a button on the ui
     public void StartToSaveUpgrades()
     {
         _isSavingUpgrades = !_isSavingUpgrades;
@@ -270,7 +274,6 @@ public class UpgradesMenu : MonoBehaviour
     }
     void SaveUpgrade(SOUpgradeBase upgrade, int index)
     {
-
         if(_savedUpgrades.Length != 3) Array.Resize<SOUpgradeBase>(ref _savedUpgrades, 3);
         bool allSlotsOcuppied = true;
         for (int i = 0; i < _savedUpgrades.Length; i++)
@@ -285,11 +288,13 @@ public class UpgradesMenu : MonoBehaviour
         if(allSlotsOcuppied)
         {
             ReturnButtonsToNormal();
+            PlaySound(_failedSaveSFX);
             return;
         }
+        PlaySound(_saveSFX);
         _instantiatedItems[index].gameObject.SetActive(false);
         CraftingAttempts++;
-        ReturnButtonsToNormal();
+        //ReturnButtonsToNormal();
     }
 
     void RecalculateCosts()
@@ -333,7 +338,6 @@ public class UpgradesMenu : MonoBehaviour
         _levelupSequence.DisableVisuals();
         Cursor.visible = _previousCursorState;
         Cursor.lockState = _previousCursorLockMode;
-
         YYInputManager.ResumeInput();
     }
 

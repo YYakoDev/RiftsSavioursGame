@@ -1,0 +1,112 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5c8a2cd6ed58fc42a814fef259de216, type: 3}
+  m_Name: backupAstraeaSwordComboFinal
+  m_EditorClassIdentifier: 
+  _name: "astrik\xF3 x\xEDfos"
+  _SpriteAndAnimationsData: {fileID: 11400000, guid: 369b2746af64f374baeb0b8a1f243cfa, type: 2}
+  _effects:
+  - {fileID: 11400000, guid: 23196116de9b69d47a045c9e6a9b7e11, type: 2}
+  - {fileID: 11400000, guid: 4780209016f8aa349864b33bf7198c79, type: 2}
+  - {fileID: 11400000, guid: 7e4ed06a1b3572e41b715a285fbae5a3, type: 2}
+  - {fileID: 11400000, guid: a46798bb6b4605f46a88a7cb00606fc1, type: 2}
+  _flipSprite: 1
+  _spawnPosition: {x: -0.55, y: 0.25, z: 0}
+  _spawnRotation: 0
+  _weaponSounds:
+  - {fileID: 8300000, guid: bc1c86abc18a4824c8de230090611919, type: 3}
+  - {fileID: 8300000, guid: b84216003718d5943b73059e3b336319, type: 3}
+  - {fileID: 8300000, guid: ea652bf6f93bd6d418c9ca0f92dace0f, type: 3}
+  _pointCameraOnAttack: 1
+  _attackCooldown: 0.55
+  _pullForce: 0.4
+  _pullDuration: 0.1
+  _attackRange: 1
+  _attackSpeed: 0.9
+  _rangeOffset: {x: 0, y: 0}
+  _attackDamage: 10
+  _criticalChance: 15
+  _criticalDamageMultiplier: 2.2
+  _damageDelay: 0.04
+  _knockbackForce: 0.91
+  _speedUPComboAnimations: 1
+  _speedUpFactor: 1.12
+  _comboStats:
+  - Cooldown: 0
+    Range: 0.42
+    KnockbackForce: 0.5
+    AtkSpeed: 0
+    PullForce: 1
+    AtkDelay: 0
+    PullDuration: 0
+    Damage: 0
+    RangeOffset: {x: 0, y: 0}
+    WeaponFxs:
+    - {fileID: 11400000, guid: 23196116de9b69d47a045c9e6a9b7e11, type: 2}
+    - {fileID: 11400000, guid: a46798bb6b4605f46a88a7cb00606fc1, type: 2}
+    - {fileID: 11400000, guid: c9c1e59da1cfa0d438f4301a1069edcd, type: 2}
+    - {fileID: 11400000, guid: f1b3174f673fb1a4b91613d5d1414674, type: 2}
+    - {fileID: 11400000, guid: 3961fbaed97e0aa4ea6fed7535dadd51, type: 2}
+    - {fileID: 11400000, guid: 0f1731e4c0912a34eabf484ba539aa9c, type: 2}
+    UsedEffects:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+  - Cooldown: 0
+    Range: 1
+    KnockbackForce: 1
+    AtkSpeed: 0
+    PullForce: 0
+    AtkDelay: 0
+    PullDuration: 0
+    Damage: 5
+    RangeOffset: {x: 0, y: 0}
+    WeaponFxs:
+    - {fileID: 11400000, guid: bc668329a2d90574a91d7f07ac9991c9, type: 2}
+    - {fileID: 11400000, guid: 4780209016f8aa349864b33bf7198c79, type: 2}
+    - {fileID: 11400000, guid: 7e4ed06a1b3572e41b715a285fbae5a3, type: 2}
+    - {fileID: 11400000, guid: a46798bb6b4605f46a88a7cb00606fc1, type: 2}
+    - {fileID: 11400000, guid: c9c1e59da1cfa0d438f4301a1069edcd, type: 2}
+    - {fileID: 11400000, guid: f1b3174f673fb1a4b91613d5d1414674, type: 2}
+    - {fileID: 11400000, guid: 3961fbaed97e0aa4ea6fed7535dadd51, type: 2}
+    - {fileID: 11400000, guid: 0f1731e4c0912a34eabf484ba539aa9c, type: 2}
+    UsedEffects:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+  - Cooldown: 0
+    Range: 1
+    KnockbackForce: 2
+    AtkSpeed: 0
+    PullForce: 2
+    AtkDelay: 0
+    PullDuration: 0
+    Damage: 1
+    RangeOffset: {x: 0, y: 0}
+    WeaponFxs:
+    - {fileID: 11400000, guid: fd169d3702aceec4e91005959470890e, type: 2}
+    - {fileID: 11400000, guid: c9c1e59da1cfa0d438f4301a1069edcd, type: 2}
+    - {fileID: 11400000, guid: 3961fbaed97e0aa4ea6fed7535dadd51, type: 2}
+    - {fileID: 11400000, guid: 0f1731e4c0912a34eabf484ba539aa9c, type: 2}
+    UsedEffects:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}

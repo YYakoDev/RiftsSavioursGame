@@ -20,6 +20,9 @@ public class MainMenuUI : MonoBehaviour
         _currentEventSys = EventSystem.current;
         _selectionMenu?.SetActive(false);
         _currentEventSys.SetSelectedGameObject(_startButton.gameObject);
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     private void OnEnable() {

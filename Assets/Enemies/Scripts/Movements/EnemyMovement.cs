@@ -38,8 +38,8 @@ public class EnemyMovement : MonoBehaviour, IKnockback
 
     void DoKnockbackOnCollision(Transform emitter)
     {
-        _movementClass.StopStun(0.265f);
-        _movementClass.KnockbackLogic.SetKnockbackData(emitter, _brain.Stats.Speed / 5f, 0.15f, true);
+        _movementClass.StopStun(0.25f);
+        _movementClass.KnockbackLogic.SetKnockbackData(emitter, _brain.Stats.Speed / 3f, 0.13f, true);
     }
 
     private void Movement()

@@ -2,15 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class PauseMenuManager : MonoBehaviour
 {
     [SerializeField] GameObject _pauseMenuParent;
     [SerializeField] GameObject _confirmationObj;
+    [SerializeField] GameObject _continueButton;
     [SerializeField] UpgradesMenu _upgradeMenu;
     bool _activeMenu = false;
     bool _goToMainMenu = false;
     float _previousTimeScale = 1f;
+    EventSystem _eventSys;
+    GameObject _previouslySelectedObj;
 
     // Start is called before the first frame update
     void Start()
@@ -18,6 +22,7 @@ public class PauseMenuManager : MonoBehaviour
         _activeMenu = false;
         _confirmationObj.SetActive(false);
         _upgradeMenu.OnMenuClose += ClosingCheck;
+        _eventSys = EventSystem.current;
     }
     
 
@@ -47,7 +52,12 @@ public class PauseMenuManager : MonoBehaviour
 
     void SwitchPauseMenu(bool state)
     {
-        if(state) _previousTimeScale = (TimeScaleManager.IsForced) ?  0f : 1f;
+        if(state)
+        {
+            _previousTimeScale = (TimeScaleManager.IsForced) ?  0f : 1f;
+            _previouslySelectedObj = _eventSys.currentSelectedGameObject;
+            _eventSys.SetSelectedGameObject(_continueButton);
+        }
         _activeMenu = state;
         _confirmationObj.SetActive(false);
         _goToMainMenu = false;
@@ -55,7 +65,11 @@ public class PauseMenuManager : MonoBehaviour
         float timeScale = (_activeMenu) ? 0 : _previousTimeScale;
         TimeScaleManager.ForceTimeScale(timeScale);
 
-        if(!state) YYInputManager.ResumeInput();
+        if(!state)
+        {
+            YYInputManager.ResumeInput();
+            _eventSys.SetSelectedGameObject(_previouslySelectedObj);
+        }
         else YYInputManager.StopInput();
     }
 

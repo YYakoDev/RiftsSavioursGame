@@ -113,13 +113,14 @@ public class SOPlayerStats : PlayerStatsBase
         _maxResourceInteractions = stats.MaxResourceInteractions;
 
         _weapons = stats.Weapons;
-        _attackStats = stats.AttackStats;
         _attackStats.Initialize(data.ATKStats);
 
         _stunResistance = stats.StunResistance;
         _knockbackResistance = stats.KnockbackResistance;
         _damageResistance = stats.DamageResistance;
 
+        _faith = stats.Faith;
+        _harvestMultiplier = stats._harvestMultiplier;
         //onStatsChange?.Invoke();
     }
 
