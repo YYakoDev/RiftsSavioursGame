@@ -28,18 +28,13 @@ public class PlayerManager : MonoBehaviour
 
     public Vector3 Position => transform.position;
 
-    public void SetCharacterData(SOCharacterData data)
-    {
-        _charData = data;
-    }
-
     // Start is called before the first frame update
     void Awake()
     {
         if(CharacterSelectionUI.SelectedCharacter != null)
         {
             _charData = Instantiate(CharacterSelectionUI.SelectedCharacter);
-            _charData.Stats.Weapons[0] = WeaponSelectionUI.SelectedWeapon;
+            if(WeaponSelectionUI.SelectedWeapon != null)_charData.Stats.Weapons[0] = WeaponSelectionUI.SelectedWeapon;
         }
         if(_stats != null) _stats.Initialize(_charData);
         GameObject thisGO = gameObject;

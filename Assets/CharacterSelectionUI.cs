@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 [RequireComponent(typeof(TweenAnimatorMultiple))]
 public class CharacterSelectionUI : MonoBehaviour
 {
+    bool _stop = false;
     [SerializeField] GameObject _startButton;
     [SerializeField] SOCharacterData[] _availableCharacters = new SOCharacterData[0];
     [SerializeField] Image _characterIcon;
@@ -26,7 +27,7 @@ public class CharacterSelectionUI : MonoBehaviour
     }
 
     [Space][SerializeField] AudioSource _audio;
-    [SerializeField] AudioClip _moveSFX;
+    [SerializeField] AudioClip _moveSFX, _chooseSFX;
     [Space]
     TweenAnimatorMultiple _animator;
     [SerializeField]float _animDuration = 0.7f;
@@ -45,7 +46,7 @@ public class CharacterSelectionUI : MonoBehaviour
     }
 
     private void Update() {
-        if(_nextInputTime >= Time.time) return;
+        if(_stop || _nextInputTime >= Time.time) return;
         float input = Input.GetAxisRaw("Horizontal");
         
         if(input != 0)
@@ -62,7 +63,7 @@ public class CharacterSelectionUI : MonoBehaviour
         _nextInputTime = _inputCooldown + Time.time;
         CurrentIndex += move;
         SetSelectedCharacter();
-        EventSystem.current.SetSelectedGameObject(_startButton);
+        if(_startButton != null)EventSystem.current.SetSelectedGameObject(_startButton);
     }
 
     void SetSelectedCharacter()
@@ -82,5 +83,17 @@ public class CharacterSelectionUI : MonoBehaviour
     }
 
 
+    public void ChooseCharacter()
+    {
+        _stop = true;
+        SetSelectedCharacter();
+        _characterIcon.enabled = false;
+        _audio?.PlayWithVaryingPitch(_chooseSFX);
+    }
 
+    public void ResumeCharacterSelection()
+    {
+        _stop = false;
+        _characterIcon.enabled = true;
+    }
 }

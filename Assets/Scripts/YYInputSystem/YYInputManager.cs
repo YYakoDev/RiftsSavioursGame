@@ -67,13 +67,18 @@ public class YYInputManager : MonoBehaviour
     }
 
     public static void ResumeInput() => _stopInput = false;
-    public static void StopInput() => _stopInput = true;
+    public static void StopInput()
+    {
+        _stopInput = true;
+        OnMovement?.Invoke(Vector2.zero);
+    }
     
     public static void StopInput(float duration)
     {
-        _stopInput = true;
         _stopInputTime.ChangeTime(duration);
         _stopInputTime.Start();
+        StopInput();
+
     }
 
     private void OnDestroy() {

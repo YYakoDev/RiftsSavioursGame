@@ -27,15 +27,15 @@ MonoBehaviour:
   - CraftingMaterial: {fileID: 11400000, guid: a999cb05a6d39794691b6257801dcddf, type: 2}
     Cost: 5
   _stats: {fileID: 11400000, guid: 77f8be5469984ec4b92db0a6e8c44838, type: 2}
-  _indexes: 1200000014000000
+  _indexes: 1500000017000000
   _statsChanges:
   - _usePercentage: 1
     _percentage: 25
     _flatAmount: 0
   - _usePercentage: 1
     _percentage: 10
-    _flatAmount: 0.11
+    _flatAmount: 0
   ElementCount: 2
   _savedText: DamageMultiplier,AttackRange
   _attackStats: {fileID: 11400000, guid: 5c0efc2d47ffa234c9cfe266e112553e, type: 2}
-  _statsPropertiesCount: 18
+  _statsPropertiesCount: 21

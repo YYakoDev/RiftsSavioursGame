@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 211f9415e4a3bff409c0929835e67618, type: 3}
   m_Name: Shados
   m_EditorClassIdentifier: 
+  _name: Shados
   _stats: {fileID: 11400000, guid: 6d597a3595c8993498879480ede26bc3, type: 2}
   _atkStats: {fileID: 11400000, guid: bbef6af9f5930f343916c0679429b74f, type: 2}
   _sprite: {fileID: 21300000, guid: 3080ea8bcfa167949a57765117710e15, type: 3}

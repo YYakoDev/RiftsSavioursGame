@@ -11,14 +11,16 @@ public class FeedbackMenu : MonoBehaviour, ISelectHandler
     [SerializeField] Button _sendButton;
 
     string _body;
+    private EventSystem eventSys;
 
     private void Start() {
+        eventSys = EventSystem.current;
         _inputField.onEndEdit.AddListener(GetUserInput);
     }
     void GetUserInput(string inputFieldText)
     {
         _body = inputFieldText;
-        EventSystem.current.SetSelectedGameObject(_sendButton.gameObject);
+        if(!eventSys.alreadySelecting) eventSys.SetSelectedGameObject(_sendButton.gameObject);
     }
 
     public void SendEmail()

@@ -17,11 +17,11 @@ MonoBehaviour:
   _level: 1
   _currentXP: 0
   _xpToNextLevel: 25
-  _speed: 3.45
-  _accelerationTime: 1
-  _slowdownMultiplier: 0.5
+  _speed: 4
+  _accelerationTime: 0.25
+  _slowdownMultiplier: 0.86
   _pickUpRange: 2
-  _collectingRange: 3
+  _collectingRange: 2.61
   _collectingDamage: 1
   _interactCooldown: 0.6
   _maxResourceInteractions: 1

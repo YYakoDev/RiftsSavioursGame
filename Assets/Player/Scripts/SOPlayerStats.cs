@@ -28,6 +28,8 @@ public class SOPlayerStats : PlayerStatsBase
     [SerializeField]private float _speed;
     [Tooltip("The time it takes the player to reach the desired velocity")] [SerializeField, Range(0f, 2f)] private float _accelerationTime = 0.5f;
     [SerializeField, Range(0.15f,1f)]private float _slowdownMultiplier = 0.5f;
+    [SerializeField] private float _dashSpeed = 10f, _dashCooldown = 0.5f;
+    [SerializeField, Range(0f, 2f)] float _dashInvulnerabilityTime = 0.2f;
 
     [Header("PickUp Stats")]
     [SerializeField]private float _pickUpRange = 2f;
@@ -61,6 +63,9 @@ public class SOPlayerStats : PlayerStatsBase
     public float Speed {get => _speed; set {_speed = value; onStatsChange?.Invoke();}}
     public float AccelerationTime { get => _accelerationTime;  set { _accelerationTime = value; onStatsChange?.Invoke(); } }
     public float SlowdownMultiplier {get => _slowdownMultiplier; set {_slowdownMultiplier = value; onStatsChange?.Invoke();}}
+    public float DashSpeed { get => _dashSpeed; set { _dashSpeed = value; onStatsChange?.Invoke(); } }
+    public float DashCooldown { get => _dashCooldown; set { _dashCooldown = value; onStatsChange?.Invoke(); } }
+    public float DashInvulnerabilityTime { get => _dashInvulnerabilityTime; set { _dashInvulnerabilityTime = value; onStatsChange?.Invoke(); } }
 
     // PICKUP STATS
     public float PickUpRange {get => _pickUpRange; set {_pickUpRange = value; onStatsChange?.Invoke();}}

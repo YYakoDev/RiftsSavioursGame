@@ -15,7 +15,6 @@ MonoBehaviour:
   _name: Helios
   _SpriteAndAnimationsData: {fileID: 11400000, guid: a9b4cb78cbdc1d549ae8dcf73f6b73cb, type: 2}
   _effects:
-  - {fileID: 11400000, guid: 23196116de9b69d47a045c9e6a9b7e11, type: 2}
   - {fileID: 11400000, guid: a46798bb6b4605f46a88a7cb00606fc1, type: 2}
   - {fileID: 11400000, guid: 67c6ca3a55024ea40a9dc7c21f219eda, type: 2}
   - {fileID: 11400000, guid: 4780209016f8aa349864b33bf7198c79, type: 2}
@@ -29,7 +28,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: ba8fe44fc8785364a978c7ec7d17ce65, type: 3}
   - {fileID: 8300000, guid: 62831dff93289e44786d140f137d6408, type: 3}
   _pointCameraOnAttack: 0
-  _attackCooldown: 0.555
+  _attackCooldown: 0.57
   _pullForce: 1.6
   _pullDuration: 0.25
   _attackRange: 1.7

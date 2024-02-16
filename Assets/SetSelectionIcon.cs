@@ -15,7 +15,7 @@ public class SetSelectionIcon : MonoBehaviour
     private void Awake() {
         _thisRect = GetComponent<RectTransform>();
         _currentEventSystem = EventSystem.current;
-        _updateRate = new(0.1f, true, true);
+        _updateRate = new(0.04f, true, true);
         _updateRate.onEnd += TrySelectNewElement;
     }
 

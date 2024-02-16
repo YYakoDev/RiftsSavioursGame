@@ -10,7 +10,7 @@ public static class PopupsManager
     private static GameObject PopupPrefab;
     private static Transform Parent;
     private static NotMonoObjectPool ObjectPool;
-    private static float TextSize = 36; //you should be chaning this
+    private static float TextSize = 32; //you should be chaning this
 
     public static void CreateDamagePopup(Vector3 position, int damageAmount, bool criticalHit)
     {
@@ -23,7 +23,7 @@ public static class PopupsManager
         TextMeshPro text = damagePopup.GetComponent<TextMeshPro>();
         string damageText = (criticalHit) ? damageAmount.ToString() + "!" : damageAmount.ToString();
         text.color = (criticalHit) ? UIColors.GetColor(UIColor.Red) : UIColors.GetColor(UIColor.None);
-        text.fontSize = (criticalHit) ? TextSize * 1.5f : TextSize * sizeOffset;
+        text.fontSize = (criticalHit) ? TextSize * 1.65f : TextSize * sizeOffset;
         text.SetText(damageText);
     }
 

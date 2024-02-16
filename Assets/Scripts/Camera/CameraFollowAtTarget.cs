@@ -8,6 +8,7 @@ public class CameraFollowAtTarget : MonoBehaviour
     Transform _currentTarget;
     [SerializeField]float _smoothFollow = 10f;
     [SerializeField]Vector2 _offset;
+    [SerializeField] float _distanceThreshold = 0.4f;
 
     private void OnEnable() => _cameraTargetManager.onTargetSwitch += SwitchTarget;
     
@@ -22,15 +23,16 @@ public class CameraFollowAtTarget : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(Mathf.Abs(Vector3.Distance(transform.position, _currentTarget.position)) < 0.4f) return;
-        MoveCamera();
+        Vector3 currentPosition = transform.position;
+        if(Mathf.Abs(Vector3.Distance(currentPosition, _currentTarget.position)) < _distanceThreshold) return;
+        MoveCamera(currentPosition);
     }
 
-    void MoveCamera()
+    void MoveCamera(Vector3 currentPos)
     {
         Vector3 targetPosition = _currentTarget.position + (Vector3)_offset;
-        targetPosition.z = transform.position.z;
-        transform.position = Vector3.Lerp(transform.position, targetPosition, _smoothFollow * Time.fixedDeltaTime);
+        targetPosition.z = currentPos.z;
+        transform.position = Vector3.Lerp(currentPos, targetPosition, _smoothFollow * Time.fixedDeltaTime);
     }
 
     void SwitchTarget()

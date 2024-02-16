@@ -24,7 +24,7 @@ public class PlayerEnemyCollisionDetection : MonoBehaviour
     void DetectCollisions()
     {
         Vector2 currentPos = transform.position;
-        int results = Physics2D.OverlapCircleNonAlloc(currentPos, _detectionRadius, _collidersDetected);
+        int results = Physics2D.OverlapCircleNonAlloc(currentPos, _detectionRadius, _collidersDetected, _enemyLayer);
         if(results == 0) return;
         
         EnemyCollisions[] enemyObjects = new EnemyCollisions[results];

@@ -19,7 +19,7 @@ public class TweenAnimator : MonoBehaviour
     //public accessor
 
     public TimeUsage timeUsage => _timeUsage;
-
+    public int AnimationsQueued => _animationQueue.Count;
 
     // Update is called once per frame
     void Update()
@@ -62,6 +62,25 @@ public class TweenAnimator : MonoBehaviour
         MoveTo(rect, endPos + offset, duration / timeDivision, onComplete: () => 
         {
             TweenMoveToBouncy(rect, endPos, offset, duration, iteration, maxIterations, curve, loop, onBounceComplete);
+        });
+    }
+    public void TweenMoveTransformBouncy
+    (Transform transform, Vector3 endPos, Vector3 offset, float duration, int iteration, int maxIterations,
+    CurveTypes curve = CurveTypes.EaseInOut, bool loop = false, Action onBounceComplete = null)
+    {
+        iteration++;
+
+        if(iteration >= maxIterations)
+        {
+            TweenTransformMoveTo(transform, endPos, duration / maxIterations, onComplete: onBounceComplete);
+            return;   
+        }
+        int sign = (iteration % 2 == 0) ? -1 : 1;
+        offset *= sign / (iteration * 1.4f);
+        float timeDivision = iteration * 1.75f;
+        TweenTransformMoveTo(transform, endPos + offset, duration / timeDivision, onComplete: () => 
+        {
+            TweenMoveTransformBouncy(transform, endPos, offset, duration, iteration, maxIterations, curve, loop, onBounceComplete);
         });
     }
 
@@ -128,6 +147,15 @@ public class TweenAnimator : MonoBehaviour
         AnimationCurve curve = TweenCurveLibrary.GetCurve(curveType);   
 
         anim.Initialize(transform, endPosition, duration, curve, loop, onComplete);
+        SwitchCurrentAnimation(anim); 
+    }
+    public void TweenTransformMoveTo
+    (Transform transform, Vector3 startPosition, Vector3 endPosition, float duration, CurveTypes curveType = CurveTypes.EaseInOut, bool loop = false, Action onComplete = null)
+    {
+        TweenTransformMoveTo anim = new(this);
+        AnimationCurve curve = TweenCurveLibrary.GetCurve(curveType);   
+
+        anim.Initialize(transform, startPosition, endPosition, duration, curve, loop, onComplete);
         SwitchCurrentAnimation(anim); 
     }
 

@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0766fc3021acb774a89b5b455b645b8f, type: 3}
   m_Name: WeakCamShake
   m_EditorClassIdentifier: 
-  _strength: 2.37
+  _strength: 2
   _duration: 0.011

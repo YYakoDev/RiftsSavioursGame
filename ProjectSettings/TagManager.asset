@@ -16,7 +16,7 @@ TagManager:
   - Player
   - SpriteMask
   - ObstacleDetector
-  - FlyingEnemy
+  - 
   - PickUpController
   - Drop
   - PostProcessing

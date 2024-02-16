@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class MainMenuUI : MonoBehaviour
 {
@@ -35,6 +36,12 @@ public class MainMenuUI : MonoBehaviour
         _selectionMenu.SetActive(true);
         _audio.PlayWithVaryingPitch(_selectionSFX);
         _menuQuitter.SetCurrentMenu(_selectionMenu);
+    }
+
+    public void PlayButton()
+    {
+        _audio.PlayWithVaryingPitch(_selectionSFX);
+        SceneManager.LoadScene(1);
     }
 
     public void QuitButton()

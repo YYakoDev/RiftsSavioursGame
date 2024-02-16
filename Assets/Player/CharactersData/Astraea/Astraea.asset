@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 211f9415e4a3bff409c0929835e67618, type: 3}
   m_Name: Astraea
   m_EditorClassIdentifier: 
+  _name: Astraea
   _stats: {fileID: 11400000, guid: 0d2fc2edbd497ee459ba5cca65a0d494, type: 2}
   _atkStats: {fileID: 11400000, guid: 33ffee2aeeab8f648a9686d369dcf2e0, type: 2}
   _sprite: {fileID: 21300000, guid: 926ca0b92d08f4348921201961e7c741, type: 3}
