@@ -3,7 +3,7 @@ using UnityEngine;
 using TMPro;
 public class TweenTextOpacity : TweenAnimationBase
 {
-    TextMeshProUGUI _text;
+    TMP_Text _text;
     AnimationCurve _curve;
     Color _newColor;
     float _startingOpacity;
@@ -14,7 +14,7 @@ public class TweenTextOpacity : TweenAnimationBase
     }
 
 
-    public void Initialize(TextMeshProUGUI text, float opacityEndValue, float duration, AnimationCurve curve, bool loop, Action onComplete)
+    public void Initialize(TMP_Text text, float opacityEndValue, float duration, AnimationCurve curve, bool loop, Action onComplete)
     {
         _text = text;
         _newColor = _text.color;

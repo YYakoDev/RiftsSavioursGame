@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using TMPro;
 
 public class TweenAnimator : MonoBehaviour
@@ -131,7 +132,7 @@ public class TweenAnimator : MonoBehaviour
     /// Change opacity of a TMPRO Text, opacity value goes from 0 to 255.
     /// </summary>
     public void TweenTextOpacity
-    (TextMeshProUGUI text, float opacityEndValue, float duration, CurveTypes curveType = CurveTypes.EaseInOut, bool loop = false, Action onComplete = null)
+    (TMP_Text text, float opacityEndValue, float duration, CurveTypes curveType = CurveTypes.EaseInOut, bool loop = false, Action onComplete = null)
     {
         TweenTextOpacity txtOpacityAnim = new(this);
         AnimationCurve curve = TweenCurveLibrary.GetCurve(curveType);   
@@ -175,6 +176,25 @@ public class TweenAnimator : MonoBehaviour
         AnimationCurve curve = TweenCurveLibrary.GetCurve(curveType);   
 
         anim.Initialize(rect, initialColor, endValue, duration, curve, loop, onComplete);
+        SwitchCurrentAnimation(anim); 
+    }
+
+    public void TweenSpriteColor
+    (SpriteRenderer renderer, Color endColor, float duration, CurveTypes curveType = CurveTypes.EaseInOut, bool loop = false, Action onComplete = null)
+    {
+        TweenSpriteColor anim = new(this);
+        AnimationCurve curve = TweenCurveLibrary.GetCurve(curveType);   
+
+        anim.Initialize(renderer, endColor, duration, curve, loop, onComplete);
+        SwitchCurrentAnimation(anim); 
+    }
+    public void TweenLightIntensity
+    (Light2D light, float endValue, float duration, CurveTypes curveType = CurveTypes.EaseInOut, bool loop = false, Action onComplete = null)
+    {
+        TweenLightIntensity anim = new(this);
+        AnimationCurve curve = TweenCurveLibrary.GetCurve(curveType);   
+
+        anim.Initialize(light, endValue, duration, curve, loop, onComplete);
         SwitchCurrentAnimation(anim); 
     }
 
