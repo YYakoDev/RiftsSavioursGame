@@ -7,9 +7,10 @@ public class PlayerAnimationController : MonoBehaviour
 {
     [SerializeField]Animator _animator;
     [SerializeField]EntryAnimationFX _introFX;
-    PlayerIntroAnimation _introAnim;
     int _currentAnimation;
     float _lockedTill;
+    private PlayerIntroAnimation _introAnim;
+
     /*float _attackDuration;
     //bool _action;
 
@@ -22,14 +23,11 @@ public class PlayerAnimationController : MonoBehaviour
         _introAnim = new(_animator, _introFX.gameObject);
     }
 
-    private void Start()
-    {
+    private void Start() {
         _introAnim.PlayAnimation();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
+    private void Update() {
         _introAnim.UpdateLogic();
     }
 

@@ -45,9 +45,8 @@ public class WeaponAiming : MonoBehaviour
         _enemyDetectionTimer.onEnd += DetectEnemy;
     }
 
-    public void Initialize(WeaponBase currentWeapon, LayerMask layer)
+    public void Initialize(LayerMask layer)
     {
-        _currentWeapon = currentWeapon;
         _enemyLayer = layer;
     }
 
@@ -55,9 +54,9 @@ public class WeaponAiming : MonoBehaviour
     {
         if (_mainCamera == null) _mainCamera = Camera.main;
         _switchAimKey = YYInputManager.GetKey(KeyInputTypes.SwitchAim);
-        if(_switchAimKey != null) _switchAimKey.OnKeyPressed += SwitchAim;
+        _switchAimKey.OnKeyPressed += SwitchAim;
         _crosshair.gameObject.SetActive(false);
-        _currentWeapon.onAttack += StopAiming;
+        if(_currentWeapon != null) _currentWeapon.onAttack += StopAiming;
     }
 
     // Update is called once per frame
@@ -88,7 +87,7 @@ public class WeaponAiming : MonoBehaviour
         OnAimingChange?.Invoke(_autoAiming);
     }
 
-private void FixedUpdate()
+    private void FixedUpdate()
     {
         if(_autoAiming)
         {
@@ -182,6 +181,13 @@ private void FixedUpdate()
     {
         _stopAimingTime = _currentWeapon.AtkDuration / 1.25f;
         _crosshair.gameObject.SetActive(false);
+    }
+
+    public void SwitchCurrentWeapon(WeaponBase weapon)
+    {
+        if(_currentWeapon != null) _currentWeapon.onAttack -= StopAiming;
+        _currentWeapon = weapon;
+        _currentWeapon.onAttack += StopAiming;
     }
 
     private void OnDestroy() {

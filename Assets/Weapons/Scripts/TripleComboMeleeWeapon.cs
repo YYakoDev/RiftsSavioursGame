@@ -74,7 +74,7 @@ public class TripleComboMeleeWeapon : MeleeWeapon
     }
     protected override void SubscribeInput() => _attackKey.OnKeyHold += TryAttack;
     
-    protected override void UnsubscribeInput() => _attackKey.OnKeyHold -= TryAttack;
+    public override void UnsubscribeInput() => _attackKey.OnKeyHold -= TryAttack;
     
 
     protected override void TryAttack()

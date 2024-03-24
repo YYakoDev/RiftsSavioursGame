@@ -65,12 +65,14 @@ public abstract class WeaponBase: ScriptableObject
         _currentAnim = Animator.StringToHash(AtkAnimName);
         _attackDuration = GetAnimationDuration(AtkAnimName);
         _attackKey = YYInputManager.GetKey(KeyInputTypes.Attack);
+        onAttack = null;
+        onEnemyHit = null;
         SubscribeInput();
         InitializeFXS();
     }
     protected virtual void SubscribeInput() => _attackKey.OnKeyHold += TryAttack;
 
-    protected virtual void UnsubscribeInput() => _attackKey.OnKeyHold -= TryAttack;
+    public virtual void UnsubscribeInput() => _attackKey.OnKeyHold -= TryAttack;
     
     protected virtual void InitializeFXS()
     {

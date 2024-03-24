@@ -21,6 +21,7 @@ public class PlayerIntroAnimation
         SetAnimDuration();
         
         _animTimer = new(_animDuration + 0.1f, false, true);
+        _animTimer.Stop();
         _animTimer.onEnd += ResumeTime;
         StopTime();
         //PlayAnimation();
@@ -28,6 +29,7 @@ public class PlayerIntroAnimation
 
     public void PlayAnimation()
     {
+        _animTimer.Start();
         _animator.ForcePlay(PlayerAnimationsNames.Landing);
         SpawnFX();
     }

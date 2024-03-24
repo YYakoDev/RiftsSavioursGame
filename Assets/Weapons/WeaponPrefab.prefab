@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1752979257724377016}
   - component: {fileID: 6301310934895987886}
   - component: {fileID: 5998084811606540371}
+  - component: {fileID: -872656025477200972}
   - component: {fileID: 2062176802140626436}
   m_Layer: 2
   m_Name: WeaponPrefab
@@ -73,8 +74,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1970156397
-  m_SortingLayer: 2
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 15
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -120,6 +121,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _onEquipSFX: {fileID: 8300000, guid: edaf53930460b304185fec0647dc56cf, type: 3}
+--- !u!114 &-872656025477200972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7259605076874394457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8c7064d0843d3f468833669ea2442c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sortingOffset: 0.7
 --- !u!82 &2062176802140626436
 AudioSource:
   m_ObjectHideFlags: 0

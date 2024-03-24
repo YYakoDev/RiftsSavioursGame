@@ -20,7 +20,7 @@ TagManager:
   - PickUpController
   - Drop
   - PostProcessing
-  - 
+  - InteractableSeeker
   - 
   - 
   - 

@@ -14,9 +14,20 @@ public class WeaponManager : MonoBehaviour
     [SerializeField]private GameObject _weaponPrefab;
     [SerializeField]private WeaponAiming _weaponAiming;
     [SerializeField]private LayerMask _enemyLayer;
-    private Dictionary<WeaponBase, WeaponPrefab> _instantiatedWeapons = new();
     private WeaponBase _currentWeapon;
     private GameObject _currentWeaponInstance;
+    GameObject _weaponPrefabInstance;
+    WeaponPrefab _weaponLogicInstance;
+    private KeyInput _switchKey;
+    private int _weaponIndex, _maxWeaponAmount = 3;
+    private int WeaponIndex 
+    {
+        get => _weaponIndex;
+        set
+        {
+            _weaponIndex = (value >= _maxWeaponAmount) ? 0 : value;
+        }
+    }
     public event Action<WeaponBase> OnWeaponChange;
     //properties
     //public SOPlayerAttackStats AttackStats => _attackStats;
@@ -44,108 +55,62 @@ public class WeaponManager : MonoBehaviour
             Debug.LogError("A Reference is not assigned to the weapon manager");
             return;
         }
-        //_currentWeapon = _playerStats.WeaponBase;
-        foreach(WeaponBase weapon in _playerStats.Weapons)
-        {
-            SpawnWeapon(weapon);
-            Debug.Log("SpawningWeapon");
-        }
-
-        SetCurrentWeapon(_playerStats.Weapons[0]);
-        YYInputManager.GetKey(KeyInputTypes.SwitchToWeapon1).OnKeyPressed += SelectWeapon1;
-        YYInputManager.GetKey(KeyInputTypes.SwitchToWeapon2).OnKeyPressed += SelectWeapon2;
-        YYInputManager.GetKey(KeyInputTypes.SwitchToWeapon3).OnKeyPressed += SelectWeapon3;
+        CreatePrefab();
+        _weaponAiming.Initialize(_enemyLayer);
+        SetWeapon(_playerStats.Weapons[0]);
+        _switchKey = YYInputManager.GetKey(KeyInputTypes.SwitchWeapon);
+        _switchKey.OnKeyPressed += SwitchWeapon;
     }
 
-    void SetCurrentWeapon(WeaponBase newWeapon)
-    {
-        if(_currentWeapon != null && _currentWeapon == newWeapon) return;
-        //here we will deactivated the previous current weapon if it exist
-        if(_currentWeapon != null)
-        {
-            _instantiatedWeapons[_currentWeapon].Animator.enabled = false;
-            _currentWeapon.SetWeaponActive(false);
-            _currentWeaponInstance.SetActive(false);
-        }
 
-        _currentWeapon = newWeapon;
-        _currentWeaponInstance = _instantiatedWeapons[_currentWeapon].gameObject;
-        var instanceScript = _instantiatedWeapons[_currentWeapon];
-        instanceScript.Animator.enabled = false;
-        instanceScript.Renderer.sprite = _currentWeapon.SpriteAndAnimationData.Sprite;
-        instanceScript.Renderer.color = Color.white;
-        instanceScript.Animator.enabled = true;
-        _currentWeapon.SetWeaponActive(true);
-        _currentWeaponInstance.SetActive(true);
-        _weaponAiming.Initialize(_currentWeapon, _enemyLayer);
-        OnWeaponChange?.Invoke(_currentWeapon);
+    void CreatePrefab()
+    {
+        _weaponPrefabInstance = Instantiate(_weaponPrefab, _weaponAiming.transform);
+        _weaponLogicInstance = _weaponPrefabInstance.GetComponent<WeaponPrefab>();
+        foreach(var weapon in _playerStats.Weapons)
+        {
+            if(weapon == null) continue;
+            weapon.Initialize(this, _weaponPrefabInstance.transform);
+            weapon.SetWeaponActive(false);
+        }
+        
     }
 
-    void SpawnWeapon(WeaponBase weapon)
+    void SetWeapon(WeaponBase weapon)
     {
-        if(weapon == null) return;
-        if(_instantiatedWeapons.ContainsKey(weapon)) return;
-        GameObject instance = Instantiate(_weaponPrefab);
-        instance.name = weapon.WeaponName;
-
-        Transform instanceTransform = instance.transform;
-        instanceTransform.SetParent(_weaponAiming.transform);
+        if(weapon == null || _currentWeapon == weapon) return;
+        _currentWeapon?.SetWeaponActive(false);
+        _currentWeapon = weapon;
+        Transform instanceTransform = _weaponPrefabInstance.transform;
         instanceTransform.localPosition = weapon.SpawnPosition;
         
         var rotation = instanceTransform.localRotation.eulerAngles;
         rotation.z = weapon.SpawnRotation;
         instanceTransform.localRotation = Quaternion.Euler(rotation);
-
-        var weaponPrefabScript = instance.GetComponent<WeaponPrefab>();
-
-        instance.SetActive(false);
-        weapon.Initialize(this, instanceTransform);
-        weapon.SetWeaponActive(false);
-        _instantiatedWeapons.Add(weapon, weaponPrefabScript);
-        weaponPrefabScript?.SetWeaponBase(weapon);
-        //Debug.Log($"Adding new weapon to dictionary:  {weapon.name} + {instance}");
+        _weaponLogicInstance.SetWeaponBase(weapon);
+        _weaponAiming.SwitchCurrentWeapon(weapon);
+        OnWeaponChange?.Invoke(weapon);
+        _currentWeapon?.SetWeaponActive(true);
     }
 
-    void SelectWeapon1() => SwitchWeapon(0);
-    void SelectWeapon2() => SwitchWeapon(1);
-    void SelectWeapon3() => SwitchWeapon(2);
-
-    void SwitchWeapon(int newIndex)
+    void SwitchWeapon()
     {
-        if(newIndex >= _instantiatedWeapons.Count) return;
-        SetCurrentWeapon(_playerStats.Weapons[newIndex]);
-
-    }
-
-    int SetNewIndex(int amountToAdd)
-    {
-        int currentIndex = 0;
-        for (int i = 0; i < _playerStats.Weapons.Length; i++)
-        {
-            var weapon = _playerStats.Weapons[i];
-            if(_currentWeapon == weapon)
-            {
-                currentIndex = i;
-                break;
-            }
-        }
-        currentIndex += amountToAdd;
-        return (currentIndex > _instantiatedWeapons.Count-1) ? 0 : currentIndex;
+        WeaponIndex++;
+        SetWeapon(_playerStats.Weapons[WeaponIndex]);
     }
 
     void ApplyNewAttackStats()
     {
-        foreach(var weaponPairedInstance in _instantiatedWeapons)
+        foreach(var weapon in _playerStats.Weapons)
         {
-            weaponPairedInstance.Key.EvaluateStats(_playerAttackStats);
+            weapon.EvaluateStats(_playerAttackStats);
         }
     }
 
     private void OnDestroy() {
         _playerAttackStats.onStatsChange -= ApplyNewAttackStats;
-        YYInputManager.GetKey(KeyInputTypes.SwitchToWeapon1).OnKeyPressed -= SelectWeapon1;
-        YYInputManager.GetKey(KeyInputTypes.SwitchToWeapon2).OnKeyPressed -= SelectWeapon2;
-        YYInputManager.GetKey(KeyInputTypes.SwitchToWeapon3).OnKeyPressed -= SelectWeapon3;
+        _switchKey.OnKeyPressed -= SwitchWeapon;
+        foreach(var weapon in _playerStats.Weapons) weapon?.UnsubscribeInput();
     }
 
 }

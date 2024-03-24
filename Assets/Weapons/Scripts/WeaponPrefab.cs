@@ -27,14 +27,6 @@ public class WeaponPrefab : MonoBehaviour
         thisGO.CheckComponent<AudioSource>(ref _audio);
     }
     
-    IEnumerator Start()
-    {
-        yield return null;
-       
-        //_animator.ForcePlay(OnEquipAnim);
-        _weaponBase.onAttack += AttackEffects;
-    }
-
     private void OnEnable() {
         if(_animator.runtimeAnimatorController == null) return;
         _animator.ForcePlay(OnEquipAnim);
@@ -44,7 +36,7 @@ public class WeaponPrefab : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _weaponBase.UpdateLogic();
+        _weaponBase?.UpdateLogic();
     }
 
     void AttackEffects()
@@ -55,7 +47,6 @@ public class WeaponPrefab : MonoBehaviour
     void PlayAttackAnimation()
     {
         _animator.Play(_weaponBase.Animation);
-        Debug.Log("Playing attack animation");
         if(_animator.GetCurrentAnimatorStateInfo(0).shortNameHash == _weaponBase.Animation)
         {
             StartCoroutine(ReplayAnimation(_animator, _weaponBase.Animation));
@@ -77,11 +68,20 @@ public class WeaponPrefab : MonoBehaviour
 
     public void SetWeaponBase(WeaponBase weapon)
     {
+        weapon.onAttack -= AttackEffects;
         _weaponBase = weapon;
-        _spriteRenderer.sprite = _weaponBase.SpriteAndAnimationData.Sprite;
-        _spriteRenderer.flipX = _weaponBase.FlipSprite;
-
-        _animator.runtimeAnimatorController = _weaponBase.SpriteAndAnimationData.AnimatorOverride;
+        Animator.enabled = false;
+        _animator.runtimeAnimatorController = null;
+        _spriteRenderer.enabled = false;
+        _spriteRenderer.sprite = null;
+        _spriteRenderer.sprite = weapon.SpriteAndAnimationData.Sprite;
+        _spriteRenderer.flipX = weapon.FlipSprite;
+        Renderer.color = Color.white;
+        _spriteRenderer.enabled = true;
+        _animator.runtimeAnimatorController = weapon.SpriteAndAnimationData.AnimatorOverride;
+        Animator.enabled = true;
+        weapon.onAttack += AttackEffects;
+        PlayUnsheateSFX();
     }
 
     //THIS IS BEING CALLED BY AN ANIMATION EVENT
