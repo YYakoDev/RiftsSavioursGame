@@ -24,19 +24,29 @@ public class InteractableSeeker : MonoBehaviour
     void Interact()
     {
         if(_interactableInterface == null) return;
-        _audio?.PlayWithVaryingPitch(_keyPressSfx);
-        _hotkeyPrefabInstance.ShakeAnim();
+        if(_interactableInterface.AlreadyInteracted) return;
+        AudioClip sfx = (_interactableInterface.InteractSfx == null) ? _keyPressSfx : _interactableInterface.InteractSfx;
+        _audio?.PlayWithVaryingPitch(sfx);
+        _hotkeyPrefabInstance.ShakeAnim(DisableInteractIcon);
+        _interactableInterface.AlreadyInteracted = true;
         _interactableInterface.Interact();
     }
 
+    void DisableInteractIcon()
+    {
+        _hotkeyPrefabInstance.ChangeState(false);
+    }
+
     private void OnTriggerEnter2D(Collider2D other) {
-        if(other.TryGetComponent<IInteractable>(out _interactableInterface))
+        if(other.TryGetComponent<IInteractable>(out var interactableInterface))
         {
+            if(interactableInterface.AlreadyInteracted) return;
+            _interactableInterface = interactableInterface;
             Transform collidedObj = other.transform;
             _interactableObject = collidedObj.gameObject;
             _hotkeyPrefabInstance.ChangeState(true);
             _hotkeyPrefabInstance.Self.transform.SetParent(collidedObj);
-            _hotkeyPrefabInstance.Self.transform.position = collidedObj.position;
+            _hotkeyPrefabInstance.Self.transform.position = collidedObj.position + _interactableInterface.Offset;
         }
     }
     private void OnTriggerExit2D(Collider2D other) {

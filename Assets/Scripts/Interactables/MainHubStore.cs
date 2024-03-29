@@ -4,18 +4,13 @@ using UnityEngine;
 
 public class MainHubStore : MonoBehaviour, IInteractable
 {
+    [SerializeField]Vector3 _buttonOffset;
+    bool _alreadyInteracted;
+    public Vector3 Offset => _buttonOffset;
+    public bool AlreadyInteracted { get => _alreadyInteracted; set => _alreadyInteracted = value; }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public AudioClip InteractSfx => null;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     public void Interact()
     {
         

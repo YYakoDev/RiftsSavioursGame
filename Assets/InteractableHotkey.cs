@@ -50,13 +50,13 @@ public class InteractableHotkey : MonoBehaviour
 
     }
 
-    public void ShakeAnim()
+    public void ShakeAnim(System.Action onComplete = null)
     {
         Vector3 startPos = _transform.localPosition;
         Vector3 randomDir = new Vector3(0f, Random.Range(-0.5f, -0.2f), 0f);
         _animator.TweenMoveTransformBouncy(_transform, startPos + randomDir * _shakeStrength, randomDir * -_shakeStrength, _shakeDuration, 0, 5, onBounceComplete: () => 
         {
-            _animator.TweenTransformMoveTo(_transform, startPos, _shakeDuration / 5f);
+            _animator.TweenTransformMoveTo(_transform, startPos, _shakeDuration / 5f, onComplete: onComplete);
         });
     }
 
