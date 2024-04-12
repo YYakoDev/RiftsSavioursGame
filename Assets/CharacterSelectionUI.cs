@@ -11,7 +11,6 @@ public class CharacterSelectionUI : MonoBehaviour
     [SerializeField] SOCharacterData[] _availableCharacters = new SOCharacterData[0];
     [SerializeField] Image _characterIcon;
     int _currentIndex = 0;
-    public static SOCharacterData SelectedCharacter;
     float _inputCooldown = 0.25f;
     float _nextInputTime = 0;
 
@@ -68,9 +67,10 @@ public class CharacterSelectionUI : MonoBehaviour
 
     void SetSelectedCharacter()
     {
-        SelectedCharacter = _availableCharacters[_currentIndex];
+        var character = _availableCharacters[_currentIndex];
+        PlayerManager.ChangeSelectedCharacter(character);
         PlayAnimation();
-        _characterIcon.sprite = SelectedCharacter.Sprite;
+        _characterIcon.sprite = character.Sprite;
     }
 
     void PlayAnimation()

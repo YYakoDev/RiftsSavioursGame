@@ -48,7 +48,7 @@ public class YYInputManager : MonoBehaviour
         //movement
         _movementAxis.x = Input.GetAxisRaw(HorizontalAxis);
         _movementAxis.y = Input.GetAxisRaw(VerticalAxis);
-        OnMovement?.Invoke(_movementAxis);
+        if(!_stopInput)OnMovement?.Invoke(_movementAxis);
 
         //mouse
         _mousePosition = Input.mousePosition;

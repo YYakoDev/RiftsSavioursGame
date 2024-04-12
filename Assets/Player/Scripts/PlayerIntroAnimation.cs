@@ -9,7 +9,7 @@ public class PlayerIntroAnimation
     GameObject _fxPrefab;
     GameObject _fxInstance;
     EntryAnimationFX _fxScript;
-    float _animDuration = 0.5f;
+    float _animDuration = 0.67f;
     bool _animationEnded = false;
     Timer _animTimer;
 
@@ -38,6 +38,8 @@ public class PlayerIntroAnimation
     {
         if(_animationEnded)return;
         _animTimer.UpdateTime();
+        float elapsedTime = _animDuration - _animTimer.CurrentTime;
+        float percent = elapsedTime / _animDuration;
     }
 
     void SpawnFX()

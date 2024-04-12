@@ -40,7 +40,7 @@ public class WeaponManager : MonoBehaviour
 
     private void Awake()
     {
-        if(_playerManager == null) _playerManager = GetComponentInParent<PlayerManager>();
+        if (_playerManager == null) _playerManager = GetComponentInParent<PlayerManager>();
         if(_weaponAiming == null) _weaponAiming = GetComponentInChildren<WeaponAiming>();
         gameObject.CheckComponent<PlayerAttackEffects>(ref _effects);
         _playerStats = _playerManager.Stats;
@@ -50,6 +50,7 @@ public class WeaponManager : MonoBehaviour
 
     void Start()
     {
+        PlayerManager.onCharacterChange += SetWeaponFromNewCharacter;
         if(_weaponPrefab == null || _weaponAiming == null)
         {
             Debug.LogError("A Reference is not assigned to the weapon manager");
@@ -99,6 +100,18 @@ public class WeaponManager : MonoBehaviour
         SetWeapon(_playerStats.Weapons[WeaponIndex]);
     }
 
+    void SetWeaponFromNewCharacter()
+    {
+        foreach(var weapon in _playerStats.Weapons)
+        {
+            if(weapon == null) continue;
+            weapon.Initialize(this, _weaponPrefabInstance.transform);
+            weapon.SetWeaponActive(false);
+        }
+        WeaponIndex = 0;    
+        SetWeapon(_playerStats.Weapons[WeaponIndex]);
+    }
+
     void ApplyNewAttackStats()
     {
         foreach(var weapon in _playerStats.Weapons)
@@ -108,6 +121,7 @@ public class WeaponManager : MonoBehaviour
     }
 
     private void OnDestroy() {
+        PlayerManager.onCharacterChange -= SetWeaponFromNewCharacter;
         _playerAttackStats.onStatsChange -= ApplyNewAttackStats;
         _switchKey.OnKeyPressed -= SwitchWeapon;
         foreach(var weapon in _playerStats.Weapons) weapon?.UnsubscribeInput();

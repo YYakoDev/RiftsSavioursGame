@@ -117,7 +117,7 @@ public class SOPlayerStats : PlayerStatsBase
         _interactCooldown = stats.InteractCooldown;
         _maxResourceInteractions = stats.MaxResourceInteractions;
 
-        _weapons = stats.Weapons;
+        Array.Copy(stats.Weapons, _weapons, _weapons.Length);
         _attackStats.Initialize(data.ATKStats);
 
         _stunResistance = stats.StunResistance;

@@ -1,10 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerAnimationController))]
 public class PlayerManager : MonoBehaviour
 {
+    static SOCharacterData SelectedCharacter;
+    public static event Action onCharacterChange;
     //References
     [Header("References")]
     [SerializeField]SOCharacterData _charData;
@@ -16,6 +17,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField]PlayerLevelManager _levelManager;
     [SerializeField]PlayerMovement _movementScript;
     [SerializeField]PlayerUpgradesManager _upgradesManager;
+    bool _gettedComponents = false;
 
     public SOPlayerStats Stats => _stats;
     public PlayerAnimationController AnimController => _animatorController;
@@ -25,31 +27,47 @@ public class PlayerManager : MonoBehaviour
     public PlayerLevelManager LevelManager => _levelManager;
     public PlayerMovement MovementScript => _movementScript;
 
-
     public Vector3 Position => transform.position;
+    public static SOCharacterData SelectedChara => SelectedCharacter;
 
-    // Start is called before the first frame update
-    void Awake()
+    private void Awake() {
+        onCharacterChange = null;
+        onCharacterChange += InitializeCharacterData;
+    }
+
+    private void Start() {
+        GetComponents();
+        InitializeCharacterData();
+    }
+
+    void GetComponents()
     {
-        if(CharacterSelectionUI.SelectedCharacter != null)
-        {
-            _charData = Instantiate(CharacterSelectionUI.SelectedCharacter);
-            if(WeaponSelectionUI.SelectedWeapon != null)_charData.Stats.Weapons[0] = WeaponSelectionUI.SelectedWeapon;
-        }
-        if(_stats != null) _stats.Initialize(_charData);
+        if(_gettedComponents) return;
         GameObject thisGO = gameObject;
         thisGO.CheckComponent<PlayerAnimationController>(ref _animatorController);
-        _animatorController.ChangeAnimator(_charData.Animator);
         thisGO.CheckComponent<Rigidbody2D>(ref _rigidBody);
         thisGO.CheckComponent<SpriteRenderer>(ref _renderer);
         thisGO.CheckComponent<PlayerLevelManager>(ref _levelManager);
-        _levelManager?.SetPlayerStats(_stats);
         thisGO.CheckComponent<PlayerMovement>(ref _movementScript);
-        _inventory?.Initialize(_upgradesManager);
-    
+        _gettedComponents = true;
     }
-    void Start()
+    void InitializeCharacterData()
     {
+        if(SelectedCharacter != null) _charData = Instantiate(SelectedCharacter);
+        if(_stats != null) _stats.Initialize(_charData);
+        _levelManager?.SetPlayerStats(_stats);
+        _animatorController.ChangeAnimator(_charData.Animator);
+        _inventory?.Initialize(_upgradesManager);
+    }
 
+
+    public static void ChangeSelectedCharacter(SOCharacterData chara)
+    {
+        SelectedCharacter = chara;
+        onCharacterChange?.Invoke();
+    }
+
+    private void OnDestroy() {
+        onCharacterChange -= InitializeCharacterData;
     }
 }

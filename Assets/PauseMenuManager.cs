@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 
 public class PauseMenuManager : MonoBehaviour
 {
+    static bool _disablePauseBehaviour = false;
     [SerializeField] GameObject _pauseMenuParent;
     [SerializeField] GameObject _confirmationObj;
     [SerializeField] GameObject _continueButton;
@@ -16,9 +17,15 @@ public class PauseMenuManager : MonoBehaviour
     EventSystem _eventSys;
     GameObject _previouslySelectedObj;
 
+    public static void DisablePauseBehaviour(bool state)
+    {
+        _disablePauseBehaviour = state;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
+        _disablePauseBehaviour = false;
         _activeMenu = false;
         _confirmationObj.SetActive(false);
         _upgradeMenu.OnMenuClose += ClosingCheck;
@@ -29,6 +36,7 @@ public class PauseMenuManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(_disablePauseBehaviour)return;
         if(Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P))
         {
             SwitchPauseMenu(!_activeMenu);
@@ -57,6 +65,7 @@ public class PauseMenuManager : MonoBehaviour
             _previousTimeScale = (TimeScaleManager.IsForced) ?  0f : 1f;
             _previouslySelectedObj = _eventSys.currentSelectedGameObject;
             _eventSys.SetSelectedGameObject(_continueButton);
+            _disablePauseBehaviour = false;
         }
         _activeMenu = state;
         _confirmationObj.SetActive(false);

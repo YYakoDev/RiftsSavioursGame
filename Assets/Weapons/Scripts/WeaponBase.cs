@@ -16,6 +16,7 @@ public abstract class WeaponBase: ScriptableObject
     //fields
     [Header("Weapon Properties")]
     [SerializeField]private string _name;
+    [SerializeField, TextArea]private string _description;
     [SerializeField]protected SOWeaponSpriteAnimationData _SpriteAndAnimationsData;
     [SerializeField]private WeaponEffects[] _effects;
     protected WeaponEffects[] _usedEffects = new WeaponEffects[0];
@@ -41,6 +42,7 @@ public abstract class WeaponBase: ScriptableObject
 
     //properties
     public string WeaponName => _name;
+    public string Description => _description;
     public SOWeaponSpriteAnimationData SpriteAndAnimationData => _SpriteAndAnimationsData;
     public WeaponEffects[] WeaponEffects => _effects;
     public bool FlipSprite => _flipSprite;
