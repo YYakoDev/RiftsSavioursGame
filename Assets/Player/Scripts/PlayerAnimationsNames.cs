@@ -9,6 +9,7 @@ public static class PlayerAnimationsNames
    public static readonly int Attack = Animator.StringToHash("Attack");
    public static readonly int Landing = Animator.StringToHash("Landing");
    public static readonly int Mount = Animator.StringToHash("Mounting");
+   public static readonly int Dash = Animator.StringToHash("Dash");
 
 
 }

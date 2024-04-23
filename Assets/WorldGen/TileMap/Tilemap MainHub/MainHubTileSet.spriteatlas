@@ -23,7 +23,7 @@ SpriteAtlas:
     platformSettings:
     - serializedVersion: 3
       m_BuildTarget: DefaultTexturePlatform
-      m_MaxTextureSize: 2048
+      m_MaxTextureSize: 4096
       m_ResizeAlgorithm: 0
       m_TextureFormat: -1
       m_TextureCompression: 0
@@ -45,11 +45,76 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 2800000, guid: c2c454bf4fea68d4688ab57246391629, type: 3}
+    - {fileID: 2800000, guid: 249aae68c6f803c42afb5b1eff4f5d13, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
+  - {fileID: 1403779547, guid: 249aae68c6f803c42afb5b1eff4f5d13, type: 3}
+  - {fileID: -1713787666, guid: 249aae68c6f803c42afb5b1eff4f5d13, type: 3}
+  - {fileID: 1291273766, guid: 249aae68c6f803c42afb5b1eff4f5d13, type: 3}
+  - {fileID: 1130991149, guid: 249aae68c6f803c42afb5b1eff4f5d13, type: 3}
+  - {fileID: 1744366672, guid: 249aae68c6f803c42afb5b1eff4f5d13, type: 3}
+  - {fileID: 1621633948, guid: 249aae68c6f803c42afb5b1eff4f5d13, type: 3}
+  - {fileID: -2022725533, guid: 249aae68c6f803c42afb5b1eff4f5d13, type: 3}
+  - {fileID: 181465691, guid: 249aae68c6f803c42afb5b1eff4f5d13, type: 3}
+  - {fileID: -658442350, guid: 249aae68c6f803c42afb5b1eff4f5d13, type: 3}
+  - {fileID: -298226461, guid: 249aae68c6f803c42afb5b1eff4f5d13, type: 3}
+  - {fileID: -966632010, guid: 249aae68c6f803c42afb5b1eff4f5d13, type: 3}
+  - {fileID: 1056904649, guid: 249aae68c6f803c42afb5b1eff4f5d13, type: 3}
+  - {fileID: 2009219077, guid: 249aae68c6f803c42afb5b1eff4f5d13, type: 3}
+  - {fileID: -843200727, guid: 249aae68c6f803c42afb5b1eff4f5d13, type: 3}
+  - {fileID: 946422680, guid: 249aae68c6f803c42afb5b1eff4f5d13, type: 3}
+  - {fileID: 1042502542, guid: 249aae68c6f803c42afb5b1eff4f5d13, type: 3}
+  - {fileID: 1264128305, guid: 249aae68c6f803c42afb5b1eff4f5d13, type: 3}
+  - {fileID: -614459868, guid: 249aae68c6f803c42afb5b1eff4f5d13, type: 3}
+  - {fileID: 39143004, guid: 249aae68c6f803c42afb5b1eff4f5d13, type: 3}
+  - {fileID: 1129501710, guid: 249aae68c6f803c42afb5b1eff4f5d13, type: 3}
+  - {fileID: -1401727841, guid: 249aae68c6f803c42afb5b1eff4f5d13, type: 3}
+  - {fileID: 2072084889, guid: 249aae68c6f803c42afb5b1eff4f5d13, type: 3}
+  - {fileID: 702644281, guid: 249aae68c6f803c42afb5b1eff4f5d13, type: 3}
+  - {fileID: -36190769, guid: 249aae68c6f803c42afb5b1eff4f5d13, type: 3}
+  - {fileID: 1822788138, guid: 249aae68c6f803c42afb5b1eff4f5d13, type: 3}
+  - {fileID: -764888896, guid: 249aae68c6f803c42afb5b1eff4f5d13, type: 3}
+  - {fileID: -931344488, guid: 249aae68c6f803c42afb5b1eff4f5d13, type: 3}
+  - {fileID: -384777646, guid: 249aae68c6f803c42afb5b1eff4f5d13, type: 3}
+  - {fileID: -423868919, guid: 249aae68c6f803c42afb5b1eff4f5d13, type: 3}
+  - {fileID: 82658502, guid: 249aae68c6f803c42afb5b1eff4f5d13, type: 3}
+  - {fileID: -1457052847, guid: 249aae68c6f803c42afb5b1eff4f5d13, type: 3}
+  - {fileID: 1770031081, guid: 249aae68c6f803c42afb5b1eff4f5d13, type: 3}
+  - {fileID: -1372324108, guid: 249aae68c6f803c42afb5b1eff4f5d13, type: 3}
+  - {fileID: 1858804036, guid: 249aae68c6f803c42afb5b1eff4f5d13, type: 3}
+  - {fileID: 348286585, guid: 249aae68c6f803c42afb5b1eff4f5d13, type: 3}
+  - {fileID: -572140530, guid: 249aae68c6f803c42afb5b1eff4f5d13, type: 3}
+  - {fileID: 726062483, guid: 249aae68c6f803c42afb5b1eff4f5d13, type: 3}
+  - {fileID: -746319328, guid: 249aae68c6f803c42afb5b1eff4f5d13, type: 3}
+  - {fileID: -502607076, guid: 249aae68c6f803c42afb5b1eff4f5d13, type: 3}
+  - {fileID: -1340610761, guid: 249aae68c6f803c42afb5b1eff4f5d13, type: 3}
+  - {fileID: 1369264682, guid: 249aae68c6f803c42afb5b1eff4f5d13, type: 3}
+  - {fileID: -922911923, guid: 249aae68c6f803c42afb5b1eff4f5d13, type: 3}
+  - {fileID: 622981944, guid: 249aae68c6f803c42afb5b1eff4f5d13, type: 3}
+  - {fileID: 816549744, guid: 249aae68c6f803c42afb5b1eff4f5d13, type: 3}
+  - {fileID: 616920447, guid: 249aae68c6f803c42afb5b1eff4f5d13, type: 3}
+  - {fileID: -314877270, guid: 249aae68c6f803c42afb5b1eff4f5d13, type: 3}
+  - {fileID: 532724410, guid: 249aae68c6f803c42afb5b1eff4f5d13, type: 3}
+  - {fileID: 801414535, guid: 249aae68c6f803c42afb5b1eff4f5d13, type: 3}
+  - {fileID: -710532620, guid: 249aae68c6f803c42afb5b1eff4f5d13, type: 3}
+  - {fileID: 26979515, guid: 249aae68c6f803c42afb5b1eff4f5d13, type: 3}
+  - {fileID: 1006348228, guid: 249aae68c6f803c42afb5b1eff4f5d13, type: 3}
+  - {fileID: 1167288233, guid: 249aae68c6f803c42afb5b1eff4f5d13, type: 3}
+  - {fileID: 801330407, guid: 249aae68c6f803c42afb5b1eff4f5d13, type: 3}
+  - {fileID: -1899151263, guid: 249aae68c6f803c42afb5b1eff4f5d13, type: 3}
+  - {fileID: -1949072461, guid: 249aae68c6f803c42afb5b1eff4f5d13, type: 3}
+  - {fileID: 1765551249, guid: 249aae68c6f803c42afb5b1eff4f5d13, type: 3}
+  - {fileID: 1298152352, guid: 249aae68c6f803c42afb5b1eff4f5d13, type: 3}
+  - {fileID: 230465609, guid: 249aae68c6f803c42afb5b1eff4f5d13, type: 3}
+  - {fileID: -1104550272, guid: 249aae68c6f803c42afb5b1eff4f5d13, type: 3}
+  - {fileID: 1345445329, guid: 249aae68c6f803c42afb5b1eff4f5d13, type: 3}
+  - {fileID: 2023569091, guid: 249aae68c6f803c42afb5b1eff4f5d13, type: 3}
+  - {fileID: 168618671, guid: 249aae68c6f803c42afb5b1eff4f5d13, type: 3}
+  - {fileID: -1552143756, guid: 249aae68c6f803c42afb5b1eff4f5d13, type: 3}
+  - {fileID: 1039375655, guid: 249aae68c6f803c42afb5b1eff4f5d13, type: 3}
   - {fileID: -593778168, guid: c2c454bf4fea68d4688ab57246391629, type: 3}
   - {fileID: -802400510, guid: c2c454bf4fea68d4688ab57246391629, type: 3}
   - {fileID: 1847882591, guid: c2c454bf4fea68d4688ab57246391629, type: 3}
@@ -115,6 +180,70 @@ SpriteAtlas:
   - {fileID: 1307119744, guid: c2c454bf4fea68d4688ab57246391629, type: 3}
   - {fileID: 1550766784, guid: c2c454bf4fea68d4688ab57246391629, type: 3}
   m_PackedSpriteNamesToIndex:
+  - TileSetChurch2_6
+  - TileSetChurch2_5
+  - TileSetChurch2_4
+  - TileSetChurch2_9
+  - TileSetChurch2_8
+  - TileSetChurch2_30
+  - TileSetChurch2_31
+  - TileSetChurch2_32
+  - TileSetChurch2_52
+  - TileSetChurch2_33
+  - TileSetChurch2_23
+  - TileSetChurch2_53
+  - TileSetChurch2_34
+  - TileSetChurch2_22
+  - TileSetChurch2_50
+  - TileSetChurch2_35
+  - TileSetChurch2_21
+  - TileSetChurch2_51
+  - TileSetChurch2_45
+  - TileSetChurch2_36
+  - TileSetChurch2_20
+  - TileSetChurch2_16
+  - TileSetChurch2_56
+  - TileSetChurch2_44
+  - TileSetChurch2_37
+  - TileSetChurch2_27
+  - TileSetChurch2_17
+  - TileSetChurch2_57
+  - TileSetChurch2_47
+  - TileSetChurch2_38
+  - TileSetChurch2_26
+  - TileSetChurch2_14
+  - TileSetChurch2_54
+  - TileSetChurch2_46
+  - TileSetChurch2_39
+  - TileSetChurch2_25
+  - TileSetChurch2_15
+  - TileSetChurch2_55
+  - TileSetChurch2_41
+  - TileSetChurch2_24
+  - TileSetChurch2_12
+  - TileSetChurch2_40
+  - TileSetChurch2_13
+  - TileSetChurch2_43
+  - TileSetChurch2_10
+  - TileSetChurch2_58
+  - TileSetChurch2_42
+  - TileSetChurch2_29
+  - TileSetChurch2_11
+  - TileSetChurch2_59
+  - TileSetChurch2_28
+  - TileSetChurch2_49
+  - TileSetChurch2_48
+  - TileSetChurch2_18
+  - TileSetChurch2_19
+  - TileSetChurch2_63
+  - TileSetChurch2_62
+  - TileSetChurch2_61
+  - TileSetChurch2_60
+  - TileSetChurch2_3
+  - TileSetChurch2_2
+  - TileSetChurch2_1
+  - TileSetChurch2_0
+  - TileSetChurch2_7
   - TileSetChurch_32
   - TileSetChurch_33
   - TileSetChurch_30

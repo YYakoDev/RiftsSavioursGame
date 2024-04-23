@@ -98,7 +98,7 @@ public class PlayerMovement : MonoBehaviour, IKnockback
         
     }
 
-    void SetMovement(Vector2 movementInput)
+    public void SetMovement(Vector2 movementInput)
     {
         _movement = movementInput;
         _movement.Normalize();
