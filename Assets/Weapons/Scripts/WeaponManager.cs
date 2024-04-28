@@ -116,6 +116,7 @@ public class WeaponManager : MonoBehaviour
     {
         foreach(var weapon in _playerStats.Weapons)
         {
+            if(weapon == null) continue;
             weapon.EvaluateStats(_playerAttackStats);
         }
     }
