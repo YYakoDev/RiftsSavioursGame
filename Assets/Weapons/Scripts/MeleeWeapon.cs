@@ -68,8 +68,7 @@ public class MeleeWeapon : WeaponBase
         //InstantiateFX();
         SetAttackPoint();
         if(!DetectEnemies(_modifiedStats._atkRange)) return;
-
-        _atkExecutionTimer.ResetTime();
+        
         _atkExecutionTimer.Start();
     }
     protected virtual void SetAttackPoint()

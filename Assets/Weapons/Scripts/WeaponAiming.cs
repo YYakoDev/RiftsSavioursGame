@@ -166,16 +166,20 @@ public class WeaponAiming : MonoBehaviour
         
         if(xPoint < offset && _isFlipped)
         {
-            scale.y = 1;
-            _isFlipped = false;
+            Flip();
         } 
         else if(xPoint >= offset && !_isFlipped)
         {
-            scale.y = -1;
-            _isFlipped = true;
+            Flip();
         }
         
         transform.localScale = scale;
+
+        void Flip()
+        {
+            scale.y *= -1;
+            _isFlipped = !_isFlipped;
+        }
     }
     void StopAiming()
     {

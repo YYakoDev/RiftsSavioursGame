@@ -120,11 +120,9 @@ public class TripleComboMeleeWeapon : MeleeWeapon
     {
         InvokeOnAttack();
         _nextAttackTime = Time.time + (TimeOffset * 1.3f) / _speedUpFactor;
-        _waitForInputTimer.ResetTime();
         _waitForInputTimer.Start();
         SetAttackPoint();
         if(!DetectEnemies(_modifiedStats.Range)) return;
-        _atkExecutionTimer.ResetTime();
         _atkExecutionTimer.Start();
     }
 

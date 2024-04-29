@@ -11,6 +11,7 @@ public class Timer
     public event Action onStart;
     public event Action onEnd;
 
+    public float TotalDuration => _countdownTime;
     public float CurrentTime => _timeRemaining;
 
     public Timer(float countdownTime, bool resetOnZero = false, bool useUnscaledTime = false)
@@ -48,11 +49,6 @@ public class Timer
         onEnd?.Invoke();
     }
 
-    public void ResetTime()
-    {
-        _timeRemaining = _countdownTime;
-    }
-
     public void Start()
     {
         _timeRemaining = _countdownTime;
@@ -68,4 +64,10 @@ public class Timer
     {
         _timerStopped = true;
     }
+
+    public void ClearOnStartEvent() => onStart = null;
+    public void ClearOnEndEvent() => onEnd = null;
+
+
+
 }

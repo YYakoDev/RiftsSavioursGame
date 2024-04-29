@@ -7,7 +7,6 @@ public class YYInputManager : MonoBehaviour
 {
     static YYInputManager i;
     static bool _stopInput = false;
-    static Timer _stopInputTime;
     [SerializeField]KeyInput[] _keys = new KeyInput[0];
     const string HorizontalAxis = "Horizontal";
     const string VerticalAxis = "Vertical";
@@ -28,15 +27,10 @@ public class YYInputManager : MonoBehaviour
     }
 
     private void Start() {
-
         ResumeInput();
-        _stopInputTime = new(0f);
-        _stopInputTime.Stop();
-        _stopInputTime.onEnd += ResumeInput;
     }
 
     private void Update() {
-        _stopInputTime.UpdateTime();
         if(_stopInput) return;
 
         foreach (var key in _keys)
@@ -71,17 +65,5 @@ public class YYInputManager : MonoBehaviour
     {
         _stopInput = true;
         OnMovement?.Invoke(Vector2.zero);
-    }
-    
-    public static void StopInput(float duration)
-    {
-        _stopInputTime.ChangeTime(duration);
-        _stopInputTime.Start();
-        StopInput();
-
-    }
-
-    private void OnDestroy() {
-        _stopInputTime.onEnd -= ResumeInput;
     }
 }

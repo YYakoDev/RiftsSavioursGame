@@ -13,7 +13,7 @@ public class MainHubManager : MonoBehaviour
         _characterSelector.onMenuClose += ReactivatePlayer;
         if(PlayerManager.SelectedChara == null)
         {
-            _characterSelector.Open();    
+            _characterSelector.Open(true);    
             TimeScaleManager.ForceTimeScale(1f);
         }
     }

@@ -11,8 +11,8 @@ public class PostProcessingManager : MonoBehaviour
     private void Awake() {
         globalVolume = GetComponent<Volume>();
         if(globalVolume == null) gameObject.SetActive(false);
-        SetVignette(1f);
-        SetMotionBlur(1f);
+        //SetVignette(1f);
+        //SetMotionBlur(1f);
     }
 
     public static void SetVignette(float intensity)

@@ -3,140 +3,119 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
-
-[RequireComponent(typeof(TweenAnimatorMultiple))]
-public class MainHubCharacterSelector : MonoBehaviour
+public class MainHubCharacterSelector : ScrollSelectionUI<SOCharacterData>
 {
-    [SerializeField] SOCharacterData[] _charactersList;
-    EventSystem _eventSys;
-    public event Action onMenuClose, onMenuOpen;
-    bool _checkInput = false;
-    float _inputCooldown = 0.15f;
-    float _nextInputTime;
-    private float _horizontalScroll;
-    KeyInput _confirmKey;
-    [SerializeField]GameObject _menuParent;
-    [SerializeField]Image _characterIcon;
-    [SerializeField]Button _confirmButton, _closeButton;
-    WaitForSecondsRealtime _pauseEnablingWait;
-    int _currentIndex = 0;
-    int CurrentIndex
+    [SerializeField]RectTransform _roomBG, _uiBG;
+    Animator _roomBGAnimator, _uiBGAnimator;
+    [SerializeField] FadeImage _fadeImg;
+    bool _fadeInAlreadyPlayed = false;
+    float _roomBGFadeInDuration = 1f, _uiBGEnterDuration = 0.5f;
+
+    //this is the start method ;)
+    protected override void Initialize()
     {
-        get => _currentIndex;
-        set 
+        base.Initialize();
+        onConfirm += SetSelectedCharacter;
+        _roomBGAnimator = _roomBG.GetComponent<Animator>();
+        _uiBGAnimator = _uiBG.GetComponent<Animator>();
+        _uiBG.gameObject.SetActive(true);
+        _roomBG.gameObject.SetActive(true);
+        YYExtensions.i.GetAnimatorStateLength(_roomBGAnimator, "FadeIn", SetFadeInDuration);
+        YYExtensions.i.GetAnimatorStateLength(_uiBGAnimator, "EnterAnimation", SetEnterDuration);
+
+        void SetFadeInDuration(float duration)
         {
-            if(value >= _charactersList.Length) _currentIndex = 0;
-            else if(value < 0) _currentIndex = _charactersList.Length - 1;
-            else _currentIndex = value;
+            _roomBGFadeInDuration = duration;
+            _roomBG.gameObject.SetActive(false);
+        }
+        void SetEnterDuration(float duration)
+        {
+            _uiBGEnterDuration = duration;
+            _uiBG.gameObject.SetActive(false);
         }
     }
 
-    //scroll animation
-    TweenAnimatorMultiple _animator;
-    [SerializeField]float _animDuration = 0.7f;
-    [SerializeField] Vector3 _endScale = Vector3.one;
-    [SerializeField] Vector3 _scaleAnimOffset = Vector3.up;
-    [SerializeField] int _scaleBounces = 3;
-
-    //audio stuff
-
-    private void Awake() {
-        _animator = GetComponent<TweenAnimatorMultiple>();
-        _animator.ChangeTimeScalingUsage(TweenAnimator.TimeUsage.UnscaledTime);
-        _menuParent.SetActive(false);
-    }
-
-    private void Start() {
-        _confirmKey = YYInputManager.GetKey(KeyInputTypes.Interact);
-        _pauseEnablingWait = new(0.1f);
-        _eventSys = EventSystem.current;
-        _confirmButton.AddEventListener(Confirm);
-
-        _eventSys.SetSelectedGameObject(_confirmButton.gameObject);
-        var character = _charactersList[CurrentIndex];
-        _characterIcon.sprite = character.Sprite;
-
-    }
-
-
-    private void Update() {
-        if(!_checkInput || _nextInputTime >= Time.time) return;
-        if(Input.GetKeyDown(KeyCode.Escape))
-        {
-            Close();
-        }
-        else 
-        {
-            _horizontalScroll = Input.GetAxisRaw("Horizontal");
-            if(_horizontalScroll == 0f) return;
-            int scrollDirection = (_horizontalScroll > 0.1f) ? 1 : -1;
-            Scroll(scrollDirection);
-        }
-    }
-    public void Open()
+    public void Open(bool ignoreFadeIn = false)
     {
-        if(PlayerManager.SelectedChara != null)
-        {
-            _closeButton.gameObject.SetActive(true);
-        }
-        else
-        {
-            // this means you can only exit the menu once you have created a character!
-            _closeButton.gameObject.SetActive(false);
-        } 
-        onMenuOpen?.Invoke();
+        if(!_initialized)Initialize();
         YYInputManager.StopInput();
-        _menuParent.SetActive(true);
-        _checkInput = true;
         PauseMenuManager.DisablePauseBehaviour(true);
-        //play animations??
+        PlayOpeningAnimation(ignoreFadeIn);
     }
-
-    void Scroll(int dir)
+    protected override void Scroll(int dir)
     {
-        _nextInputTime = Time.time + _inputCooldown;
-        CurrentIndex += dir;
-        _eventSys.SetSelectedGameObject(_confirmButton.gameObject);
-        var character = _charactersList[CurrentIndex];
+        base.Scroll(dir);
+        var character = _selectableDatalist[CurrentIndex];
         _characterIcon.sprite = character.Sprite;
-        PlayScrollAnimation();
-        //play a sound maybe?
-    }
-    public void ScrollLeft() => Scroll(-1);
-    public void ScrollRight() => Scroll(1);
-
-    void SetSelectedCharacter() => PlayerManager.ChangeSelectedCharacter(_charactersList[CurrentIndex]);
-    
-
-    void PlayScrollAnimation()
-    {
-        _animator.Clear();
-        Vector3 startingSize = _characterIcon.rectTransform.localScale;
-        startingSize.x = 0;
-        _characterIcon.rectTransform.localScale = startingSize;
-        _animator.TweenScaleBouncy(_characterIcon.rectTransform, _endScale, _scaleAnimOffset, _animDuration, 0, _scaleBounces);
-    }
-    public void Close(bool skipAudio = false)
-    {
-        _checkInput = false;
-        YYInputManager.ResumeInput();
-        _menuParent.SetActive(false);
-        onMenuClose?.Invoke();
-        StartCoroutine(EnablePauseMenuBehaviour());
-        //if(!skipAudio) //play the close sfx
     }
 
-    public void Confirm()
+    void PlayOpeningAnimation(bool ignoreFadeIn)
     {
-        SetSelectedCharacter();
-        //play audio here
-        Close(true);
+        //if the animation has already been played just go directly with the background animation
+        if(_fadeInAlreadyPlayed || ignoreFadeIn)
+        {
+            YYExtensions.i.ExecuteMethodAfterFrame(() =>
+            {
+                _uiBG.gameObject.SetActive(true);
+                _uiBGAnimator.enabled = true;
+                PlayBackgroundExitAnimation();
+            }, 3);
+            
+            return;
+        }
+        _fadeInAlreadyPlayed = true;
+        _roomBGAnimator.enabled = true;
+        _uiBGAnimator.enabled = true;
+        _fadeImg.FadeIn(FadeOut, 0.2f);
+        void FadeOut()
+        {
+            Debug.Log("Fading out opening anim");
+            _fadeImg.FadeOut(duration: 0.4f);
+            _roomBG.gameObject.SetActive(true);
+            YYExtensions.i.PlayAnimationWithEvent(_roomBGAnimator, "FadeIn", PlayBackgroundExitAnimation);
+        }
     }
 
-    IEnumerator EnablePauseMenuBehaviour()
+    void PlayBackgroundExitAnimation()
     {
-        yield return _pauseEnablingWait;
-        PauseMenuManager.DisablePauseBehaviour(false);
+        Debug.Log("Playing BackgroundExitAnimation");
+        _uiBG.gameObject.SetActive(true);
+        YYExtensions.i.ExecuteMethodAfterFrame(() =>
+        {
+            _menuParent.SetActive(true);
+            YYExtensions.i.PlayAnimationWithEvent(_uiBGAnimator, "EnterAnimation", _uiBGEnterDuration, () => 
+            {
+                base.Open();
+                _uiBGAnimator.enabled = false;
+            });
+            YYExtensions.i.SetAnimatorTriggerWithEvent(_roomBGAnimator, "Exit", _roomBGFadeInDuration, () =>
+            {
+                _roomBGAnimator.enabled = false;
+            });
+        });
+        
+        var character = _selectableDatalist[CurrentIndex];
+        _characterIcon.sprite = character.Sprite;
+        if(PlayerManager.SelectedChara != null)  _closeButton.gameObject.SetActive(true);
+        else
+            // this means you can only exit the menu once you have created a character!
+        _closeButton.gameObject.SetActive(false);
+
+
+
+    }
+    void SetSelectedCharacter(SOCharacterData character) => PlayerManager.ChangeSelectedCharacter(character);
+
+    public override void Close(bool skipAudio = false)
+    {
+        _uiBG.gameObject.SetActive(false);
+        _roomBG.gameObject.SetActive(false);
+        base.Close(skipAudio);
+        //maybe do a closing animation?
+    }
+
+    private void OnDestroy() {
+        onConfirm -= SetSelectedCharacter;
     }
 }
+

@@ -15,7 +15,6 @@ public class WeaponManager : MonoBehaviour
     [SerializeField]private WeaponAiming _weaponAiming;
     [SerializeField]private LayerMask _enemyLayer;
     private WeaponBase _currentWeapon;
-    private GameObject _currentWeaponInstance;
     GameObject _weaponPrefabInstance;
     WeaponPrefab _weaponLogicInstance;
     private KeyInput _switchKey;
@@ -104,12 +103,13 @@ public class WeaponManager : MonoBehaviour
     {
         foreach(var weapon in _playerStats.Weapons)
         {
-            if(weapon == null) continue;
+            if(weapon == null || weapon == _currentWeapon) continue;
             weapon.Initialize(this, _weaponPrefabInstance.transform);
             weapon.SetWeaponActive(false);
         }
         WeaponIndex = 0;    
         SetWeapon(_playerStats.Weapons[WeaponIndex]);
+        _playerStats.Weapons[WeaponIndex].SetWeaponActive(true);
     }
 
     void ApplyNewAttackStats()

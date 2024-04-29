@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class FadeImage : MonoBehaviour
 {
-    [SerializeField] float _fadeDuration = 0.5f;
+    float _fadeDuration = 0.5f;
     [SerializeField] bool _fadeIn = false;
     Image _img;
     AnimationCurve _curve;
@@ -47,17 +47,14 @@ public class FadeImage : MonoBehaviour
         if(_elapsedTime >= _fadeDuration) _onFadeComplete?.Invoke();
     }
 
-    public void FadeIn(Action onComplete = null)
+    void Fade(bool fadeType, Action onComplete, float duration)
     {
-        _fadeIn = true;
+        _fadeDuration = duration;
+        _fadeIn = fadeType;
         SetValues();
         _onFadeComplete = onComplete;
     }
-    public void FadeOut(Action onComplete = null)
-    {
-        _fadeIn = false;
-        SetValues();
-        _onFadeComplete = onComplete;
-    }
+    public void FadeIn(Action onComplete = null, float duration = 0.5f) => Fade(true, onComplete, duration);
+    public void FadeOut(Action onComplete = null, float duration = 0.5f) => Fade(false, onComplete, duration);
 }
 
