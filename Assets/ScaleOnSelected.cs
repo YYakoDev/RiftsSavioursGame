@@ -31,4 +31,8 @@ public class ScaleOnSelected : MonoBehaviour, ISelectHandler, IDeselectHandler
     {
         ScaleDown();
     }
+
+    private void OnDisable() {
+        ScaleDown();
+    }
 }

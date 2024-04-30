@@ -15,7 +15,7 @@ public class ScrollSelectionUI<T> : MonoBehaviour
     }
     [SerializeField] ScrollType _scrollType = ScrollType.Horizontal;
     [SerializeField] protected T[] _selectableDatalist;
-    EventSystem _eventSys;
+    protected EventSystem _eventSys;
     string _scrollInput;
     protected bool _initialized = false;
 

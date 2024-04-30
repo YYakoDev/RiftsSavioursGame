@@ -40,7 +40,6 @@ public class PlayerAnimationController : MonoBehaviour
         _currentAnimation = animationHash;
         _animator.Play(animationHash);
 
-
         void LockState( float time)
         {
             _lockedTill = Time.time + time;

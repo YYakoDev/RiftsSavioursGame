@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: GreatSwordDiana
   m_EditorClassIdentifier: 
   _name: Diana
+  _description: 
   _SpriteAndAnimationsData: {fileID: 11400000, guid: c4a6ab0ca1fb6634ab614941446af409, type: 2}
   _effects:
   - {fileID: 11400000, guid: 4780209016f8aa349864b33bf7198c79, type: 2}
@@ -31,15 +32,15 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 307ccd91c05d4ea4abb03bf8099fa3c3, type: 3}
   - {fileID: 8300000, guid: 9a2ca58f29ba35f448ab633a27613e31, type: 3}
   _pointCameraOnAttack: 1
-  _attackCooldown: 0.85
-  _pullForce: 1.7
-  _pullDuration: 0.275
-  _attackRange: 1.85
-  _attackSpeed: 0.77
+  _attackCooldown: 0.8
+  _pullForce: 2
+  _pullDuration: 0.3
+  _attackRange: 2
+  _attackSpeed: 0.75
   _rangeOffset: {x: 0.31, y: 0.12}
-  _attackDamage: 15
+  _attackDamage: 20
   _criticalChance: 15
-  _criticalDamageMultiplier: 2.1
+  _criticalDamageMultiplier: 2
   _damageDelay: 0.15
   _knockbackForce: 2.2
   _weaponSlashPrefab: {fileID: 3849386732562224976, guid: fc43b93d849be6c4b83d4696ed635697, type: 3}

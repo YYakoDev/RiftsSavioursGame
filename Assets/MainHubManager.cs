@@ -9,18 +9,15 @@ public class MainHubManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _characterSelector.onMenuOpen += DeactivatePlayer;
         _characterSelector.onMenuClose += ReactivatePlayer;
         if(PlayerManager.SelectedChara == null)
         {
             _characterSelector.Open(true);    
             TimeScaleManager.ForceTimeScale(1f);
+        }else
+        {
+            ReactivatePlayer();
         }
-    }
-
-    void DeactivatePlayer()
-    {
-        _playerObj.SetActive(false);
     }
 
     void ReactivatePlayer()
@@ -29,7 +26,6 @@ public class MainHubManager : MonoBehaviour
     }
 
     private void OnDestroy() {
-        _characterSelector.onMenuOpen -= DeactivatePlayer;
         _characterSelector.onMenuClose -= ReactivatePlayer;
     }
 }

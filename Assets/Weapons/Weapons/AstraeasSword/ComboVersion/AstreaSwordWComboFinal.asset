@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: AstreaSwordWComboFinal
   m_EditorClassIdentifier: 
   _name: "astrik\xF3 x\xEDfos"
+  _description: 
   _SpriteAndAnimationsData: {fileID: 11400000, guid: 369b2746af64f374baeb0b8a1f243cfa, type: 2}
   _effects:
   - {fileID: 11400000, guid: 23196116de9b69d47a045c9e6a9b7e11, type: 2}
@@ -31,9 +32,9 @@ MonoBehaviour:
   _pullForce: 0.4
   _pullDuration: 0.1
   _attackRange: 1
-  _attackSpeed: 0.9
+  _attackSpeed: 1
   _rangeOffset: {x: 0, y: 0}
-  _attackDamage: 10
+  _attackDamage: 11
   _criticalChance: 15
   _criticalDamageMultiplier: 2.2
   _damageDelay: 0.04

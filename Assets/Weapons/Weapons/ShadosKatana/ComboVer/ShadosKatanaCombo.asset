@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5c8a2cd6ed58fc42a814fef259de216, type: 3}
   m_Name: ShadosKatanaCombo
   m_EditorClassIdentifier: 
-  _name: ShadosKatanaCombo
+  _name: Nemesis
+  _description: 
   _SpriteAndAnimationsData: {fileID: 11400000, guid: fe301fefb53f91646b28abcd3bed37b4, type: 2}
   _effects:
   - {fileID: 11400000, guid: bf170d0cc8dd04f4385e4c94cb11c250, type: 2}
@@ -24,19 +25,19 @@ MonoBehaviour:
   - {fileID: 8300000, guid: bb5a381345214dc469cd56d7f8b12a03, type: 3}
   - {fileID: 8300000, guid: 63576143d8a33204288b7f37ff6c7dd4, type: 3}
   _pointCameraOnAttack: 1
-  _attackCooldown: 0.5
-  _pullForce: 1.66
-  _pullDuration: 0.08
+  _attackCooldown: 0.45
+  _pullForce: 1.7
+  _pullDuration: 0.06
   _attackRange: 1
-  _attackSpeed: 1.35
+  _attackSpeed: 1.5
   _rangeOffset: {x: -0.4, y: 0.18}
   _attackDamage: 8
   _criticalChance: 10
-  _criticalDamageMultiplier: 2.25
+  _criticalDamageMultiplier: 2
   _damageDelay: 0.105
   _knockbackForce: 1
   _speedUPComboAnimations: 1
-  _speedUpFactor: 1.3
+  _speedUpFactor: 1.35
   _comboStats:
   - Cooldown: 0
     Range: 0.45
@@ -54,8 +55,6 @@ MonoBehaviour:
     - {fileID: 11400000, guid: f1b3174f673fb1a4b91613d5d1414674, type: 2}
     - {fileID: 11400000, guid: 0f1731e4c0912a34eabf484ba539aa9c, type: 2}
     UsedEffects:
-    - {fileID: 0}
-    - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}

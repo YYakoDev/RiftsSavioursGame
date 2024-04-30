@@ -249,18 +249,19 @@ public class GameOverAnimation : MonoBehaviour
         }
     }
 
-    public void MainMenu()
+    public void Continue()
     {
         //here you reset player stats, or maybe fire an event called onGameReset
         //you need to restart the run with the same parameters chosen at the start like character & weapon selected
         TimeScaleManager.ForceTimeScale(1f);
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene("MainHub");
 
     }
 
     public void QuitGame()
     {
-        Application.Quit();
+        TimeScaleManager.ForceTimeScale(1f);
+        SceneManager.LoadScene(0);
     }
 
     public void DebugPlayGameOver()

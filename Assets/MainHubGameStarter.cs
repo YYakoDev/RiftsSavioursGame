@@ -13,14 +13,20 @@ public class MainHubGameStarter : MonoBehaviour, IInteractable
     [SerializeField] PlayerManager _playerManager;
     [SerializeField] Transform _playerStandPoint;
     Transform _playerObj;
+    Camera _mainCamera;
+    CameraFollowAtTarget _cameraScript;
     Vector3 _startingPlayerPosition;
-    float _playerSequenceDuration = 1f, _animDuration = 0.5f;
+    float _playerSequenceDuration = 1f, _animDuration = 0.5f, _sequenceRealDuration = 1f;
     bool _playerSequenceIsRunning = false;
     Timer _playerSequenceTimer, _animationTimer;
 
+    //audio stuff
+    [SerializeField]AudioSource _audio;
+    [SerializeField]AudioClip _astrolabeSfx, _astrolabeInteractSfx, _astrolabeGearStopSfx;
+
     public bool AlreadyInteracted { get => _alreadyInteracted; set => _alreadyInteracted = value; }
     public Vector3 Offset => _buttonOffset;
-    public AudioClip InteractSfx => null;
+    public AudioClip InteractSfx => _astrolabeInteractSfx;
 
     void Awake()
     {
@@ -46,8 +52,12 @@ public class MainHubGameStarter : MonoBehaviour, IInteractable
     }
 
     private void Start() {
+        YYInputManager.ResumeInput();
         _playerObj = _playerManager.transform;
         _loadingScreen.SetActive(false);
+        _mainCamera = Camera.main;
+        _cameraScript = _mainCamera.GetComponent<CameraFollowAtTarget>();
+        _cameraScript.enabled = true;
     }
 
     // Update is called once per frame
@@ -57,8 +67,9 @@ public class MainHubGameStarter : MonoBehaviour, IInteractable
         _animationTimer.UpdateTime();
         if(_playerSequenceIsRunning)
         {
-            var elapsedTime = _playerSequenceDuration - _playerSequenceTimer.CurrentTime;
-            var percent = elapsedTime / _playerSequenceDuration;
+
+            var elapsedTime = _sequenceRealDuration - _playerSequenceTimer.CurrentTime;
+            var percent = elapsedTime / _sequenceRealDuration;
             var position = Vector3.Lerp(_startingPlayerPosition, _playerStandPoint.position, percent);
             _playerObj.position = position;
             _playerManager.AnimController.PlayStated(PlayerAnimationsNames.Run, _playerSequenceDuration);
@@ -81,6 +92,9 @@ public class MainHubGameStarter : MonoBehaviour, IInteractable
         _playerSequenceIsRunning = true;
         _playerManager.RigidBody.simulated = false;
         _startingPlayerPosition = _playerObj.position;
+        _cameraScript.enabled = false;
+        var distance = Vector3.Distance(transform.position, _playerObj.position);
+        _sequenceRealDuration = _playerSequenceDuration * Mathf.Clamp01(Mathf.Clamp01(distance) * 2);
     }
 
     void EndPlayerSequence()
@@ -89,7 +103,29 @@ public class MainHubGameStarter : MonoBehaviour, IInteractable
         _playerManager.RigidBody.simulated = true;
         _playerSequenceIsRunning = false;
         _astrolabeAnimator.Play("Animation");
+        YYExtensions.i.ExecuteEventAfterTime(0.09f, () =>
+        {
+            _audio.PlayOneShot(_astrolabeSfx);
+        });
+
         _animationTimer.Start();
+    }
+
+    public void StopAudio()
+    {
+        _audio.Pause();
+        _audio.Stop();
+    }
+
+    public void PlayGearStopSFX()
+    {
+        _audio.UnPause();
+        _audio.PlayOneShot(_astrolabeGearStopSfx);
+    }
+
+    public void PlayGearSFX()
+    {
+        _audio.PlayOneShot(_astrolabeSfx);
     }
 
     private void OnDestroy() {

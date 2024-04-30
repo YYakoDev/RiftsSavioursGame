@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Axe
   m_EditorClassIdentifier: 
   _name: Axe
+  _description: 
   _SpriteAndAnimationsData: {fileID: 11400000, guid: b3b95d62553ee09448b1695c248455d1, type: 2}
   _effects:
   - {fileID: 11400000, guid: c9c1e59da1cfa0d438f4301a1069edcd, type: 2}
@@ -29,9 +30,11 @@ MonoBehaviour:
   _pullForce: 0.2
   _pullDuration: 0.1
   _attackRange: 1
-  _attackSpeed: 1
+  _attackSpeed: 1.2
   _rangeOffset: {x: 0, y: 0}
   _attackDamage: 1
+  _criticalChance: 10
+  _criticalDamageMultiplier: 2
   _damageDelay: 0.09
   _knockbackForce: 1
   _resourcesLayer:

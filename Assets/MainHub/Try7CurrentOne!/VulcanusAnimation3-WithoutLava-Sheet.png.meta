@@ -1,0 +1,1125 @@
+fileFormatVersion: 2
+guid: 4574ab4d1b946fa4083b1408144d18e4
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 0
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 16
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: VulcanusAnimation3-WithoutLava-Sheet_0
+      rect:
+        serializedVersion: 2
+        x: 190
+        y: 0
+        width: 95
+        height: 157
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cea1233f0e41ee14fa05d2f19cc4998d
+      internalID: -1381303122
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VulcanusAnimation3-WithoutLava-Sheet_1
+      rect:
+        serializedVersion: 2
+        x: 285
+        y: 0
+        width: 95
+        height: 157
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 52e3370ea1be47e4c818cc38fc16b63e
+      internalID: 1875425240
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VulcanusAnimation3-WithoutLava-Sheet_2
+      rect:
+        serializedVersion: 2
+        x: 380
+        y: 0
+        width: 95
+        height: 157
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f02b27f7cd89b1b4e8bce04ed3132f04
+      internalID: 1243401668
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VulcanusAnimation3-WithoutLava-Sheet_3
+      rect:
+        serializedVersion: 2
+        x: 475
+        y: 0
+        width: 95
+        height: 157
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 419dcee660ef80547abd995255a2b56e
+      internalID: 1559441740
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VulcanusAnimation3-WithoutLava-Sheet_4
+      rect:
+        serializedVersion: 2
+        x: 570
+        y: 0
+        width: 95
+        height: 157
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6c9ccaf2174f24e44a92e9a2b8fcd8b1
+      internalID: 1359381600
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VulcanusAnimation3-WithoutLava-Sheet_5
+      rect:
+        serializedVersion: 2
+        x: 665
+        y: 0
+        width: 95
+        height: 157
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13c9ebd01fa772e4294b9fd80d8a5dda
+      internalID: 1697493094
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VulcanusAnimation3-WithoutLava-Sheet_6
+      rect:
+        serializedVersion: 2
+        x: 760
+        y: 0
+        width: 95
+        height: 157
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 974a75b0b601c754ab5406c9968f8ffb
+      internalID: -1988157643
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VulcanusAnimation3-WithoutLava-Sheet_7
+      rect:
+        serializedVersion: 2
+        x: 855
+        y: 0
+        width: 95
+        height: 157
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ddd02f8f8bd91a45b6e384833515e67
+      internalID: -1827011872
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VulcanusAnimation3-WithoutLava-Sheet_8
+      rect:
+        serializedVersion: 2
+        x: 950
+        y: 0
+        width: 95
+        height: 157
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: febb053e3f9da424db580cebf5525824
+      internalID: -877773802
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VulcanusAnimation3-WithoutLava-Sheet_9
+      rect:
+        serializedVersion: 2
+        x: 1045
+        y: 0
+        width: 95
+        height: 157
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ce9d80ef7cd6f04da3ecc6bb535e4e5
+      internalID: -1789500191
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VulcanusAnimation3-WithoutLava-Sheet_10
+      rect:
+        serializedVersion: 2
+        x: 1140
+        y: 0
+        width: 95
+        height: 157
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 195d21556b292b54d9032e2ab4bbe804
+      internalID: -1466964095
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VulcanusAnimation3-WithoutLava-Sheet_11
+      rect:
+        serializedVersion: 2
+        x: 1235
+        y: 0
+        width: 95
+        height: 157
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1736d68d2f684ef4a9ba1156cd460a59
+      internalID: 677108633
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VulcanusAnimation3-WithoutLava-Sheet_12
+      rect:
+        serializedVersion: 2
+        x: 1330
+        y: 0
+        width: 95
+        height: 157
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f390884e10c02794eb26f6cb2649c838
+      internalID: 1704501062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VulcanusAnimation3-WithoutLava-Sheet_13
+      rect:
+        serializedVersion: 2
+        x: 1425
+        y: 0
+        width: 95
+        height: 157
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f9772a092a564e24cab1aa83af33d1d5
+      internalID: -511491481
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VulcanusAnimation3-WithoutLava-Sheet_14
+      rect:
+        serializedVersion: 2
+        x: 1520
+        y: 0
+        width: 95
+        height: 157
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 33777f6cd06313b46b8e7702e4185460
+      internalID: -1241170726
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VulcanusAnimation3-WithoutLava-Sheet_15
+      rect:
+        serializedVersion: 2
+        x: 1615
+        y: 0
+        width: 95
+        height: 157
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 554623b8e501e904e99fb356603c50b2
+      internalID: 2030575167
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VulcanusAnimation3-WithoutLava-Sheet_16
+      rect:
+        serializedVersion: 2
+        x: 1710
+        y: 0
+        width: 95
+        height: 157
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 74755b25f0e5b47459a818ff63ecd239
+      internalID: -1306304789
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VulcanusAnimation3-WithoutLava-Sheet_17
+      rect:
+        serializedVersion: 2
+        x: 1805
+        y: 0
+        width: 95
+        height: 157
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9f99965ec0107d5428b34475ea6c43a2
+      internalID: -818223355
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VulcanusAnimation3-WithoutLava-Sheet_18
+      rect:
+        serializedVersion: 2
+        x: 1900
+        y: 0
+        width: 95
+        height: 157
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 087c3dcd698d723428d8005cb16a5113
+      internalID: 1568232951
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VulcanusAnimation3-WithoutLava-Sheet_19
+      rect:
+        serializedVersion: 2
+        x: 1995
+        y: 0
+        width: 95
+        height: 157
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d159034e86146a547a1fec11da9634c7
+      internalID: 1795432351
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VulcanusAnimation3-WithoutLava-Sheet_20
+      rect:
+        serializedVersion: 2
+        x: 2090
+        y: 0
+        width: 95
+        height: 157
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 290f1513bbb9ec745b72e21d27e3ee26
+      internalID: 523711738
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VulcanusAnimation3-WithoutLava-Sheet_21
+      rect:
+        serializedVersion: 2
+        x: 2185
+        y: 0
+        width: 95
+        height: 157
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a808c27c1fecf134284103ce29ac331f
+      internalID: 1195285827
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VulcanusAnimation3-WithoutLava-Sheet_22
+      rect:
+        serializedVersion: 2
+        x: 2280
+        y: 0
+        width: 95
+        height: 157
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cda16b92992230f4a9bb061c456dcfd3
+      internalID: -2089194757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VulcanusAnimation3-WithoutLava-Sheet_23
+      rect:
+        serializedVersion: 2
+        x: 2375
+        y: 0
+        width: 95
+        height: 157
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 84c3ad504c7592b44abdb802a6a91331
+      internalID: 1835842706
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VulcanusAnimation3-WithoutLava-Sheet_24
+      rect:
+        serializedVersion: 2
+        x: 2470
+        y: 0
+        width: 95
+        height: 157
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed04df8da6402504cb38d11bcfb77f22
+      internalID: 1325999740
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VulcanusAnimation3-WithoutLava-Sheet_25
+      rect:
+        serializedVersion: 2
+        x: 2565
+        y: 0
+        width: 95
+        height: 157
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f8161eeb2fcc6bd45bc444f6693c937b
+      internalID: 1764983614
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VulcanusAnimation3-WithoutLava-Sheet_26
+      rect:
+        serializedVersion: 2
+        x: 2660
+        y: 0
+        width: 95
+        height: 157
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c84632e664ebc544d8f0c02ff4163c69
+      internalID: 182843484
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VulcanusAnimation3-WithoutLava-Sheet_27
+      rect:
+        serializedVersion: 2
+        x: 2755
+        y: 0
+        width: 95
+        height: 157
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 58f0626eb3ade114d8b6bb37ef45bf1b
+      internalID: 1098135501
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VulcanusAnimation3-WithoutLava-Sheet_28
+      rect:
+        serializedVersion: 2
+        x: 2850
+        y: 0
+        width: 95
+        height: 157
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d2dfc4d96b738d4d80465b1a745e1ae
+      internalID: 237240117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VulcanusAnimation3-WithoutLava-Sheet_29
+      rect:
+        serializedVersion: 2
+        x: 2945
+        y: 0
+        width: 95
+        height: 157
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c1cff036b2837844eb883321e6604ce9
+      internalID: -2005720433
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VulcanusAnimation3-WithoutLava-Sheet_30
+      rect:
+        serializedVersion: 2
+        x: 3040
+        y: 0
+        width: 95
+        height: 157
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: df93a64e8cac80742a6bdee788dc4278
+      internalID: -789479301
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VulcanusAnimation3-WithoutLava-Sheet_31
+      rect:
+        serializedVersion: 2
+        x: 3135
+        y: 0
+        width: 95
+        height: 157
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 544e9b62bd7526149b338c589acf30ab
+      internalID: -70999418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VulcanusAnimation3-WithoutLava-Sheet_32
+      rect:
+        serializedVersion: 2
+        x: 3230
+        y: 0
+        width: 95
+        height: 157
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 84d3822ae55fc034a922abea70c1ebe6
+      internalID: 2028722579
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VulcanusAnimation3-WithoutLava-Sheet_33
+      rect:
+        serializedVersion: 2
+        x: 3325
+        y: 0
+        width: 95
+        height: 157
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0032b8ddebd758f4cac09d53cf574e58
+      internalID: -2002950530
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VulcanusAnimation3-WithoutLava-Sheet_34
+      rect:
+        serializedVersion: 2
+        x: 3420
+        y: 0
+        width: 95
+        height: 157
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf29d51f38672b84ba3e97762b3b884a
+      internalID: 2102714042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VulcanusAnimation3-WithoutLava-Sheet_35
+      rect:
+        serializedVersion: 2
+        x: 3515
+        y: 0
+        width: 95
+        height: 157
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9d9a7728ce733f4c978f530347f567e
+      internalID: -2046273995
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VulcanusAnimation3-WithoutLava-Sheet_36
+      rect:
+        serializedVersion: 2
+        x: 3610
+        y: 0
+        width: 95
+        height: 157
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f9ec1ee927caf294c911fce27aae0375
+      internalID: -1977208166
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VulcanusAnimation3-WithoutLava-Sheet_37
+      rect:
+        serializedVersion: 2
+        x: 3705
+        y: 0
+        width: 95
+        height: 157
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ca878366ee1a8245a392f2b173b388d
+      internalID: 1199759095
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VulcanusAnimation3-WithoutLava-Sheet_38
+      rect:
+        serializedVersion: 2
+        x: 3800
+        y: 0
+        width: 95
+        height: 157
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e662f380645108642a34fda909a8e89d
+      internalID: -1420533990
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VulcanusAnimation3-WithoutLava-Sheet_39
+      rect:
+        serializedVersion: 2
+        x: 3895
+        y: 0
+        width: 95
+        height: 157
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 31565265d71bca54d967d107b7c2f031
+      internalID: -498980760
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VulcanusAnimation3-WithoutLava-Sheet_40
+      rect:
+        serializedVersion: 2
+        x: 3990
+        y: 0
+        width: 95
+        height: 157
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 27aad981dd529f94da5d4f4aa12afd31
+      internalID: -1202886060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VulcanusAnimation3-WithoutLava-Sheet_41
+      rect:
+        serializedVersion: 2
+        x: 4085
+        y: 0
+        width: 95
+        height: 157
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e05557c9dc496f44ac541ab7524f030
+      internalID: -1320819020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VulcanusAnimation3-WithoutLava-Sheet_42
+      rect:
+        serializedVersion: 2
+        x: 4180
+        y: 0
+        width: 95
+        height: 157
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2130a0a29078ef24fa5c50d3a0bf20de
+      internalID: -401693822
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VulcanusAnimation3-WithoutLava-Sheet_43
+      rect:
+        serializedVersion: 2
+        x: 4275
+        y: 0
+        width: 95
+        height: 157
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d8136e27d38af24fb68791cc5a938ae
+      internalID: -1185934072
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VulcanusAnimation3-WithoutLava-Sheet_44
+      rect:
+        serializedVersion: 2
+        x: 4370
+        y: 0
+        width: 95
+        height: 157
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 85e0403f50366a147aea0c1efe2acfc1
+      internalID: 1772332425
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      VulcanusAnimation3-WithoutLava-Sheet_3: 1559441740
+      VulcanusAnimation3-WithoutLava-Sheet_27: 1098135501
+      VulcanusAnimation3-WithoutLava-Sheet_25: 1764983614
+      VulcanusAnimation3-WithoutLava-Sheet_8: -877773802
+      VulcanusAnimation3-WithoutLava-Sheet_35: -2046273995
+      VulcanusAnimation3-WithoutLava-Sheet_42: -401693822
+      VulcanusAnimation3-WithoutLava-Sheet_36: -1977208166
+      VulcanusAnimation3-WithoutLava-Sheet_26: 182843484
+      VulcanusAnimation3-WithoutLava-Sheet_37: 1199759095
+      VulcanusAnimation3-WithoutLava-Sheet_2: 1243401668
+      VulcanusAnimation3-WithoutLava-Sheet_9: -1789500191
+      VulcanusAnimation3-WithoutLava-Sheet_41: -1320819020
+      VulcanusAnimation3-WithoutLava-Sheet_20: 523711738
+      VulcanusAnimation3-WithoutLava-Sheet_14: -1241170726
+      VulcanusAnimation3-WithoutLava-Sheet_10: -1466964095
+      VulcanusAnimation3-WithoutLava-Sheet_1: 1875425240
+      VulcanusAnimation3-WithoutLava-Sheet_23: 1835842706
+      VulcanusAnimation3-WithoutLava-Sheet_19: 1795432351
+      VulcanusAnimation3-WithoutLava-Sheet_22: -2089194757
+      VulcanusAnimation3-WithoutLava-Sheet_4: 1359381600
+      VulcanusAnimation3-WithoutLava-Sheet_7: -1827011872
+      VulcanusAnimation3-WithoutLava-Sheet_6: -1988157643
+      VulcanusAnimation3-WithoutLava-Sheet_43: -1185934072
+      VulcanusAnimation3-WithoutLava-Sheet_16: -1306304789
+      VulcanusAnimation3-WithoutLava-Sheet_12: 1704501062
+      VulcanusAnimation3-WithoutLava-Sheet_31: -70999418
+      VulcanusAnimation3-WithoutLava-Sheet_32: 2028722579
+      VulcanusAnimation3-WithoutLava-Sheet_13: -511491481
+      VulcanusAnimation3-WithoutLava-Sheet_30: -789479301
+      VulcanusAnimation3-WithoutLava-Sheet_40: -1202886060
+      VulcanusAnimation3-WithoutLava-Sheet_17: -818223355
+      VulcanusAnimation3-WithoutLava-Sheet_0: -1381303122
+      VulcanusAnimation3-WithoutLava-Sheet_15: 2030575167
+      VulcanusAnimation3-WithoutLava-Sheet_24: 1325999740
+      VulcanusAnimation3-WithoutLava-Sheet_39: -498980760
+      VulcanusAnimation3-WithoutLava-Sheet_34: 2102714042
+      VulcanusAnimation3-WithoutLava-Sheet_11: 677108633
+      VulcanusAnimation3-WithoutLava-Sheet_28: 237240117
+      VulcanusAnimation3-WithoutLava-Sheet_44: 1772332425
+      VulcanusAnimation3-WithoutLava-Sheet_18: 1568232951
+      VulcanusAnimation3-WithoutLava-Sheet_29: -2005720433
+      VulcanusAnimation3-WithoutLava-Sheet_5: 1697493094
+      VulcanusAnimation3-WithoutLava-Sheet_38: -1420533990
+      VulcanusAnimation3-WithoutLava-Sheet_33: -2002950530
+      VulcanusAnimation3-WithoutLava-Sheet_21: 1195285827
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

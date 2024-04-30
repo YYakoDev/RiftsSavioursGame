@@ -40,6 +40,7 @@ public class MainHubCharacterSelector : ScrollSelectionUI<SOCharacterData>
         if(!_initialized)Initialize();
         YYInputManager.StopInput();
         PauseMenuManager.DisablePauseBehaviour(true);
+        _eventSys.SetSelectedGameObject(_confirmButton.gameObject);
         PlayOpeningAnimation(ignoreFadeIn);
     }
     protected override void Scroll(int dir)

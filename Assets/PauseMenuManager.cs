@@ -7,9 +7,7 @@ using UnityEngine.EventSystems;
 public class PauseMenuManager : MonoBehaviour
 {
     static bool _disablePauseBehaviour = false;
-    [SerializeField] GameObject _pauseMenuParent;
-    [SerializeField] GameObject _confirmationObj;
-    [SerializeField] GameObject _continueButton;
+    [SerializeField] GameObject _pauseMenuParent, _confirmationObj, _continueButton;
     [SerializeField] UpgradesMenu _upgradeMenu;
     bool _activeMenu = false;
     bool _goToMainMenu = false;
