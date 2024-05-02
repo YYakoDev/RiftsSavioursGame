@@ -88,23 +88,24 @@ public class PlayerMovement : MonoBehaviour, IKnockback
         //script that handles the sorting order based on its position
         if(_sortingOrderController == null)_sortingOrderController = new SortingOrderController(transform, _player.Renderer, _sortingOrderOffset);
 
-        _dashDurationTimer = new(_dashDuration);
-        _dashDurationTimer.Stop();
-        _dashDurationTimer.onEnd += StopDash;
-
     }
-    void Start()
+    IEnumerator Start()
     {
         YYInputManager.OnMovement += SetMovement;
         _aimingScript.OnAimingChange += ChangeAimMode;
         _spriteGameObject = _player.Renderer.gameObject;
         _realSpeed = MovementSpeed;
         _slowdown = 1f;
+        yield return null;
         if(_player.DashData != null) InitializeDashLogic();
     }
 
     void InitializeDashLogic()
     {
+        _dashDurationTimer = new(_dashDuration);
+        _dashDurationTimer.Stop();
+        _dashDurationTimer.onEnd += StopDash;
+        UpdateDashCooldown();
         _dashInput = YYInputManager.GetKey(KeyInputTypes.Dash);
         _dashInput.OnKeyPressed += SetDash;
         SetDashInputOnUI();
@@ -127,7 +128,7 @@ public class PlayerMovement : MonoBehaviour, IKnockback
             _slowdown = 1f;
             _realSpeed = MovementSpeed;
         }
-        _dashDurationTimer.UpdateTime();
+        if(_dashLogicInitialized)_dashDurationTimer.UpdateTime();
     }
     private void FixedUpdate()
     {
@@ -164,9 +165,7 @@ public class PlayerMovement : MonoBehaviour, IKnockback
     public void StopDash()
     {
         _isDashing = false;
-
         _dashParticleEffect.Stop();
-
     }
 
     void UpdateDashCooldown()
@@ -181,15 +180,9 @@ public class PlayerMovement : MonoBehaviour, IKnockback
     void SetDashInputOnUI()
     {
         if(_uiSkillsManager == null) return;
-        if(_dashInputIndex == -1) StartCoroutine(CreateDashSkillOnUI());
+        if(_dashInputIndex == -1) _dashInputIndex = _uiSkillsManager.CreateNewSkill(KeyInputTypes.Dash, _dashUIIcon, _dashCooldown);
         else _uiSkillsManager.UpdateSkillCooldown(_dashInputIndex, _dashCooldown);
-    }
-
-    IEnumerator CreateDashSkillOnUI()
-    {
-        yield return null;
-        var result = _uiSkillsManager.CreateNewSkill(KeyInputTypes.Dash, _dashUIIcon, _dashCooldown);
-        if(result != -1) _dashInputIndex = result;
+        
     }
 
     void Iddle()
@@ -197,7 +190,6 @@ public class PlayerMovement : MonoBehaviour, IKnockback
         _player.AnimController.PlayStated(PlayerAnimationsNames.Iddle);
         _sortingOrderController.SortOrder();
         _dustEffect.Stop();
-        _dashParticleEffect.Stop();
     }
 
     void Move()

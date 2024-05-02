@@ -117,6 +117,7 @@ public class UISkill : MonoBehaviour
     }
     public void SetCooldown(float cooldown)
     {
+        Debug.Log("Updating cooldown from input item");
         _cooldownTimer.ChangeTime(cooldown);
         _cooldownSlider.maxValue = cooldown;
         _scaleDuration = Mathf.Clamp(_scaleDuration, 0.05f, cooldown / 1.1f);

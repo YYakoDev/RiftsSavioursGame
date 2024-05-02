@@ -12,7 +12,8 @@ public class UISkillsManager : MonoBehaviour
 
     public int CreateNewSkill(KeyInputTypes inputType, Sprite skillIcon)
     {
-        if(SearchIfItExist(inputType)) return -1;
+        var result = SearchIfItExist(inputType);
+        if(result != -1) return result;
         UISkill skillItem = Instantiate(_uiItemPrefab);
         var index = AddItemInstance(skillItem);
         skillItem.Initialize(inputType, skillIcon);
@@ -20,21 +21,28 @@ public class UISkillsManager : MonoBehaviour
     }
     public int CreateNewSkill(KeyInputTypes inputType, Sprite skillIcon,  float cooldown)
     {
-        if(SearchIfItExist(inputType)) return -1;
+        var result = SearchIfItExist(inputType);
+        if(result != -1) return result;
         UISkill skillItem = Instantiate(_uiItemPrefab);
         var index = AddItemInstance(skillItem);
         skillItem.Initialize(inputType, skillIcon, cooldown);
         return index;
     }
 
-    public bool SearchIfItExist(KeyInputTypes type)
+    public int SearchIfItExist(KeyInputTypes type)
     {
-        bool result = false;
-        foreach(UISkill item in _skillsIntances)
+        int result = -1;
+
+        for (int i = 0; i < _skillsIntances.Length; i++)
         {
-            result = (item.InputType == type);
-            if(result) break;
+            var item = _skillsIntances[i];
+            if(item.InputType == type)
+            {
+                result = i;
+                break;
+            }
         }
+        Debug.Log("index for:   " + type + " " + result);
         return result;
     }
 
