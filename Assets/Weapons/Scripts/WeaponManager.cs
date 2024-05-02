@@ -28,14 +28,14 @@ public class WeaponManager : MonoBehaviour
         }
     }
     public event Action<WeaponBase> OnWeaponChange;
-    //properties
-    //public SOPlayerAttackStats AttackStats => _attackStats;
+
+    //ui stuff
+    [SerializeField] private UISkillsManager _uiSkillsManager;
+    [SerializeField] Sprite _uiAtkIcon;
+    private int _skillIndex = -1;
+
     public PlayerAttackEffects AtkEffects => _effects;
-    //public WeaponAiming WeaponAiming => _weaponAiming;
     public LayerMask EnemyLayer => _enemyLayer;
-    //public WeaponBase CurrentWeapon => _currentWeapon;
-    //public GameObject CurrentWeaponInstance => _currentWeaponInstance;
-    //public GameObject WeaponPrefab => _weaponPrefab;
 
     private void Awake()
     {
@@ -83,14 +83,14 @@ public class WeaponManager : MonoBehaviour
         _currentWeapon = weapon;
         Transform instanceTransform = _weaponPrefabInstance.transform;
         instanceTransform.localPosition = weapon.SpawnPosition;
-        
         var rotation = instanceTransform.localRotation.eulerAngles;
         rotation.z = weapon.SpawnRotation;
         instanceTransform.localRotation = Quaternion.Euler(rotation);
         _weaponLogicInstance.SetWeaponBase(weapon);
         _weaponAiming.SwitchCurrentWeapon(weapon);
         OnWeaponChange?.Invoke(weapon);
-        _currentWeapon?.SetWeaponActive(true);
+        _currentWeapon.SetWeaponActive(true);
+        SetAtkInputOnUI();
     }
 
     void SwitchWeapon()
@@ -112,6 +112,19 @@ public class WeaponManager : MonoBehaviour
         _playerStats.Weapons[WeaponIndex].SetWeaponActive(true);
     }
 
+    void SetAtkInputOnUI()
+    {
+        if(_uiSkillsManager == null) return;
+        if(_skillIndex != -1)
+        {
+            _uiSkillsManager.UpdateSkillCooldown(_skillIndex, _currentWeapon.GetWeaponCooldown());
+        }else
+        {
+            _skillIndex = _uiSkillsManager.CreateNewSkill(KeyInputTypes.Attack, _uiAtkIcon, _currentWeapon.GetWeaponCooldown());
+        }
+        
+    }
+
     void ApplyNewAttackStats()
     {
         foreach(var weapon in _playerStats.Weapons)
@@ -119,6 +132,7 @@ public class WeaponManager : MonoBehaviour
             if(weapon == null) continue;
             weapon.EvaluateStats(_playerAttackStats);
         }
+        SetAtkInputOnUI();
     }
 
     private void OnDestroy() {

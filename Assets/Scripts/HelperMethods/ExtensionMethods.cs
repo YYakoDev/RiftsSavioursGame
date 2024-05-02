@@ -98,7 +98,7 @@ public static class ExtensionMethods
         return worldPoint;
     }
 
-    public static Vector2 TranslateWorldPointToUI(this Canvas canvas, Vector2 worldPoint)
+    /*public static Vector2 TranslateWorldPointToUI(this Canvas canvas, Vector2 worldPoint)
     {
         Camera camera = Camera.main;
         worldPoint = camera.WorldToScreenPoint(worldPoint);
@@ -122,7 +122,7 @@ public static class ExtensionMethods
             screenCenterY - worldPoint.y / scaleFactor
         );
         return uiPoint;
-    }
+    }*/
 
 
 

@@ -17,6 +17,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField]PlayerLevelManager _levelManager;
     [SerializeField]PlayerMovement _movementScript;
     [SerializeField]PlayerUpgradesManager _upgradesManager;
+    SODashData _dashData;
     bool _gettedComponents = false;
 
     public SOPlayerStats Stats => _stats;
@@ -26,6 +27,7 @@ public class PlayerManager : MonoBehaviour
     public SOPlayerInventory Inventory => _inventory;
     public PlayerLevelManager LevelManager => _levelManager;
     public PlayerMovement MovementScript => _movementScript;
+    public SODashData DashData => _dashData;
 
     public Vector3 Position => transform.position;
     public static SOCharacterData SelectedChara => SelectedCharacter;
@@ -58,6 +60,7 @@ public class PlayerManager : MonoBehaviour
         _levelManager?.SetPlayerStats(_stats);
         _animatorController.ChangeAnimator(_charData.Animator);
         _inventory?.Initialize(_upgradesManager);
+        _dashData = _charData.DashData;
     }
 
 

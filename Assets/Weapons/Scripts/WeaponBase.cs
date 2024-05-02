@@ -73,9 +73,7 @@ public abstract class WeaponBase: ScriptableObject
         InitializeFXS();
     }
     protected virtual void SubscribeInput() => _attackKey.OnKeyHold += TryAttack;
-
     public virtual void UnsubscribeInput() => _attackKey.OnKeyHold -= TryAttack;
-    
     protected virtual void InitializeFXS()
     {
         if(_effects == null) return;
@@ -115,6 +113,8 @@ public abstract class WeaponBase: ScriptableObject
     {
         _deactivated = !active;
     }
+
+    public virtual float GetWeaponCooldown() => _attackCooldown;
 
     public abstract void EvaluateStats(SOPlayerAttackStats attackStats);
     protected void InvokeOnAttack()

@@ -21,7 +21,7 @@ public class ScrollSelectionUI<T> : MonoBehaviour
 
     public event Action onMenuClose, onMenuOpen;
     protected event Action<T> onConfirm;
-    bool _checkInput = false;
+    protected bool _checkInput = false;
     protected float _inputCooldown = 0.15f;
     float _nextInputTime;
     private float _horizontalScroll;

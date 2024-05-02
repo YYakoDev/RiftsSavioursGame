@@ -9,7 +9,7 @@ public class MainHubCharacterSelector : ScrollSelectionUI<SOCharacterData>
     Animator _roomBGAnimator, _uiBGAnimator;
     [SerializeField] FadeImage _fadeImg;
     bool _fadeInAlreadyPlayed = false;
-    float _roomBGFadeInDuration = 1f, _uiBGEnterDuration = 0.5f;
+    Timer _roomFadeInTimer, _roomExitAnimTimer, _uiBGEnterTimer;
 
     //this is the start method ;)
     protected override void Initialize()
@@ -20,20 +20,44 @@ public class MainHubCharacterSelector : ScrollSelectionUI<SOCharacterData>
         _uiBGAnimator = _uiBG.GetComponent<Animator>();
         _uiBG.gameObject.SetActive(true);
         _roomBG.gameObject.SetActive(true);
+        
         YYExtensions.i.GetAnimatorStateLength(_roomBGAnimator, "FadeIn", SetFadeInDuration);
         YYExtensions.i.GetAnimatorStateLength(_uiBGAnimator, "EnterAnimation", SetEnterDuration);
+        
+
+        void SetRoomExitAnimDuration(float d)
+        {
+            _roomBG.gameObject.SetActive(false);
+            _roomExitAnimTimer = new(d);
+            _roomExitAnimTimer.Stop();
+            _roomExitAnimTimer.onEnd += DisableRoomBGAnimator;
+        }
 
         void SetFadeInDuration(float duration)
         {
-            _roomBGFadeInDuration = duration;
-            _roomBG.gameObject.SetActive(false);
+            _roomFadeInTimer = new(duration);
+            Debug.Log(duration);
+            _roomFadeInTimer.Stop();
+            _roomFadeInTimer.onEnd += PlayBackgroundExitAnimation;
+            YYExtensions.i.GetAnimatorStateLength(_roomBGAnimator, "Exit", SetRoomExitAnimDuration);
         }
         void SetEnterDuration(float duration)
         {
-            _uiBGEnterDuration = duration;
             _uiBG.gameObject.SetActive(false);
+            _uiBGEnterTimer = new(duration);
+            _uiBGEnterTimer.Stop();
+            _uiBGEnterTimer.onEnd += OpenAfterAnimation;
         }
     }
+
+    protected override void UpdateLogic()
+    {
+        _uiBGEnterTimer?.UpdateTime();
+        _roomFadeInTimer?.UpdateTime();
+        _roomExitAnimTimer?.UpdateTime();
+        base.UpdateLogic();
+    }
+
 
     public void Open(bool ignoreFadeIn = false)
     {
@@ -57,6 +81,7 @@ public class MainHubCharacterSelector : ScrollSelectionUI<SOCharacterData>
         {
             YYExtensions.i.ExecuteMethodAfterFrame(() =>
             {
+                _roomBG.gameObject.SetActive(true);
                 _uiBG.gameObject.SetActive(true);
                 _uiBGAnimator.enabled = true;
                 PlayBackgroundExitAnimation();
@@ -73,7 +98,8 @@ public class MainHubCharacterSelector : ScrollSelectionUI<SOCharacterData>
             Debug.Log("Fading out opening anim");
             _fadeImg.FadeOut(duration: 0.4f);
             _roomBG.gameObject.SetActive(true);
-            YYExtensions.i.PlayAnimationWithEvent(_roomBGAnimator, "FadeIn", PlayBackgroundExitAnimation);
+            _roomBGAnimator.Play("FadeIn");
+            _roomFadeInTimer.Start();
         }
     }
 
@@ -84,15 +110,10 @@ public class MainHubCharacterSelector : ScrollSelectionUI<SOCharacterData>
         YYExtensions.i.ExecuteMethodAfterFrame(() =>
         {
             _menuParent.SetActive(true);
-            YYExtensions.i.PlayAnimationWithEvent(_uiBGAnimator, "EnterAnimation", _uiBGEnterDuration, () => 
-            {
-                base.Open();
-                _uiBGAnimator.enabled = false;
-            });
-            YYExtensions.i.SetAnimatorTriggerWithEvent(_roomBGAnimator, "Exit", _roomBGFadeInDuration, () =>
-            {
-                _roomBGAnimator.enabled = false;
-            });
+            _uiBGAnimator.Play("EnterAnimation");
+            _roomBGAnimator.SetTrigger("Exit");
+            _uiBGEnterTimer.Start();
+            _roomExitAnimTimer.Start();
         });
         
         var character = _selectableDatalist[CurrentIndex];
@@ -100,15 +121,27 @@ public class MainHubCharacterSelector : ScrollSelectionUI<SOCharacterData>
         if(PlayerManager.SelectedChara != null)  _closeButton.gameObject.SetActive(true);
         else
             // this means you can only exit the menu once you have created a character!
-        _closeButton.gameObject.SetActive(false);
+            _closeButton.gameObject.SetActive(false);
 
 
 
     }
     void SetSelectedCharacter(SOCharacterData character) => PlayerManager.ChangeSelectedCharacter(character);
 
+    void OpenAfterAnimation()
+    {
+        base.Open();
+        _uiBGAnimator.enabled = false;
+    }
+
+    void DisableRoomBGAnimator()
+    {
+        _roomBGAnimator.enabled = false;
+    }
+
     public override void Close(bool skipAudio = false)
     {
+        if(!_checkInput) return;
         _uiBG.gameObject.SetActive(false);
         _roomBG.gameObject.SetActive(false);
         base.Close(skipAudio);
@@ -116,6 +149,9 @@ public class MainHubCharacterSelector : ScrollSelectionUI<SOCharacterData>
     }
 
     private void OnDestroy() {
+        _uiBGEnterTimer.onEnd -= OpenAfterAnimation;
+        _roomFadeInTimer.onEnd -= PlayBackgroundExitAnimation;
+        _roomExitAnimTimer.onEnd -= DisableRoomBGAnimator;
         onConfirm -= SetSelectedCharacter;
     }
 }

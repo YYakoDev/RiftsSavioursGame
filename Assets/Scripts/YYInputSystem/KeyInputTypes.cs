@@ -4,6 +4,8 @@ public enum KeyInputTypes
     Attack,
     SwitchAim,
     SwitchWeapon,
-    Interact
+    Interact,
+    Dash,
+    Settings
 
 }

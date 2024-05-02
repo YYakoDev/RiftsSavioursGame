@@ -38,8 +38,6 @@ public class PlayerIntroAnimation
     {
         if(_animationEnded)return;
         _animTimer.UpdateTime();
-        float elapsedTime = _animDuration - _animTimer.CurrentTime;
-        float percent = elapsedTime / _animDuration;
     }
 
     void SpawnFX()
@@ -71,12 +69,12 @@ public class PlayerIntroAnimation
     void StopTime()
     {
         _animator.updateMode = AnimatorUpdateMode.UnscaledTime;
-        TimeScaleManager.SetTimeScale(0);
+        TimeScaleManager.SetTimeScale(0f);
     }
 
     void ResumeTime()
     {
-        TimeScaleManager.ForceTimeScale(1);
+        TimeScaleManager.ForceTimeScale(1f);
         _animationEnded = true;
         _animator.updateMode = AnimatorUpdateMode.Normal;
         _animator.StopPlayback();

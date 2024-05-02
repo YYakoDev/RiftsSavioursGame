@@ -11,23 +11,30 @@ public class PlayerMovement : MonoBehaviour, IKnockback
     //References
     [Header("References")]
     [SerializeField] WeaponAiming _aimingScript;
-    [SerializeField]ParticleSystem _dustEffect;
+    [SerializeField]ParticleSystem _dustEffect, _dashParticleEffect;
     PlayerManager _player;
+    [SerializeField] PlayerHealthManager _healthManager;
+    [SerializeField] UISkillsManager _uiSkillsManager;
+    [SerializeField] Sprite _dashUIIcon;
+    int _dashInputIndex = -1;
     GameObject _spriteGameObject;
 
-    [Header("AudioStuff")]
-    [SerializeField] AudioSource _audio;
-    [SerializeField] float _stepSoundCooldown = 0.3f;
-    float _nextStepSound = 0f;
-    [SerializeField] AudioClip[] _stepSounds;
-    private AudioClip _stepSound => _stepSounds[Random.Range(0, _stepSounds.Length)];
     //Movement
     Vector2 _movement;
-    Action<Vector2> OnMovement;
     float _realSpeed;
 
-    [SerializeField]AnimationCurve _accelerationCurve;
-    float _elapsedAccelerationTime = 0f;
+    // Dash
+    KeyInput _dashInput;
+    bool _isDashing, _dashLogicInitialized;
+    Vector2 _dashDirection;
+    [SerializeField] float _dashDuration = 0.1f, _dashForce = 1f;
+    float _dashCooldown, _nextDashTime = 0f;
+    Timer _dashDurationTimer;
+    [SerializeField] DashFXPrefab _dashFXPrefab;
+    DashFXPrefab _dashFXInstance;
+    Transform _dashFXTransform;
+    public event Action onDash;
+
 
     //Slowdown when attacking
     float _slowdown = 1f;
@@ -40,15 +47,24 @@ public class PlayerMovement : MonoBehaviour, IKnockback
     //sort the order of the sprite based on movement
     SortingOrderController _sortingOrderController;
     [SerializeField]private float _sortingOrderOffset; //this adds an offset to the position detected on the sprite    
-
     //aiming
     bool _autoAiming = false;
+
+
+    [Header("AudioStuff")]
+    [SerializeField] AudioSource _audio;
+    [SerializeField] float _stepSoundCooldown = 0.3f;
+    float _nextStepSound = 0f;
+    [SerializeField] AudioClip[] _stepSounds;
+    private AudioClip _stepSound => _stepSounds[Random.Range(0, _stepSounds.Length)];
+
 
     //properties
     //public Vector2 Movement => _movement;
     //public bool IsFlipped => isFlipped;
+    public float DashDuration => _dashDuration;
+    public float DashForce => _dashForce;
     public int FacingDirection => (isFlipped) ? -1 : 1;
-    private float AccelerationTime => _player.Stats.AccelerationTime;
     private float MovementSpeed => _player.Stats.Speed;
     private float SlowdownMultiplier => _player.Stats.SlowdownMultiplier;
 
@@ -71,7 +87,11 @@ public class PlayerMovement : MonoBehaviour, IKnockback
         
         //script that handles the sorting order based on its position
         if(_sortingOrderController == null)_sortingOrderController = new SortingOrderController(transform, _player.Renderer, _sortingOrderOffset);
-        
+
+        _dashDurationTimer = new(_dashDuration);
+        _dashDurationTimer.Stop();
+        _dashDurationTimer.onEnd += StopDash;
+
     }
     void Start()
     {
@@ -79,9 +99,21 @@ public class PlayerMovement : MonoBehaviour, IKnockback
         _aimingScript.OnAimingChange += ChangeAimMode;
         _spriteGameObject = _player.Renderer.gameObject;
         _realSpeed = MovementSpeed;
-        _elapsedAccelerationTime = 0f;
         _slowdown = 1f;
-        //_accelerationCurve = TweenCurveLibrary.GetCurve(CurveTypes.EaseInOut);
+        if(_player.DashData != null) InitializeDashLogic();
+    }
+
+    void InitializeDashLogic()
+    {
+        _dashInput = YYInputManager.GetKey(KeyInputTypes.Dash);
+        _dashInput.OnKeyPressed += SetDash;
+        SetDashInputOnUI();
+        _player.Stats.onStatsChange += UpdateDashCooldown;
+        if(_dashFXInstance == null) _dashFXInstance = Instantiate(_dashFXPrefab);
+        _dashFXInstance.SetDashData(_player, _healthManager, _audio);
+        _dashFXTransform = _dashFXInstance.transform;
+        _dashFXTransform.SetParent(transform, false);
+        _dashLogicInitialized = true;
     }
 
     // Update is called once per frame
@@ -95,7 +127,18 @@ public class PlayerMovement : MonoBehaviour, IKnockback
             _slowdown = 1f;
             _realSpeed = MovementSpeed;
         }
-        
+        _dashDurationTimer.UpdateTime();
+    }
+    private void FixedUpdate()
+    {
+        if(_isDashing)
+        {
+            DashMovement(_dashDirection, _player.Stats.DashSpeed);
+            return;
+        }
+        if(KnockbackEnabled) _knockbackLogic.ApplyKnockback();
+        else if(_movement.sqrMagnitude > 0.1f) Move();
+        else Iddle();
     }
 
     public void SetMovement(Vector2 movementInput)
@@ -104,11 +147,49 @@ public class PlayerMovement : MonoBehaviour, IKnockback
         _movement.Normalize();
     }
 
-    private void FixedUpdate()
+    public void SetDash()
     {
-        if(KnockbackEnabled) _knockbackLogic.ApplyKnockback();
-        else if(_movement.sqrMagnitude > 0.1f) Move();
-        else Iddle();
+        if(_nextDashTime > Time.time) return;
+        if(_movement == Vector2.zero) return;
+        _nextDashTime = _dashCooldown + Time.time;
+        _isDashing = true;
+        _dashDirection = _movement.normalized * _dashForce;
+        _dashDurationTimer.Start();
+        _healthManager.SetInvulnerabilityTime(_player.Stats.DashInvulnerabilityTime);
+        onDash?.Invoke();
+        var rot = _dashFXTransform.rotation.eulerAngles;
+        rot.z = Mathf.Atan2(_movement.y, _movement.x) * Mathf.Rad2Deg;
+        _dashFXTransform.rotation = Quaternion.Euler(rot);
+    }
+    public void StopDash()
+    {
+        _isDashing = false;
+
+        _dashParticleEffect.Stop();
+
+    }
+
+    void UpdateDashCooldown()
+    {
+        if(_dashCooldown != _player.Stats.DashCooldown)
+        {
+            _dashCooldown = _player.Stats.DashCooldown;
+            SetDashInputOnUI();
+        }
+    }
+
+    void SetDashInputOnUI()
+    {
+        if(_uiSkillsManager == null) return;
+        if(_dashInputIndex == -1) StartCoroutine(CreateDashSkillOnUI());
+        else _uiSkillsManager.UpdateSkillCooldown(_dashInputIndex, _dashCooldown);
+    }
+
+    IEnumerator CreateDashSkillOnUI()
+    {
+        yield return null;
+        var result = _uiSkillsManager.CreateNewSkill(KeyInputTypes.Dash, _dashUIIcon, _dashCooldown);
+        if(result != -1) _dashInputIndex = result;
     }
 
     void Iddle()
@@ -116,28 +197,31 @@ public class PlayerMovement : MonoBehaviour, IKnockback
         _player.AnimController.PlayStated(PlayerAnimationsNames.Iddle);
         _sortingOrderController.SortOrder();
         _dustEffect.Stop();
-        _elapsedAccelerationTime = 0f;
+        _dashParticleEffect.Stop();
     }
 
     void Move()
     {
-        _dustEffect.Play();
-        _audio.PlayWithCooldown(_stepSound, _stepSoundCooldown, ref _nextStepSound);
-        _elapsedAccelerationTime += Time.fixedDeltaTime;
-        float percent = _elapsedAccelerationTime / AccelerationTime;
-        if(percent <= 1.1f) _realSpeed = Mathf.Lerp(0, MovementSpeed, _accelerationCurve.Evaluate(percent)) * _slowdown;
-
+        _realSpeed = MovementSpeed * _slowdown;
         Vector2 direction = (Vector2)transform.position + _movement * (_realSpeed *Time.fixedDeltaTime);
         _player.RigidBody.MovePosition(direction);
-        
-        CheckForFlip(_movement.x);
+        MovementEffects();
+    }
+    void DashMovement(Vector2 moveDirection, float speed)
+    {
+        Vector2 direction = (Vector2)transform.position + moveDirection * (speed *Time.fixedDeltaTime);
+        _player.RigidBody.MovePosition(direction);
+        MovementEffects();
+    }
 
+    void MovementEffects()
+    {
+        _dustEffect.Play();
+        _audio.PlayWithCooldown(_stepSound, _stepSoundCooldown, ref _nextStepSound);
+        CheckForFlip(_movement.x);
         //change sprite sorting order based on its position
         _sortingOrderController.SortOrder();
-
         _player.AnimController.PlayStated(PlayerAnimationsNames.Run);
-
-        OnMovement?.Invoke(_movement);
     }
 
     public void OnKnockbackChange(bool change)
@@ -183,18 +267,20 @@ public class PlayerMovement : MonoBehaviour, IKnockback
     {
         _slowdownTime = slowdownTime;
         _slowdown = SlowdownMultiplier;
-        _elapsedAccelerationTime = 0f;
     }
     public void SlowdownMovement(float duration, float force)
     {
         _slowdownTime = duration;
         _slowdown = force - SlowdownMultiplier;
         if(_slowdown <= 0) _slowdown = 0.1f;
-        _elapsedAccelerationTime = 0f;
     }
 
     private void OnDestroy() {
         YYInputManager.OnMovement -= SetMovement;
         _aimingScript.OnAimingChange -= ChangeAimMode;
+        if(!_dashLogicInitialized) return;
+        _dashDurationTimer.onEnd -= StopDash;
+        _dashInput.OnKeyPressed -= SetDash;
+        _player.Stats.onStatsChange -= UpdateDashCooldown;
     }
 }

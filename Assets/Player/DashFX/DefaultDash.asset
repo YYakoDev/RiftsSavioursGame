@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 400b7f8fd161e3540bd04d233788faa9, type: 3}
+  m_Name: DefaultDash
+  m_EditorClassIdentifier: 
+  _dashAnimation: {fileID: 22100000, guid: fb3f776621c30284d892b74063e45dda, type: 2}
+  _motionBlur: 0.5
+  _cameraShake: 0.4
+  _dashSFX: {fileID: 8300000, guid: c67633847f5a1554baa9b77cd4e0e6f2, type: 3}

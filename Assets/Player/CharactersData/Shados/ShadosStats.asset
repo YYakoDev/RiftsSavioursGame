@@ -17,9 +17,11 @@ MonoBehaviour:
   _level: 1
   _currentXP: 40
   _xpToNextLevel: 100
-  _speed: 4.3
-  _accelerationTime: 0.13
+  _speed: 4.5
   _slowdownMultiplier: 0.95
+  _dashSpeed: 10
+  _dashCooldown: 0.8
+  _dashInvulnerabilityTime: 0.044
   _pickUpRange: 1.8
   _collectingRange: 2
   _collectingDamage: 1

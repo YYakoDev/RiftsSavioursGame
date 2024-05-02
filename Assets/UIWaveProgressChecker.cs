@@ -9,7 +9,7 @@ public class UIWaveProgressChecker : MonoBehaviour
     [SerializeField]World _currentWorld;
     Timer _restTimer;
     [SerializeField]Slider _slider;
-    [SerializeField] Image _handleImg, _fillImg;
+    [SerializeField] Image _fillImg;
     [SerializeField] Sprite _enemyWaveImg, _restWaveImg;
     RectTransform _sliderRect;
     float _elapsedWaveTime = 0;
@@ -30,11 +30,11 @@ public class UIWaveProgressChecker : MonoBehaviour
         _animator = GetComponent<TweenAnimatorMultiple>();
         GameStateManager.OnRestStart += SetRestSlider;
         _currentWorld.OnWaveChange += SetCurrentWave;
-        SetNewTime(_currentWorld.Waves[0].WaveDuration);
+        SetCurrentWave(_currentWorld.Waves[0]);
     }
 
     private void Start() {
-        _handleImg.sprite = _enemyWaveImg;
+        //_handleImg.sprite = _enemyWaveImg;
         _fillImg.color = UIColors.GetColor(UIColor.Red);
     }
 
@@ -43,7 +43,7 @@ public class UIWaveProgressChecker : MonoBehaviour
         _restTimer.ChangeTime(time);
         _restTimer.Start();
         PlayAnimation();
-        _handleImg.sprite = _restWaveImg;
+        //_handleImg.sprite = _restWaveImg;
         _fillImg.color = UIColors.GetColor(UIColor.Green);
         SetNewTime(time);
     }
@@ -51,7 +51,7 @@ public class UIWaveProgressChecker : MonoBehaviour
     void SetEnemyWaveSlider()
     {
         PlayAnimation();
-        _handleImg.sprite = _enemyWaveImg;
+        //_handleImg.sprite = _enemyWaveImg;
         _fillImg.color = UIColors.GetColor(UIColor.Red);
         SetNewTime(_currentWaveDuration);
     }
@@ -68,7 +68,7 @@ public class UIWaveProgressChecker : MonoBehaviour
     private void Update() {
         _restTimer.UpdateTime();
         _elapsedWaveTime += Time.deltaTime;
-        _slider.value = _elapsedWaveTime;
+        _slider.value = _currentWaveDuration - _elapsedWaveTime;
     }
 
     void SetCurrentWave(SOEnemyWave newWave)
@@ -84,3 +84,4 @@ public class UIWaveProgressChecker : MonoBehaviour
         _currentWorld.OnWaveChange -= SetCurrentWave;
     }
 }
+

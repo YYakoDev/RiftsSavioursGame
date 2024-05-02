@@ -11,6 +11,7 @@ public class SOCharacterData : ScriptableObject
     [SerializeField] SOPlayerAttackStats _atkStats;
     [SerializeField] Sprite _sprite;
     [SerializeField] AnimatorOverrideController _animator;
+    [SerializeField] SODashData _dashData;
 
     public string Name => _name;
     public string Description => _description;
@@ -18,4 +19,5 @@ public class SOCharacterData : ScriptableObject
     public SOPlayerAttackStats ATKStats => _atkStats;
     public Sprite Sprite => _sprite;
     public AnimatorOverrideController Animator => _animator;
+    public SODashData DashData => _dashData;
 }

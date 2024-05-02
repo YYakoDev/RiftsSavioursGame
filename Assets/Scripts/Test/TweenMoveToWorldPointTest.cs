@@ -13,16 +13,16 @@ public class TweenMoveToWorldPointTest : MonoBehaviour
         _animator = GetComponent<TweenAnimator>();
     }
     private void OnEnable() {
-        var result = _canvas.TranslateWorldPointToUI(_worldPoint.position);
-        _animator.MoveTo(this.GetComponent<RectTransform>(), result , _duration);
+        //var result = _canvas.TranslateWorldPointToUI(_worldPoint.position);
+        //_animator.MoveTo(this.GetComponent<RectTransform>(), result , _duration);
     }
 
     private void OnValidate() {
         if(_canvas == null) _canvas = this.GetComponentInParent<Canvas>();
         if(_squareRepresentation != null)
         {
-            var result = _canvas.TranslateWorldPointToUI(_worldPoint.position);
-            _squareRepresentation.localPosition = result;
+            //var result = _canvas.TranslateWorldPointToUI(_worldPoint.position);
+            //_squareRepresentation.localPosition = result;
         }
     }
 }

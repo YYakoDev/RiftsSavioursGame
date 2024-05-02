@@ -34,6 +34,7 @@ public class TripleComboMeleeWeapon : MeleeWeapon
     {
         return base.GetPullDuration();
     }
+    public override float GetWeaponCooldown() => _modifiedStats.Cooldown;
 
     public override void Initialize(WeaponManager weaponManager, Transform prefabTransform)
     {

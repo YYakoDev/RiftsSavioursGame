@@ -16,20 +16,15 @@ MonoBehaviour:
   _descriptions:
   - text: + 20% Speed
     color: 2
-  - text: + 0.5 Acceleration Time
-    color: 1
   _sprite: {fileID: 21300000, guid: e13883e19c570d742b1ba000303563d3, type: 3}
   _costs:
   - CraftingMaterial: {fileID: 11400000, guid: b0ee0322b3f2ea5439336a20dc5012b8, type: 2}
     Cost: 5
   _stats: {fileID: 11400000, guid: 77f8be5469984ec4b92db0a6e8c44838, type: 2}
-  _indexes: 0200000003000000
+  _indexes: 02000000
   _statsChanges:
   - _usePercentage: 1
     _percentage: 22
     _flatAmount: 0
-  - _usePercentage: 0
-    _percentage: 1
-    _flatAmount: 0.44
-  ElementCount: 2
-  _savedText: Speed,AccelerationTime
+  ElementCount: 1
+  _savedText: Speed
