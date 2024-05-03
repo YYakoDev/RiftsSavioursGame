@@ -8,7 +8,7 @@ using TMPro;
 public class UISkill : MonoBehaviour
 {
     KeyInputTypes _inputType;
-    KeyInput _hotKey;
+    //KeyInput _hotKey;
     bool _cooldownBehaviour, _skillOnCooldown, _skillBlinking;
     float _cooldown = 0f;
     Timer _cooldownTimer, _iconBlinkTimer;
@@ -37,8 +37,8 @@ public class UISkill : MonoBehaviour
     public void Initialize(KeyInputTypes inputType, Sprite skillIcon)
     {
         _inputType = inputType;
-        _hotKey = YYInputManager.GetKey(inputType);
-        _hotKey.OnKeyPressed += Interact;
+        var _hotKey = YYInputManager.GetKey(inputType);
+        //_hotKey.OnKeyPressed += Interact;
         _cooldownBehaviour = false;
         _startingMaterial = _skillIcon.material;
         _iconRect = _skillIcon.rectTransform;
@@ -76,7 +76,7 @@ public class UISkill : MonoBehaviour
         }
     }
 
-    void Interact()
+    public void Interact()
     {
         if(_skillOnCooldown) return;
         PlayAnimation(_objRect, _objStartScale, _endObjScale, _endObjScaleOffset);
@@ -117,7 +117,6 @@ public class UISkill : MonoBehaviour
     }
     public void SetCooldown(float cooldown)
     {
-        Debug.Log("Updating cooldown from input item");
         _cooldownTimer.ChangeTime(cooldown);
         _cooldownSlider.maxValue = cooldown;
         _scaleDuration = Mathf.Clamp(_scaleDuration, 0.05f, cooldown / 1.1f);
@@ -131,7 +130,7 @@ public class UISkill : MonoBehaviour
     }
 
     private void OnDestroy() {
-        if(_hotKey != null)_hotKey.OnKeyPressed -= Interact;
+        //if(_hotKey != null)_hotKey.OnKeyPressed -= Interact;
         if(_cooldownBehaviour)
         {
             _iconBlinkTimer.onEnd -= ResetMaterial;

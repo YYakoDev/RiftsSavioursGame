@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour, IKnockback
     [SerializeField] PlayerHealthManager _healthManager;
     [SerializeField] UISkillsManager _uiSkillsManager;
     [SerializeField] Sprite _dashUIIcon;
-    int _dashInputIndex = -1;
+    UISkill _uiInputSkill = null;
     GameObject _spriteGameObject;
 
     //Movement
@@ -25,11 +25,11 @@ public class PlayerMovement : MonoBehaviour, IKnockback
 
     // Dash
     KeyInput _dashInput;
-    bool _isDashing, _dashLogicInitialized;
+    bool _isDashing, _dashOnCooldown, _dashLogicInitialized;
     Vector2 _dashDirection;
     [SerializeField] float _dashDuration = 0.1f, _dashForce = 1f;
     float _dashCooldown, _nextDashTime = 0f;
-    Timer _dashDurationTimer;
+    Timer _dashDurationTimer, _dashCooldownTimer;
     [SerializeField] DashFXPrefab _dashFXPrefab;
     DashFXPrefab _dashFXInstance;
     Transform _dashFXTransform;
@@ -74,6 +74,7 @@ public class PlayerMovement : MonoBehaviour, IKnockback
     public Knockbackeable KnockbackLogic { get => _knockbackLogic;}
     public bool KnockbackEnabled => _knockbackEnabled;
 
+    public UISkill UIInputSkill => _uiInputSkill;
 
     void Awake()
     {
@@ -98,6 +99,7 @@ public class PlayerMovement : MonoBehaviour, IKnockback
         _slowdown = 1f;
         yield return null;
         if(_player.DashData != null) InitializeDashLogic();
+        _dashParticleEffect.Stop();
     }
 
     void InitializeDashLogic()
@@ -106,6 +108,7 @@ public class PlayerMovement : MonoBehaviour, IKnockback
         _dashDurationTimer.Stop();
         _dashDurationTimer.onEnd += StopDash;
         UpdateDashCooldown();
+        
         _dashInput = YYInputManager.GetKey(KeyInputTypes.Dash);
         _dashInput.OnKeyPressed += SetDash;
         SetDashInputOnUI();
@@ -128,7 +131,11 @@ public class PlayerMovement : MonoBehaviour, IKnockback
             _slowdown = 1f;
             _realSpeed = MovementSpeed;
         }
-        if(_dashLogicInitialized)_dashDurationTimer.UpdateTime();
+        if(_dashLogicInitialized)
+        {
+            _dashDurationTimer.UpdateTime();
+            _dashCooldownTimer.UpdateTime();
+        }
     }
     private void FixedUpdate()
     {
@@ -150,13 +157,15 @@ public class PlayerMovement : MonoBehaviour, IKnockback
 
     public void SetDash()
     {
-        if(_nextDashTime > Time.time) return;
+        if(_dashOnCooldown) return;
         if(_movement == Vector2.zero) return;
-        _nextDashTime = _dashCooldown + Time.time;
+        _dashOnCooldown = true;
+        _dashCooldownTimer.Start();
         _isDashing = true;
         _dashDirection = _movement.normalized * _dashForce;
         _dashDurationTimer.Start();
         _healthManager.SetInvulnerabilityTime(_player.Stats.DashInvulnerabilityTime);
+        _dashParticleEffect.Play();
         onDash?.Invoke();
         var rot = _dashFXTransform.rotation.eulerAngles;
         rot.z = Mathf.Atan2(_movement.y, _movement.x) * Mathf.Rad2Deg;
@@ -174,15 +183,26 @@ public class PlayerMovement : MonoBehaviour, IKnockback
         {
             _dashCooldown = _player.Stats.DashCooldown;
             SetDashInputOnUI();
+            if(_dashCooldownTimer == null)
+            {
+                _dashCooldownTimer = new(_dashCooldown);
+                _dashCooldownTimer.Stop();
+                _dashCooldownTimer.onEnd += ReadyDash;
+            }
+            else
+            {
+                _dashCooldownTimer.ChangeTime(_dashCooldown);
+            }
         }
     }
+
+    void ReadyDash() => _dashOnCooldown = false;
 
     void SetDashInputOnUI()
     {
         if(_uiSkillsManager == null) return;
-        if(_dashInputIndex == -1) _dashInputIndex = _uiSkillsManager.CreateNewSkill(KeyInputTypes.Dash, _dashUIIcon, _dashCooldown);
-        else _uiSkillsManager.UpdateSkillCooldown(_dashInputIndex, _dashCooldown);
-        
+        if(_uiInputSkill == null) _uiInputSkill = _uiSkillsManager.SetInputSkill(KeyInputTypes.Dash, _dashUIIcon, _dashCooldown);
+        else _uiInputSkill.SetCooldown(_dashCooldown);
     }
 
     void Iddle()

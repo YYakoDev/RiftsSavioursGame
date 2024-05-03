@@ -12,11 +12,11 @@ public class SettingsMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        int index = _uiSkillsManager.CreateNewSkill(KeyInputTypes.Settings, _settingsIcon);
-        var itemTransform = _uiSkillsManager.GetSkillItem(index).transform;
-        itemTransform.SetParent(_uiSkillsManager.transform);
+        var skill = _uiSkillsManager.SetInputSkill(KeyInputTypes.Settings, _settingsIcon);
+        var itemTransform = skill.transform;
+        itemTransform.SetParent(_uiSkillsManager.transform, false);
         itemTransform.localPosition = _iconPosition;
-        itemTransform.localScale = Vector3.one;
+        //itemTransform.localScale = Vector3.one;
     }
 
     private void OnDrawGizmosSelected() {

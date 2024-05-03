@@ -10,54 +10,42 @@ public class UISkillsManager : MonoBehaviour
     [SerializeField] Transform _skillsParent;
     UISkill[] _skillsIntances = new UISkill[0];
 
-    public int CreateNewSkill(KeyInputTypes inputType, Sprite skillIcon)
+    UISkill CreateInputSkill(KeyInputTypes inputType)
     {
         var result = SearchIfItExist(inputType);
-        if(result != -1) return result;
+        if(result != null) return result;
         UISkill skillItem = Instantiate(_uiItemPrefab);
-        var index = AddItemInstance(skillItem);
-        skillItem.Initialize(inputType, skillIcon);
-        return index;
-    }
-    public int CreateNewSkill(KeyInputTypes inputType, Sprite skillIcon,  float cooldown)
-    {
-        var result = SearchIfItExist(inputType);
-        if(result != -1) return result;
-        UISkill skillItem = Instantiate(_uiItemPrefab);
-        var index = AddItemInstance(skillItem);
-        skillItem.Initialize(inputType, skillIcon, cooldown);
-        return index;
+        AddItemInstance(skillItem);
+        return skillItem;
     }
 
-    public int SearchIfItExist(KeyInputTypes type)
+    public UISkill SetInputSkill(KeyInputTypes inputType, Sprite skillIcon)
     {
-        int result = -1;
+        var skill = CreateInputSkill(inputType);
+        skill.Initialize(inputType, skillIcon);
+        return skill;
+    }
+    public UISkill SetInputSkill(KeyInputTypes inputType, Sprite skillIcon,  float cooldown)
+    {
+        var skill = CreateInputSkill(inputType);
+        skill.Initialize(inputType, skillIcon, cooldown);
+        return skill;
+    }
+
+    public UISkill SearchIfItExist(KeyInputTypes type)
+    {
+        UISkill result = null;
 
         for (int i = 0; i < _skillsIntances.Length; i++)
         {
             var item = _skillsIntances[i];
             if(item.InputType == type)
             {
-                result = i;
+                result = item;
                 break;
             }
         }
-        Debug.Log("index for:   " + type + " " + result);
         return result;
-    }
-
-    public UISkill GetSkillItem(int index)
-    {
-        return _skillsIntances[index];
-    }
-    public void UpdateSkillSprite(int skillIndex, Sprite icon)
-    {
-        _skillsIntances[skillIndex].SetSkillIcon(icon);
-    }
-
-    public void UpdateSkillCooldown(int skillIndex, float cooldown)
-    {
-        _skillsIntances[skillIndex].SetCooldown(cooldown);
     }
 
     int AddItemInstance(UISkill item)

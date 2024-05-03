@@ -32,8 +32,8 @@ public class WeaponManager : MonoBehaviour
     //ui stuff
     [SerializeField] private UISkillsManager _uiSkillsManager;
     [SerializeField] Sprite _uiAtkIcon;
-    private int _skillIndex = -1;
-
+    private UISkill _uiInputSkill = null;
+    public UISkill UIInputSkill => _uiInputSkill;
     public PlayerAttackEffects AtkEffects => _effects;
     public LayerMask EnemyLayer => _enemyLayer;
 
@@ -115,12 +115,12 @@ public class WeaponManager : MonoBehaviour
     void SetAtkInputOnUI()
     {
         if(_uiSkillsManager == null) return;
-        if(_skillIndex != -1)
+        if(_uiInputSkill != null)
         {
-            _uiSkillsManager.UpdateSkillCooldown(_skillIndex, _currentWeapon.GetWeaponCooldown());
+            _uiInputSkill.SetCooldown(_currentWeapon.GetWeaponCooldown());
         }else
         {
-            _skillIndex = _uiSkillsManager.CreateNewSkill(KeyInputTypes.Attack, _uiAtkIcon, _currentWeapon.GetWeaponCooldown());
+            _uiInputSkill = _uiSkillsManager.SetInputSkill(KeyInputTypes.Attack, _uiAtkIcon, _currentWeapon.GetWeaponCooldown());
         }
         
     }
