@@ -29,11 +29,6 @@ public class WeaponManager : MonoBehaviour
     }
     public event Action<WeaponBase> OnWeaponChange;
 
-    //ui stuff
-    [SerializeField] private UISkillsManager _uiSkillsManager;
-    [SerializeField] Sprite _uiAtkIcon;
-    private UISkill _uiInputSkill = null;
-    public UISkill UIInputSkill => _uiInputSkill;
     public PlayerAttackEffects AtkEffects => _effects;
     public LayerMask EnemyLayer => _enemyLayer;
 
@@ -90,7 +85,6 @@ public class WeaponManager : MonoBehaviour
         _weaponAiming.SwitchCurrentWeapon(weapon);
         OnWeaponChange?.Invoke(weapon);
         _currentWeapon.SetWeaponActive(true);
-        SetAtkInputOnUI();
     }
 
     void SwitchWeapon()
@@ -112,19 +106,6 @@ public class WeaponManager : MonoBehaviour
         _playerStats.Weapons[WeaponIndex].SetWeaponActive(true);
     }
 
-    void SetAtkInputOnUI()
-    {
-        if(_uiSkillsManager == null) return;
-        if(_uiInputSkill != null)
-        {
-            _uiInputSkill.SetCooldown(_currentWeapon.GetWeaponCooldown());
-        }else
-        {
-            _uiInputSkill = _uiSkillsManager.SetInputSkill(KeyInputTypes.Attack, _uiAtkIcon, _currentWeapon.GetWeaponCooldown());
-        }
-        
-    }
-
     void ApplyNewAttackStats()
     {
         foreach(var weapon in _playerStats.Weapons)
@@ -132,7 +113,6 @@ public class WeaponManager : MonoBehaviour
             if(weapon == null) continue;
             weapon.EvaluateStats(_playerAttackStats);
         }
-        SetAtkInputOnUI();
     }
 
     private void OnDestroy() {

@@ -14,9 +14,6 @@ public class PlayerMovement : MonoBehaviour, IKnockback
     [SerializeField]ParticleSystem _dustEffect, _dashParticleEffect;
     PlayerManager _player;
     [SerializeField] PlayerHealthManager _healthManager;
-    [SerializeField] UISkillsManager _uiSkillsManager;
-    [SerializeField] Sprite _dashUIIcon;
-    UISkill _uiInputSkill = null;
     GameObject _spriteGameObject;
 
     //Movement
@@ -64,6 +61,7 @@ public class PlayerMovement : MonoBehaviour, IKnockback
     //public bool IsFlipped => isFlipped;
     public float DashDuration => _dashDuration;
     public float DashForce => _dashForce;
+    public float DashCooldown => _dashCooldown;
     public int FacingDirection => (isFlipped) ? -1 : 1;
     private float MovementSpeed => _player.Stats.Speed;
     private float SlowdownMultiplier => _player.Stats.SlowdownMultiplier;
@@ -74,7 +72,6 @@ public class PlayerMovement : MonoBehaviour, IKnockback
     public Knockbackeable KnockbackLogic { get => _knockbackLogic;}
     public bool KnockbackEnabled => _knockbackEnabled;
 
-    public UISkill UIInputSkill => _uiInputSkill;
 
     void Awake()
     {
@@ -111,7 +108,6 @@ public class PlayerMovement : MonoBehaviour, IKnockback
         
         _dashInput = YYInputManager.GetKey(KeyInputTypes.Dash);
         _dashInput.OnKeyPressed += SetDash;
-        SetDashInputOnUI();
         _player.Stats.onStatsChange += UpdateDashCooldown;
         if(_dashFXInstance == null) _dashFXInstance = Instantiate(_dashFXPrefab);
         _dashFXInstance.SetDashData(_player, _healthManager, _audio);
@@ -182,7 +178,6 @@ public class PlayerMovement : MonoBehaviour, IKnockback
         if(_dashCooldown != _player.Stats.DashCooldown)
         {
             _dashCooldown = _player.Stats.DashCooldown;
-            SetDashInputOnUI();
             if(_dashCooldownTimer == null)
             {
                 _dashCooldownTimer = new(_dashCooldown);
@@ -197,13 +192,6 @@ public class PlayerMovement : MonoBehaviour, IKnockback
     }
 
     void ReadyDash() => _dashOnCooldown = false;
-
-    void SetDashInputOnUI()
-    {
-        if(_uiSkillsManager == null) return;
-        if(_uiInputSkill == null) _uiInputSkill = _uiSkillsManager.SetInputSkill(KeyInputTypes.Dash, _dashUIIcon, _dashCooldown);
-        else _uiInputSkill.SetCooldown(_dashCooldown);
-    }
 
     void Iddle()
     {
