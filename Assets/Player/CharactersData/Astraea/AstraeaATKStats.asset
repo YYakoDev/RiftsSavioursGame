@@ -13,8 +13,11 @@ MonoBehaviour:
   m_Name: AstraeaATKStats
   m_EditorClassIdentifier: 
   _damageMultiplier: 1
+  _baseDamageAddition: 1
   _attackRange: 0
   _attackCooldown: 0
   _attackKnockback: 0
   _projectilesCount: 0
   _projectilesSpeed: 0
+  _summonDamage: 5
+  _summonSpeed: 1.5

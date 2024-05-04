@@ -34,7 +34,7 @@ MonoBehaviour:
   _attackRange: 1
   _attackSpeed: 1
   _rangeOffset: {x: 0, y: 0}
-  _attackDamage: 11
+  _attackDamage: 10
   _criticalChance: 15
   _criticalDamageMultiplier: 2.2
   _damageDelay: 0.04

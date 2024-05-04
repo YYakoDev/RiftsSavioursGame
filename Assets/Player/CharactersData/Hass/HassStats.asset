@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc8b826c734252e40b580fc4ef82deb2, type: 3}
+  m_Name: HassStats
+  m_EditorClassIdentifier: 
+  _maxHealth: 65
+  _currentHealth: 65
+  _level: 1
+  _currentXP: 0
+  _xpToNextLevel: 65
+  _speed: 4
+  _slowdownMultiplier: 0.5
+  _dashSpeed: 13
+  _dashCooldown: 1.2
+  _dashInvulnerabilityTime: 0.1
+  _pickUpRange: 2.3
+  _collectingRange: 2.5
+  _collectingDamage: 2
+  _interactCooldown: 0.8
+  _maxResourceInteractions: 1
+  _weapons:
+  - {fileID: 11400000, guid: 8390c2ced3f8d9c4c812adc9b4489ea0, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  _attackStats: {fileID: 11400000, guid: f62abba9a959d514fb00341e8ecc5193, type: 2}
+  _stunResistance: 10
+  _knockbackResistance: 20
+  _damageResistance: 10
+  _faith: 1
+  _harvestMultiplier: 0

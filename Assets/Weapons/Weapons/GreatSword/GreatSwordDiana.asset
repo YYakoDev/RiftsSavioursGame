@@ -17,31 +17,33 @@ MonoBehaviour:
   _SpriteAndAnimationsData: {fileID: 11400000, guid: c4a6ab0ca1fb6634ab614941446af409, type: 2}
   _effects:
   - {fileID: 11400000, guid: 4780209016f8aa349864b33bf7198c79, type: 2}
-  - {fileID: 11400000, guid: 4780209016f8aa349864b33bf7198c79, type: 2}
-  - {fileID: 11400000, guid: 7e4ed06a1b3572e41b715a285fbae5a3, type: 2}
   - {fileID: 11400000, guid: a46798bb6b4605f46a88a7cb00606fc1, type: 2}
   - {fileID: 11400000, guid: c9c1e59da1cfa0d438f4301a1069edcd, type: 2}
   - {fileID: 11400000, guid: f1b3174f673fb1a4b91613d5d1414674, type: 2}
   - {fileID: 11400000, guid: 3961fbaed97e0aa4ea6fed7535dadd51, type: 2}
   - {fileID: 11400000, guid: 5aa96cb87718dbb42b53feddbbdae7b1, type: 2}
   - {fileID: 11400000, guid: 05757c7f0a957e24f902c060c93f1a06, type: 2}
+  - {fileID: 11400000, guid: bc668329a2d90574a91d7f07ac9991c9, type: 2}
+  - {fileID: 11400000, guid: 4780209016f8aa349864b33bf7198c79, type: 2}
+  - {fileID: 11400000, guid: 4780209016f8aa349864b33bf7198c79, type: 2}
+  - {fileID: 11400000, guid: 0d45495b4c12acc4d9c2daf155b71534, type: 2}
   _flipSprite: 1
   _spawnPosition: {x: -0.9, y: 0.533, z: 0}
   _spawnRotation: 0
   _weaponSounds:
   - {fileID: 8300000, guid: 307ccd91c05d4ea4abb03bf8099fa3c3, type: 3}
   - {fileID: 8300000, guid: 9a2ca58f29ba35f448ab633a27613e31, type: 3}
-  _pointCameraOnAttack: 1
-  _attackCooldown: 0.8
-  _pullForce: 2
-  _pullDuration: 0.3
-  _attackRange: 2
-  _attackSpeed: 0.75
+  _pointCameraOnAttack: 0
+  _attackCooldown: 1.1
+  _pullForce: 1.3
+  _pullDuration: 0.35
+  _attackRange: 2.1
+  _attackSpeed: 0.7
   _rangeOffset: {x: 0.31, y: 0.12}
-  _attackDamage: 20
-  _criticalChance: 15
+  _attackDamage: 21
+  _criticalChance: 10
   _criticalDamageMultiplier: 2
-  _damageDelay: 0.15
-  _knockbackForce: 2.2
+  _damageDelay: 0.1
+  _knockbackForce: 2.73
   _weaponSlashPrefab: {fileID: 3849386732562224976, guid: fc43b93d849be6c4b83d4696ed635697, type: 3}
   _slashOffset: {x: 0.2, y: 0.2, z: 0}
