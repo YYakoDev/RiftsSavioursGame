@@ -33,7 +33,6 @@ public class PlayerManager : MonoBehaviour
     public static SOCharacterData SelectedChara => SelectedCharacter;
 
     private void Awake() {
-        onCharacterChange = null;
         onCharacterChange += InitializeCharacterData;
     }
 

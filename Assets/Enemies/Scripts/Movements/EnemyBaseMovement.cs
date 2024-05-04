@@ -122,7 +122,7 @@ public class EnemyBaseMovement
         _movementStopTimer.Start();
         _enemy.Animation?.ChangeAnimatorSpeed(0.5f, realDuration + 0.1f);
         _elapsedTime = _accelerationTime / 2f + _accelerationTime * _enemy.Stats.StunResistance / 100f;
-        Iddle(); // <--- hit animation instead of iddle
+        //Iddle(); // <--- hit animation instead of iddle
     }
     public void StopStun(float time)
     {

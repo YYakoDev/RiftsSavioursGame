@@ -9,8 +9,20 @@ public class CharacterIconSetup : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        PlayerManager.onCharacterChange += UpdateIcon;
+        UpdateIcon();
+    }
+
+    void UpdateIcon()
+    {
         if(PlayerManager.SelectedChara != null)
+        {
             _icon.sprite = PlayerManager.SelectedChara.Sprite;
+        }
+    }
+
+    private void OnDestroy() {
+        PlayerManager.onCharacterChange -= UpdateIcon;
     }
 
     

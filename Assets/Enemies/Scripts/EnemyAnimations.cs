@@ -40,6 +40,7 @@ public class EnemyAnimations : MonoBehaviour
     
     public void PlayIddle() => PlayStated(Iddle);
     
+    public void PlayHit() => PlayStated(Hit);
     public void PlayAttack() => PlayStated(Attack);
     
     public void PlayDeath(float animDuration) => PlayStated(Death, animDuration);

@@ -36,7 +36,6 @@ public class MainHubCharacterSelector : ScrollSelectionUI<SOCharacterData>
         void SetFadeInDuration(float duration)
         {
             _roomFadeInTimer = new(duration);
-            Debug.Log(duration);
             _roomFadeInTimer.Stop();
             _roomFadeInTimer.onEnd += PlayBackgroundExitAnimation;
             YYExtensions.i.GetAnimatorStateLength(_roomBGAnimator, "Exit", SetRoomExitAnimDuration);

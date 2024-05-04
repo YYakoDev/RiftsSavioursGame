@@ -2582,7 +2582,7 @@ RectTransform:
   m_GameObject: {fileID: 174755577}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 708921183}
@@ -2606,12 +2606,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 5
+    m_Left: 10
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 0
-  m_Spacing: 0
+  m_Spacing: 5
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
@@ -8498,6 +8498,7 @@ GameObject:
   m_Component:
   - component: {fileID: 708921183}
   - component: {fileID: 708921184}
+  - component: {fileID: 708921185}
   m_Layer: 0
   m_Name: Skills
   m_TagString: Untagged
@@ -8541,6 +8542,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _uiItemPrefab: {fileID: 488258776, guid: f76babc66a741c446bdb72d14cbf7668, type: 3}
   _skillsParent: {fileID: 174755578}
+--- !u!114 &708921185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 708921182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52504f23263394c448802b9d148ae692, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _uiSkillsManager: {fileID: 708921184}
+  _weaponManager: {fileID: 1242311250}
+  _movementScript: {fileID: 2123491963}
+  _dashUIIcon: {fileID: 21300000, guid: b923cca46962aac439b117375fd775e5, type: 3}
+  _atkUIIcon: {fileID: 21300000, guid: 1a96fed1bc30238478ed913f08a46976, type: 3}
 --- !u!1 &725775662 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5179656762327452856, guid: 3203d52f4f1b45941bc4b290bda2c71f, type: 3}
@@ -12950,7 +12968,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1078082938
 RectTransform:
   m_ObjectHideFlags: 0
@@ -15270,8 +15288,6 @@ MonoBehaviour:
   _enemyLayer:
     serializedVersion: 2
     m_Bits: 1088
-  _uiSkillsManager: {fileID: 708921184}
-  _uiAtkIcon: {fileID: 21300000, guid: 1a96fed1bc30238478ed913f08a46976, type: 3}
 --- !u!82 &1242311251
 AudioSource:
   m_ObjectHideFlags: 0
@@ -32889,7 +32905,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -10, y: -10}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -44247,8 +44263,6 @@ MonoBehaviour:
   _dustEffect: {fileID: 2134075648}
   _dashParticleEffect: {fileID: 5707563145638378319}
   _healthManager: {fileID: 2123491973}
-  _uiSkillsManager: {fileID: 708921184}
-  _dashUIIcon: {fileID: 21300000, guid: b923cca46962aac439b117375fd775e5, type: 3}
   _dashDuration: 0.18
   _dashForce: 1
   _dashFXPrefab: {fileID: 8879541030788343918, guid: ed6016f0c89a4ae44b65b0e19425336e, type: 3}

@@ -72,7 +72,8 @@ public class MainHubGameStarter : MonoBehaviour, IInteractable
             var percent = elapsedTime / _sequenceRealDuration;
             var position = Vector3.Lerp(_startingPlayerPosition, _playerStandPoint.position, percent);
             _playerObj.position = position;
-            _playerManager.AnimController.PlayStated(PlayerAnimationsNames.Run, _playerSequenceDuration);
+            _playerManager.AnimController.PlayStated(PlayerAnimationsNames.Run);
+            _playerManager.MovementScript.CheckForFlip(-position.x);
         }
     }
 
@@ -95,10 +96,13 @@ public class MainHubGameStarter : MonoBehaviour, IInteractable
         _cameraScript.enabled = false;
         var distance = Vector3.Distance(transform.position, _playerObj.position);
         _sequenceRealDuration = _playerSequenceDuration * Mathf.Clamp01(Mathf.Clamp01(distance) * 2);
+        _playerManager.MovementScript.enabled = false;
+        _playerManager.AnimController.PlayStated(PlayerAnimationsNames.Run, _sequenceRealDuration);
     }
 
     void EndPlayerSequence()
     {
+        _playerManager.MovementScript.enabled = true;
         _playerManager.AnimController.PlayStated(PlayerAnimationsNames.Iddle);
         _playerManager.RigidBody.simulated = true;
         _playerSequenceIsRunning = false;
