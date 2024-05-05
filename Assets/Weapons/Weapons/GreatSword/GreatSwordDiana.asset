@@ -35,8 +35,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 9a2ca58f29ba35f448ab633a27613e31, type: 3}
   _pointCameraOnAttack: 0
   _attackCooldown: 1.1
-  _pullForce: 1.3
-  _pullDuration: 0.35
+  _pullForce: 1.4
+  _pullDuration: 0.3254
   _attackRange: 2.1
   _attackSpeed: 0.7
   _rangeOffset: {x: 0.31, y: 0.12}

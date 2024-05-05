@@ -155,7 +155,6 @@ public class PlayerMovement : MonoBehaviour, IKnockback
     {
         if(_dashOnCooldown) return;
         if(_movement == Vector2.zero) return;
-        _knockbackEnabled = false;
         _dashOnCooldown = true;
         _dashCooldownTimer.Start();
         _isDashing = true;

@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: WeakCamShake
   m_EditorClassIdentifier: 
   _strength: 2
-  _duration: 0.011
+  _duration: 0.035

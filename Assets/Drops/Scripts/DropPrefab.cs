@@ -26,11 +26,12 @@ public class DropPrefab : MonoBehaviour
         thisGO.CheckComponent<SpriteRenderer>(ref _renderer);
         thisGO.CheckComponent<Light2D>(ref _light);
         _timer = new(0.3f);
+        _timer.Stop();
+        _timer.onStart += MoveFromTarget;
+        _timer.onEnd += MoveToTarget;
     }
 
     private void OnEnable() {
-        _timer.onStart += MoveFromTarget;
-        _timer.onEnd += MoveToTarget;
         _pickedUp = false;
     }
 
@@ -39,6 +40,7 @@ public class DropPrefab : MonoBehaviour
         _drop = drop;
         _renderer.sprite = _drop.Sprite;
         _light.intensity = _drop.LightIntensity;
+        _timer.Start();
         //_animator.runtimeAnimatorController = _drop.AnimatorOverride;
     }
 
@@ -76,15 +78,12 @@ public class DropPrefab : MonoBehaviour
     
     void MoveToTarget()
     {
-        _timer.Stop();
         _moveToTarget = true;
     }
 
     void MoveFromTarget()
     {
         _moveToTarget = false;
-        _timer.Start();
-        Debug.Log("Moving from target");
     }
 
 
@@ -101,7 +100,7 @@ public class DropPrefab : MonoBehaviour
         _pickUpsController.PlayAudioClip(GetPickUpSound());
 
         _drop.OnPickUp(_pickUpsController);
-        Destroy(gameObject,0.1f);
+        gameObject.SetActive(false);
     }
 
     AudioClip GetPickUpSound()
@@ -111,7 +110,8 @@ public class DropPrefab : MonoBehaviour
         else return pickupSounds[Random.Range(0, pickupSounds.Length)];
     }
 
-    private void OnDisable() {
+    private void OnDestroy() 
+    {
         _timer.onStart -= MoveFromTarget;
         _timer.onEnd -= MoveToTarget;
     }

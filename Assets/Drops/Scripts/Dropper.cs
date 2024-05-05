@@ -13,7 +13,7 @@ public class Dropper : MonoBehaviour
 
     private void Awake() {
         if(_dropPrefab == null) _dropPrefab = Resources.Load<DropPrefab>("DropPrefab/DropPrefab");
-        if(DropsPool == null) DropsPool = new(100, _dropPrefab.gameObject, null, true);
+        if(DropsPool == null) DropsPool = new(250, _dropPrefab.gameObject, null, true);
     }
 
     public void AddDrop(Drop drop)

@@ -27,21 +27,12 @@ public class CameraShake : MonoBehaviour
         Vector3 previousDir = _cameraTransform.localPosition;
         for (int i = 0; i < maxIterations; i++)
         {
-            var randomSign = Mathf.Sign(Random.Range(-1, 3));
-            var realStrength = ((strength - (float)(i / 3.2f)));
-            realStrength = Mathf.Clamp(realStrength, -strength/2f, strength);
-            var dir = GetNewDirection(0.5f + realStrength * randomSign);
-            var durationOffset = Random.Range(-0.002f, 0.0055f);
-            var realDuration = (duration - durationOffset) / (float)maxIterations;
+            var randomSign = Mathf.Sign(Random.Range(-1, 2));
+            var dir = GetNewDirection(2f + strength * randomSign);
+            var realDuration = (duration) / (float)maxIterations;
             _animator.TweenTransformMoveTo(_cameraTransform, previousDir, dir, realDuration, CurveTypes.EaseInOut);
             previousDir = dir;
         }
-    }
-
-    public static void StopShake()
-    {
-        _animator.Clear();
-        _loops = 0;
     }
 
     static Vector3 GetNewDirection(float strength)

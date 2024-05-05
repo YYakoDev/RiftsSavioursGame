@@ -65,7 +65,7 @@ public class LevelStarter : MonoBehaviour
         _chunks.position = _chunksStartPos;
         float buttonSfxDuration = _buttonSfx.length;
         float gearSfxDuration = _gearsSfx.length;
-        CameraShake.StopShake();
+        //CameraShake.StopShake();
         _buttonFX.Play();
         _audio.PlayWithVaryingPitch(_buttonSfx);
         yield return new WaitForSeconds(buttonSfxDuration + 0.2f);
