@@ -35,8 +35,12 @@ public class YYInputManager : MonoBehaviour
 
         foreach (var key in _keys)
         {
-            if (Input.GetKeyDown(key.PrimaryKey) || Input.GetKeyDown(key.SecondayKey)) key.KeyPressed();
-            if (Input.GetKey(key.PrimaryKey) || Input.GetKey(key.SecondayKey)) key.KeyHolded();
+            if (Input.GetKeyDown(key.PrimaryKey) || Input.GetKeyDown(key.SecondaryKey) || Input.GetKeyDown(key.ControllerKey))
+            {
+                Debug.Log(key.GetInputKeyName());
+                key.KeyPressed();
+            }
+            if (Input.GetKey(key.PrimaryKey) || Input.GetKey(key.SecondaryKey) || Input.GetKey(key.ControllerKey)) key.KeyHolded();
         }
 
         //movement
