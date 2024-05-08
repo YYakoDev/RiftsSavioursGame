@@ -33,7 +33,6 @@ public class ComboAttackStat
 
     void SetFXArray()
     {
-
         if(WeaponFxs == null) return;
         Array.Resize<WeaponEffects>(ref UsedEffects, WeaponFxs.Length);
         for (int i = 0; i < UsedEffects.Length; i++)
@@ -41,5 +40,13 @@ public class ComboAttackStat
             var baseFx = WeaponFxs[i];
             UsedEffects[i] = GameObject.Instantiate(baseFx);
         }
+    }
+
+    public void AddFX(WeaponEffects fx)
+    {
+        if(WeaponFxs == null) return;
+        var currentLength = UsedEffects.Length;
+        Array.Resize<WeaponEffects>(ref UsedEffects, currentLength + 1);
+        UsedEffects[currentLength] = GameObject.Instantiate(fx);
     }
 }

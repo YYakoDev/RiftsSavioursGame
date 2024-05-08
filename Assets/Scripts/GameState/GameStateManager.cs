@@ -14,14 +14,14 @@ public class GameStateManager : MonoBehaviour
     float _currentRiftTime;
     public static event Action onRiftTimerEnd;
     [SerializeField]World _currentWorld;
-    [SerializeField] UpgradesMenu _upgradesMenu;
+    //[SerializeField] UpgradesMenu _upgradesMenu;
 
 
     public static event Action<GameStateBase> OnStateSwitch;
 
     public float CurrentRiftTime => _currentRiftTime;
     public World CurrentWorld => _currentWorld;
-    public UpgradesMenu UpgradesMenu => _upgradesMenu;
+    //public UpgradesMenu UpgradesMenu => _upgradesMenu;
     public ConvergenceState ConvergenceState => _convergenceState;
     public CraftState CraftState => _craftState;
     public RestState RestState => _restState;

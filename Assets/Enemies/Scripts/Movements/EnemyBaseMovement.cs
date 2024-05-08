@@ -25,7 +25,11 @@ public class EnemyBaseMovement
     private Knockbackeable _knockbackLogic;
     bool knockbackEnabled;
     public Knockbackeable KnockbackLogic => _knockbackLogic;
-
+    public bool StopMovement
+    {
+        get => _stopMovement;
+        set => _stopMovement = value;
+    }
 
     //properties
 
@@ -74,8 +78,8 @@ public class EnemyBaseMovement
     }
     public void PhysicsLogic()
     {
-        if(!Enabled) return;
         if(knockbackEnabled) _knockbackLogic.ApplyKnockback();
+        if(!Enabled) return;
         
     }
 

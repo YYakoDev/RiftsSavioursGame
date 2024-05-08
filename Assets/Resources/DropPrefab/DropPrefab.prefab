@@ -121,8 +121,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9e61477e3c8744b989de581d95fc95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _trail: {fileID: 1547347327800143018}
   _pickupVelocity: 4.5
-  _pickupSoundDefault: {fileID: 8300000, guid: 870ab905baf493440995062d982b7176, type: 3}
+  _pickupSoundDefault: {fileID: 8300000, guid: d80cf89b22fa784469bdfbd237b1fc38, type: 3}
 --- !u!61 &8498780903729252531
 BoxCollider2D:
   m_ObjectHideFlags: 0

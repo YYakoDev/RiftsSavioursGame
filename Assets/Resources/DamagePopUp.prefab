@@ -60,7 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e5fb12af2ee426d44932c25c88f38d56, type: 2}
+  - {fileID: 2100000, guid: d50419b2bfb25134695c2899a034da7b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -80,7 +80,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1970156397
   m_SortingLayer: 2
-  m_SortingOrder: 20
+  m_SortingOrder: 50
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &5824344564629237349
 MonoBehaviour:
@@ -105,7 +105,7 @@ MonoBehaviour:
   m_text: 123
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: bd347cddfd15a0c47897e55326bbf1c0, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: e5fb12af2ee426d44932c25c88f38d56, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: d50419b2bfb25134695c2899a034da7b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -129,8 +129,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
-  m_fontSizeBase: 30
+  m_fontSize: 25
+  m_fontSizeBase: 25
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -165,7 +165,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -6, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   _SortingLayer: 0

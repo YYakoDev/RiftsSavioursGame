@@ -16,10 +16,9 @@ MonoBehaviour:
   _description: 
   _SpriteAndAnimationsData: {fileID: 11400000, guid: 369b2746af64f374baeb0b8a1f243cfa, type: 2}
   _effects:
-  - {fileID: 11400000, guid: 23196116de9b69d47a045c9e6a9b7e11, type: 2}
-  - {fileID: 11400000, guid: 4780209016f8aa349864b33bf7198c79, type: 2}
-  - {fileID: 11400000, guid: 7e4ed06a1b3572e41b715a285fbae5a3, type: 2}
-  - {fileID: 11400000, guid: a46798bb6b4605f46a88a7cb00606fc1, type: 2}
+  - {fileID: 11400000, guid: df7c73a62b7d8ea4da3c4d678c5b278b, type: 2}
+  - {fileID: 11400000, guid: 0f1731e4c0912a34eabf484ba539aa9c, type: 2}
+  - {fileID: 11400000, guid: 0429586a3501b674d98e9c4fcf8476e7, type: 2}
   _flipSprite: 1
   _spawnPosition: {x: -0.55, y: 0.25, z: 0}
   _spawnRotation: 0
@@ -27,7 +26,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: bc1c86abc18a4824c8de230090611919, type: 3}
   - {fileID: 8300000, guid: b84216003718d5943b73059e3b336319, type: 3}
   - {fileID: 8300000, guid: ea652bf6f93bd6d418c9ca0f92dace0f, type: 3}
-  _pointCameraOnAttack: 1
+  _pointCameraOnAttack: 0
   _attackCooldown: 0.55
   _pullForce: 0.4
   _pullDuration: 0.1
@@ -61,6 +60,9 @@ MonoBehaviour:
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
   - Cooldown: 0
     Range: 1
     KnockbackForce: 1
@@ -86,6 +88,9 @@ MonoBehaviour:
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
   - Cooldown: 0
     Range: 1
     KnockbackForce: 2
@@ -100,6 +105,9 @@ MonoBehaviour:
     - {fileID: 11400000, guid: c9c1e59da1cfa0d438f4301a1069edcd, type: 2}
     - {fileID: 11400000, guid: 3961fbaed97e0aa4ea6fed7535dadd51, type: 2}
     UsedEffects:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}

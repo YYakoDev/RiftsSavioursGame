@@ -384,10 +384,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86e5ecb0126ed5e4f8161a9c2bda3cc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _itemsParent: {fileID: 0}
   _upgradeName: {fileID: 7124196233482758408}
-  _upgradeDescription: {fileID: 7124196234143250568}
+  _descriptionsParent: {fileID: 0}
+  _upgradeDescriptionPrefab: {fileID: 0}
   _upgradeIcon: {fileID: 7124196234185394332}
   _craftUpgradeButton: {fileID: 4210299322647683725}
+  _btnText: {fileID: 0}
   _costsContainer: {fileID: 7124196234004757872}
   _recipeItemPrefab: {fileID: 5382520300804255403, guid: a3c0ea0eab3265946aafdb3a4ba46f55, type: 3}
 --- !u!114 &4210299322647683725

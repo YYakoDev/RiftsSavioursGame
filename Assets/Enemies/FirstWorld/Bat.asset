@@ -15,11 +15,11 @@ MonoBehaviour:
   _sprite: {fileID: 21300000, guid: 92ceb11285f955e43bdbe0c6bb9f2667, type: 3}
   _animator: {fileID: 22100000, guid: 232a1b648de46764ea7b21c5df00d5ac, type: 2}
   _stats:
-    _speed: 2.3
-    _stunDuration: 0.25
+    _speed: 2.67
+    _stunDuration: 0.1
     _stunResistance: 0
     _knockbackResistance: 0
-    _maxHealth: 6
+    _maxHealth: 12
     _damage: 1
     _knockbackForce: 0.48
   _drops:
@@ -28,9 +28,9 @@ MonoBehaviour:
   _boxColliderSize: {x: 0.65, y: 0.2}
   _isCircleTrigger: 1
   _circleColliderOffset: {x: 0, y: 0}
-  _circleColliderRadius: 0.21
+  _circleColliderRadius: 0.15
   _enableEnemyDetector: 1
-  _enemyDetectionRadius: 0.35
+  _enemyDetectionRadius: 0.4
   _movementBehaviour: {fileID: 11400000, guid: 9e8c1beda22808f4386f411a5f542f0c, type: 2}
   _attackBehaviour: {fileID: 11400000, guid: fa81f5ed01e62f145b9699053d248833, type: 2}
   _deathBehaviour: {fileID: 0}
@@ -42,4 +42,5 @@ MonoBehaviour:
   _onHitSFXs:
   - {fileID: 8300000, guid: 76cb6a8f605a794469f39d294b726f93, type: 3}
   _attackSFXs: []
-  _deathSFXs: []
+  _deathSFXs:
+  - {fileID: 8300000, guid: ddc9d2b60ca7ef645b4f7821d76a5af9, type: 3}

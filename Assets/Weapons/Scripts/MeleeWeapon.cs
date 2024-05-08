@@ -34,6 +34,9 @@ public class MeleeWeapon : WeaponBase
     public virtual float GetPullForce() => _pullForce;
     public virtual float GetPullDuration() => _pullDuration;
     public override float GetWeaponCooldown() => _modifiedStats._cooldown;
+    public virtual float GetAtkSpeed() => _modifiedStats._atkSpeed;
+    public Animator Animator => _weaponAnimator;
+
     public override void Initialize(WeaponManager weaponManager, Transform prefabTransform)
     {
         base.Initialize(weaponManager, prefabTransform);

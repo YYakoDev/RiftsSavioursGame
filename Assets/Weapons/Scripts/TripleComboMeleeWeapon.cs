@@ -32,9 +32,11 @@ public class TripleComboMeleeWeapon : MeleeWeapon
     public override float GetPullForce() => _modifiedStats.PullForce;
     public override float GetPullDuration()
     {
-        return base.GetPullDuration();
+        return _modifiedStats.PullDuration;
     }
     public override float GetWeaponCooldown() => _modifiedStats.Cooldown;
+    public override float GetAtkSpeed() => _modifiedStats.AtkSpeed;
+    
 
     public override void Initialize(WeaponManager weaponManager, Transform prefabTransform)
     {
@@ -70,7 +72,12 @@ public class TripleComboMeleeWeapon : MeleeWeapon
         foreach(ComboAttackStat comboAtk in _comboStats)
         {
             comboAtk?.Initialize();
+            foreach(WeaponEffects originalFx in WeaponEffects)
+            {
+                comboAtk.AddFX(originalFx);
+            }
             foreach(WeaponEffects fx in comboAtk.UsedEffects) fx?.Initialize(this);
+            
         }
     }
     protected override void SubscribeInput() => _attackKey.OnKeyHold += TryAttack;

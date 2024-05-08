@@ -11,7 +11,6 @@ public class PlayerInputUI : MonoBehaviour
     [SerializeField] Sprite _dashUIIcon, _atkUIIcon;
     UISkill _dashSkill, _attackSkill;
     WeaponBase _currentWeapon;
-    event Action _onDash, _onAttack;
 
 
     private void Awake() {

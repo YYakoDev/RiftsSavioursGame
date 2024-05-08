@@ -25,7 +25,7 @@ public class PlayerMovement : MonoBehaviour, IKnockback
     bool _isDashing, _dashOnCooldown, _dashLogicInitialized;
     Vector2 _dashDirection;
     [SerializeField] float _dashDuration = 0.1f, _dashForce = 1f;
-    float _dashCooldown, _nextDashTime = 0f;
+    float _dashCooldown;
     Timer _dashDurationTimer, _dashCooldownTimer;
     [SerializeField] DashFXPrefab _dashFXPrefab;
     DashFXPrefab _dashFXInstance;
@@ -160,7 +160,7 @@ public class PlayerMovement : MonoBehaviour, IKnockback
         _isDashing = true;
         _dashDirection = _movement.normalized * _dashForce;
         _dashDurationTimer.Start();
-        _healthManager.SetInvulnerabilityTime(_player.Stats.DashInvulnerabilityTime);
+        
         _dashParticleEffect.Play();
         onDash?.Invoke();
         var rot = _dashFXTransform.rotation.eulerAngles;

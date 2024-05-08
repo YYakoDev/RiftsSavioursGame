@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = MenuPath + "MeleeWeaponFx")]
 public class SOMeleeWeaponEffect : WeaponEffects
 {
     protected MeleeWeapon _meleeWeapon;

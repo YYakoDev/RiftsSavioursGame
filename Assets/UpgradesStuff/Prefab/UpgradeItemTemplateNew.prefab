@@ -792,7 +792,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: CRAFT
+  m_text: 'CRAFT '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: bd347cddfd15a0c47897e55326bbf1c0, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: f1444e08c85afe0418b519ac07164e06, type: 2}
@@ -825,7 +825,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 12
   m_fontSizeMax: 40
-  m_fontStyle: 1
+  m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -1074,6 +1074,10 @@ PrefabInstance:
     - target: {fileID: 463176325238634056, guid: 07017ffb236c17d4e8df8df1f544b4bb, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 463176325238634058, guid: 07017ffb236c17d4e8df8df1f544b4bb, type: 3}
+      propertyPath: m_fontSize
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: 463176325238634059, guid: 07017ffb236c17d4e8df8df1f544b4bb, type: 3}
       propertyPath: m_Pivot.x

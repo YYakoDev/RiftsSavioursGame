@@ -72,12 +72,16 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable, ITargetPositionPro
 
     public void Die()
     {
+        _blinkFX.Stop();
+        _brain.MovementLogic.KnockbackLogic.SetKnockbackData(_player, 1.5f, ignoreResistance: true);
         StartCoroutine(DeactivateObject());
         _brain.PlaySound(_brain.GetOnDeathSfx());
         _brain.Animation.PlayDeath(_deathDuration);
         _dropper.Drop();
         _deathBehaviour?.Action();
         onDeath?.Invoke();
+
+
     }
 
     IEnumerator DeactivateObject()

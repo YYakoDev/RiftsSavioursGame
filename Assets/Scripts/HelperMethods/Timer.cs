@@ -42,7 +42,7 @@ public class Timer
         _countdownTime = newTime;
     }
 
-    public void Restart()
+    void Restart()
     {
         _timeRemaining = _countdownTime;
         _timerStopped = false;

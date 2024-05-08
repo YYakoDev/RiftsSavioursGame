@@ -20,7 +20,7 @@ public class CameraShake : MonoBehaviour
         _cameraTransform = _camera.transform;
         _initialPos = _cameraTransform.localPosition;
     }
-    public static void Shake(float strength, float duration = 0.012f)
+    public static void Shake(float strength, float duration = 0.021f)
     {
         if(_animator.AnimationsQueued > 3) _animator.Clear();
         int maxIterations = 6 + (int)(30f * duration);
@@ -28,7 +28,7 @@ public class CameraShake : MonoBehaviour
         for (int i = 0; i < maxIterations; i++)
         {
             var randomSign = Mathf.Sign(Random.Range(-1, 2));
-            var dir = GetNewDirection(2f + strength * randomSign);
+            var dir = GetNewDirection(1.5f + strength * randomSign);
             var realDuration = (duration) / (float)maxIterations;
             _animator.TweenTransformMoveTo(_cameraTransform, previousDir, dir, realDuration, CurveTypes.EaseInOut);
             previousDir = dir;

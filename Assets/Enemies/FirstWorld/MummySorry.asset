@@ -19,7 +19,7 @@ MonoBehaviour:
     _stunDuration: 0.3
     _stunResistance: 35
     _knockbackResistance: 67
-    _maxHealth: 56
+    _maxHealth: 100
     _damage: 3
     _knockbackForce: 1.1
   _drops:
@@ -43,4 +43,5 @@ MonoBehaviour:
   _onHitSFXs:
   - {fileID: 8300000, guid: 3fe221a89eb88674985f8b33737e4415, type: 3}
   _attackSFXs: []
-  _deathSFXs: []
+  _deathSFXs:
+  - {fileID: 8300000, guid: ddc9d2b60ca7ef645b4f7821d76a5af9, type: 3}

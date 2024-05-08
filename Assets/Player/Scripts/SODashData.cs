@@ -11,6 +11,7 @@ public class SODashData : ScriptableObject
     private AudioSource _audio;
     [SerializeField] AnimatorOverrideController _dashAnimation;
     [SerializeField] float _motionBlur = 0.4f, _cameraShake = 0.4f;
+    [SerializeField] bool _invulnerability = true;
     [SerializeField] AudioClip _dashSFX;
 
     //properties
@@ -29,8 +30,9 @@ public class SODashData : ScriptableObject
         if(!_initialized) return;
         _healthManager.BlinkFX.Play();
         PostProcessingManager.SetMotionBlur(_motionBlur);
-        CameraShake.Shake(_cameraShake * _player.MovementScript.DashForce);
+        CameraShake.Shake(2f * _cameraShake);
         _audio.PlayOneShot(_dashSFX);
+        if(_invulnerability)_healthManager.SetInvulnerabilityTime(_player.Stats.DashInvulnerabilityTime + _player.MovementScript.DashDuration);
     }
 
     public virtual void StopFX()

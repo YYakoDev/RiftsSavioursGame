@@ -11,6 +11,7 @@ public class DropPrefab : MonoBehaviour
     Light2D _light;
     Drop _drop;
     Transform _target;
+    [SerializeField]TrailRenderer _trail;
     [SerializeField]float _pickupVelocity;
     Timer _timer;
     bool _moveToTarget = false;
@@ -33,6 +34,7 @@ public class DropPrefab : MonoBehaviour
 
     private void OnEnable() {
         _pickedUp = false;
+        _trail.emitting = false;
     }
 
     public void Initialize(Drop drop)
@@ -90,6 +92,7 @@ public class DropPrefab : MonoBehaviour
     public void PickUp(PickUpsController pickUpsController)
     {
         if(_target != null)return;
+        _trail.emitting = true;
         _pickUpsController = pickUpsController;
         _target = _pickUpsController.transform;
     }
@@ -108,6 +111,10 @@ public class DropPrefab : MonoBehaviour
         var pickupSounds = _drop.PickUpSounds;
         if(pickupSounds == null || pickupSounds.Length == 0) return _pickupSoundDefault;
         else return pickupSounds[Random.Range(0, pickupSounds.Length)];
+    }
+
+    private void OnDisable() {
+        _target = null;
     }
 
     private void OnDestroy() 

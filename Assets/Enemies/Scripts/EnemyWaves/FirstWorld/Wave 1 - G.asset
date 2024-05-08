@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemies:
   - {fileID: 11400000, guid: b2167253e5ddd7e4596e4b65a08a36c0, type: 2}
-  _enemySpawnCooldown: 0.7
-  _enemiesToSpawn: 5
-  _waveDuration: 15
+  _enemySpawnCooldown: 0.72
+  _enemiesToSpawn: 2
+  _waveDuration: 10
   _changeStatsOvertime: 1

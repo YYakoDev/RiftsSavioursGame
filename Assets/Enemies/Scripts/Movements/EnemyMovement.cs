@@ -30,8 +30,8 @@ public class EnemyMovement : MonoBehaviour, IKnockback
         _behaviour?.UpdateLogic();
     }
     private void FixedUpdate() {
-        if(!_movementClass.Enabled) return;
         _movementClass.PhysicsLogic();
+        if(!_movementClass.Enabled) return;
         _behaviour?.PhysicsLogic();
         Movement();
     }

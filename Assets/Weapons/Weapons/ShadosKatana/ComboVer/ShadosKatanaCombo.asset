@@ -16,7 +16,9 @@ MonoBehaviour:
   _description: 
   _SpriteAndAnimationsData: {fileID: 11400000, guid: fe301fefb53f91646b28abcd3bed37b4, type: 2}
   _effects:
-  - {fileID: 11400000, guid: bf170d0cc8dd04f4385e4c94cb11c250, type: 2}
+  - {fileID: 11400000, guid: fe2de886b8d5def4b8e07f40cecb93f2, type: 2}
+  - {fileID: 11400000, guid: df7c73a62b7d8ea4da3c4d678c5b278b, type: 2}
+  - {fileID: 11400000, guid: 0429586a3501b674d98e9c4fcf8476e7, type: 2}
   _flipSprite: 1
   _spawnPosition: {x: -0.55, y: 0.25, z: 0}
   _spawnRotation: 0
@@ -60,6 +62,7 @@ MonoBehaviour:
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
+    - {fileID: 0}
   - Cooldown: 0
     Range: 0.25
     KnockbackForce: 0.5
@@ -81,6 +84,7 @@ MonoBehaviour:
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
+    - {fileID: 0}
   - Cooldown: 0
     Range: 0.2
     KnockbackForce: 0.5
@@ -97,6 +101,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: c9c1e59da1cfa0d438f4301a1069edcd, type: 2}
     - {fileID: 11400000, guid: 0f1731e4c0912a34eabf484ba539aa9c, type: 2}
     UsedEffects:
+    - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}

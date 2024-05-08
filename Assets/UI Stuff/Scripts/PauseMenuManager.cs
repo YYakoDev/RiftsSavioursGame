@@ -8,7 +8,7 @@ public class PauseMenuManager : MonoBehaviour
 {
     static bool _disablePauseBehaviour = false;
     [SerializeField] GameObject _pauseMenuParent, _confirmationObj, _continueButton;
-    [SerializeField] UpgradesMenu _upgradeMenu;
+    //[SerializeField] UpgradesMenu _upgradeMenu;
     bool _activeMenu = false;
     bool _goToMainMenu = false;
     float _previousTimeScale = 1f;
@@ -26,7 +26,7 @@ public class PauseMenuManager : MonoBehaviour
         _disablePauseBehaviour = false;
         _activeMenu = false;
         _confirmationObj.SetActive(false);
-        _upgradeMenu.OnMenuClose += ClosingCheck;
+        //_upgradeMenu.OnMenuClose += ClosingCheck;
         _eventSys = EventSystem.current;
     }
     
@@ -78,18 +78,5 @@ public class PauseMenuManager : MonoBehaviour
             _eventSys.SetSelectedGameObject(_previouslySelectedObj);
         }
         else YYInputManager.StopInput();
-    }
-
-    void ClosingCheck()
-    {
-        if(_activeMenu)
-        {
-            YYInputManager.StopInput();
-            Debug.Log("setting game to paused");
-            TimeScaleManager.ForceTimeScale(0f);
-        }
-    }
-    private void OnDestroy() {
-        _upgradeMenu.OnMenuClose -= ClosingCheck;
     }
 }

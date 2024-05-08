@@ -6,12 +6,13 @@ public class CraftState : GameStateBase
 {
     public CraftState(GameStateManager manager) : base(manager)
     {
-        _stateManager.UpgradesMenu.OnMenuClose += Transition;
+        //_stateManager.UpgradesMenu.OnMenuClose += Transition;
     }
 
     public override void Start()
     {
-        _stateManager.UpgradesMenu.DoLevelUpSequence();
+        Transition();
+        //_stateManager.UpgradesMenu.DoLevelUpSequence();
     }
     protected override void Transition()
     {
@@ -23,6 +24,6 @@ public class CraftState : GameStateBase
 
     ~CraftState()
     {
-        _stateManager.UpgradesMenu.OnMenuClose -= Transition;
+        //_stateManager.UpgradesMenu.OnMenuClose -= Transition;
     }
 }
