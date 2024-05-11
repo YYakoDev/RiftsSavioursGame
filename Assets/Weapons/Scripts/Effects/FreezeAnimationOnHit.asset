@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b41a755d0eba9ae4094b033ae47d24fa, type: 3}
   m_Name: FreezeAnimationOnHit
   m_EditorClassIdentifier: 
-  _freezeTime: 0.1
+  _freezeTime: 0.05

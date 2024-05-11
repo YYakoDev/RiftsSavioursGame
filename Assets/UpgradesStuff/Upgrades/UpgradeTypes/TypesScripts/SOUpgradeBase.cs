@@ -9,7 +9,7 @@ public class SOUpgradeBase : ScriptableObject
     protected UpgradeGroup _parent;
 
     [SerializeField]protected string _name;
-    [SerializeField, TextArea]protected string _description;
+    [SerializeField, HideInInspector]protected string _description;
     [SerializeField]protected Sprite _sprite;
     [SerializeField]protected UpgradeCost[] _costs;
     //[SerializeField]private CraftingMaterial[] _craftingMaterials;
@@ -30,6 +30,7 @@ public class SOUpgradeBase : ScriptableObject
     public virtual void SetGroup(UpgradeGroup group)
     {
         _parent = group;
+        SetDescription();
     }
 
     public virtual void ApplyEffect(PlayerUpgradesManager upgradesManager)
@@ -37,6 +38,9 @@ public class SOUpgradeBase : ScriptableObject
         _parent.AdvanceIndex();
     }
 
+    protected virtual void SetDescription()
+    {
+    }
     
 }
 

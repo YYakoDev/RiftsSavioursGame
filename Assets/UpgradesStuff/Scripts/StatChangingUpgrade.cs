@@ -9,11 +9,10 @@ public class StatChangingUpgrade : SOUpgradeBase
     [SerializeField] StatModificationValue[] _modifications = new StatModificationValue[0];
     public override void SetGroup(UpgradeGroup group)
     {
-        SetDescription();
         base.SetGroup(group);
     }
 
-    void SetDescription()
+    protected override void SetDescription()
     {
         for (int i = 0; i < _statsToModify.Length; i++)
         {

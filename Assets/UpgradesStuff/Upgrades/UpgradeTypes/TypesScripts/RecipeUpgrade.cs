@@ -12,6 +12,12 @@ public class RecipeUpgrade : SOUpgradeBase
         upgradesManager.AddMaterial(_material);
     }
 
+    protected override void SetDescription()
+    {
+        base.SetDescription();
+        _description = $"You will obtain 1 pieces of {_material.name}";
+    }
+
     private void OnValidate() {
         SetSprite();
     }

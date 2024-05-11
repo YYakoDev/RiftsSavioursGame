@@ -6,6 +6,10 @@ using UnityEngine;
 public class SOMultipleMatRecipeUpgrade : RecipeUpgrade
 {
     [SerializeField]int _amountToGive = 2;
+    protected override void SetDescription()
+    {
+        _description = $"You will obtain {_amountToGive} pieces of {_material.name} ";
+    }
     public override void ApplyEffect(PlayerUpgradesManager upgradesManager)
     {
         base.ApplyEffect(upgradesManager);
