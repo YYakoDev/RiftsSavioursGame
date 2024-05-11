@@ -45,7 +45,7 @@ public class LevelUpSequence : MonoBehaviour
         _animator = GetComponent<TweenAnimatorMultiple>();
         _animator.ChangeTimeScalingUsage(TweenAnimator.TimeUsage.UnscaledTime);
         _audioSource = GetComponent<AudioSource>();
-        PlayerLevelManager.onLevelUp += PlayerHasLeveledUp;
+        //PlayerLevelManager.onLevelUp += PlayerHasLeveledUp;
         if (_levelUpTxtAnimator == null) _levelUpTxtAnimator = _levelUpImg.GetComponent<Animator>();
 
         _flashTimer = new(_flashInterval, true, true);
@@ -171,7 +171,7 @@ public class LevelUpSequence : MonoBehaviour
     void PlayerHasLeveledUp() => _hasLeveledUp = true;
 
     private void OnDestroy() {
-        PlayerLevelManager.onLevelUp -= PlayerHasLeveledUp;
+        //PlayerLevelManager.onLevelUp -= PlayerHasLeveledUp;
         _flashTimer.onStart -= StartFlash;
         _flashTimer.onEnd -= StopFlash;
     }

@@ -66,7 +66,7 @@ public class UpgradesMenu : MonoBehaviour
             DeactivateUpgradeMenu();
             this.enabled = false;
         }
-        PlayerLevelManager.onLevelUp += AddMoreChoices;
+        //PlayerLevelManager.onLevelUp += AddMoreChoices;
         _selectedUpgrades = new SOUpgradeBase[selectionCount];
         CreateUpgradeItems();
         if(_activeMenuOnStart) PlayMenuAnimations();
@@ -229,7 +229,7 @@ public class UpgradesMenu : MonoBehaviour
 
     private void OnDestroy()
     {
-        PlayerLevelManager.onLevelUp -= AddMoreChoices;
+        //PlayerLevelManager.onLevelUp -= AddMoreChoices;
     }
 
 }

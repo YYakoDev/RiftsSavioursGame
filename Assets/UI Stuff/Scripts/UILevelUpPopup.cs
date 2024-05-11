@@ -29,7 +29,7 @@ public class UILevelUpPopup : MonoBehaviour
     private void Awake() {
         _animator = GetComponent<TweenAnimatorMultiple>();
         _animator.ChangeTimeScalingUsage(TweenAnimator.TimeUsage.UnscaledTime);
-        PlayerLevelManager.onLevelUp += Play;
+        //PlayerLevelManager.onLevelUp += Play;
     }
 
     private void Start() {
@@ -113,6 +113,6 @@ public class UILevelUpPopup : MonoBehaviour
     }
 
     private void OnDestroy() {
-        PlayerLevelManager.onLevelUp -= Play;
+        //PlayerLevelManager.onLevelUp -= Play;
     }
 }

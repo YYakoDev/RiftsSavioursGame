@@ -65,7 +65,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fae7a9714e4200843a22b8919982b4dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _duration: 0.15
+  _blinkMat: {fileID: 2100000, guid: 36d2269d3a189bc4486f13ff2e97f6bf, type: 2}
+  _duration: 0.12
   _spriteRenderer: {fileID: 150430008853761989}
 --- !u!82 &150430008300424823
 AudioSource:

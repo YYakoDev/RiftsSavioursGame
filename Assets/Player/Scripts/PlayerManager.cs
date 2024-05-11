@@ -56,7 +56,7 @@ public class PlayerManager : MonoBehaviour
     {
         if(SelectedCharacter != null) _charData = Instantiate(SelectedCharacter);
         if(_stats != null) _stats.Initialize(_charData);
-        _levelManager?.SetPlayerStats(_stats);
+        //_levelManager?.SetPlayerStats(_stats);
         _animatorController.ChangeAnimator(_charData.Animator);
         _inventory?.Initialize(_upgradesManager);
         _dashData = _charData.DashData;

@@ -5,6 +5,9 @@ public class KeyTest : MonoBehaviour
 {
     void OnGUI()
     {
-        if (Input.inputString != "") Debug.Log(Input.inputString);
+        System.Array values = System.Enum.GetValues(typeof(JoystickKeyCodes));
+        foreach(KeyCode code in values)
+	        if(Input.GetKeyDown(code))  print(System.Enum.GetName(typeof(KeyCode), code)); 	
+
     }
 }

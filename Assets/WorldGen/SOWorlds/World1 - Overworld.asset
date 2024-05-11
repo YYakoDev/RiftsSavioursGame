@@ -25,12 +25,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2ed687e839df8994daf353b1420acec4, type: 2}
   - {fileID: 11400000, guid: a1d4db9cb4ebc0748bb8bf3adb2a3439, type: 2}
   - {fileID: 11400000, guid: 51d47d8f29f1058428f8943f2a021f78, type: 2}
-  _enemyPrefabs:
-  - {fileID: 779268523137980044, guid: 4966e3a35d824ee44a9850012833ae7f, type: 3}
-  - {fileID: 7992409206138210505, guid: 17ccb786a8bca6f4584af54136d7f833, type: 3}
-  - {fileID: 779268523137980044, guid: 7d7bf4d16f609fe4bb21582ca6f23bde, type: 3}
-  - {fileID: 779268523137980044, guid: b7cfc66fc8f2a1b42bf018c1686a5f58, type: 3}
-  - {fileID: 779268523137980044, guid: f82fd7828c71afe4fb8befa5cd774117, type: 3}
   _chunks:
   - {fileID: 8802944811774838316, guid: 672779cfd9167ae4d86704cce8dc5562, type: 3}
   - {fileID: 8802944811774838316, guid: 20129998047db9f40975012e11bfe972, type: 3}
@@ -38,3 +32,6 @@ MonoBehaviour:
   - {fileID: 8802944811774838316, guid: d3e8f71d3ba2ef049ad5be05a87e2f1a, type: 3}
   - {fileID: 8802944811774838316, guid: 3419f9c5de913314dba9dfdd3a09dd4a, type: 3}
   - {fileID: 8802944811774838316, guid: e56aae2e7f1fde144be1c22c2904ba95, type: 3}
+  - {fileID: 8802944811774838316, guid: fc73c8f83d2ed17449d31922e6651c21, type: 3}
+  - {fileID: 8802944811774838316, guid: fc73c8f83d2ed17449d31922e6651c21, type: 3}
+  - {fileID: 8802944811774838316, guid: fc73c8f83d2ed17449d31922e6651c21, type: 3}

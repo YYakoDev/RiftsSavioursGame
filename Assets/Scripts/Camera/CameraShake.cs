@@ -16,7 +16,7 @@ public class CameraShake : MonoBehaviour
     private void Awake() {
         _camera = GetComponent<Camera>();
         _animator = GetComponent<TweenAnimator>();
-        _animator.ChangeTimeScalingUsage(TweenAnimator.TimeUsage.UnscaledTime);
+        _animator.ChangeTimeScalingUsage(TweenAnimator.TimeUsage.ScaledTime);
         _cameraTransform = _camera.transform;
         _initialPos = _cameraTransform.localPosition;
     }

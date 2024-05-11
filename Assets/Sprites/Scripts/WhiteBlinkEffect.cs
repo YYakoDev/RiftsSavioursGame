@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WhiteBlinkEffect : MonoBehaviour
 {
-    private static Material _blinkMat;
+    [SerializeField] Material _blinkMat;
     private Material _originalMat;
     [SerializeField]private float _duration = 0.15f;
     [SerializeField]private SpriteRenderer _spriteRenderer;

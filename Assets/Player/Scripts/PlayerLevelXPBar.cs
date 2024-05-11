@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-
+/*
 public class PlayerLevelXPBar : MonoBehaviour
 {
     [SerializeField]SOPlayerStats _playerStats;
@@ -55,3 +55,4 @@ public class PlayerLevelXPBar : MonoBehaviour
         _playerStats.onStatsChange -= UpdateXPBar;
     }
 }
+*/

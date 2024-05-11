@@ -43,4 +43,4 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 76cb6a8f605a794469f39d294b726f93, type: 3}
   _attackSFXs: []
   _deathSFXs:
-  - {fileID: 8300000, guid: ddc9d2b60ca7ef645b4f7821d76a5af9, type: 3}
+  - {fileID: 8300000, guid: 7cf6107587eebde4eb66a0c33c6318ec, type: 3}

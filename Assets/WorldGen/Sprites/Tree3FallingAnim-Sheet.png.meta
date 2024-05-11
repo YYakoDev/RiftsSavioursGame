@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d36fa7d1127026640a17826e82ea4e0b
+guid: 1da53e19e4fa40c41af0e5bf00fc1079
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -117,13 +117,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: TreeFalling_0
+      name: Tree3FallingAnim-Sheet_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 64
-        height: 32
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -131,20 +131,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 13e73fe6707633841b15d57d4dd80310
-      internalID: 1406007667
+      spriteID: c61883b3c0fe82b4e900c22409aeb214
+      internalID: 6965702
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TreeFalling_1
+      name: Tree3FallingAnim-Sheet_1
       rect:
         serializedVersion: 2
-        x: 64
+        x: 96
         y: 0
-        width: 64
-        height: 32
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -152,41 +152,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7704dd99b16a18543a9ad582a627ee4c
-      internalID: -425957699
+      spriteID: 9397786a532d7de42a8ff1951d24a554
+      internalID: 1747144155
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TreeFalling_2
-      rect:
-        serializedVersion: 2
-        x: 128
-        y: 0
-        width: 64
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5a8e18676255a1d4bb6a8849b9ba639d
-      internalID: -2101632453
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: TreeFalling_3
+      name: Tree3FallingAnim-Sheet_2
       rect:
         serializedVersion: 2
         x: 192
         y: 0
-        width: 64
-        height: 32
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -194,20 +173,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6176353b9a377144f88617954a47c9bb
-      internalID: 185850576
+      spriteID: a48d2aafb3b9a914f9c21d70fdc0f2f5
+      internalID: 821992365
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TreeFalling_4
+      name: Tree3FallingAnim-Sheet_3
       rect:
         serializedVersion: 2
-        x: 256
+        x: 288
         y: 0
-        width: 64
-        height: 32
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -215,41 +194,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 346eb5019f40eaa4d95c8888128374d8
-      internalID: -1915082754
+      spriteID: 030002c4dcb7c1943a6121e1ba5df0d0
+      internalID: -1120988711
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TreeFalling_5
-      rect:
-        serializedVersion: 2
-        x: 320
-        y: 0
-        width: 64
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e4353961c6711bd429bf6d1d1bd25603
-      internalID: -2078944783
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: TreeFalling_6
+      name: Tree3FallingAnim-Sheet_4
       rect:
         serializedVersion: 2
         x: 384
         y: 0
-        width: 64
-        height: 32
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -257,20 +215,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fdfcd8c46dad6a84fb1a3f5dc31e0c69
-      internalID: -146586022
+      spriteID: e0500af004497b4459daa5e6ba8ca0ea
+      internalID: 1380800196
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TreeFalling_7
+      name: Tree3FallingAnim-Sheet_5
       rect:
         serializedVersion: 2
-        x: 448
+        x: 480
         y: 0
-        width: 64
-        height: 32
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -278,20 +236,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2255a74e1c870074eaeb1f6d542fab91
-      internalID: 21388568
+      spriteID: ad01a1b7b1bfc0d4da5f62e30464a360
+      internalID: 1988363576
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TreeFalling_8
+      name: Tree3FallingAnim-Sheet_6
       rect:
         serializedVersion: 2
-        x: 512
+        x: 576
         y: 0
-        width: 64
-        height: 32
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -299,8 +257,71 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ba09ce61641afba489b3e5b4e0ad7553
-      internalID: -902308249
+      spriteID: f92a30e9985e510458a86140896b7d96
+      internalID: -447245581
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tree3FallingAnim-Sheet_7
+      rect:
+        serializedVersion: 2
+        x: 672
+        y: 0
+        width: 96
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 87cc970751efc4646a68641d317d2c6e
+      internalID: -108414768
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tree3FallingAnim-Sheet_8
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 0
+        width: 96
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0426a173f6026864ea80d523fb3ccac1
+      internalID: 342609878
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tree3FallingAnim-Sheet_9
+      rect:
+        serializedVersion: 2
+        x: 864
+        y: 0
+        width: 96
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d11a7b55f6f7904985623803722f0d2
+      internalID: -271413826
       vertices: []
       indices: 
       edges: []
@@ -316,15 +337,16 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      TreeFalling_3: 185850576
-      TreeFalling_6: -146586022
-      TreeFalling_1: -425957699
-      TreeFalling_5: -2078944783
-      TreeFalling_7: 21388568
-      TreeFalling_4: -1915082754
-      TreeFalling_0: 1406007667
-      TreeFalling_2: -2101632453
-      TreeFalling_8: -902308249
+      Tree3FallingAnim-Sheet_1: 1747144155
+      Tree3FallingAnim-Sheet_2: 821992365
+      Tree3FallingAnim-Sheet_3: -1120988711
+      Tree3FallingAnim-Sheet_5: 1988363576
+      Tree3FallingAnim-Sheet_8: 342609878
+      Tree3FallingAnim-Sheet_4: 1380800196
+      Tree3FallingAnim-Sheet_6: -447245581
+      Tree3FallingAnim-Sheet_0: 6965702
+      Tree3FallingAnim-Sheet_7: -108414768
+      Tree3FallingAnim-Sheet_9: -271413826
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

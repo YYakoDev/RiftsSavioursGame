@@ -7,22 +7,30 @@ using UnityEngine;
 public class SOPlayerStats : PlayerStatsBase
 {   
 
+    struct Stat
+    {
+        Type _type;
+        object _variable;
+        public Type Type => _type;
+        public object Variable => _variable;
+        public Stat(object variable)
+        {
+            _variable = variable;
+            _type = variable.GetType();
+        }
+    }
     //
 
     // IF YOU ADD ANY STAT TO THIS CLASS DO NOT SAVE BEFORE UPDATING THE TEXTS FROM THE UPGRADES, OTHERWISE SOME UPGRADES WILL LOSE THE REFERENCE TO THE STATS
 
     //
+    private Dictionary<int, Stat> _statsDictionary;
 
     public event Action onStatsChange;
 
     [Header("Health Stats")]
     [SerializeField]private int _maxHealth = 100;
     [SerializeField]private int _currentHealth;
-
-    [Header("Level Stats")]
-    [SerializeField]private int _level = 1;
-    [SerializeField]private int _currentXP = 0;
-    [SerializeField]private int _xpToNextLevel = 100;
 
     [Header("Movement Stats")]
     [SerializeField]private float _speed;
@@ -47,6 +55,8 @@ public class SOPlayerStats : PlayerStatsBase
     [SerializeField, Range(0, 100)] private int _stunResistance = 0;
     [SerializeField, Range(0, 100)] private int _knockbackResistance = 10;
     [SerializeField, Range(0, 100)] private int _damageResistance = 0;
+    [SerializeField, Range(0, 300)] private int _buffBooster = 0;
+    [SerializeField, Range(0, 100)] private int _debuffResistance = 0;
 
     [Header("Luck Stats")]
     [SerializeField] private int _faith = 1;
@@ -75,10 +85,6 @@ public class SOPlayerStats : PlayerStatsBase
     public float InteractCooldown {get => _interactCooldown; set {_interactCooldown = value; onStatsChange?.Invoke();}}
     public int MaxResourceInteractions {get => _maxResourceInteractions; set {_maxResourceInteractions = value; onStatsChange?.Invoke();}}
 
-    // LEVEL STATS
-    public int Level {get => _level; set {_level = value; onStatsChange?.Invoke();}}
-    public int CurrentXP {get => _currentXP; set {_currentXP = value; onStatsChange?.Invoke();}}
-    public int XPToNextLevel {get => _xpToNextLevel; set {_xpToNextLevel = value; onStatsChange?.Invoke();}}
 
     // WEAPON STATS
     public WeaponBase[] Weapons {get => _weapons;}
@@ -88,9 +94,12 @@ public class SOPlayerStats : PlayerStatsBase
     public int StunResistance { get => _stunResistance; set { _stunResistance = value; onStatsChange?.Invoke(); } }
     public int KnockbackResistance { get => _knockbackResistance; set { _knockbackResistance = value; onStatsChange?.Invoke(); } }
     public int DamageResistance { get => _damageResistance; set { _damageResistance = value; onStatsChange?.Invoke(); } }
+    public int BuffBooster { get => _buffBooster; set { _buffBooster = value; onStatsChange?.Invoke(); } }
+    public int DebuffResistance { get => _debuffResistance; set { _debuffResistance = value; onStatsChange?.Invoke(); } }
 
 
-    // LUCK STATAS
+
+    // LUCK STATS
     public int Faith { get => _faith;  set { _faith = value; onStatsChange?.Invoke(); } }
     public float HarvestMultiplier { get => _harvestMultiplier;  set { _harvestMultiplier = value; onStatsChange?.Invoke(); } }
 
@@ -99,11 +108,6 @@ public class SOPlayerStats : PlayerStatsBase
         SOPlayerStats stats = data.Stats;
         _maxHealth = stats.MaxHealth;
         _currentHealth = _maxHealth;
-
-        _level = 1;
-        _currentXP = 0;
-        _xpToNextLevel = stats.XPToNextLevel;
-
         _speed = stats.Speed;
         _slowdownMultiplier = stats.SlowdownMultiplier;
         _dashSpeed = stats.DashSpeed;
@@ -126,6 +130,48 @@ public class SOPlayerStats : PlayerStatsBase
         _faith = stats.Faith;
         _harvestMultiplier = stats._harvestMultiplier;
         //onStatsChange?.Invoke();
+        Stat MaxHealth = new(_maxHealth);
+        Stat CurrentHealth = new(_currentHealth);
+        Stat Speed = new(_speed);
+        Stat SlowdownMultiplier = new(_slowdownMultiplier);
+        Stat DashSpeed = new(_dashSpeed);
+        Stat DashCooldown = new(_dashCooldown);
+        Stat DashInvulnerabilityTime = new(_dashInvulnerabilityTime);
+        Stat PickUpRange = new(_pickUpRange);
+        Stat CollectingRange = new(_collectingRange);
+        Stat CollectingDamage = new(_collectingDamage);
+        Stat InteractCooldown = new(_interactCooldown);
+        Stat MaxResourceInteractions = new(_maxResourceInteractions);
+        Stat StunResistance = new(_stunResistance);
+        Stat KnockbackResistance = new(_knockbackResistance);
+        Stat DamageResistance = new(_damageResistance);
+        Stat BuffBooster = new(_buffBooster);
+        Stat DebuffResistance = new(_debuffResistance);
+        Stat Faith = new(_faith);
+        Stat HarvestMultiplier = new(_harvestMultiplier);
+        _statsDictionary = new()
+        {
+            {0, MaxHealth},
+            {1, CurrentHealth},
+            {2, Speed},
+            {3, SlowdownMultiplier},
+            {4, DashSpeed},
+            {5, DashCooldown},
+            {6, DashInvulnerabilityTime},
+            {7, PickUpRange},
+            {8, CollectingRange},
+            {9, CollectingDamage},
+            {10, InteractCooldown},
+            {11, MaxResourceInteractions},
+            {12, StunResistance},
+            {13, KnockbackResistance},
+            {14, DamageResistance},
+            {15, BuffBooster},
+            {16, DebuffResistance},
+            {17, Faith},
+            {18, HarvestMultiplier}
+        };
+        
     }
 
     private void OnValidate() {

@@ -48,24 +48,24 @@ MonoBehaviour:
   - _type: 1
     _keyCode: 323
     _secondaryKeyCode: 101
-    _controllerKey: 345
+    _controllerKey: 333
   - _type: 2
     _keyCode: 306
-    _secondaryKeyCode: 0
-    _controllerKey: 339
+    _secondaryKeyCode: 324
+    _controllerKey: 335
   - _type: 3
     _keyCode: 113
     _secondaryKeyCode: 0
-    _controllerKey: 338
+    _controllerKey: 334
   - _type: 4
     _keyCode: 120
     _secondaryKeyCode: 0
-    _controllerKey: 341
+    _controllerKey: 337
   - _type: 5
     _keyCode: 32
     _secondaryKeyCode: 0
-    _controllerKey: 344
+    _controllerKey: 332
   - _type: 6
     _keyCode: 27
     _secondaryKeyCode: 0
-    _controllerKey: 330
+    _controllerKey: 339

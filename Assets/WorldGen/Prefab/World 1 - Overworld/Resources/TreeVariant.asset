@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: TreeVariant
   m_EditorClassIdentifier: 
   _info:
-    _scaleFactor: 2
+    _scaleFactor: 1
     _sprites:
-    - {fileID: 21300000, guid: 8c0e878c219e3e44bb469609a8164d18, type: 3}
+    - {fileID: 21300000, guid: 2f6ef6ea9ba82ae44a930918c46d834c, type: 3}
     _spriteOrderOffset: 1
-    _maxHealth: 4
+    _maxHealth: 5
     _dissapearingTime: 1
     _type: 1
     _resourceDrops:
@@ -28,8 +28,8 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 3e0aded1e81915340b0096e7d7903982, type: 2}
     - {fileID: 11400000, guid: 3e0aded1e81915340b0096e7d7903982, type: 2}
     _isTrigger: 0
-    _posOffset: {x: 0.03, y: -0.45}
-    _radius: 0.25
+    _posOffset: {x: -0.15, y: -1}
+    _radius: 0.35
     _hitSFXs:
     - {fileID: 8300000, guid: a186b13580a4dd84eb917f5539099b5b, type: 3}
     - {fileID: 8300000, guid: af029666b69976a43be320c4548e0c22, type: 3}

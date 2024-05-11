@@ -54,7 +54,7 @@ public class PickUpsController : MonoBehaviour
     //pickupEffects
     public void AddXP(int xpAmount)
     {
-        _playerManager.LevelManager.AddXP(xpAmount);
+        //_playerManager.LevelManager.AddXP(xpAmount);
     }
 
     public void AddMaterial(CraftingMaterial material)

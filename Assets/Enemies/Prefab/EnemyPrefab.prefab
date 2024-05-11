@@ -116,6 +116,7 @@ MonoBehaviour:
   _shadow: {fileID: 7543925694828763027}
   _movement: {fileID: 513497814207156615}
   _enemyDetector: {fileID: 1746345536200638836}
+  _collisions: {fileID: 0}
   _animation: {fileID: 7018758983244734893}
   _healthManager: {fileID: 6051727114790530447}
   _dropper: {fileID: 345249422855782384}
@@ -189,7 +190,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fae7a9714e4200843a22b8919982b4dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _duration: 0.15
+  _blinkMat: {fileID: 2100000, guid: a5f676503bdb234469d7de6b22d924ae, type: 2}
+  _duration: 0.1
   _spriteRenderer: {fileID: 742662414872698485}
 --- !u!114 &345249422855782384
 MonoBehaviour:
