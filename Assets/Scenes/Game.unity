@@ -10787,7 +10787,7 @@ GameObject:
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &996265012
 Transform:
   m_ObjectHideFlags: 0
@@ -13378,7 +13378,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.59607846, g: 0.23921569, b: 0.7019608, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -32754,7 +32754,7 @@ MonoBehaviour:
   _possibleUpgradesList: {fileID: 11400000, guid: b0ca178d232e793469e5a58e149f88e7, type: 2}
   _playerInventory: {fileID: 11400000, guid: 0765d671ab78a8f41ae9f6300fc13e5a, type: 2}
   _craftingAttempts: 0
-  _activeMenuOnStart: 0
+  _activeMenuOnStart: 1
   _audio: {fileID: 1873290993}
   _closingSound: {fileID: 8300000, guid: c899513618bb1ed40b1125a28bf60f85, type: 3}
   _rerollSFX: {fileID: 8300000, guid: bf79cfefe9eb742498f38d28de4284ba, type: 3}
@@ -42802,6 +42802,7 @@ GameObject:
   - component: {fileID: 2123491972}
   - component: {fileID: 2123491975}
   - component: {fileID: 2123491976}
+  - component: {fileID: 2123491977}
   m_Layer: 7
   m_Name: PLAYER
   m_TagString: Player
@@ -42943,6 +42944,7 @@ MonoBehaviour:
   _levelManager: {fileID: 2123491974}
   _movementScript: {fileID: 2123491963}
   _upgradesManager: {fileID: 1224239789}
+  _statsManager: {fileID: 2123491977}
 --- !u!114 &2123491972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43019,6 +43021,20 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   _detectionRadius: 0.28
+--- !u!114 &2123491977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2123491960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 486cc6fadb00734448c00c586f7e58dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerStats: {fileID: 11400000, guid: 77f8be5469984ec4b92db0a6e8c44838, type: 2}
+  _playerAtkStats: {fileID: 11400000, guid: 5c0efc2d47ffa234c9cfe266e112553e, type: 2}
 --- !u!198 &2134075648 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 8296189628907581471, guid: 41a2b53afadc4b34e9a4fa073241b4af, type: 3}
@@ -44177,7 +44193,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _itemsParent: {fileID: 718131993003237661}
   _upgradeName: {fileID: 718131992430731373}
-  _descriptionsParent: {fileID: 718131993176249959}
+  _description: {fileID: 0}
   _upgradeDescriptionPrefab: {fileID: 463176325238634058, guid: 07017ffb236c17d4e8df8df1f544b4bb, type: 3}
   _upgradeIcon: {fileID: 718131994398796312}
   _craftUpgradeButton: {fileID: 1997474852101861262}
@@ -44262,7 +44278,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _itemsParent: {fileID: 718131993015968555}
   _upgradeName: {fileID: 718131992451818075}
-  _descriptionsParent: {fileID: 718131993163813969}
+  _description: {fileID: 0}
   _upgradeDescriptionPrefab: {fileID: 463176325238634058, guid: 07017ffb236c17d4e8df8df1f544b4bb, type: 3}
   _upgradeIcon: {fileID: 718131994377709614}
   _craftUpgradeButton: {fileID: 1997474852080774584}
@@ -45231,7 +45247,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _itemsParent: {fileID: 718131993265508335}
   _upgradeName: {fileID: 718131992688807583}
-  _descriptionsParent: {fileID: 718131992918440085}
+  _description: {fileID: 0}
   _upgradeDescriptionPrefab: {fileID: 463176325238634058, guid: 07017ffb236c17d4e8df8df1f544b4bb, type: 3}
   _upgradeIcon: {fileID: 718131994119734506}
   _craftUpgradeButton: {fileID: 1997474851843768700}
@@ -45990,7 +46006,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _itemsParent: {fileID: 718131992580969926}
   _upgradeName: {fileID: 718131992885040310}
-  _descriptionsParent: {fileID: 718131992661713596}
+  _description: {fileID: 0}
   _upgradeDescriptionPrefab: {fileID: 463176325238634058, guid: 07017ffb236c17d4e8df8df1f544b4bb, type: 3}
   _upgradeIcon: {fileID: 718131993872129731}
   _craftUpgradeButton: {fileID: 1997474851444644693}
@@ -46035,7 +46051,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &718131993052957912
 RectTransform:
   m_ObjectHideFlags: 0
@@ -46765,7 +46781,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _itemsParent: {fileID: 718131992788935315}
   _upgradeName: {fileID: 718131993164342243}
-  _descriptionsParent: {fileID: 718131992450242025}
+  _description: {fileID: 0}
   _upgradeDescriptionPrefab: {fileID: 463176325238634058, guid: 07017ffb236c17d4e8df8df1f544b4bb, type: 3}
   _upgradeIcon: {fileID: 718131993647360406}
   _craftUpgradeButton: {fileID: 1997474851232984064}
@@ -46789,7 +46805,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &718131993291979635
 RectTransform:
   m_ObjectHideFlags: 0
@@ -46913,7 +46929,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &718131993307934815
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46928,7 +46944,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _itemsParent: {fileID: 718131992804436412}
   _upgradeName: {fileID: 718131993167259852}
-  _descriptionsParent: {fileID: 718131992438480582}
+  _description: {fileID: 0}
   _upgradeDescriptionPrefab: {fileID: 463176325238634058, guid: 07017ffb236c17d4e8df8df1f544b4bb, type: 3}
   _upgradeIcon: {fileID: 718131993657025209}
   _craftUpgradeButton: {fileID: 1997474851231639343}

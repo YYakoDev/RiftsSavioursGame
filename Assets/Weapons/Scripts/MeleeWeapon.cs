@@ -141,7 +141,7 @@ public class MeleeWeapon : WeaponBase
     {
         //codear esto para que se modifiquen las stats del arma pero sin escalar hasta el infinito sin querer
         //Mirar el oldweapon system!
-        _modifiedStats._atkDmg = (int)((_attackDamage + attackStats.BaseDamageAddtion) * attackStats.DamageMultiplier);
+        _modifiedStats._atkDmg = (int)((_attackDamage + attackStats.BaseDamageAddition) * attackStats.DamageMultiplier);
         _modifiedStats._atkRange = _attackRange + attackStats.AttackRange;
         _modifiedStats._cooldown = _attackCooldown + attackStats.AttackCooldown;
         _modifiedStats._knockbackForce = _knockbackForce + attackStats.AttackKnockback;

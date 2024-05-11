@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d5c8a2cd6ed58fc42a814fef259de216, type: 3}
-  m_Name: ShadosKatanaCombo
+  m_Name: ShadosKatanaComboBackup
   m_EditorClassIdentifier: 
   _name: Nemesis
   _description: 
@@ -19,10 +19,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fe2de886b8d5def4b8e07f40cecb93f2, type: 2}
   - {fileID: 11400000, guid: df7c73a62b7d8ea4da3c4d678c5b278b, type: 2}
   - {fileID: 11400000, guid: 0429586a3501b674d98e9c4fcf8476e7, type: 2}
-  - {fileID: 11400000, guid: 0429586a3501b674d98e9c4fcf8476e7, type: 2}
-  - {fileID: 11400000, guid: 0f1731e4c0912a34eabf484ba539aa9c, type: 2}
-  - {fileID: 11400000, guid: 4780209016f8aa349864b33bf7198c79, type: 2}
-  - {fileID: 11400000, guid: 991c0113af06d224c9168cdf079fb751, type: 2}
   _flipSprite: 1
   _spawnPosition: {x: -0.55, y: 0.25, z: 0}
   _spawnRotation: 0
@@ -31,25 +27,25 @@ MonoBehaviour:
   - {fileID: 8300000, guid: bb5a381345214dc469cd56d7f8b12a03, type: 3}
   - {fileID: 8300000, guid: 63576143d8a33204288b7f37ff6c7dd4, type: 3}
   _pointCameraOnAttack: 0
-  _attackCooldown: 0.5
-  _pullForce: 0.17
-  _pullDuration: 0.192
+  _attackCooldown: 0.45
+  _pullForce: 1.7
+  _pullDuration: 0.06
   _attackRange: 1
-  _attackSpeed: 1.35
+  _attackSpeed: 1.5
   _rangeOffset: {x: -0.4, y: 0.18}
   _attackDamage: 8
   _criticalChance: 10
   _criticalDamageMultiplier: 2
-  _damageDelay: 0.055
-  _knockbackForce: 0.09
+  _damageDelay: 0.105
+  _knockbackForce: 1
   _speedUPComboAnimations: 1
-  _speedUpFactor: 1.25
+  _speedUpFactor: 1.35
   _comboStats:
   - Cooldown: 0
     Range: 0.45
     KnockbackForce: 0.13
-    AtkSpeed: 2.19
-    PullForce: 1
+    AtkSpeed: 0
+    PullForce: 0
     AtkDelay: 0
     PullDuration: 0
     Damage: 0
@@ -59,12 +55,8 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 3961fbaed97e0aa4ea6fed7535dadd51, type: 2}
     - {fileID: 11400000, guid: c9c1e59da1cfa0d438f4301a1069edcd, type: 2}
     - {fileID: 11400000, guid: f1b3174f673fb1a4b91613d5d1414674, type: 2}
+    - {fileID: 11400000, guid: 0f1731e4c0912a34eabf484ba539aa9c, type: 2}
     UsedEffects:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
@@ -75,7 +67,7 @@ MonoBehaviour:
     Range: 0.25
     KnockbackForce: 0.5
     AtkSpeed: -0.05
-    PullForce: 1
+    PullForce: 0.72
     AtkDelay: 0
     PullDuration: 0
     Damage: -1
@@ -85,12 +77,8 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 3961fbaed97e0aa4ea6fed7535dadd51, type: 2}
     - {fileID: 11400000, guid: fd169d3702aceec4e91005959470890e, type: 2}
     - {fileID: 11400000, guid: c9c1e59da1cfa0d438f4301a1069edcd, type: 2}
+    - {fileID: 11400000, guid: 0f1731e4c0912a34eabf484ba539aa9c, type: 2}
     UsedEffects:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
@@ -101,7 +89,7 @@ MonoBehaviour:
     Range: 0.2
     KnockbackForce: 0.5
     AtkSpeed: 0.18
-    PullForce: 1
+    PullForce: 0.5
     AtkDelay: 0
     PullDuration: 0
     Damage: 0
@@ -111,12 +99,8 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 3961fbaed97e0aa4ea6fed7535dadd51, type: 2}
     - {fileID: 11400000, guid: fd169d3702aceec4e91005959470890e, type: 2}
     - {fileID: 11400000, guid: c9c1e59da1cfa0d438f4301a1069edcd, type: 2}
+    - {fileID: 11400000, guid: 0f1731e4c0912a34eabf484ba539aa9c, type: 2}
     UsedEffects:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}

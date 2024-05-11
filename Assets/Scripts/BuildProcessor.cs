@@ -9,7 +9,7 @@ public class BuildProcessor : IPreprocessBuildWithReport
     public int callbackOrder { get { return 0; } }
     public void OnPreprocessBuild(BuildReport report)
     {
-        AssetMenuUpdators.UpgradesSaveText();
+        //AssetMenuUpdators.UpgradesSaveText();
         AssetMenuUpdators.UpdateCraftingMaterialIcons();
     }
 }

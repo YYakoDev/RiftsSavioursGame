@@ -7,6 +7,8 @@ public class PlayerUpgradesManager : MonoBehaviour
 
     [SerializeField]PlayerManager _playerManager;
     [SerializeField]SOPossibleUpgradesList _possibleUpgradesList;
+    public PlayerManager Player => _playerManager;
+    
     //SOUpgradeBase[] _equipedUpgrades;
 
     //properties

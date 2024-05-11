@@ -22,7 +22,7 @@ public class SOPlayerAttackStats : PlayerStatsBase
 
     //properties
     public float DamageMultiplier {get => _damageMultiplier; set {_damageMultiplier = value; onStatsChange?.Invoke();}}
-    public int BaseDamageAddtion {get => _baseDamageAddition; set {_baseDamageAddition = value; onStatsChange?.Invoke();}}
+    public int BaseDamageAddition {get => _baseDamageAddition; set {_baseDamageAddition = value; onStatsChange?.Invoke();}}
     public float AttackRange {get => _attackRange; set {_attackRange = value; onStatsChange?.Invoke();}}
     public float AttackCooldown {get => _attackCooldown; set {_attackCooldown = value; onStatsChange?.Invoke();}}
     public float AttackKnockback {get => _attackKnockback; set {_attackKnockback = value; onStatsChange?.Invoke();}}
@@ -34,7 +34,7 @@ public class SOPlayerAttackStats : PlayerStatsBase
     public void Initialize(SOPlayerAttackStats stats)
     {
         _damageMultiplier = stats._damageMultiplier;
-        _baseDamageAddition = stats.BaseDamageAddtion;
+        _baseDamageAddition = stats.BaseDamageAddition;
         _attackRange = stats._attackRange;
         _attackCooldown = stats._attackCooldown;
         _attackKnockback = stats._attackKnockback;

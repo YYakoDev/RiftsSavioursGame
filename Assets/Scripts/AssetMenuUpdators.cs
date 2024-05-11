@@ -7,7 +7,7 @@ using UnityEditor;
 public class AssetMenuUpdators 
 {
     [MenuItem("Upgrades/UpgradesTryReadText")]
-    public static void UpgradesTryReadText()
+    /*public static void UpgradesTryReadText()
     {
         var type = typeof(StatChangingUpgrade);
         var data = AssetDatabase.FindAssets("t: StatChangingUpgrade", new[] {"Assets/UpgradesStuff/Upgrades/UpgradeTypes"});
@@ -30,6 +30,7 @@ public class AssetMenuUpdators
             assetOfType.SaveTextAndRead();
         }
     }
+    */
     [MenuItem("Drops/UpdateCraftingMaterialIcons")]
     public static void UpdateCraftingMaterialIcons()
     {

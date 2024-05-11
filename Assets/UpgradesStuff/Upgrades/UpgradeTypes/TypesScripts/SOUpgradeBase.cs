@@ -8,16 +8,16 @@ public class SOUpgradeBase : ScriptableObject
     public const string MenuPath = "ScriptableObjects/Upgrades/";
     protected UpgradeGroup _parent;
 
-    [SerializeField]private string _name;
-    [SerializeField]private UpgradeDescription[] _descriptions;
-    [SerializeField]private Sprite _sprite;
-    [SerializeField]private UpgradeCost[] _costs;
+    [SerializeField]protected string _name;
+    [SerializeField, TextArea]protected string _description;
+    [SerializeField]protected Sprite _sprite;
+    [SerializeField]protected UpgradeCost[] _costs;
     //[SerializeField]private CraftingMaterial[] _craftingMaterials;
 
     //properties
     public UpgradeGroup GroupParent => _parent;
     public string Name => _name;
-    public UpgradeDescription[] EffectDescriptions => _descriptions;
+    public string Description => _description;
     public Sprite Sprite => _sprite;
     public UpgradeCost[] Costs => _costs;
 

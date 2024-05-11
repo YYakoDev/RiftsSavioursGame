@@ -6,8 +6,9 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
 
-public class RewardItem : MonoBehaviour, ISelectHandler
+public class RewardItem : MonoBehaviour
 {
+    /*
     [SerializeField] Image _icon;
     [SerializeField] TextMeshProUGUI _name;
     [SerializeField] Transform _descriptionsParent;
@@ -95,4 +96,5 @@ public class RewardItem : MonoBehaviour, ISelectHandler
         yield return null;
         EventSystem.current.SetSelectedGameObject(_getButton.gameObject);
     }
+    */
 }

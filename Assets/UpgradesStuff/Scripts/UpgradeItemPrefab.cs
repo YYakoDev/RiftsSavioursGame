@@ -10,7 +10,7 @@ public class UpgradeItemPrefab : MonoBehaviour, ISelectHandler
 {
     [SerializeField] private RectTransform _itemsParent;
     [SerializeField] private TextMeshProUGUI _upgradeName;
-    [SerializeField] private RectTransform _descriptionsParent;
+    [SerializeField] private TextMeshProUGUI _description;
     [SerializeField] private TextMeshProUGUI _upgradeDescriptionPrefab;
     [SerializeField] private Image _upgradeIcon;
     //this 3 fields above will inherit the properties of the upgrade in question such as the description, the name and the sprite
@@ -22,12 +22,11 @@ public class UpgradeItemPrefab : MonoBehaviour, ISelectHandler
     const int MaxCostItems = 3;
     private UpgradeCost[] _upgradeCosts;
     RecipeItemPrefab[] _instantiatedCosts;
-    TextMeshProUGUI[] _instantiatedDescriptions;
 
     //properties
     public RectTransform ItemsParent => _itemsParent;
     public TextMeshProUGUI Name => _upgradeName;
-    //public TextMeshProUGUI Description => _upgradeDescription;
+    public TextMeshProUGUI Description => _description;
     public Image Icon => _upgradeIcon;
     public Button CraftBtn => _craftUpgradeButton;
     public TextMeshProUGUI ButtonText => _btnText;
@@ -37,7 +36,8 @@ public class UpgradeItemPrefab : MonoBehaviour, ISelectHandler
     {
         _inventory = inventory;
         _upgradeName.text = upgrade.Name;
-        CheckDescriptionItems(upgrade.EffectDescriptions);
+        _description.text = upgrade.Description;
+        Debug.Log(upgrade.Description);
         _upgradeIcon.sprite = upgrade.Sprite;
         _upgradeCosts = upgrade.Costs;
         _craftUpgradeButton.RemoveAllEvents();
@@ -143,34 +143,6 @@ public class UpgradeItemPrefab : MonoBehaviour, ISelectHandler
         }
     }
 
-    void CheckDescriptionItems(UpgradeDescription[] descriptions)
-    {
-        int count = descriptions.Length;
-        if (_instantiatedDescriptions == null) CreateDescriptionItems();
-        for (int i = 0; i < 5; i++)
-        {
-            var item = _instantiatedDescriptions[i];
-            if (i >= count)
-            {
-                item.gameObject.SetActive(false);
-                continue;
-            }
-            var newDescription = descriptions[i];
-            item.text = newDescription.Text;
-            item.color = newDescription.Color;
-            item.gameObject.SetActive(true);
-        }
-    }
-
-    void CreateDescriptionItems()
-    {
-        _instantiatedDescriptions = new TextMeshProUGUI[5];
-        for (int i = 0; i < 5; i++)
-        {
-            _instantiatedDescriptions[i] = Instantiate(_upgradeDescriptionPrefab, _descriptionsParent);
-            _instantiatedDescriptions[i].gameObject.SetActive(false);
-        }
-    }
 
     public void ChangeButtonEvent(Action<SOUpgradeBase, int> onClick, SOUpgradeBase upgrade, int index)
     {
@@ -195,8 +167,7 @@ public class UpgradeItemPrefab : MonoBehaviour, ISelectHandler
     {
         _btnText.enableAutoSizing = state;
         _upgradeName.enableAutoSizing = state;
-        if(_instantiatedDescriptions == null) return;
-        foreach(TextMeshProUGUI text in _instantiatedDescriptions) text.enableAutoSizing = state;
+        _description.enableAutoSizing = state;
     }
 
     public void OnSelect(BaseEventData eventData)

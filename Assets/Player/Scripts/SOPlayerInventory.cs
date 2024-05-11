@@ -23,13 +23,18 @@ public class SOPlayerInventory : ScriptableObject
     public List<UpgradeGroup> EquippedUpgrades => _equippedUpgrades;
  
 
-    public void Initialize(PlayerUpgradesManager upgradesManager)
+    public void Initialize(PlayerUpgradesManager upgradesManager, List<CraftingMaterial> startingMaterials = null)
     {
         //Here you can grab the materials and upgrades from the last save if there is any
         //also apply the equipped upgrades if there is any
         _ownedMaterials = new();
         _equippedUpgrades = new();
         _upgradesManager = upgradesManager;
+        if(startingMaterials != null)
+        foreach(var mat in startingMaterials)
+        {
+            AddMaterial(mat);
+        }
         //AssetMenuUpdators.UpdateCraftingMaterialIcons();
     }
 

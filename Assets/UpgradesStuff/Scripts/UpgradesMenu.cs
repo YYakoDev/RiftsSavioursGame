@@ -81,11 +81,12 @@ public class UpgradesMenu : MonoBehaviour
         _previousTimeScaleState = TimeScaleManager.IsForced;
         TimeScaleManager.ForceTimeScale(0f);
         _upgradesMenu.localScale = Vector3.one;
-        _levelupSequence.Play(PlayMenuAnimations);
+        //_levelupSequence.Play(PlayMenuAnimations);
     }
 
     void PlayMenuAnimations()
     {
+        DoLevelUpSequence();
         CraftingAttempts = 0;
         _animations.SetElements(_instantiatedItems);
         _upgradesMenu.gameObject.SetActive(true);
@@ -215,6 +216,7 @@ public class UpgradesMenu : MonoBehaviour
         Cursor.visible = _previousCursorState;
         Cursor.lockState = _previousCursorLockMode;
         YYInputManager.ResumeInput();
+        TimeScaleManager.ForceTimeScale(1f);
     }
 
     void Resume()

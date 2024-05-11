@@ -12,6 +12,7 @@ public class SOCharacterData : ScriptableObject
     [SerializeField] Sprite _sprite;
     [SerializeField] AnimatorOverrideController _animator;
     [SerializeField] SODashData _dashData;
+    [SerializeField]List<CraftingMaterial> _startingMaterials = new();
 
     public string Name => _name;
     public string Description => _description;
@@ -20,4 +21,5 @@ public class SOCharacterData : ScriptableObject
     public Sprite Sprite => _sprite;
     public AnimatorOverrideController Animator => _animator;
     public SODashData DashData => _dashData;
+    public List<CraftingMaterial> StartingInventory => _startingMaterials;
 }

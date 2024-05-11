@@ -8,6 +8,7 @@ using Random = UnityEngine.Random;
 [RequireComponent(typeof(TweenAnimatorMultiple))]
 public class UILevelUpPopup : MonoBehaviour
 {
+    /*
     [SerializeField] bool _playOnStart;
     [SerializeField] SOPossibleUpgradesList _possibleUpgradesManager;
     [SerializeField] SOPlayerInventory _playerInventory;
@@ -115,4 +116,5 @@ public class UILevelUpPopup : MonoBehaviour
     private void OnDestroy() {
         //PlayerLevelManager.onLevelUp -= Play;
     }
+    */
 }

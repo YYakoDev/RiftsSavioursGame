@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerAnimationController))]
@@ -17,6 +18,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField]PlayerLevelManager _levelManager;
     [SerializeField]PlayerMovement _movementScript;
     [SerializeField]PlayerUpgradesManager _upgradesManager;
+    [SerializeField] PlayerStatsManager _statsManager;
     SODashData _dashData;
     bool _gettedComponents = false;
 
@@ -28,6 +30,7 @@ public class PlayerManager : MonoBehaviour
     public PlayerLevelManager LevelManager => _levelManager;
     public PlayerMovement MovementScript => _movementScript;
     public SODashData DashData => _dashData;
+    public PlayerStatsManager StatsManager => _statsManager;
 
     public Vector3 Position => transform.position;
     public static SOCharacterData SelectedChara => SelectedCharacter;
@@ -50,6 +53,7 @@ public class PlayerManager : MonoBehaviour
         thisGO.CheckComponent<SpriteRenderer>(ref _renderer);
         thisGO.CheckComponent<PlayerLevelManager>(ref _levelManager);
         thisGO.CheckComponent<PlayerMovement>(ref _movementScript);
+        thisGO.CheckComponent<PlayerStatsManager>(ref _statsManager);
         _gettedComponents = true;
     }
     void InitializeCharacterData()
@@ -58,7 +62,7 @@ public class PlayerManager : MonoBehaviour
         if(_stats != null) _stats.Initialize(_charData);
         //_levelManager?.SetPlayerStats(_stats);
         _animatorController.ChangeAnimator(_charData.Animator);
-        _inventory?.Initialize(_upgradesManager);
+        _inventory?.Initialize(_upgradesManager, _charData.StartingInventory);
         _dashData = _charData.DashData;
     }
 

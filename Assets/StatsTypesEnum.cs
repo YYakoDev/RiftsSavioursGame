@@ -1,5 +1,5 @@
 
-public enum StatsTypesEnum
+public enum StatsTypes
 {
     MaxHealth = 0,
     CurrentHealth = 1,

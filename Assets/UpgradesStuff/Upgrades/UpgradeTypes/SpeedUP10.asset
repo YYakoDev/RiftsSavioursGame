@@ -12,19 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 122afea621d737840993683c4cbc0ec5, type: 3}
   m_Name: SpeedUP10
   m_EditorClassIdentifier: 
-  _name: Mercury's Boots
-  _descriptions:
-  - text: + 10% Speed
-    color: 2
+  _name: Mercury's Left Boot
+  _description: 
   _sprite: {fileID: 21300000, guid: e13883e19c570d742b1ba000303563d3, type: 3}
   _costs:
   - CraftingMaterial: {fileID: 11400000, guid: b0ee0322b3f2ea5439336a20dc5012b8, type: 2}
     Cost: 3
-  _stats: {fileID: 11400000, guid: 77f8be5469984ec4b92db0a6e8c44838, type: 2}
-  _indexes: 02000000
-  _statsChanges:
-  - _usePercentage: 1
-    _percentage: 12
-    _flatAmount: 3
-  ElementCount: 1
-  _savedText: Speed
+  _statsToModify: 0200000004000000
+  _modifications:
+  - StatToModifyName: Speed
+    _usePercentage: 1
+    _addition: 0
+    _percentage: 10
+  - StatToModifyName: DashSpeed
+    _usePercentage: 1
+    _addition: 0
+    _percentage: 5
