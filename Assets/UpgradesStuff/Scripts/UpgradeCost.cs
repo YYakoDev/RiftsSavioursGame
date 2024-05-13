@@ -7,4 +7,10 @@ public class UpgradeCost
 {
     public CraftingMaterial CraftingMaterial;
     public int Cost = 1;
+
+    public UpgradeCost(CraftingMaterial craftingMaterial, int cost)
+    {
+        CraftingMaterial = craftingMaterial;
+        Cost = cost;
+    }
 }

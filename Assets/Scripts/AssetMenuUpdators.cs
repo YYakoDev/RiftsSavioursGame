@@ -6,7 +6,7 @@ using UnityEditor;
 
 public class AssetMenuUpdators 
 {
-    [MenuItem("Upgrades/UpgradesTryReadText")]
+    //[MenuItem("Upgrades/UpgradesTryReadText")]
     /*public static void UpgradesTryReadText()
     {
         var type = typeof(StatChangingUpgrade);

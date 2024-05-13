@@ -1,12 +1,14 @@
 using System;
+using System.Text;
 using UnityEngine;
 
 
 [CreateAssetMenu(menuName = MenuPath + "StatChangingUpgrade")]
 public class StatChangingUpgrade : SOUpgradeBase
 {
-    [SerializeField] StatsTypes[] _statsToModify;
-    [SerializeField] StatModificationValue[] _modifications = new StatModificationValue[0];
+    [SerializeField] protected StatsTypes[] _statsToModify;
+    [SerializeField] protected StatModificationValue[] _modifications = new StatModificationValue[0];
+
     public override void SetGroup(UpgradeGroup group)
     {
         base.SetGroup(group);
@@ -20,13 +22,15 @@ public class StatChangingUpgrade : SOUpgradeBase
 
             bool positiveUpgrade = modificationValue.UsePercentage ? modificationValue.Percentage >= 0 : modificationValue.Addition >= 0;
             string colorTag = (positiveUpgrade) ? $"<color={UIColors.GetHexColor(UIColor.Green)}>" : $"<color={UIColors.GetHexColor(UIColor.Red)}>" ;
-            string text = (positiveUpgrade) ? $"{colorTag} Increases </color>": $"{colorTag} Decreases </color>";
-            string fullText = modificationValue.UsePercentage ? $"{text} your {_statsToModify[i].ToString()} by {modificationValue.Percentage}%" : $"{text} your {_statsToModify[i].ToString()} by {modificationValue.Addition}";
+            string text = (positiveUpgrade) ? $"{colorTag}Increases </color>": $"{colorTag}Decreases </color>";
+            var statName = HelperMethods.AddSpacesToSentence(_statsToModify[i].ToString(), false).ToLower();
+            string fullText = modificationValue.UsePercentage ? $"{text}your {statName} by {modificationValue.Percentage}%" : $"{text} your {statName} by {modificationValue.Addition}";
             if(i != _statsToModify.Length -1)_description += fullText + "\n";
             else _description += fullText;
 
         }
     }
+
 
     public override void ApplyEffect(PlayerUpgradesManager upgradesManager)
     {
@@ -44,7 +48,7 @@ public class StatChangingUpgrade : SOUpgradeBase
             }
             var modificationValue = _modifications[i];
             float newValue = (modificationValue.UsePercentage) ? 
-            upgradesManager.StatUp(stat, modificationValue.Percentage) : upgradesManager.StatUp(stat, modificationValue.Addition);
+            upgradesManager.StatUp(stat, modificationValue.Percentage) : upgradesManager.StatUp(modificationValue.Addition);
 
             statsManager.SetStat(statType, newValue);
         }

@@ -6,26 +6,6 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObjects/PlayerStats")]
 public class SOPlayerStats : PlayerStatsBase
 {   
-
-    struct Stat
-    {
-        Type _type;
-        object _variable;
-        public Type Type => _type;
-        public object Variable => _variable;
-        public Stat(object variable)
-        {
-            _variable = variable;
-            _type = variable.GetType();
-        }
-    }
-    //
-
-    // IF YOU ADD ANY STAT TO THIS CLASS DO NOT SAVE BEFORE UPDATING THE TEXTS FROM THE UPGRADES, OTHERWISE SOME UPGRADES WILL LOSE THE REFERENCE TO THE STATS
-
-    //
-    private Dictionary<int, Stat> _statsDictionary;
-
     public event Action onStatsChange;
 
     [Header("Health Stats")]
@@ -45,7 +25,7 @@ public class SOPlayerStats : PlayerStatsBase
     [SerializeField]float _collectingRange = 2f;
     [SerializeField]int _collectingDamage = 1;
     [Range(0,5), SerializeField]float _interactCooldown = 0.8f;
-    [SerializeField, Range(1, 100)]int _maxResourceInteractions = 1; // a cap to the amount of resource you can interact with
+    [SerializeField, Range(1f, 100f)]float _maxResourceInteractions = 1; // a cap to the amount of resource you can interact with
 
     [Header("Weapon & Attack Stats")]
     [SerializeField]private WeaponBase[] _weapons = new WeaponBase[3];
@@ -83,7 +63,7 @@ public class SOPlayerStats : PlayerStatsBase
     public float CollectingRange {get => _collectingRange; set {_collectingRange = value; onStatsChange?.Invoke();}}
     public int CollectingDamage {get => _collectingDamage; set {_collectingDamage = value; onStatsChange?.Invoke();}}
     public float InteractCooldown {get => _interactCooldown; set {_interactCooldown = value; onStatsChange?.Invoke();}}
-    public int MaxResourceInteractions {get => _maxResourceInteractions; set {_maxResourceInteractions = value; onStatsChange?.Invoke();}}
+    public float MaxResourceInteractions {get => _maxResourceInteractions; set {_maxResourceInteractions = value; onStatsChange?.Invoke();}}
 
 
     // WEAPON STATS
@@ -129,48 +109,6 @@ public class SOPlayerStats : PlayerStatsBase
 
         _faith = stats.Faith;
         _harvestMultiplier = stats._harvestMultiplier;
-        //onStatsChange?.Invoke();
-        Stat MaxHealth = new(_maxHealth);
-        Stat CurrentHealth = new(_currentHealth);
-        Stat Speed = new(_speed);
-        Stat SlowdownMultiplier = new(_slowdownMultiplier);
-        Stat DashSpeed = new(_dashSpeed);
-        Stat DashCooldown = new(_dashCooldown);
-        Stat DashInvulnerabilityTime = new(_dashInvulnerabilityTime);
-        Stat PickUpRange = new(_pickUpRange);
-        Stat CollectingRange = new(_collectingRange);
-        Stat CollectingDamage = new(_collectingDamage);
-        Stat InteractCooldown = new(_interactCooldown);
-        Stat MaxResourceInteractions = new(_maxResourceInteractions);
-        Stat StunResistance = new(_stunResistance);
-        Stat KnockbackResistance = new(_knockbackResistance);
-        Stat DamageResistance = new(_damageResistance);
-        Stat BuffBooster = new(_buffBooster);
-        Stat DebuffResistance = new(_debuffResistance);
-        Stat Faith = new(_faith);
-        Stat HarvestMultiplier = new(_harvestMultiplier);
-        _statsDictionary = new()
-        {
-            {0, MaxHealth},
-            {1, CurrentHealth},
-            {2, Speed},
-            {3, SlowdownMultiplier},
-            {4, DashSpeed},
-            {5, DashCooldown},
-            {6, DashInvulnerabilityTime},
-            {7, PickUpRange},
-            {8, CollectingRange},
-            {9, CollectingDamage},
-            {10, InteractCooldown},
-            {11, MaxResourceInteractions},
-            {12, StunResistance},
-            {13, KnockbackResistance},
-            {14, DamageResistance},
-            {15, BuffBooster},
-            {16, DebuffResistance},
-            {17, Faith},
-            {18, HarvestMultiplier}
-        };
         
     }
 

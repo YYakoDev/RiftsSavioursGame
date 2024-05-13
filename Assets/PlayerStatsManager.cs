@@ -111,7 +111,9 @@ public class PlayerStatsManager : MonoBehaviour
             case 27:
                 result = atkStats.SummonSpeed;
                 break;
-
+            case 28:
+                result = atkStats.AttackSpeed;
+                break;
         }
         return result;
     }
@@ -122,88 +124,91 @@ public class PlayerStatsManager : MonoBehaviour
         switch(statType)
         {
             case 0:
-                _playerStats.MaxHealth = (int)increment;
+                _playerStats.MaxHealth += (int)increment;
                 break;
             case 1:
-                _playerStats.CurrentHealth = (int)increment;
+                _playerStats.CurrentHealth += (int)increment;
                 break;
             case 2:
-                _playerStats.Speed = increment;
+                _playerStats.Speed += increment;
                 break;
             case 3:
-                _playerStats.SlowdownMultiplier = increment;
+                _playerStats.SlowdownMultiplier += increment;
                 break;
             case 4:
-                _playerStats.DashSpeed = increment;
+                _playerStats.DashSpeed += increment;
                 break;
             case 5:
-                _playerStats.DashCooldown = increment;
+                _playerStats.DashCooldown -= increment;
                 break;
             case 6:
-                _playerStats.DashInvulnerabilityTime = increment;
+                _playerStats.DashInvulnerabilityTime += increment;
                 break;
             case 7:
-                _playerStats.PickUpRange = increment;
+                _playerStats.PickUpRange += increment;
                 break;
             case 8:
-                _playerStats.CollectingRange = increment;
+                _playerStats.CollectingRange += increment;
                 break;
             case 9:
-                _playerStats.CollectingDamage = (int)increment;
+                _playerStats.CollectingDamage += (int)increment;
                 break;
             case 10:
-                _playerStats.InteractCooldown = increment;
+                _playerStats.InteractCooldown -= increment;
                 break;
             case 11:
-                _playerStats.MaxResourceInteractions = (int)increment;
+                _playerStats.MaxResourceInteractions += (int)increment;
                 break;
             case 12:
-                _playerStats.StunResistance = (int)increment;
+                _playerStats.StunResistance += (int)increment;
                 break;
             case 13:
-                _playerStats.KnockbackResistance = (int)increment;
+                _playerStats.KnockbackResistance += (int)increment;
                 break;
             case 14:
-                _playerStats.DamageResistance = (int)increment;
+                _playerStats.DamageResistance += (int)increment;
                 break;
             case 15:
-                _playerStats.BuffBooster = (int)increment;
+                _playerStats.BuffBooster += (int)increment;
                 break;
             case 16:
-                _playerStats.DebuffResistance = (int)increment;
+                _playerStats.DebuffResistance += (int)increment;
                 break;
             case 17:
-                _playerStats.Faith = (int)increment;
+                _playerStats.Faith += (int)increment;
                 break;
             case 18:
-                _playerStats.HarvestMultiplier = increment;
+                _playerStats.HarvestMultiplier += increment;
                 break;
             case 19:
-                _playerAtkStats.DamageMultiplier = increment;
+                _playerAtkStats.DamageMultiplier += increment;
                 break;
             case 20:
-                _playerAtkStats.BaseDamageAddition = (int)increment;
+                _playerAtkStats.BaseDamageAddition += (int)increment;
                 break;
             case 21:
-                _playerAtkStats.AttackRange = increment;
+                _playerAtkStats.AttackRange += increment;
                 break;
             case 22:
-                _playerAtkStats.AttackCooldown = increment;
+                _playerAtkStats.AttackCooldown -= increment;
                 break;
             case 23:
-                _playerAtkStats.AttackKnockback = increment;
+                _playerAtkStats.AttackKnockback += increment;
                 break;
             case 24:
-                _playerAtkStats.ProjectilesCount = (int)increment;
+                _playerAtkStats.ProjectilesCount += (int)increment;
                 break;
             case 25:
-                _playerAtkStats.ProjectilesSpeed = increment;
+                _playerAtkStats.ProjectilesSpeed += increment;
                 break;
             case 26:
-                _playerAtkStats.SummonDamage = (int)increment;
+                _playerAtkStats.SummonDamage += (int)increment;
                 break;
             case 27:
-                _playerAtkStats.SummonSpeed = increment;
+                _playerAtkStats.SummonSpeed += increment;
+                break;
+            case 28:
+                _playerAtkStats.AttackSpeed += increment;
                 break;
         }
 

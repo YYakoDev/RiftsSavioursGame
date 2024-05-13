@@ -6,10 +6,10 @@ using UnityEngine;
 public class ResourceDrop : Drop
 {
     [SerializeField]private CraftingMaterial _craftingMaterial;
+    [SerializeField]private int _amount = 1;
     public override void OnPickUp(PickUpsController pickUpsController)
     {
-        pickUpsController.AddMaterial(_craftingMaterial);
-        pickUpsController.AddXP(1);
+        pickUpsController.AddMaterial(_craftingMaterial, _amount);
     }
 
     public void SetSprite()

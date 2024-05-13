@@ -28,6 +28,7 @@ public enum StatsTypes
     ProjectilesCount = 24,
     ProjectilesSpeed = 25,
     SummonDamage = 26,
-    SummonSpeed = 27
+    SummonSpeed = 27,
+    AttackSpeed = 28,
 
 }

@@ -7,6 +7,7 @@ public class PlayerUpgradesManager : MonoBehaviour
 
     [SerializeField]PlayerManager _playerManager;
     [SerializeField]SOPossibleUpgradesList _possibleUpgradesList;
+    [SerializeField]SOStoreUpgradesList _storeUpgradesList;
     public PlayerManager Player => _playerManager;
     
     //SOUpgradeBase[] _equipedUpgrades;
@@ -22,10 +23,11 @@ public class PlayerUpgradesManager : MonoBehaviour
     {
         gameObject.CheckComponent<PlayerManager>(ref _playerManager);
         _possibleUpgradesList.Initialize();
+        _storeUpgradesList.Initialize();
     }
 
-    public float StatUp(float stat, float amount) => stat += amount;
-    public float StatUp(float stat, int percent) => stat += GetPercentage(stat, percent);
+    public float StatUp(float amount) => amount;
+    public float StatUp(float stat, int percent) => GetPercentage(stat, percent);
     //public int StatUp(int stat, int amount) => stat += amount;
     //public int StatUpByPercent(int stat, int percent) => stat += (int)GetPercentage(stat, percent);
 

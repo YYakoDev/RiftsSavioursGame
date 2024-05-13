@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1a28bd004efc7e4792f911722680c47, type: 3}
+  m_Script: {fileID: 11500000, guid: 7230e8f03bb05d14ea40b5578f29e49e, type: 3}
   m_Name: BasicXPDrop
   m_EditorClassIdentifier: 
   _sprite: {fileID: 21300000, guid: 5828be1c90e689a459bf6a9942e0757e, type: 3}
   _pickupSounds: []
   _dropChance: 90
-  _lightIntensity: 0.24
-  _xpAmount: 1
+  _lightIntensity: 0.25
+  _craftingMaterial: {fileID: 11400000, guid: 344fae3b71073dc4db90059a78e7db73, type: 2}

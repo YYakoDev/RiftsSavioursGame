@@ -62,6 +62,11 @@ public class PickUpsController : MonoBehaviour
         _playerManager.Inventory.AddMaterial(material);
         _pickupsPopupManager?.SpawnMaterialPopup(material);
     }
+    public void AddMaterial(CraftingMaterial material, int amount)
+    {
+        _playerManager.Inventory.AddMaterial(material, amount);
+        _pickupsPopupManager?.SpawnMaterialPopup(material);
+    }
 
     public void PlayAudioClip(AudioClip sound)
     {

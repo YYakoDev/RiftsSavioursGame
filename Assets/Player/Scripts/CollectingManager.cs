@@ -80,12 +80,15 @@ public class CollectingManager : MonoBehaviour
     void SetValues()
     {
         //SOLO HACER CADA CAMBIO SI EL VALOR ES DIFERENTE, ESPECIALMENTE PARA EL METODO DE SET RANGE VISUALLY (creo que es costoso aplicarlo por cada cambio de stat)
-        _range = _player.Stats.CollectingRange;
+        var newRange = _player.Stats.CollectingRange;
+        if(_range != newRange)
+        {
+            _range = newRange;
+            SetRangeVisually();
+        }
         _damage = _player.Stats.CollectingDamage;
         _interactCooldown = _player.Stats.InteractCooldown;
-        _maxResourceInteractions = _player.Stats.MaxResourceInteractions;
-        SetRangeVisually(); //ESPECIALMENTE PARA ESTE METODO
-
+        _maxResourceInteractions = Mathf.RoundToInt(_player.Stats.MaxResourceInteractions);
         //aca tendrias que chequear si el maxnumer of interactions cambio y es mayor que el resources detected length y agrandar el array de detecciones con Array.resize
         
 

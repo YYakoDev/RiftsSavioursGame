@@ -8,6 +8,7 @@ public class SOUpgradeBase : ScriptableObject
     public const string MenuPath = "ScriptableObjects/Upgrades/";
     protected UpgradeGroup _parent;
 
+    [SerializeField]protected UpgradeRarity _rarity;
     [SerializeField]protected string _name;
     [SerializeField, HideInInspector]protected string _description;
     [SerializeField]protected Sprite _sprite;
@@ -16,6 +17,7 @@ public class SOUpgradeBase : ScriptableObject
 
     //properties
     public UpgradeGroup GroupParent => _parent;
+    public UpgradeRarity Rarity => _rarity;
     public string Name => _name;
     public string Description => _description;
     public Sprite Sprite => _sprite;
