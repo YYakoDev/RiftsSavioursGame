@@ -6,82 +6,82 @@ using UnityEngine.UI;
 [RequireComponent(typeof(TweenAnimatorMultiple))]
 public class UIWaveProgressChecker : MonoBehaviour
 {
-    [SerializeField]World _currentWorld;
-    Timer _restTimer;
     [SerializeField]Slider _slider;
-    [SerializeField] Image _fillImg;
-    [SerializeField] Sprite _enemyWaveImg, _restWaveImg;
+    [SerializeField] Image _fillImg, _barIcon;
+    [SerializeField] Sprite _enemyWaveImg, _restImg;
     RectTransform _sliderRect;
-    float _elapsedWaveTime = 0;
-    TweenAnimatorMultiple _animator;
-
+    Timer _waveTimer;
     float _currentWaveDuration = 0f;
+    bool _timerIsRunning = false;
+    TweenAnimatorMultiple _animator;
 
     [Header("Animation")]
     [SerializeField] float _animDuration = 0.5f;
     [SerializeField] Vector3 _endScale = Vector3.one, _scaleOffset;
 
     private void Awake() {
-        if(_currentWorld == null) gameObject.SetActive(false);
         _sliderRect = _slider.GetComponent<RectTransform>();
-        _restTimer = new(0.1f);
-        _restTimer.Stop();
-        _restTimer.onEnd += SetEnemyWaveSlider;
+        _waveTimer = new Timer(_currentWaveDuration);
+        _waveTimer.Stop();
         _animator = GetComponent<TweenAnimatorMultiple>();
-        GameStateManager.OnRestStart += SetRestSlider;
-        _currentWorld.OnWaveChange += SetCurrentWave;
-        SetCurrentWave(_currentWorld.Waves[0]);
+        GameStateManager.OnStateSwitch += StateSwitchCheck;
     }
 
     private void Start() {
         //_handleImg.sprite = _enemyWaveImg;
-        _fillImg.color = UIColors.GetColor(UIColor.Red);
+        //_fillImg.color = UIColors.GetColor(UIColor.Red);
+        _slider.value = 0f;
+        _slider.maxValue = 1f;
+        _slider.wholeNumbers = false;
+        StateSwitchCheck(GameStateManager.CurrentState);
     }
 
-    void SetRestSlider(float time)
+    void StateSwitchCheck(GameStateBase state)
     {
-        _restTimer.ChangeTime(time);
-        _restTimer.Start();
-        PlayAnimation();
-        //_handleImg.sprite = _restWaveImg;
-        _fillImg.color = UIColors.GetColor(UIColor.Green);
-        SetNewTime(time);
+        
+        if(state.GetType() == typeof(ConvergenceState))
+        {
+            var ConvergenceState = (ConvergenceState)state;
+            _currentWaveDuration = ConvergenceState.CountdownTime;
+            _barIcon.sprite = _enemyWaveImg;
+        }
+        else if(state.GetType() == typeof(RestState))
+        {
+            var RestState = (RestState)state;
+            _currentWaveDuration = RestState.CountdownTime;
+            _barIcon.sprite = _restImg;
+        }
+        SetEnemyWaveSlider(_currentWaveDuration);
     }
-
-    void SetEnemyWaveSlider()
+    void SetEnemyWaveSlider(float time)
     {
         PlayAnimation();
         //_handleImg.sprite = _enemyWaveImg;
-        _fillImg.color = UIColors.GetColor(UIColor.Red);
-        SetNewTime(_currentWaveDuration);
+        //_fillImg.color = UIColors.GetColor(UIColor.Red);
+        SetNewTime(time);
     }
 
     void SetNewTime(float time)
     {
-        _elapsedWaveTime = 0f;
-        _slider.maxValue = time;
+        Debug.Log("New wave progress timer:  " + time);
+        _waveTimer.ChangeTime(time);
+        _waveTimer.Start();
+        _timerIsRunning = true;
     }
 
     void PlayAnimation() => _animator.TweenScaleBouncy(_sliderRect, _endScale, _scaleOffset, _animDuration, 0, 4);
     
 
     private void Update() {
-        _restTimer.UpdateTime();
-        _elapsedWaveTime += Time.deltaTime;
-        _slider.value = _currentWaveDuration - _elapsedWaveTime;
+        _waveTimer.UpdateTime();
+        if(_timerIsRunning)
+        {
+            var percentage = _waveTimer.CurrentTime / _currentWaveDuration;
+            _slider.value = percentage;
+        }
     }
-
-    void SetCurrentWave(SOEnemyWave newWave)
-    {
-        _currentWaveDuration = newWave.WaveDuration;
-        SetNewTime(newWave.WaveDuration);
-    }
-    
-
     private void OnDestroy() {
-        _restTimer.onEnd -= SetEnemyWaveSlider;
-        GameStateManager.OnRestStart -= SetRestSlider;
-        _currentWorld.OnWaveChange -= SetCurrentWave;
+        GameStateManager.OnStateSwitch -= StateSwitchCheck;
     }
 }
 

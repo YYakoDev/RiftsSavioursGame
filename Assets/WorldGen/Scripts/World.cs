@@ -10,7 +10,7 @@ public class World : ScriptableObject
 {
     [SerializeField]private string _name;
     public const float RiftDuration = 900f; // 15mins
-    float _restInterval = 10f;
+    [SerializeField]float _restInterval = 3f;
     [SerializeField]private SOEnemyWave[] _waves;
     [SerializeField]private ChunkTileMap[] _chunks = new ChunkTileMap[0];
 
@@ -54,7 +54,6 @@ public class World : ScriptableObject
         }
         //Debug.Log($"<b>Advancing to wave: {_waves[_currentWaveIndex].name} </b>");
         _currentWave = _waves[_currentWaveIndex];
-        SetRestInterval(_currentWave.WaveDuration);
         OnWaveChange?.Invoke(_currentWave);
     }
 
@@ -65,8 +64,4 @@ public class World : ScriptableObject
         _chunks[_chunks.Length - 1] = chunk;
     }
 
-    void SetRestInterval(float waveDuration)
-    {
-        _restInterval = 8f + (3f + _currentWave.EnemiesToSpawn - 25f / waveDuration) + 5f / _currentWave.EnemySpawnCooldown;
-    }
 }

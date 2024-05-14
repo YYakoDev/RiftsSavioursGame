@@ -41,6 +41,7 @@ public class MainMenuUI : MonoBehaviour
     public void PlayButton()
     {
         _audio.PlayWithVaryingPitch(_selectionSFX);
+        UpgradeCreator.CreateUpgrades();
         SceneManager.LoadScene(1);
     }
 

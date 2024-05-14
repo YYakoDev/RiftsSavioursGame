@@ -15,7 +15,8 @@ public class RestState : GameStateCountdown
     protected override void Transition()
     {
         base.Transition();
-        _stateManager.SwitchState(_stateManager.CraftState);
+        _stateManager.SwitchState(_stateManager.ConvergenceState);
+        _countdownTime = _stateManager.CurrentWorld.RestInterval;
     }
 
     public override void UpdateLogic()

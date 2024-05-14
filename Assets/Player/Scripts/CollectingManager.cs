@@ -86,7 +86,7 @@ public class CollectingManager : MonoBehaviour
             _range = newRange;
             SetRangeVisually();
         }
-        _damage = _player.Stats.CollectingDamage;
+        _damage = Mathf.RoundToInt(_player.Stats.CollectingDamage);
         _interactCooldown = _player.Stats.InteractCooldown;
         _maxResourceInteractions = Mathf.RoundToInt(_player.Stats.MaxResourceInteractions);
         //aca tendrias que chequear si el maxnumer of interactions cambio y es mayor que el resources detected length y agrandar el array de detecciones con Array.resize

@@ -12,6 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 211f9415e4a3bff409c0929835e67618, type: 3}
   m_Name: TestChar
   m_EditorClassIdentifier: 
+  _name: Test Char if you see this place a hit on me
+  _description: if you are reading this, that means i fucked up beyond redemption
   _stats: {fileID: 11400000, guid: 9e9255f3caa668a48a4d1db9b6079ab6, type: 2}
-  _atkStats: {fileID: 11400000, guid: fb637baf54ecc0042986a0affa9dbbbe, type: 2}
+  _sprite: {fileID: 21300000, guid: 3080ea8bcfa167949a57765117710e15, type: 3}
   _animator: {fileID: 22100000, guid: f885df4ae41625a4d8a466c9a2a44a86, type: 2}
+  _dashData: {fileID: 11400000, guid: 1e8148ce67ed4f44db6f8b9f135ab5ef, type: 2}
+  _startingMaterials:
+  - _crafingMaterial: {fileID: 11400000, guid: 344fae3b71073dc4db90059a78e7db73, type: 2}
+    Amount: 10000

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,23 +6,36 @@ using UnityEngine.UI;
 using TMPro;
 public class StoreItem : MonoBehaviour
 {
-    [SerializeField] Image _icon;
+    [SerializeField] Image _icon, _itemBorder;
     [SerializeField] TextMeshProUGUI t_name, t_description, t_price;
     [SerializeField] Material _textBlackOutline, _textWhiteOutline;
-
-    public void Initialize(SOUpgradeBase data, int coinTextIconIndex = 0)
+    [SerializeField] Button _buyButton, _lockButton;
+    [SerializeField] Image _lockIcon;
+    [SerializeField] Sprite _lockedSprite, _unlockedSprite;
+    bool _locked = false;
+    [SerializeField] AudioSource _audio;
+    [SerializeField] AudioClip _lockingSFX, _unlockingSFX;
+    int _cost = 0;
+    public int Cost => _cost;
+    public bool IsLocked => _locked;
+    private void Start() {
+        _lockButton.AddEventListener(LockSwitch);
+    }
+    public void Initialize(SOUpgradeBase data, Action<SOStoreUpgrade, int> buyAction, SOStoreUpgrade upgradeIndex, int storeItemIndex, bool affordableItem = true, int coinTextIconIndex = 0)
     {
+        _locked = false;
         _icon.sprite = data.Sprite;
-        string color = data.Rarity switch
+        int color = data.Rarity switch
         {
-            UpgradeRarity.Broken => UIColors.GetHexColor(UIColor.Grey),
-            UpgradeRarity.Common => UIColors.GetHexColor(UIColor.None),
-            UpgradeRarity.Uncommon => UIColors.GetHexColor(UIColor.Green),
-            UpgradeRarity.Rare => UIColors.GetHexColor(UIColor.Blue),
-            UpgradeRarity.Epic => UIColors.GetHexColor(UIColor.Purple),
-            UpgradeRarity.Legendary => UIColors.GetHexColor(UIColor.Orange),
-            _ => UIColors.GetHexColor(UIColor.None)
+            UpgradeRarity.Broken => 8,
+            UpgradeRarity.Common => 0,
+            UpgradeRarity.Uncommon => 2,
+            UpgradeRarity.Rare => 5,
+            UpgradeRarity.Epic => 7,
+            UpgradeRarity.Legendary => 6,
+            _ => 0
         };
+        _itemBorder.color = UIColors.GetColor((UIColor)color);
         Material mat = data.Rarity switch
         {
             UpgradeRarity.Broken => _textBlackOutline,
@@ -34,12 +48,32 @@ public class StoreItem : MonoBehaviour
         };
 
 
-        t_name.text = $"<color={color}>{data.Name}</color>";
+        t_name.text = $"<color={UIColors.GetHexColor((UIColor)color)}>{data.Name}</color>";
         t_description.text = data.Description;
         t_name.fontMaterial = mat;
-        t_price.text = $"<sprite={coinTextIconIndex}>{data.Costs[0].Cost}";
+        _cost = data.Costs[0].Cost;
+        UpdateCostText(affordableItem, coinTextIconIndex);
+        _buyButton.RemoveAllEvents();
+        _buyButton.AddEventListener(buyAction, upgradeIndex, storeItemIndex);
+
         SetTextMeshAutoSize(true);
         StartCoroutine(DisableAutoSize());
+    }
+
+    void LockSwitch()
+    {
+        _locked = !_locked;
+        _lockIcon.sprite = _locked ? _lockedSprite : _unlockedSprite;
+        _audio.PlayWithVaryingPitch(_locked ? _lockingSFX : _unlockingSFX);
+    }
+
+    public void UpdateCostText(bool affordable, int coinTextIconIndex)
+    {
+        var color = (affordable) ? UIColors.GetHexColor(UIColor.None):UIColors.GetHexColor(UIColor.Red);
+        t_price.text = $"<sprite={coinTextIconIndex}><color={color}>{_cost}</color>";
+        t_name.fontStyle = (affordable) ? FontStyles.Bold : FontStyles.Strikethrough;
+        _icon.color = (!affordable) ? Color.grey : Color.white;
+        _buyButton.interactable = affordable;
     }
 
     IEnumerator DisableAutoSize()

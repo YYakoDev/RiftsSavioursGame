@@ -141,10 +141,11 @@ public class MeleeWeapon : WeaponBase
     {
         //codear esto para que se modifiquen las stats del arma pero sin escalar hasta el infinito sin querer
         //Mirar el oldweapon system!
-        _modifiedStats._atkDmg = (int)((_attackDamage + attackStats.BaseDamageAddition) * attackStats.DamageMultiplier);
-        _modifiedStats._atkRange = _attackRange + attackStats.AttackRange;
-        _modifiedStats._cooldown = _attackCooldown + attackStats.AttackCooldown;
-        _modifiedStats._knockbackForce = _knockbackForce + attackStats.AttackKnockback;
+        _modifiedStats._atkDmg = (int)((_attackDamage + (attackStats.BaseDamageAddition - 1)) * attackStats.DamageMultiplier);
+        _modifiedStats._atkRange = _attackRange + (attackStats.AttackRange - 1);
+        _modifiedStats._cooldown = _attackCooldown - (attackStats.AttackCooldown - 1);
+        _modifiedStats._knockbackForce = _knockbackForce +( attackStats.AttackKnockback - 1);
+        _modifiedStats._atkSpeed = _attackSpeed + (attackStats.AttackSpeed - 1);
         SetRadiusOffset(_modifiedStats._atkRange);
         SetMaxEnemiesToHit(_modifiedStats._atkRange);
         _modifiedStats._atkDelay = _damageDelay / _modifiedStats._atkSpeed;

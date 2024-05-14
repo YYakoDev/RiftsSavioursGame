@@ -24,7 +24,7 @@ public class StatChangingUpgrade : SOUpgradeBase
             string colorTag = (positiveUpgrade) ? $"<color={UIColors.GetHexColor(UIColor.Green)}>" : $"<color={UIColors.GetHexColor(UIColor.Red)}>" ;
             string text = (positiveUpgrade) ? $"{colorTag}Increases </color>": $"{colorTag}Decreases </color>";
             var statName = HelperMethods.AddSpacesToSentence(_statsToModify[i].ToString(), false).ToLower();
-            string fullText = modificationValue.UsePercentage ? $"{text}your {statName} by {modificationValue.Percentage}%" : $"{text} your {statName} by {modificationValue.Addition}";
+            string fullText = modificationValue.UsePercentage ? $"{text}your <b>{statName}</b> by {modificationValue.Percentage}%" : $"{text} your {statName} by {modificationValue.Addition}";
             if(i != _statsToModify.Length -1)_description += fullText + "\n";
             else _description += fullText;
 
@@ -35,6 +35,11 @@ public class StatChangingUpgrade : SOUpgradeBase
     public override void ApplyEffect(PlayerUpgradesManager upgradesManager)
     {
         base.ApplyEffect(upgradesManager);
+        StatChanging(upgradesManager);
+    }
+
+    protected virtual void StatChanging(PlayerUpgradesManager upgradesManager)
+    {
         var statsManager = upgradesManager.Player.StatsManager;
 
         for (int i = 0; i < _statsToModify.Length; i++)
@@ -52,7 +57,6 @@ public class StatChangingUpgrade : SOUpgradeBase
 
             statsManager.SetStat(statType, newValue);
         }
-
     }
 
     private void OnValidate() {

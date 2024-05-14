@@ -6,6 +6,7 @@ using UnityEngine;
 public class ResourceBreakingWeapon : MeleeWeapon
 {
     [SerializeField] LayerMask _resourcesLayer;
+    [SerializeField] ResourcesTypes _targetType;
     LayerMask _targetsLayer;
     public override void Initialize(WeaponManager weaponManager, Transform prefabTransform)
     {
@@ -39,6 +40,7 @@ public class ResourceBreakingWeapon : MeleeWeapon
 
             if(_hittedEnemiesGO[i].TryGetComponent<Resource>(out Resource resource))
             {
+                if(resource.ResourceType != _targetType) continue;
                 resource.Interact(_modifiedStats._atkDmg);
                 //PopupsManager.Create(_hittedEnemiesGO[i].transform.position + Vector3.up * 0.75f, _modifiedStats._atkDmg);
                 InvokeOnEnemyHit(_hittedEnemiesGO[i].transform.position);

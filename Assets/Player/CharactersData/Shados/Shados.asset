@@ -18,13 +18,4 @@ MonoBehaviour:
   _sprite: {fileID: 21300000, guid: 3080ea8bcfa167949a57765117710e15, type: 3}
   _animator: {fileID: 22100000, guid: f885df4ae41625a4d8a466c9a2a44a86, type: 2}
   _dashData: {fileID: 11400000, guid: 1e8148ce67ed4f44db6f8b9f135ab5ef, type: 2}
-  _startingMaterials:
-  - {fileID: 11400000, guid: b0ee0322b3f2ea5439336a20dc5012b8, type: 2}
-  - {fileID: 11400000, guid: b0ee0322b3f2ea5439336a20dc5012b8, type: 2}
-  - {fileID: 11400000, guid: b0ee0322b3f2ea5439336a20dc5012b8, type: 2}
-  - {fileID: 11400000, guid: b0ee0322b3f2ea5439336a20dc5012b8, type: 2}
-  - {fileID: 11400000, guid: b0ee0322b3f2ea5439336a20dc5012b8, type: 2}
-  - {fileID: 11400000, guid: b0ee0322b3f2ea5439336a20dc5012b8, type: 2}
-  - {fileID: 11400000, guid: b0ee0322b3f2ea5439336a20dc5012b8, type: 2}
-  - {fileID: 11400000, guid: b0ee0322b3f2ea5439336a20dc5012b8, type: 2}
-  - {fileID: 11400000, guid: b0ee0322b3f2ea5439336a20dc5012b8, type: 2}
+  _startingMaterials: []

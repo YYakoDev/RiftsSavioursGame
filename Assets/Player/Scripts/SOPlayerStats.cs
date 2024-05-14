@@ -23,7 +23,7 @@ public class SOPlayerStats : PlayerStatsBase
 
     [Header("Collecting Stats")]
     [SerializeField]float _collectingRange = 2f;
-    [SerializeField]int _collectingDamage = 1;
+    [SerializeField]float _collectingDamage = 1;
     [Range(0,5), SerializeField]float _interactCooldown = 0.8f;
     [SerializeField, Range(1f, 100f)]float _maxResourceInteractions = 1; // a cap to the amount of resource you can interact with
 
@@ -32,28 +32,28 @@ public class SOPlayerStats : PlayerStatsBase
     [SerializeField]private SOPlayerAttackStats _attackStats;
 
     [Header("Defense Stats")]
-    [SerializeField, Range(0, 100)] private int _stunResistance = 0;
-    [SerializeField, Range(0, 100)] private int _knockbackResistance = 10;
-    [SerializeField, Range(0, 100)] private int _damageResistance = 0;
-    [SerializeField, Range(0, 300)] private int _buffBooster = 0;
-    [SerializeField, Range(0, 100)] private int _debuffResistance = 0;
+    [SerializeField, Range(0, 90)] private float _stunResistance = 1;
+    [SerializeField, Range(0, 90)] private float _knockbackResistance = 10;
+    [SerializeField, Range(0, 90)] private float _damageResistance = 1;
+    [SerializeField, Range(0, 300)] private float _buffBooster = 1;
+    [SerializeField, Range(0, 90)] private float _debuffResistance = 1;
 
     [Header("Luck Stats")]
-    [SerializeField] private int _faith = 1;
+    [SerializeField] private float _faith = 1;
     [SerializeField] private float _harvestMultiplier;
 
     //properties
 
     // HEALTH MANAGER
-    public int MaxHealth {get => _maxHealth; set {_maxHealth = value; onStatsChange?.Invoke();}}
+    public int MaxHealth {get => _maxHealth; set {_maxHealth = value; onStatsChange?.Invoke(); if(_currentHealth > _maxHealth) _currentHealth = _maxHealth;}}
     public int CurrentHealth {get => _currentHealth; set {_currentHealth = value; onStatsChange?.Invoke();}}
 
     // MOVEMENT STATS
     public float Speed {get => _speed; set {_speed = value; onStatsChange?.Invoke();}}
     public float SlowdownMultiplier {get => _slowdownMultiplier; set {_slowdownMultiplier = value; onStatsChange?.Invoke();}}
     public float DashSpeed { get => _dashSpeed; set { _dashSpeed = value; onStatsChange?.Invoke(); } }
-    public float DashCooldown { get => _dashCooldown; set { _dashCooldown = value; onStatsChange?.Invoke(); } }
-    public float DashInvulnerabilityTime { get => _dashInvulnerabilityTime; set { _dashInvulnerabilityTime = value; onStatsChange?.Invoke(); } }
+    public float DashCooldown { get => _dashCooldown; set { _dashCooldown = Mathf.Clamp(value, 0.05f,100f); onStatsChange?.Invoke(); } }
+    public float DashInvulnerabilityTime { get => _dashInvulnerabilityTime; set { _dashInvulnerabilityTime = Mathf.Clamp(value, 0, 1.5f); onStatsChange?.Invoke(); } }
 
     // PICKUP STATS
     public float PickUpRange {get => _pickUpRange; set {_pickUpRange = value; onStatsChange?.Invoke();}}
@@ -61,9 +61,9 @@ public class SOPlayerStats : PlayerStatsBase
 
     // COLLECTING STATS
     public float CollectingRange {get => _collectingRange; set {_collectingRange = value; onStatsChange?.Invoke();}}
-    public int CollectingDamage {get => _collectingDamage; set {_collectingDamage = value; onStatsChange?.Invoke();}}
-    public float InteractCooldown {get => _interactCooldown; set {_interactCooldown = value; onStatsChange?.Invoke();}}
-    public float MaxResourceInteractions {get => _maxResourceInteractions; set {_maxResourceInteractions = value; onStatsChange?.Invoke();}}
+    public float CollectingDamage {get => _collectingDamage; set {_collectingDamage = value; onStatsChange?.Invoke();}}
+    public float InteractCooldown {get => _interactCooldown; set {_interactCooldown = Mathf.Clamp(value, 0.05f, 5f); onStatsChange?.Invoke();}}
+    public float MaxResourceInteractions {get => _maxResourceInteractions; set {_maxResourceInteractions = Mathf.Clamp(value, 1, 90); onStatsChange?.Invoke();}}
 
 
     // WEAPON STATS
@@ -71,16 +71,16 @@ public class SOPlayerStats : PlayerStatsBase
     public SOPlayerAttackStats AttackStats {get => _attackStats;}
 
     // DEFENSE STATS
-    public int StunResistance { get => _stunResistance; set { _stunResistance = value; onStatsChange?.Invoke(); } }
-    public int KnockbackResistance { get => _knockbackResistance; set { _knockbackResistance = value; onStatsChange?.Invoke(); } }
-    public int DamageResistance { get => _damageResistance; set { _damageResistance = value; onStatsChange?.Invoke(); } }
-    public int BuffBooster { get => _buffBooster; set { _buffBooster = value; onStatsChange?.Invoke(); } }
-    public int DebuffResistance { get => _debuffResistance; set { _debuffResistance = value; onStatsChange?.Invoke(); } }
+    public float StunResistance { get => (_stunResistance); set { _stunResistance = Mathf.Clamp(value, 0, 90); onStatsChange?.Invoke(); } }
+    public float KnockbackResistance { get => (_knockbackResistance); set { _knockbackResistance = Mathf.Clamp(value, 0, 90); onStatsChange?.Invoke(); } }
+    public float DamageResistance { get => (_damageResistance); set { _damageResistance = Mathf.Clamp(value, 0, 90); onStatsChange?.Invoke(); } }
+    public float BuffBooster { get => (_buffBooster); set { _buffBooster = Mathf.Clamp(value, 0, 300); onStatsChange?.Invoke(); } }
+    public float DebuffResistance { get => (_debuffResistance); set { _debuffResistance = Mathf.Clamp(value, 0, 90); onStatsChange?.Invoke(); } }
 
 
 
     // LUCK STATS
-    public int Faith { get => _faith;  set { _faith = value; onStatsChange?.Invoke(); } }
+    public float Faith { get => (_faith);  set { _faith = value; onStatsChange?.Invoke(); } }
     public float HarvestMultiplier { get => _harvestMultiplier;  set { _harvestMultiplier = value; onStatsChange?.Invoke(); } }
 
     public void Initialize(SOCharacterData data)

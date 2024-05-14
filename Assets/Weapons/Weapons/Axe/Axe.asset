@@ -40,3 +40,4 @@ MonoBehaviour:
   _resourcesLayer:
     serializedVersion: 2
     m_Bits: 8
+  _targetType: 1

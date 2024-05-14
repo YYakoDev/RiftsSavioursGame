@@ -54,7 +54,7 @@ public class PlayerInputUI : MonoBehaviour
 
     void PlayAttackInput()
     {
-        _attackSkill?.UpdateCooldown(_currentWeapon.GetWeaponCooldown());
+        //_attackSkill?.UpdateCooldown(_currentWeapon.GetWeaponCooldown());
         _attackSkill?.Interact();
     }
 

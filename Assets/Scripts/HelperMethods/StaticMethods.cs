@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Random = UnityEngine.Random;
 
 public static class HelperMethods
 {
@@ -53,6 +54,16 @@ public static class HelperMethods
             newText.Append(text[i]);
         }
         return newText.ToString();
+    }
+
+    public static int RandomNumberExcept(int min, int max, int except)
+    {
+        int number = Random.Range(min, max);
+        do
+        {
+            number = Random.Range(min, max);
+        } while (number == except);
+        return number;
     }
 
 

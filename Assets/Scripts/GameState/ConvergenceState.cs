@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class ConvergenceState : GameStateCountdown
 {
-    int _convergencesCount = 3;
-    const int MaxConvergences = 3; 
+    int _convergencesCount = 2;
+    const int MaxConvergences = 2; 
 
     public ConvergenceState(GameStateManager manager) : base(manager)
     {}
@@ -24,6 +24,10 @@ public class ConvergenceState : GameStateCountdown
         {
             _stateManager.SwitchState(_stateManager.RestState);
             _convergencesCount = 0;
+        }
+        else
+        {
+            _stateManager.SwitchState(_stateManager.ConvergenceState);
         }
     }
 

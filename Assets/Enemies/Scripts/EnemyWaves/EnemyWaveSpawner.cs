@@ -10,6 +10,7 @@ public class EnemyWaveSpawner : MonoBehaviour
     [SerializeField] float _innerRadius, _spawnRadius;
     EnemyWavePooler _pool;
     [SerializeField]GameObject _portalFx;
+    [SerializeField] float _portalFxDuration = 0.3f;
     NotMonoObjectPool _portalPool;
     //current wave stats
     public SOEnemyWave _currentWave => _currentWorld.CurrentWave; //THIS IS PUBLIC ONLY FOR DEBUG PURPOSES(made for the DebugTestCurrentWave class) remove this later
@@ -18,7 +19,7 @@ public class EnemyWaveSpawner : MonoBehaviour
     private Vector3 _selectedSpawnpoint;
 
     bool _stopped;
-    Timer _stopSpawningTimer;
+    Timer _stopSpawningTimer, _spawnTimer;
     //private float _nextSpawnLocationCooldown = 0f;
     SOEnemy[] _enemiesInfo => _currentWave.Enemies;
 
@@ -32,6 +33,9 @@ public class EnemyWaveSpawner : MonoBehaviour
         _stopSpawningTimer = new(0.1f);
         _stopSpawningTimer.Stop();
         _nextSpawnTime = Time.time + 3f;
+        _spawnTimer = new(_portalFxDuration);
+        _spawnTimer.Stop();
+        _spawnTimer.onEnd += DoSpawning;
     }
     
     // Start is called before the first frame update
@@ -39,9 +43,9 @@ public class EnemyWaveSpawner : MonoBehaviour
     {
         if(_playerTransform == null) _playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
 
-        GameStateManager.OnRestStart += StopSpawning;
+        GameStateManager.OnStateSwitch += CheckGameState;
         _stopSpawningTimer.onEnd += ResumeSpawning;
-
+        _stopSpawningTimer.Start();
         SelectSpawnPosition();
     }
 
@@ -49,33 +53,37 @@ public class EnemyWaveSpawner : MonoBehaviour
     void Update()
     {
         _stopSpawningTimer.UpdateTime();
+        _spawnTimer.UpdateTime();
         if(_stopped) return;
         if (_nextSpawnTime < Time.time)
         {
             _nextSpawnTime = _spawnCooldown + 0.15f + Time.time;
             SelectSpawnPosition();
             SpawnPortalFx(_selectedSpawnpoint);
-            int amountOfEnemiesToSpawn = Random.Range(1, _currentWave.EnemiesToSpawn + 1);
-            for (int i = 0; i < amountOfEnemiesToSpawn; i++)
-            {
-                StartCoroutine(Spawn());
-            }
-
+            _spawnTimer.Start();
         }
     }
 
-    IEnumerator Spawn()
+    void DoSpawning()
     {
-        yield return null;
+        int amountOfEnemiesToSpawn = Random.Range(1, _currentWave.EnemiesToSpawn + 1);
+        for (int i = 0; i < amountOfEnemiesToSpawn; i++)
+        {
+            CreateEnemy();
+        }
 
+    }
+
+    void CreateEnemy()
+    {
         var data = _enemiesInfo[Random.Range(0, _enemiesInfo.Length)];
         var enemy = _pool.GetPooledObject();
-        if(enemy.Value == null) yield break;
+        if(enemy.Value == null) return;
         
         enemy.Value.Initialize(data, _playerTransform);
 
         enemy.Key.transform.SetParent(null); //aca setearlo al parent del objeto "Units" adentro de environment
-        enemy.Key.transform.position = _selectedSpawnpoint + (Vector3)(Vector2.one * Random.Range(-0.8f, 0.8f));
+        enemy.Key.transform.position = _selectedSpawnpoint + (Vector3)(Vector2.one * Random.Range(-1f, 1f));
         enemy.Key.SetActive(true);
     }
 
@@ -89,6 +97,14 @@ public class EnemyWaveSpawner : MonoBehaviour
     void ResumeSpawning()
     {
         _stopped = false;
+    }
+
+    void CheckGameState(GameStateBase state)
+    {
+        if(state.GetType() == typeof(RestState))
+        {
+            StopSpawning(_currentWorld.RestInterval);
+        }
     }
 
     void SelectSpawnPosition()
@@ -109,7 +125,8 @@ public class EnemyWaveSpawner : MonoBehaviour
 
     private void OnDestroy()
     {
-        GameStateManager.OnRestStart -= StopSpawning;
+        GameStateManager.OnStateSwitch -= CheckGameState;
+        _spawnTimer.onEnd -= DoSpawning;
         _stopSpawningTimer.onEnd -= ResumeSpawning;
     }
 

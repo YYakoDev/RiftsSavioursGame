@@ -23,7 +23,8 @@ MonoBehaviour:
     _damage: 1
     _knockbackForce: 1.1
   _drops:
-  - {fileID: 11400000, guid: d0ab46bbe532d364a8d370efba7ef95e, type: 2}
+  - {fileID: 11400000, guid: 3b90691a15d7e584aafc335711541a46, type: 2}
+  - {fileID: 11400000, guid: 3b90691a15d7e584aafc335711541a46, type: 2}
   _isBoxTrigger: 1
   _boxColliderSize: {x: 0.4, y: 1}
   _isCircleTrigger: 0

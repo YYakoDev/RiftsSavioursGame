@@ -34,7 +34,7 @@ public class DoubleAttackMelee : MeleeWeapon
 
     void SpawnSlash()
     {
-        Debug.Log("Spawning Slash");
+        //Debug.Log("Spawning Slash");
         _slashInstance.gameObject.SetActive(true);
 
         Vector2 dirToWeapon = _weaponPrefabTransform.position - _weaponManager.transform.position;

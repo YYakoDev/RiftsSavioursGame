@@ -10,6 +10,10 @@ public class ResourceDrop : Drop
     public override void OnPickUp(PickUpsController pickUpsController)
     {
         pickUpsController.AddMaterial(_craftingMaterial, _amount);
+        if(_craftingMaterial.Sprite == null)
+        {
+            _craftingMaterial.Sprite = Sprite;
+        }
     }
 
     public void SetSprite()

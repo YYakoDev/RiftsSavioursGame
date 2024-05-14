@@ -6,6 +6,7 @@ using UnityEngine;
 public class EnemyAnimations : MonoBehaviour
 {
     [SerializeField]private Animator _animator;
+    private static readonly int SpawnAnim = Animator.StringToHash("Spawn");
     private static readonly int Iddle = Animator.StringToHash("Iddle");
     private static readonly int Move = Animator.StringToHash("Move");
     private static readonly int Hit = Animator.StringToHash("Hit");
@@ -32,10 +33,12 @@ public class EnemyAnimations : MonoBehaviour
 
     private void OnEnable() {
         //PlayIddle();
+        PlaySpawnAnim();
     }
     private void Update() {
         _speedChangeTimer.UpdateTime();
     }
+    public void PlaySpawnAnim() => PlayStated(SpawnAnim, 0.275f);
     public void PlayMove() => PlayStated(Move);
     
     public void PlayIddle() => PlayStated(Iddle);

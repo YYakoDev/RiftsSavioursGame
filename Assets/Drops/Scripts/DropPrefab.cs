@@ -80,6 +80,7 @@ public class DropPrefab : MonoBehaviour
     
     void MoveToTarget()
     {
+        _trail.emitting = true;
         _moveToTarget = true;
     }
 
@@ -92,7 +93,6 @@ public class DropPrefab : MonoBehaviour
     public void PickUp(PickUpsController pickUpsController)
     {
         if(_target != null)return;
-        _trail.emitting = true;
         _pickUpsController = pickUpsController;
         _target = _pickUpsController.transform;
     }

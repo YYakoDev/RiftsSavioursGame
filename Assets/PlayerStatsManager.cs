@@ -151,31 +151,31 @@ public class PlayerStatsManager : MonoBehaviour
                 _playerStats.CollectingRange += increment;
                 break;
             case 9:
-                _playerStats.CollectingDamage += (int)increment;
+                _playerStats.CollectingDamage += increment;
                 break;
             case 10:
                 _playerStats.InteractCooldown -= increment;
                 break;
             case 11:
-                _playerStats.MaxResourceInteractions += (int)increment;
+                _playerStats.MaxResourceInteractions += increment;
                 break;
             case 12:
-                _playerStats.StunResistance += (int)increment;
+                _playerStats.StunResistance += increment;
                 break;
             case 13:
-                _playerStats.KnockbackResistance += (int)increment;
+                _playerStats.KnockbackResistance += increment;
                 break;
             case 14:
-                _playerStats.DamageResistance += (int)increment;
+                _playerStats.DamageResistance += increment;
                 break;
             case 15:
-                _playerStats.BuffBooster += (int)increment;
+                _playerStats.BuffBooster += increment;
                 break;
             case 16:
-                _playerStats.DebuffResistance += (int)increment;
+                _playerStats.DebuffResistance += increment;
                 break;
             case 17:
-                _playerStats.Faith += (int)increment;
+                _playerStats.Faith += increment;
                 break;
             case 18:
                 _playerStats.HarvestMultiplier += increment;
@@ -190,7 +190,7 @@ public class PlayerStatsManager : MonoBehaviour
                 _playerAtkStats.AttackRange += increment;
                 break;
             case 22:
-                _playerAtkStats.AttackCooldown -= increment;
+                _playerAtkStats.AttackCooldown += increment;
                 break;
             case 23:
                 _playerAtkStats.AttackKnockback += increment;

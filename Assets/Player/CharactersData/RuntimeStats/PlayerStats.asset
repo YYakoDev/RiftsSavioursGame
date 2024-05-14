@@ -13,25 +13,25 @@ MonoBehaviour:
   m_Name: PlayerStats
   m_EditorClassIdentifier: 
   _maxHealth: 50
-  _currentHealth: 32
-  _speed: 5.4
-  _slowdownMultiplier: 1
-  _dashSpeed: 11
-  _dashCooldown: 0.8
-  _dashInvulnerabilityTime: 0.044
-  _pickUpRange: 1.8
-  _collectingRange: 2
+  _currentHealth: 50
+  _speed: 4
+  _slowdownMultiplier: 0.28
+  _dashSpeed: 10
+  _dashCooldown: 0.5
+  _dashInvulnerabilityTime: 0.2
+  _pickUpRange: 5
+  _collectingRange: 3.91
   _collectingDamage: 1
-  _interactCooldown: 0.49
+  _interactCooldown: 0.8
   _maxResourceInteractions: 1
   _weapons:
-  - {fileID: 11400000, guid: 77c4c2247dc5e1d43a165ee3213cde47, type: 2}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 8390c2ced3f8d9c4c812adc9b4489ea0, type: 2}
+  - {fileID: 11400000, guid: ade60ecdc6716a6488e930c2fc1fba28, type: 2}
+  - {fileID: 11400000, guid: 5f7416b72e2720a42ac16e43b5f6ff75, type: 2}
   _attackStats: {fileID: 11400000, guid: 5c0efc2d47ffa234c9cfe266e112553e, type: 2}
-  _stunResistance: 1
-  _knockbackResistance: 4
-  _damageResistance: 1
+  _stunResistance: 0
+  _knockbackResistance: 10
+  _damageResistance: 0
   _buffBooster: 0
   _debuffResistance: 0
   _faith: 1

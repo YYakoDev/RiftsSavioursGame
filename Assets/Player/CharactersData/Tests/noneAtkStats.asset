@@ -13,8 +13,12 @@ MonoBehaviour:
   m_Name: noneAtkStats
   m_EditorClassIdentifier: 
   _damageMultiplier: 1
-  _attackRange: 0
-  _attackCooldown: 0
-  _attackKnockback: 0
-  _projectilesCount: 0
-  _projectilesSpeed: 0
+  _baseDamageAddition: 1
+  _attackRange: 1
+  _attackCooldown: 1
+  _attackSpeed: 1
+  _attackKnockback: 1
+  _projectilesCount: 1
+  _projectilesSpeed: 1
+  _summonDamage: 5
+  _summonSpeed: 1.5

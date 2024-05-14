@@ -37,7 +37,7 @@ public class YYInputManager : MonoBehaviour
         {
             if (Input.GetKeyDown(key.PrimaryKey) || Input.GetKeyDown(key.SecondaryKey) || Input.GetKeyDown(key.ControllerKey))
             {
-                Debug.Log(key.GetInputKeyName());
+                //Debug.Log(key.GetInputKeyName());
                 key.KeyPressed();
             }
             if (Input.GetKey(key.PrimaryKey) || Input.GetKey(key.SecondaryKey) || Input.GetKey(key.ControllerKey)) key.KeyHolded();

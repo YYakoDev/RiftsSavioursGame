@@ -23,7 +23,7 @@ public class SOPlayerInventory : ScriptableObject
     public List<UpgradeGroup> EquippedUpgrades => _equippedUpgrades;
  
 
-    public void Initialize(PlayerUpgradesManager upgradesManager, List<CraftingMaterial> startingMaterials = null)
+    public void Initialize(PlayerUpgradesManager upgradesManager, List<InventoryMaterialData> startingMaterials = null)
     {
         //Here you can grab the materials and upgrades from the last save if there is any
         //also apply the equipped upgrades if there is any
@@ -31,9 +31,10 @@ public class SOPlayerInventory : ScriptableObject
         _equippedUpgrades = new();
         _upgradesManager = upgradesManager;
         if(startingMaterials != null)
-        foreach(var mat in startingMaterials)
+        foreach(var inventoryItemData in startingMaterials)
         {
-            AddMaterial(mat);
+            if(inventoryItemData.Material == null) continue;
+            AddMaterial(inventoryItemData.Material, inventoryItemData.Amount);
         }
         //AssetMenuUpdators.UpdateCraftingMaterialIcons();
     }
@@ -66,6 +67,12 @@ public class SOPlayerInventory : ScriptableObject
         if(_ownedMaterials.ContainsKey(matToRemove)) _ownedMaterials[matToRemove] -= amount;
         
         onInventoryChange?.Invoke();
+    }
+
+    public int GetMaterialOwnedCount(CraftingMaterial mat)
+    {
+        if(_ownedMaterials.ContainsKey(mat)) return _ownedMaterials[mat];
+        else return 0;
     }
 
     public void AddUpgrade(SOUpgradeBase upgrade)

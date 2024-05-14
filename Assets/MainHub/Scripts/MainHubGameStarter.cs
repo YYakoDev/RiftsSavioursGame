@@ -111,7 +111,6 @@ public class MainHubGameStarter : MonoBehaviour, IInteractable
         {
             _audio.PlayOneShot(_astrolabeSfx);
         });
-
         _animationTimer.Start();
     }
 

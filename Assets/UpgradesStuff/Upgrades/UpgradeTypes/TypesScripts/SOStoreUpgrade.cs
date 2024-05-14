@@ -2,17 +2,24 @@ using UnityEngine;
 
 public class SOStoreUpgrade : StatChangingUpgrade
 {
-
-    public void Initialize(string name, Sprite icon, UpgradeRarity rarity, StatsTypes[] stats, StatModificationValue[] modifications, params UpgradeCost[] costs)
+    int _listIndex = -1;
+    public int ListIndex => _listIndex;
+    public void Initialize(StoreUpgradeData upgradeData, int listIndex)
     {
-        _costs = costs;
-        _statsToModify = stats;
-        _modifications = modifications;
-        _name = name;
-        _rarity = rarity;
-        _sprite = icon;
+        _name = upgradeData.Name;
+        _sprite = upgradeData.Icon;
+        _costs = upgradeData.Costs;
+        _statsToModify = upgradeData.StatsTypes;
+        _modifications = upgradeData.Modifications;
+        _rarity = upgradeData.Rarity;
+        _listIndex = listIndex;
         SetDescription();
     }
     public override void SetGroup(UpgradeGroup group)
     {}
+
+    public override void ApplyEffect(PlayerUpgradesManager upgradesManager)
+    {
+        StatChanging(upgradesManager);
+    }
 }
