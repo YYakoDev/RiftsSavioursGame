@@ -21,7 +21,8 @@ public class StoreItem : MonoBehaviour
     private void Start() {
         _lockButton.AddEventListener(LockSwitch);
     }
-    public void Initialize(SOUpgradeBase data, Action<SOStoreUpgrade, int> buyAction, SOStoreUpgrade upgradeIndex, int storeItemIndex, bool affordableItem = true, int coinTextIconIndex = 0)
+    public void Initialize
+    (SOUpgradeBase data, Action<SOStoreUpgrade, int> buyAction, SOStoreUpgrade upgradeIndex, int storeItemIndex, bool affordableItem = true, int coinTextIconIndex = 0)
     {
         _locked = false;
         _icon.sprite = data.Sprite;

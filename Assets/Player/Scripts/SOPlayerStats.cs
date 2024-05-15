@@ -45,14 +45,26 @@ public class SOPlayerStats : PlayerStatsBase
     //properties
 
     // HEALTH MANAGER
-    public int MaxHealth {get => _maxHealth; set {_maxHealth = value; onStatsChange?.Invoke(); if(_currentHealth > _maxHealth) _currentHealth = _maxHealth;}}
+    public int MaxHealth 
+    {   
+        get => _maxHealth; 
+        set 
+        {
+            var healthDiff = _maxHealth - _currentHealth;
+            _maxHealth = value; 
+            if(healthDiff >= 0) _currentHealth = value - healthDiff;
+            else if(_currentHealth > _maxHealth) 
+                _currentHealth = _maxHealth;
+            onStatsChange?.Invoke(); 
+        }
+    }
     public int CurrentHealth {get => _currentHealth; set {_currentHealth = value; onStatsChange?.Invoke();}}
 
     // MOVEMENT STATS
     public float Speed {get => _speed; set {_speed = value; onStatsChange?.Invoke();}}
     public float SlowdownMultiplier {get => _slowdownMultiplier; set {_slowdownMultiplier = value; onStatsChange?.Invoke();}}
     public float DashSpeed { get => _dashSpeed; set { _dashSpeed = value; onStatsChange?.Invoke(); } }
-    public float DashCooldown { get => _dashCooldown; set { _dashCooldown = Mathf.Clamp(value, 0.05f,100f); onStatsChange?.Invoke(); } }
+    public float DashCooldown { get => _dashCooldown; set { _dashCooldown = Mathf.Clamp(value, 0.075f,100f); onStatsChange?.Invoke(); } }
     public float DashInvulnerabilityTime { get => _dashInvulnerabilityTime; set { _dashInvulnerabilityTime = Mathf.Clamp(value, 0, 1.5f); onStatsChange?.Invoke(); } }
 
     // PICKUP STATS

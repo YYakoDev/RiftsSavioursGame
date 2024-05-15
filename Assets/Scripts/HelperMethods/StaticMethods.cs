@@ -59,12 +59,10 @@ public static class HelperMethods
     public static int RandomNumberExcept(int min, int max, int except)
     {
         int number = Random.Range(min, max);
-        do
+        while (number == except)
         {
             number = Random.Range(min, max);
-        } while (number == except);
+        }
         return number;
     }
-
-
 }

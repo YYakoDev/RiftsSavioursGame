@@ -54,8 +54,11 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable, ITargetPositionPro
         _health -= damage;
         _blinkFX.Play();
         SpawnBlood();
-        _brain.PlaySound(_brain.GetOnHitSfx());
-        if(_health > 0)_brain.Animation.PlayHit();
+        if(_health > 0)
+        {
+            _brain.PlaySound(_brain.GetOnHitSfx());
+            _brain.Animation.PlayHit();
+        }
         if(_health <= 0)
         {
             //_blinkFX.Stop();

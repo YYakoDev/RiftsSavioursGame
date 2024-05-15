@@ -32,8 +32,11 @@ public static class UpgradeCreator
             var statType = totalStats[i];
             if (statType == StatsTypes.CurrentHealth 
             || statType == StatsTypes.SlowdownMultiplier 
-            || statType == StatsTypes.HarvestMultiplier 
-            || statType == StatsTypes.BuffBooster) continue;
+            || statType == StatsTypes.DebuffResistance 
+            || statType == StatsTypes.BuffBooster
+            || statType == StatsTypes.StunResistance
+            || statType == StatsTypes.Faith
+            || statType == StatsTypes.AttackSpeed) continue;
             statTypes[index] = statType;
             index++;
         }
@@ -43,7 +46,7 @@ public static class UpgradeCreator
         uncommonUpgrades = new(MaxIterations / 3);
         rareUpgrades = new(MaxIterations / 2);
         epicUpgrades = new(MaxIterations / 2);
-        legendaryUpgrades = new(MaxIterations);
+        legendaryUpgrades = new(MaxIterations / 2);
 
         foreach (var rarity in rarityLevels)
         {
@@ -101,7 +104,7 @@ public static class UpgradeCreator
             list.RemoveAll(item => item == null);
         }
         sw.Stop();
-        Debug.Log("Elapsed time from get random upgrade operation:   " + sw.ElapsedMilliseconds + " ms");
+        Debug.Log("Upgrade creation duration:   " + sw.ElapsedMilliseconds + " ms");
     }
 
     static void CreateUpgrade(UpgradeRarity rarity, params StatsTypes[] statsTypes)
@@ -139,8 +142,9 @@ public static class UpgradeCreator
         for (int i = 0; i < statsTypes.Length; i++)
         {
             var value = GetUpgradeEffectAmount(rarity);
+            bool ignoreNegative = (Random.Range(0, 5) < 1);
             var isNegative = Random.Range(0, 100) > negativeChances;
-            if (isNegative && negativeCount < maxNegativeAmount)
+            if (isNegative && negativeCount < maxNegativeAmount && !ignoreNegative)
             {
                 value = Mathf.RoundToInt((float)value * Random.Range(-0.35f, -0.175f));
                 value = Mathf.Clamp(value, -75, 0);
@@ -194,12 +198,28 @@ public static class UpgradeCreator
         };
     }
 
+    static int GetListLength(UpgradeRarity rarity)
+    {
+        if (brokenUpgrades == null) CreateUpgrades();
+        return (rarity) switch
+        {
+            UpgradeRarity.Broken => brokenUpgrades.Count,
+            UpgradeRarity.Common => commonUpgrades.Count,
+            UpgradeRarity.Uncommon => uncommonUpgrades.Count,
+            UpgradeRarity.Rare => rareUpgrades.Count,
+            UpgradeRarity.Epic => epicUpgrades.Count,
+            UpgradeRarity.Legendary => legendaryUpgrades.Count,
+            _ => 0
+        };
+    }
+    
+
     static int ApplyNegativeBalancing(int value, int totalNumberOfStats, int negativeAmounts)
     {
         float negativeDiff = (float)(negativeAmounts / totalNumberOfStats);
         float negativeBalancing = negativeDiff switch
         {
-            > 0f and < 0.35f => 1.25f,
+            > 0f and < 0.35f => 1.55f,
             >= 0.35f and < 0.55f => 2.55f,
             >= 0.55f and < 1f => 4.55f,
             _ => 1f
@@ -211,12 +231,12 @@ public static class UpgradeCreator
     {
         float rarityMultiplier = rarity switch
         {
-            UpgradeRarity.Broken => Random.Range(0.33f, 1.1f),
-            UpgradeRarity.Common => Random.Range(0.9f, 1.65f),
-            UpgradeRarity.Uncommon => Random.Range(2f, 3f),
-            UpgradeRarity.Rare => Random.Range(4f, 6.5f),
-            UpgradeRarity.Epic => Random.Range(7.5f, 10.5f),
-            UpgradeRarity.Legendary => Random.Range(10.5f, 17.5f),
+            UpgradeRarity.Broken => Random.Range(0.55f, 1f),
+            UpgradeRarity.Common => Random.Range(0.9f, 1.75f),
+            UpgradeRarity.Uncommon => Random.Range(2f, 3.55f),
+            UpgradeRarity.Rare => Random.Range(4f, 5.55f),
+            UpgradeRarity.Epic => Random.Range(6.55f, 9.5f),
+            UpgradeRarity.Legendary => Random.Range(9.5f, 15.5f),
             _ => 1f
         };
 
@@ -230,12 +250,12 @@ public static class UpgradeCreator
             AureaAnima = Resources.Load<CraftingMaterial>("Assets/CraftingMaterials/AureaAnima.asset");
         var xpCost = rarity switch
         {
-            UpgradeRarity.Broken => Random.Range(3, 10),
-            UpgradeRarity.Common => Random.Range(10, 30),
-            UpgradeRarity.Uncommon => Random.Range(40, 50),
-            UpgradeRarity.Rare => Random.Range(50, 100),
-            UpgradeRarity.Epic => Random.Range(100, 201),
-            UpgradeRarity.Legendary => Random.Range(300, 501),
+            UpgradeRarity.Broken => Random.Range(3, 8),
+            UpgradeRarity.Common => Random.Range(8, 21),
+            UpgradeRarity.Uncommon => Random.Range(25, 45),
+            UpgradeRarity.Rare => Random.Range(55, 105),
+            UpgradeRarity.Epic => Random.Range(105, 201),
+            UpgradeRarity.Legendary => Random.Range(200, 400),
             _ => 0
         };
         var upgradeCost = new UpgradeCost(AureaAnima, xpCost);
@@ -244,17 +264,14 @@ public static class UpgradeCreator
 
 
 
-    public static int GetRandomUpgradeIndex(UpgradeRarity rarity, int skippeableIndex)
+    public static int GetRandomUpgradeIndex(UpgradeRarity rarity, params int[] skippeableIndexes)
     {
-        List<StoreUpgradeData?> list = GetList(rarity);
-        int index = HelperMethods.RandomNumberExcept(0, list.Count, skippeableIndex);
-        return index;
+        var list = GetList(rarity);
+        return list.GetRandomIndexExcept(skippeableIndexes);
     }
     public static int GetRandomUpgradeIndex(UpgradeRarity rarity)
     {
-        List<StoreUpgradeData?> list = GetList(rarity);
-        int index = Random.Range(0, list.Count);
-        return index;
+        return Random.Range(0, GetListLength(rarity));
     }
 
 

@@ -28,6 +28,8 @@ public class PlayerMovement : MonoBehaviour, IKnockback
     float _dashCooldown;
     Timer _dashDurationTimer, _dashCooldownTimer;
     [SerializeField] DashFXPrefab _dashFXPrefab;
+    [SerializeField] LayerMask _enemyLayer;
+    LayerMask _playerLayer;
     DashFXPrefab _dashFXInstance;
     Transform _dashFXTransform;
     public event Action onDash;
@@ -77,7 +79,7 @@ public class PlayerMovement : MonoBehaviour, IKnockback
     {
         //components
         gameObject.CheckComponent<PlayerManager>(ref _player);
-
+        
         //script that handles the knockback effect
         //there is a problem with this part, you cant really update the speed if the player gets an upgrade
         //you should handle that through the onStatsChange Event on the playerstats script
@@ -97,6 +99,7 @@ public class PlayerMovement : MonoBehaviour, IKnockback
         yield return null;
         if(_player.DashData != null) InitializeDashLogic();
         _dashParticleEffect.Stop();
+        _playerLayer = gameObject.layer;
     }
 
     void InitializeDashLogic()
@@ -160,7 +163,7 @@ public class PlayerMovement : MonoBehaviour, IKnockback
         _isDashing = true;
         _dashDirection = _movement.normalized * _dashForce;
         _dashDurationTimer.Start();
-        
+        Physics2D.IgnoreLayerCollision(_playerLayer, _enemyLayer, true);
         _dashParticleEffect.Play();
         onDash?.Invoke();
         var rot = _dashFXTransform.rotation.eulerAngles;
@@ -171,6 +174,7 @@ public class PlayerMovement : MonoBehaviour, IKnockback
     {
         _isDashing = false;
         _dashParticleEffect.Stop();
+        Physics2D.IgnoreLayerCollision(_playerLayer, _enemyLayer, false);
     }
 
     void UpdateDashCooldown()
