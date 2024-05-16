@@ -39,6 +39,18 @@ public static class UIColors
         return HexColors[(int)color];
     }
 
+    public static int GetRarityColorIndex(UpgradeRarity rarity) => rarity switch
+    {
+        UpgradeRarity.Broken => 8,
+        UpgradeRarity.Common => 0,
+        UpgradeRarity.Uncommon => 2,
+        UpgradeRarity.Rare => 5,
+        UpgradeRarity.Epic => 7,
+        UpgradeRarity.Legendary => 6,
+        _ => 0
+    };
+
+
 }
 public enum UIColor
 {

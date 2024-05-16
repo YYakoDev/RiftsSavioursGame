@@ -11,7 +11,8 @@ public static class UpgradeCreator
     private static bool areUpgradesCreated = false;
     private static string Location = "Assets/UpgradesStuff/Upgrades/RandomizedUpgrades/";
     private static CraftingMaterial AureaAnima;
-    static List<StoreUpgradeData?> brokenUpgrades, commonUpgrades, uncommonUpgrades, rareUpgrades, epicUpgrades, legendaryUpgrades;
+    static List<StoreUpgradeData?> upgrades;
+    static int brokenUpgradesMaxIndex, commonUpgradesMaxIndex, uncommonUpgradesMaxIndex, rareUpgradesMaxIndex, epicUpgradesMaxIndex, legendaryUpgradesMaxIndex;
     private static int Iterations;
     private static readonly int MaxIterations = 300000;
     private static Stopwatch sw = new();
@@ -25,7 +26,7 @@ public static class UpgradeCreator
         //if (GeneratedStoreUpgrades != null) return;
         Iterations = 0;
         var totalStats = Enum.GetValues(typeof(StatsTypes)) as StatsTypes[];
-        StatsTypes[] statTypes = new StatsTypes[totalStats.Length - 2];
+        StatsTypes[] statTypes = new StatsTypes[totalStats.Length - 7]; //THIS MINUS 7 IS EQUAL TO THE AMOUNT OF SKIPS IN THE FOR THE LOOP BELLOW IF YOU FORGET THIS YOU WILL GET REPEATED MAX HEALTH UPGRADES
         int index = 0;
         for (int i = 0; i < totalStats.Length; i++)
         {
@@ -41,12 +42,7 @@ public static class UpgradeCreator
             index++;
         }
         var rarityLevels = Enum.GetValues(typeof(UpgradeRarity)) as UpgradeRarity[];
-        brokenUpgrades = new(MaxIterations / 5);
-        commonUpgrades = new(MaxIterations / 4);
-        uncommonUpgrades = new(MaxIterations / 3);
-        rareUpgrades = new(MaxIterations / 2);
-        epicUpgrades = new(MaxIterations / 2);
-        legendaryUpgrades = new(MaxIterations / 2);
+        upgrades = new(MaxIterations);
 
         foreach (var rarity in rarityLevels)
         {
@@ -95,14 +91,31 @@ public static class UpgradeCreator
                 }
 
             }
+            switch(rarity)
+            {
+                case UpgradeRarity.Broken:
+                    brokenUpgradesMaxIndex = Iterations;
+                    break;
+                case UpgradeRarity.Common:
+                    commonUpgradesMaxIndex = Iterations;
+                    break;
+                case UpgradeRarity.Uncommon:
+                    uncommonUpgradesMaxIndex = Iterations;
+                    break;
+                case UpgradeRarity.Rare:
+                    rareUpgradesMaxIndex = Iterations;
+                    break;
+                case UpgradeRarity.Epic:
+                    epicUpgradesMaxIndex = Iterations;
+                    break;
+                case UpgradeRarity.Legendary:
+                    legendaryUpgradesMaxIndex = Iterations;
+                    break;
+            }
         }
         Debug.Log("<b>Created " + Iterations + "  upgrades</b>");
         areUpgradesCreated = true;
-        foreach (UpgradeRarity upgradeRarity in rarityLevels)
-        {
-            var list = GetList(upgradeRarity);
-            list.RemoveAll(item => item == null);
-        }
+        upgrades.RemoveAll(item => item == null);
         sw.Stop();
         Debug.Log("Upgrade creation duration:   " + sw.ElapsedMilliseconds + " ms");
     }
@@ -167,14 +180,13 @@ public static class UpgradeCreator
         var cost = GetUpgradeCost(rarity);
         StoreUpgradeData upgrade = new(name, icon, rarity, statsTypes, newValues, cost);
 
-        List<StoreUpgradeData?> list = GetList(rarity);
-        if (Iterations >= list.Count)
+        if (Iterations >= upgrades.Count)
         {
-            list.Add(upgrade);
+            upgrades.Add(upgrade);
             Iterations++;
             return;
         }
-        list[Iterations] = upgrade;
+        upgrades[Iterations] = upgrade;
         Iterations++;
         /*upgrade.name = name;
         upgrade.Initialize(name, icon, rarity, statsTypes, newValues, cost);
@@ -182,38 +194,6 @@ public static class UpgradeCreator
 
 
     }
-
-    static List<StoreUpgradeData?> GetList(UpgradeRarity rarity)
-    {
-        if (brokenUpgrades == null) CreateUpgrades();
-        return (rarity) switch
-        {
-            UpgradeRarity.Broken => brokenUpgrades,
-            UpgradeRarity.Common => commonUpgrades,
-            UpgradeRarity.Uncommon => uncommonUpgrades,
-            UpgradeRarity.Rare => rareUpgrades,
-            UpgradeRarity.Epic => epicUpgrades,
-            UpgradeRarity.Legendary => legendaryUpgrades,
-            _ => commonUpgrades
-        };
-    }
-
-    static int GetListLength(UpgradeRarity rarity)
-    {
-        if (brokenUpgrades == null) CreateUpgrades();
-        return (rarity) switch
-        {
-            UpgradeRarity.Broken => brokenUpgrades.Count,
-            UpgradeRarity.Common => commonUpgrades.Count,
-            UpgradeRarity.Uncommon => uncommonUpgrades.Count,
-            UpgradeRarity.Rare => rareUpgrades.Count,
-            UpgradeRarity.Epic => epicUpgrades.Count,
-            UpgradeRarity.Legendary => legendaryUpgrades.Count,
-            _ => 0
-        };
-    }
-    
-
     static int ApplyNegativeBalancing(int value, int totalNumberOfStats, int negativeAmounts)
     {
         float negativeDiff = (float)(negativeAmounts / totalNumberOfStats);
@@ -266,45 +246,53 @@ public static class UpgradeCreator
 
     public static int GetRandomUpgradeIndex(UpgradeRarity rarity, params int[] skippeableIndexes)
     {
-        var list = GetList(rarity);
-        return list.GetRandomIndexExcept(skippeableIndexes);
+        if(upgrades == null) CreateUpgrades();
+        int minIndex = 0;
+        int maxIndex = upgrades.Count;
+        switch(rarity)
+        {
+            case UpgradeRarity.Broken:
+                maxIndex = brokenUpgradesMaxIndex;
+                break;
+            case UpgradeRarity.Common:
+                minIndex = brokenUpgradesMaxIndex;
+                maxIndex = commonUpgradesMaxIndex;
+                break;
+            case UpgradeRarity.Uncommon:
+                minIndex = commonUpgradesMaxIndex;
+                maxIndex = uncommonUpgradesMaxIndex;
+                break;
+            case UpgradeRarity.Rare:
+                minIndex = uncommonUpgradesMaxIndex;
+                maxIndex = rareUpgradesMaxIndex;
+                break;
+            case UpgradeRarity.Epic:
+                minIndex = rareUpgradesMaxIndex;
+                maxIndex = epicUpgradesMaxIndex;
+                break;
+            case UpgradeRarity.Legendary:
+                minIndex = epicUpgradesMaxIndex;
+                break;
+        }
+
+        return HelperMethods.RandomRangeExcept(minIndex, maxIndex, exceptions: skippeableIndexes);
     }
-    public static int GetRandomUpgradeIndex(UpgradeRarity rarity)
+
+    public static StoreUpgradeData GetUpgradeFromList(int index) => upgrades[index].Value;
+    
+    public static int GetUpgradesCount(UpgradeRarity rarity)
     {
-        return Random.Range(0, GetListLength(rarity));
+        if(upgrades == null) CreateUpgrades();
+        return rarity switch
+        {
+            UpgradeRarity.Broken => brokenUpgradesMaxIndex,
+            UpgradeRarity.Common => commonUpgradesMaxIndex,
+            UpgradeRarity.Uncommon => uncommonUpgradesMaxIndex,
+            UpgradeRarity.Rare => rareUpgradesMaxIndex,
+            UpgradeRarity.Epic => epicUpgradesMaxIndex,
+            UpgradeRarity.Legendary => legendaryUpgradesMaxIndex,
+            _ => upgrades.Count   
+        };
     }
-
-
-    public static StoreUpgradeData GetUpgradeFromList(UpgradeRarity rarity, int index)
-    {
-        var list = GetList(rarity);
-        return list[index].Value;
-    }
-
-}
-public struct StoreUpgradeData
-{
-    string _name;
-    Sprite _icon;
-    UpgradeRarity _rarity;
-    StatsTypes[] _stats;
-    StatModificationValue[] _modifications;
-    UpgradeCost[] _costs;
-
-    public string Name => _name;
-    public Sprite Icon => _icon;
-    public UpgradeRarity Rarity => _rarity;
-    public StatsTypes[] StatsTypes => _stats;
-    public StatModificationValue[] Modifications => _modifications;
-    public UpgradeCost[] Costs => _costs;
-
-    public StoreUpgradeData(string name, Sprite icon, UpgradeRarity rarity, StatsTypes[] stats, StatModificationValue[] modifications, params UpgradeCost[] costs)
-    {
-        _name = name;
-        _icon = icon;
-        _rarity = rarity;
-        _stats = stats;
-        _modifications = modifications;
-        _costs = costs;
-    }
+    
 }

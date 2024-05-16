@@ -70,7 +70,7 @@ public static class UpgradesNameRandomizer
         {StatsTypes.DamageMultiplier, new StringMultiple("Strong", "Powerful")},
         {StatsTypes.BaseDamageAddition, new StringMultiple("Warborn", "Firm")},
         {StatsTypes.AttackSpeed, new StringMultiple("Reforged", "Meteoric")},
-        {StatsTypes.AttackRange, new StringMultiple("Elongated", "Large", "Extensive")},
+        {StatsTypes.AttackRange, new StringMultiple("Elongated", "Long", "Extensive")},
         {StatsTypes.AttackKnockback, new StringMultiple("Stunning")},
         {StatsTypes.AttackCooldown, new StringMultiple("Fastest")},
         {StatsTypes.ProjectilesCount, new StringMultiple("Loaded", "barrelled")},
@@ -119,9 +119,9 @@ public static class UpgradesNameRandomizer
         {StatsTypes.DashSpeed, new StringMultiple("that is timeless") },
         {StatsTypes.DashCooldown, new StringMultiple("that provides balance") },
         {StatsTypes.DashInvulnerabilityTime, new StringMultiple("for the protection of the weak") },
-        {StatsTypes.PickUpRange, new StringMultiple("for greedy hands") },
+        {StatsTypes.PickUpRange, new StringMultiple("for the greedy hands") },
         {StatsTypes.ToolsRange, new StringMultiple(", found in a barn") },
-        {StatsTypes.ToolsDamage, new StringMultiple("from the cowhouse") },
+        {StatsTypes.ToolsDamage, new StringMultiple(", retrieved from a barn") },
         {StatsTypes.ToolsCooldown, new StringMultiple("crafted by a shepherd") },
         {StatsTypes.MaxAmountOfTools, new StringMultiple("with wool thread") },
         {StatsTypes.StunResistance, new StringMultiple("from deimos") },
@@ -145,8 +145,8 @@ public static class UpgradesNameRandomizer
 
     private static Dictionary<UpgradeRarity, StringMultiple> RarityNames = new()
     {
-        {UpgradeRarity.Broken, new StringMultiple("Discarded", "Broken", "Malfunctioning", "Imperfect", "Stolen", "Hollow", "Shattered", "Crushed", "Torn") },
-        {UpgradeRarity.Common, new StringMultiple("Common", "Ordinary", "Average", "Regular", "Usual", "Quotidian") },
+        {UpgradeRarity.Broken, new StringMultiple("Discarded", "Broken", "Malfunctioning", "Imperfect", "Hollow", "Shattered", "Crushed", "Torn") },
+        {UpgradeRarity.Common, new StringMultiple("Common", "Ordinary", "Average", "Regular") },
         {UpgradeRarity.Uncommon, new StringMultiple("Uncommon", "Scarce", "Unusual", "Unexpected", "Atypical") },
         {UpgradeRarity.Rare, new StringMultiple("Rare", "Precious", "Valuable", "Scarce", "Abnormal", "Golden") },
         {UpgradeRarity.Epic, new StringMultiple("Epic", "Mythical", "Royal", "Pure", "Invaluable", "Heroic", "Homeric", "Historical") },

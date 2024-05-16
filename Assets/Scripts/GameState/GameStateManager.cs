@@ -55,7 +55,7 @@ public class GameStateManager : MonoBehaviour
 
     public void SwitchState(GameStateBase state)
     {
-        Debug.Log("Switching to state:   " + state);
+        //Debug.Log("Switching to state:   " + state);
         OnStateEnd?.Invoke(CurrentGameState);
         CurrentGameState = state;
         CurrentGameState.Start();

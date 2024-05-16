@@ -99,30 +99,11 @@ public static class ExtensionMethods
         );
         return worldPoint;
     }
-    public static int GetRandomIndexExcept(this Array array, params int[] exceptions)
-    {
-        var size = array.Length - exceptions.Length;
-        if(size <= 0) return -1;
-        int[] totalNumbers = new int[size];
-        
-        for (int i = 0; i < totalNumbers.Length; i++)
-        {
-            if(IndexMatchesExceptions(i)) continue;
-            totalNumbers[i] = i;
-        }
 
-        bool IndexMatchesExceptions(int index)
-        {
-            for (int i = 0; i < exceptions.Length; i++)
-            {
-                var except = exceptions[i];
-                if(except == index) return true;
-            }
-            return false;
-        }
+    
 
-        return totalNumbers[Random.Range(0, size)];
-    }
+    public static int GetRandomIndexExcept(this Array array, params int[] exceptions) => HelperMethods.GetRandomIndexExcept(array.Length);
+    
     public static int GetRandomIndexExcept(this IList list, params int[] exceptions)
     {
         //DEBUG ONLY
@@ -131,32 +112,7 @@ public static class ExtensionMethods
             var except = exceptions[i];
             Debug.Log("Exception: == " + except);
         }
-        var size = list.Count - exceptions.Length;
-        if(size <= 0)
-        {
-            Debug.Log
-            ("Its not possible to return a random number with the given exceptions \n  Returning -1 in the random index method for the list:  " + list.GetType());
-            return -1;
-        }
-        int[] totalNumbers = new int[size];
-        
-        for (int i = 0; i < totalNumbers.Length; i++)
-        {
-            if(IndexMatchesExceptions(i)) continue;
-            totalNumbers[i] = i;
-        }
-
-        bool IndexMatchesExceptions(int index)
-        {
-            for (int i = 0; i < exceptions.Length; i++)
-            {
-                var except = exceptions[i];
-                if(except == index) return true;
-            }
-            return false;
-        }
-
-        return totalNumbers[Random.Range(0, size)];
+        return HelperMethods.GetRandomIndexExcept(list.Count);
     }
 
 

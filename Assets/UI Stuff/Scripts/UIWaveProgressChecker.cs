@@ -63,7 +63,7 @@ public class UIWaveProgressChecker : MonoBehaviour
 
     void SetNewTime(float time)
     {
-        Debug.Log("New wave progress timer:  " + time);
+        //Debug.Log("New wave progress timer:  " + time);
         _waveTimer.ChangeTime(time);
         _waveTimer.Start();
         _timerIsRunning = true;

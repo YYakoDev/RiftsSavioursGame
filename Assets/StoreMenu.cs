@@ -22,43 +22,100 @@ public class StoreMenu : MonoBehaviour
     [SerializeField] int _xpTextEmojiIndex = 0;
     [SerializeField] TextMeshProUGUI _balance, _rerollCost;
     [SerializeField] CraftingMaterial _coinItem;
-    int _ownedCoins = -1;
-    int[] _usedIndexes = new int[0], _currentUsedIndexes;
-    int _rerollPrice = 0;
+    int _ownedCoins = -1, _rerollPrice = 0, _rerollsTries = 0;
     [SerializeField] int _rerollInitialPrice = 10;
-    int _rerollsTries = 0;
-    //
+
+    
     //ui stuff
     EventSystem _eventSys;
+
     //cursor stuff
     bool _previousCursorState;
     CursorLockMode _previousCursorLockMode;
 
     //audio stuff
-    [SerializeField]AudioSource _audio;
+    [SerializeField] AudioSource _audio;
     [SerializeField] AudioClip _buySFX, _rerollSFX, _closeSFX;
 
-    private Stopwatch sw2 = new();
+    private Stopwatch sw2 = new(), sw3 = new();
 
-    private void Awake() {
-        _currentUsedIndexes = new int[_amountToPick];
+    Dictionary<UpgradeRarity, IndexStorage> _correspondingIndexesToRarity = new();
+    Dictionary<UpgradeRarity, bool> _rarityAvailability = new();
+
+    [System.Serializable]
+    private class IndexStorage
+    {
+        int[] _array;
+        private int _usedIndexesCount;
+        public int UsedIndexesCount => _usedIndexesCount;
+        public int[] Array => _array;
+        public IndexStorage(int[] array, int usedIndexesCount)
+        {
+            _array = array;
+            _usedIndexesCount = usedIndexesCount;
+        }
+        public bool AddIndexToArray(int index)
+        {
+            Debug.Log("ADDING index to array. index == " + index);
+            for (int i = 0; i < _array.Length; i++)
+            {
+                if(_array[i] != -1) continue;
+                _array[i] = index;
+                this._usedIndexesCount++;
+                Debug.Log("new used indexes count: " + _usedIndexesCount);
+                return true;
+            }
+            return false;
+        }
+
+        public bool RemoveItemFromArray(int index)
+        {
+            Debug.Log("REMOVING item from array. index ==  " + index);
+            for (int i = 0; i < _array.Length; i++)
+            {
+                if(_array[i] != index) continue;
+                _array[i] = -1;
+                this._usedIndexesCount--;
+                return true;
+            }
+            return false;
+        }
+}
+
+    #region Menu & Object Logic
+
+    private void Awake()
+    {
+        sw2.Reset();
+        sw2.Start();
+        var rarityLevels = Enum.GetValues(typeof(UpgradeRarity)) as UpgradeRarity[];
+        foreach (var rarity in rarityLevels)
+        {
+            var array = new int[UpgradeCreator.GetUpgradesCount(rarity)];
+            Array.Fill<int>(array, -1);
+            IndexStorage indexArray = new(array, 0);
+            _correspondingIndexesToRarity.Add(rarity, indexArray);
+            _rarityAvailability.Add(rarity, true);
+        }
+        sw2.Stop();
+        Debug.Log("Populating used indexes array operation time:  " + sw2.ElapsedMilliseconds + " ms");
     }
 
     // Start is called before the first frame update
     void Start()
     {
         _eventSys = EventSystem.current;
-        
+
         //PickUpgrades();
         GetCoins();
         GameStateManager.OnStateEnd += StateSwitchCheck;
         _playerInventory.onInventoryChange += GetCoins;
-        if(_parent.activeInHierarchy)OpenMenu();
+        if (_parent.activeInHierarchy) OpenMenu();
     }
 
     void StateSwitchCheck(GameStateBase state)
     {
-        if(state.GetType() == typeof(RestState))
+        if (state.GetType() == typeof(RestState))
         {
             OpenMenu();
         }
@@ -76,10 +133,191 @@ public class StoreMenu : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         SetRerollTextCost(_rerollPrice);
         _parent.SetActive(true);
-        
+
         PickUpgrades();
         _rerollsTries = 0;
         SetRerollPrice();
+    }
+
+    public void CloseMenu()
+    {
+        if (!_animations.IsFinished) return;
+        _parent.SetActive(false);
+        YYInputManager.ResumeInput();
+        TimeScaleManager.ForceTimeScale(1f);
+        PauseMenuManager.DisablePauseBehaviour(false);
+        Cursor.visible = _previousCursorState;
+        Cursor.lockState = _previousCursorLockMode;
+        _audio.PlayWithVaryingPitch(_closeSFX);
+    }
+
+    private void OnDestroy()
+    {
+        _playerInventory.onInventoryChange -= GetCoins;
+        GameStateManager.OnStateEnd -= StateSwitchCheck;
+    }
+
+    #endregion
+
+    void PickUpgrades()
+    {
+        if (_storeItems == null) return;
+
+        //int[] usedIndexes = new int[_amountToPick]; //used indexes should be the chosen upgrades from this batch but also the upgrades the player possess!! so you should be storing the index of that upgrade everytime the player applies one!
+        //you can achieve the latter by adding a custom method to the button that sends the index back to here to add to a BoughtUpgrades[] array
+        RemoveIndexesFromStoreItems();
+        for (int i = 0; i < _amountToPick; i++)
+        {
+            var item = _storeItems[i];
+            if (item.IsLocked)
+            {
+                var affordable = CheckIfItsAffordable(_storeItems[i].Cost);
+                _storeItems[i].UpdateCostText(affordable, _xpTextEmojiIndex);
+                if (affordable && _selectedItem == null) _selectedItem = _storeItems[i].gameObject;
+                continue;
+            }
+            SetStoreItem(i);
+        }
+        CheckIfThereAreNoUpgradesAffordables();
+        _eventSys.SetSelectedGameObject(_selectedItem);
+    }
+
+    void RemoveIndexesFromStoreItems()
+    {
+        for (int i = 0; i < _amountToPick; i++)
+        {
+            var item = _storeItems[i];
+            var index = item.UpgradeIndex;
+            if(index != -1 && !item.IsLocked) RemoveUsedIndex(item.Rarity, index);
+        }
+    }
+
+    void SetStoreItem(int storeItemIndex)
+    {
+        var item = _storeItems[storeItemIndex];
+        //we could create a pool of item prefabs that we can then mark as active or inactive and initialize the store item data. this pool will be stored in the list above?
+        var upgrade = (SOStoreUpgrade)ScriptableObject.CreateInstance(typeof(SOStoreUpgrade));
+        UpgradeRarity rarity = GetUpgradeRarity();
+        if (rarity == (UpgradeRarity)(-1))
+        {
+            item.gameObject.SetActive(false);
+            Debug.Log("Deactivating store item");
+            return;
+        }
+        Debug.Log("Setting a store item with the rarity:   " + rarity);
+        var usedIndexes = GetUsedIndexes(rarity);
+        var upgradeIndex = GetRandomUpgrade(rarity, usedIndexes);
+        if (upgradeIndex == -1)
+        {
+            item.gameObject.SetActive(false);
+            Debug.Log("Deactivating store item");
+            return;
+        }
+        AddNewUsedIndex(rarity, upgradeIndex);
+        StoreUpgradeData storeUpgradeData = UpgradeCreator.GetUpgradeFromList(upgradeIndex);
+        upgrade.Initialize(storeUpgradeData);
+        var affordable = CheckIfItsAffordable(item.Cost);
+        if(!item.gameObject.activeInHierarchy) item.gameObject.SetActive(true);
+        item.Initialize(upgrade, BuyUpgrade, storeItemIndex, upgradeIndex);
+        if (affordable && _selectedItem == null) _selectedItem = item.gameObject;
+        item.UpdateCostText(affordable, _xpTextEmojiIndex);
+    }
+
+    #region Used Indexes
+
+    int[] GetUsedIndexes(UpgradeRarity rarity)
+    {
+        sw3.Reset();
+        sw3.Start();
+
+        int[] totalIndexes = _correspondingIndexesToRarity[rarity].Array;
+        var size = _correspondingIndexesToRarity[rarity].UsedIndexesCount;
+        Debug.Log("Requested used indexes of  " + rarity + " of size:  " + size);
+        int[] usedIndexes = new int[size];
+        int iterator = 0;
+        for (int i = 0; i < totalIndexes.Length; i++)
+        {
+            if(totalIndexes[i] == -1) continue;
+            Debug.Log(totalIndexes[i]);
+            usedIndexes[iterator] = totalIndexes[i];
+
+            iterator++;
+        }
+        sw3.Stop();
+        //Debug.Log("Get used indexes operation time:   " + sw3.ElapsedTicks * 100 + " nanoseconds");
+        return usedIndexes;
+    }
+
+    void AddNewUsedIndex(UpgradeRarity rarity, int index)
+    {
+        bool result = _correspondingIndexesToRarity[rarity].AddIndexToArray(index);
+        if(!result)SetRarityAvailability(rarity, false);
+    }
+    void RemoveUsedIndex(UpgradeRarity rarity, int usedIndex)
+    {
+        bool success = _correspondingIndexesToRarity[rarity].RemoveItemFromArray(usedIndex);
+        if(success) SetRarityAvailability(rarity, true);
+
+    }
+
+    void SetRarityAvailability(UpgradeRarity rarity, bool state)
+    {
+        _rarityAvailability[rarity] = state;
+    }
+
+    #endregion
+
+    #region GetRandomUpgrade
+
+    int GetRandomUpgrade(UpgradeRarity rarity, int[] indexesToSkip)
+    {
+        sw2.Reset();
+        sw2.Start();
+        var index = UpgradeCreator.GetRandomUpgradeIndex(rarity, indexesToSkip);
+        sw2.Stop();
+        Debug.Log("Elapsed time from get random upgrade operation:   " + sw2.ElapsedTicks * 100 + " nanoseconds");
+        return index;
+    }
+
+    UpgradeRarity GetUpgradeRarity()
+    {
+        int randomNumber = Random.Range(0, 100);
+        UpgradeRarity rarity = randomNumber switch
+        {
+            <1 => UpgradeRarity.Legendary,
+            <10 => UpgradeRarity.Epic,
+            <20 => UpgradeRarity.Rare,
+            <35 => UpgradeRarity.Uncommon,
+            <75 => UpgradeRarity.Common,
+            <100 => UpgradeRarity.Broken,
+            _ => UpgradeRarity.Common
+        };
+        if(!_rarityAvailability[rarity]) return rarity switch
+        {
+            UpgradeRarity.Broken => UpgradeRarity.Common,
+            UpgradeRarity.Common => UpgradeRarity.Uncommon,
+            UpgradeRarity.Uncommon => UpgradeRarity.Rare,
+            UpgradeRarity.Rare => UpgradeRarity.Epic,
+            UpgradeRarity.Epic => UpgradeRarity.Legendary,
+            UpgradeRarity.Legendary => (UpgradeRarity)(-1),
+            _ => rarity
+        };
+        else return rarity;
+    }
+    #endregion
+
+    #region Purchase Stuff
+
+    void BuyUpgrade(SOStoreUpgrade upgrade, int storeItemIndex)
+    {
+        if(!_animations.IsFinished) return;
+        var cost = upgrade.Costs[0].Cost;
+        if(!ChargePlayer(cost)) return;
+        upgrade.ApplyEffect(_upgradesManager);
+        //AddNewUsedIndex(upgrade.ListIndex);
+        SetStoreItem(storeItemIndex);
+        _audio.PlayWithVaryingPitch(_buySFX);
+        RecalculateCosts();
     }
 
     void GetCoins()
@@ -88,19 +326,12 @@ public class StoreMenu : MonoBehaviour
         if(newCoins != _ownedCoins)
         {
             _ownedCoins = newCoins;
-            SetBalance();
+            SetBalanceText();
         }
             
     }
 
-    void SetRerollTextCost(int cost)
-    {
-        _rerollCost.text = $"<sprite={_xpTextEmojiIndex+1}> Reroll: <sprite={_xpTextEmojiIndex}>{cost}";
-    }
-    void SetBalance()
-    {
-        _balance.text = $"<sprite={_xpTextEmojiIndex}>{_ownedCoins}";
-    }
+    void SetBalanceText() => _balance.text = $"<sprite={_xpTextEmojiIndex}>{_ownedCoins}";
 
     void RecalculateCosts()
     {
@@ -111,11 +342,7 @@ public class StoreMenu : MonoBehaviour
         CheckIfThereAreNoUpgradesAffordables();
         _eventSys.SetSelectedGameObject(_selectedItem);
     }
-    bool CheckIfItsAffordable(int cost)
-    {
-        return _ownedCoins >= cost;
-    }
-
+    bool CheckIfItsAffordable(int cost) => _ownedCoins >= cost;
     void CheckIfThereAreNoUpgradesAffordables()
     {
         for (int i = 0; i < _amountToPick; i++)
@@ -129,6 +356,8 @@ public class StoreMenu : MonoBehaviour
         }
         _selectedItem = _closeButton;
     }
+
+    #region Reroll Stuff
     void SetRerollPrice()
     {
         var offset = Random.Range(0, 5);
@@ -147,76 +376,10 @@ public class StoreMenu : MonoBehaviour
         SetRerollPrice();
         _audio.PlayWithVaryingPitch(_rerollSFX);
     }
+    
+    void SetRerollTextCost(int cost) => _rerollCost.text = $"<sprite={_xpTextEmojiIndex+1}> Reroll: <sprite={_xpTextEmojiIndex}>{cost}";
 
-    void PickUpgrades()
-    {
-        if(_storeItems == null) return;
-
-        //int[] usedIndexes = new int[_amountToPick]; //used indexes should be the chosen upgrades from this batch but also the upgrades the player possess!! so you should be storing the index of that upgrade everytime the player applies one!
-        //you can achieve the latter by adding a custom method to the button that sends the index back to here to add to a BoughtUpgrades[] array
-
-        for (int i = 0; i < _amountToPick; i++)
-        {
-            var item = _storeItems[i];            
-            if(item.IsLocked)
-            {
-                var affordable = CheckIfItsAffordable(_storeItems[i].Cost);
-                _storeItems[i].UpdateCostText(affordable, _xpTextEmojiIndex);
-                if(affordable && _selectedItem == null) _selectedItem = _storeItems[i].gameObject;
-                continue;
-            }
-            RemoveUsedIndex(_currentUsedIndexes[i]);
-            SetStoreItem(i);
-        }
-        CheckIfThereAreNoUpgradesAffordables();
-        _eventSys.SetSelectedGameObject(_selectedItem);
-    }
-
-
-
-    void SetStoreItem(int storeItemIndex)
-    {
-        var item = _storeItems[storeItemIndex];
-        //we could create a pool of item prefabs that we can then mark as active or inactive and initialize the store item data. this pool will be stored in the list above?
-        var upgrade = (SOStoreUpgrade)ScriptableObject.CreateInstance(typeof(SOStoreUpgrade));
-        UpgradeRarity rarity = GetUpgradeRarity();
-        var upgradeIndex = GetRandomUpgrade(rarity, _usedIndexes); // do the while loop of getting the random upgrade index until that index no longer matches the ones in usedIndexes!!!! you can copy the and paste the already written method of the upgradecreator class
-        //you can get two upgrades repeated if you dont try to get a new one that doesnt match any of the previous used indexes
-        StoreUpgradeData storeUpgradeData = UpgradeCreator.GetUpgradeFromList(rarity, upgradeIndex);
-        upgrade.Initialize(storeUpgradeData, upgradeIndex);
-        var affordable = CheckIfItsAffordable(item.Cost);
-
-        item.Initialize(upgrade, BuyUpgrade, upgrade, storeItemIndex);
-
-        var usedIndexFromArray = AddNewUsedIndex(upgradeIndex);
-
-        if(affordable && _selectedItem == null) _selectedItem = item.gameObject;
-        item.UpdateCostText(affordable, _xpTextEmojiIndex);
-        _currentUsedIndexes[storeItemIndex] = usedIndexFromArray;
-    }
-    int GetRandomUpgrade(UpgradeRarity rarity, int[] indexesToSkip)
-    {
-        sw2.Reset();
-        sw2.Start();
-        var index = UpgradeCreator.GetRandomUpgradeIndex(rarity, indexesToSkip);
-        sw2.Stop();
-        Debug.Log("Elapsed time from get random upgrade operation:   " + sw2.ElapsedMilliseconds + " ms");
-        return index;
-
-
-    }
-
-    void BuyUpgrade(SOStoreUpgrade upgrade, int storeItemIndex)
-    {
-        if(!_animations.IsFinished) return;
-        var cost = upgrade.Costs[0].Cost;
-        if(!ChargePlayer(cost)) return;
-        upgrade.ApplyEffect(_upgradesManager);
-        AddNewUsedIndex(upgrade.ListIndex);
-        SetStoreItem(storeItemIndex);
-        _audio.PlayWithVaryingPitch(_buySFX);
-        RecalculateCosts();
-    }
+    #endregion
 
     bool ChargePlayer(int price)
     {
@@ -225,50 +388,6 @@ public class StoreMenu : MonoBehaviour
         return true;
     }
 
-    int AddNewUsedIndex(int index)
-    {
-        var length = _usedIndexes.Length;
-        Array.Resize<int>(ref _usedIndexes, length + 1);
-        _usedIndexes[length] = index;
-        return length;
-    }
+    #endregion
 
-    void RemoveUsedIndex(int indexFromArray)
-    {
-        if(indexFromArray < 0 || indexFromArray >= _usedIndexes.Length) return;
-        _usedIndexes[indexFromArray] = -1;
-    }
-
-    UpgradeRarity GetUpgradeRarity()
-    {
-        int randomNumber = Random.Range(0, 100);
-        UpgradeRarity rarity = randomNumber switch
-        {
-            <1 => UpgradeRarity.Legendary,
-            <10 => UpgradeRarity.Epic,
-            <20 => UpgradeRarity.Rare,
-            <35 => UpgradeRarity.Uncommon,
-            <75 => UpgradeRarity.Common,
-            <100 => UpgradeRarity.Broken,
-            _ => UpgradeRarity.Common
-        };
-        return rarity;
-    }
-
-    public void CloseMenu()
-    {
-        if(!_animations.IsFinished) return;
-        _parent.SetActive(false);
-        YYInputManager.ResumeInput();
-        TimeScaleManager.ForceTimeScale(1f);
-        PauseMenuManager.DisablePauseBehaviour(false);
-        Cursor.visible = _previousCursorState;
-        Cursor.lockState = _previousCursorLockMode;
-        _audio.PlayWithVaryingPitch(_closeSFX);
-    }
-
-    private void OnDestroy() {
-        _playerInventory.onInventoryChange -= GetCoins;
-        GameStateManager.OnStateEnd -= StateSwitchCheck;
-    }
 }

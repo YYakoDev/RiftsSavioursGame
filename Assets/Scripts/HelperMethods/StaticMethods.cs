@@ -65,4 +65,57 @@ public static class HelperMethods
         }
         return number;
     }
+    public static int GetRandomIndexExcept(int maxPossibilitiesSize, params int[] exceptions)
+    {
+        var size = maxPossibilitiesSize - exceptions.Length;
+        int[] totalNumbers = new int[size];
+        
+        for (int i = 0; i < totalNumbers.Length; i++)
+        {
+            if(IndexMatchesExceptions(i)) continue;
+            totalNumbers[i] = i;
+        }
+
+        bool IndexMatchesExceptions(int index)
+        {
+            for (int i = 0; i < exceptions.Length; i++)
+            {
+                var except = exceptions[i];
+                if(except == index) return true;
+            }
+            return false;
+        }
+
+        return totalNumbers[Random.Range(0, size)];
+    }
+
+    public static int RandomRangeExcept(int min, int max, params int[] exceptions)
+    {
+        //Debug.Log($"Min size of random range: {min} \n Max size of random range: {max}");
+        var size = (max - min) - exceptions.Length;
+        if(size <= 0)
+        {
+            Debug.LogError("could not get a random range, too many exceptions \n exceptions count:  " + exceptions.Length + "   \n size of the array:  " + size);
+            return -1;
+        }
+        int[] totalNumbers = new int[size+1];
+        int iterator = 0;
+        for (int i = min; i < max+1; i++)
+        {
+            if(IndexMatchesExceptions(i)) continue;
+            totalNumbers[iterator] = i;
+            iterator++;
+        }
+        bool IndexMatchesExceptions(int index)
+        {
+            for (int i = 0; i < exceptions.Length; i++)
+            {
+                var except = exceptions[i];
+                if(except == index) return true;
+            }
+            return false;
+        }
+        return totalNumbers[Random.Range(0, size)];
+
+    }
 }
