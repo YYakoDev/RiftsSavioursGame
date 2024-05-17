@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class PlayerStatsManager : MonoBehaviour
 {
-   
+    [SerializeField] PlayerManager _playerManager;
     [SerializeField] SOPlayerStats _playerStats;
     [SerializeField] SOPlayerAttackStats _playerAtkStats;
 
@@ -18,13 +18,24 @@ public class PlayerStatsManager : MonoBehaviour
         
     }
     
-    public float GetStat(StatsTypes statCode)
+    public float GetCurrentStatValue(StatsTypes statCode)
+    {
+        return GetStatValue(statCode, _playerStats, _playerAtkStats);
+    }
+
+    public float GetBaseStat(StatsTypes statCode)
+    {
+        var baseCharacterStats = _playerManager.CharacterData.Stats;
+        return GetStatValue(statCode, baseCharacterStats, baseCharacterStats.AttackStats);
+    }
+
+    private float GetStatValue(StatsTypes statCode, SOPlayerStats playerStats, SOPlayerAttackStats playerAtkStats)
     {
         var code = (int)statCode;
         //return the stat based on the stattype
         float result = -1f;
-        var stats = _playerStats;
-        var atkStats = _playerAtkStats;
+        var stats = playerStats;
+        var atkStats = playerAtkStats;
         switch(code)
         {
             case 0:

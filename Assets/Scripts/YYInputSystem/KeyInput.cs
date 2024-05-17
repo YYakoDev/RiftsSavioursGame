@@ -35,6 +35,9 @@ public class KeyInput
             case KeyCode.Escape:
                 result = "Esc";
                 break;
+            case KeyCode.LeftControl:
+                result = "LCtrl";
+                break;
             default:
                 result = _keyCode.ToString();
                 break;

@@ -31,6 +31,7 @@ public class PlayerManager : MonoBehaviour
     public PlayerMovement MovementScript => _movementScript;
     public SODashData DashData => _dashData;
     public PlayerStatsManager StatsManager => _statsManager;
+    public SOCharacterData CharacterData => _charData;
 
     public Vector3 Position => transform.position;
     public static SOCharacterData SelectedChara => SelectedCharacter;

@@ -21,7 +21,7 @@ public enum StatsTypes
     Faith = 17,
     HarvestMultiplier = 18,
     DamageMultiplier = 19,
-    BaseDamageAddition = 20,
+    DamageAddition = 20,
     AttackRange = 21,
     AttackCooldown = 22,
     AttackKnockback = 23,

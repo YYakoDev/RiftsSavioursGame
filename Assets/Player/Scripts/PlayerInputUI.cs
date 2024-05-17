@@ -7,9 +7,10 @@ public class PlayerInputUI : MonoBehaviour
 {
     [SerializeField] UISkillsManager _uiSkillsManager;
     [SerializeField] WeaponManager _weaponManager;
+    [SerializeField] WeaponAiming _aiming;
     [SerializeField] PlayerMovement _movementScript;
-    [SerializeField] Sprite _dashUIIcon, _atkUIIcon;
-    UISkill _dashSkill, _attackSkill;
+    [SerializeField] Sprite _dashUIIcon, _atkUIIcon, _aimIcon;
+    UISkill _dashSkill, _attackSkill, _switchAimSkill;
     WeaponBase _currentWeapon;
 
 
@@ -22,7 +23,9 @@ public class PlayerInputUI : MonoBehaviour
         yield return null;
         SetAtkInputOnUI();
         SetDashInputOnUI();
+        SetSwitchAimOnUI();
         _movementScript.onDash += PlayDashInput;
+        _aiming.OnAimingChange += PlayAimInput;
     }
 
     void SetWeapon(WeaponBase weapon)
@@ -38,8 +41,19 @@ public class PlayerInputUI : MonoBehaviour
     void SetInputOnUI(ref UISkill item, KeyInputTypes type, Sprite icon, float cooldown)
     {
         if(_uiSkillsManager == null) return;
-        if(item == null) item = _uiSkillsManager.SetInputSkill(type, icon, cooldown);
+        if(item == null)
+        {
+            item = _uiSkillsManager.SetInputSkill(type, icon, cooldown);
+        }
         else item.UpdateCooldown(cooldown);
+    }
+    void SetInputOnUI(ref UISkill item, KeyInputTypes type, Sprite icon)
+    {
+        if(_uiSkillsManager == null) return;
+        if(item == null)
+        {
+            item = _uiSkillsManager.SetInputSkill(type, icon);
+        }
     }
 
 
@@ -49,7 +63,11 @@ public class PlayerInputUI : MonoBehaviour
     }
     void SetAtkInputOnUI()
     {
-        SetInputOnUI(ref _attackSkill, KeyInputTypes.Attack, _atkUIIcon, 0.5f);
+        SetInputOnUI(ref _attackSkill, KeyInputTypes.Attack, _atkUIIcon);
+    }
+    void SetSwitchAimOnUI()
+    {
+        SetInputOnUI(ref _switchAimSkill, KeyInputTypes.SwitchAim, _aimIcon);
     }
 
     void PlayAttackInput()
@@ -64,9 +82,15 @@ public class PlayerInputUI : MonoBehaviour
         _dashSkill?.Interact();
     }
 
+    void PlayAimInput(bool state)
+    {
+        _switchAimSkill?.Interact();
+    }
+
     private void OnDestroy() {
         _weaponManager.OnWeaponChange -= SetWeapon;
         _movementScript.onDash -= PlayDashInput;
+        _aiming.OnAimingChange -= PlayAimInput;
     }
 
 }

@@ -89,20 +89,24 @@ public static class HelperMethods
         return totalNumbers[Random.Range(0, size)];
     }
 
-    public static int RandomRangeExcept(int min, int max, params int[] exceptions)
+    public static int RandomRangeExcept(int minInclusive, int maxExclusive, params int[] exceptions)
     {
         //Debug.Log($"Min size of random range: {min} \n Max size of random range: {max}");
-        var size = (max - min) - exceptions.Length;
+        var size = (maxExclusive - minInclusive) - exceptions.Length;
         if(size <= 0)
         {
             Debug.LogError("could not get a random range, too many exceptions \n exceptions count:  " + exceptions.Length + "   \n size of the array:  " + size);
             return -1;
         }
-        int[] totalNumbers = new int[size+1];
+        int[] totalNumbers = new int[size];
         int iterator = 0;
-        for (int i = min; i < max+1; i++)
+        for (int i = minInclusive; i < maxExclusive; i++)
         {
             if(IndexMatchesExceptions(i)) continue;
+            if(iterator >= size)
+            {
+                Debug.Log("Current random iteration:  " + iterator + "   total numbers size:  " + size);
+            }
             totalNumbers[iterator] = i;
             iterator++;
         }

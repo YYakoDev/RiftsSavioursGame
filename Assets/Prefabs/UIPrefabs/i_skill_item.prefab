@@ -452,10 +452,10 @@ MonoBehaviour:
   _skillIcon: {fileID: 8417803256131918976}
   _inputText: {fileID: 5519187148940698669}
   _endObjScale: {x: 1, y: 1}
-  _endObjScaleOffset: {x: 0.1, y: 0.1}
-  _endIconScale: {x: 0.86, y: 0.86}
+  _endObjScaleOffset: {x: 0.25, y: 0.25}
+  _endIconScale: {x: 1, y: 1}
   _endIconScaleOffset: {x: 0, y: 0}
-  _scaleDuration: 0.13
+  _scaleDuration: 0.25
   _blinkDuration: 0.15
   _whiteBlinkUIMat: {fileID: 2100000, guid: 43b412e0ababf3d4cabb41cccfbcda8b, type: 2}
 --- !u!114 &2964859073701127054

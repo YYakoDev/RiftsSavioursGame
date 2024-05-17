@@ -16,13 +16,11 @@ public class UISkill : MonoBehaviour
     [SerializeField] Slider _cooldownSlider;
     [SerializeField] Image _skillIcon;
     [SerializeField] TextMeshProUGUI _inputText;
-    RectTransform _iconRect;
 
     //animations
     [Header("Animation")]
     [SerializeField] Vector2 _endObjScale, _endObjScaleOffset;
-    [SerializeField] Vector2 _endIconScale, _endIconScaleOffset;
-    Vector3 _objStartScale, _iconStartScale;
+    Vector3 _objStartScale;
     [SerializeField] float _scaleDuration = 0.3f, _blinkDuration;
     TweenAnimatorMultiple _animator;
     Material _startingMaterial;
@@ -41,9 +39,7 @@ public class UISkill : MonoBehaviour
         //_hotKey.OnKeyPressed += Interact;
         _cooldownBehaviour = false;
         _startingMaterial = _skillIcon.material;
-        _iconRect = _skillIcon.rectTransform;
         _objStartScale = _objRect.localScale;
-        _iconStartScale = _iconRect.localScale;
         UpdateSkillIcon(skillIcon);
         _inputText.text = hotKey.GetInputKeyName();
         name = inputType.ToString() + "_inputItem";

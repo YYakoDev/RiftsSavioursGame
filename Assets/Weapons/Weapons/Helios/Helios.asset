@@ -18,7 +18,6 @@ MonoBehaviour:
   _effects:
   - {fileID: 11400000, guid: a46798bb6b4605f46a88a7cb00606fc1, type: 2}
   - {fileID: 11400000, guid: 67c6ca3a55024ea40a9dc7c21f219eda, type: 2}
-  - {fileID: 11400000, guid: 4780209016f8aa349864b33bf7198c79, type: 2}
   - {fileID: 11400000, guid: f1b3174f673fb1a4b91613d5d1414674, type: 2}
   - {fileID: 11400000, guid: 3961fbaed97e0aa4ea6fed7535dadd51, type: 2}
   - {fileID: 11400000, guid: df7c73a62b7d8ea4da3c4d678c5b278b, type: 2}
@@ -30,7 +29,7 @@ MonoBehaviour:
   _weaponSounds:
   - {fileID: 8300000, guid: ba8fe44fc8785364a978c7ec7d17ce65, type: 3}
   - {fileID: 8300000, guid: 62831dff93289e44786d140f137d6408, type: 3}
-  _pointCameraOnAttack: 1
+  _pointCameraOnAttack: 0
   _attackCooldown: 0.6
   _pullForce: 0.7
   _pullDuration: 0.16
