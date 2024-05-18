@@ -61,8 +61,8 @@ public class SOPlayerStats : PlayerStatsBase
     public int CurrentHealth {get => _currentHealth; set {_currentHealth = value; onStatsChange?.Invoke();}}
 
     // MOVEMENT STATS
-    public float Speed {get => _speed; set {_speed = value; onStatsChange?.Invoke();}}
-    public float SlowdownMultiplier {get => _slowdownMultiplier; set {_slowdownMultiplier = value; onStatsChange?.Invoke();}}
+    public float Speed {get => _speed; set {_speed = Mathf.Clamp(value, 0.1f, 8f); onStatsChange?.Invoke();}}
+    public float SlowdownMultiplier {get => _slowdownMultiplier; set {_slowdownMultiplier = Mathf.Clamp(value, 0.1f, 1f); onStatsChange?.Invoke();}}
     public float DashSpeed { get => _dashSpeed; set { _dashSpeed = value; onStatsChange?.Invoke(); } }
     public float DashCooldown { get => _dashCooldown; set { _dashCooldown = Mathf.Clamp(value, 0.075f,100f); onStatsChange?.Invoke(); } }
     public float DashInvulnerabilityTime { get => _dashInvulnerabilityTime; set { _dashInvulnerabilityTime = Mathf.Clamp(value, 0, 1.5f); onStatsChange?.Invoke(); } }

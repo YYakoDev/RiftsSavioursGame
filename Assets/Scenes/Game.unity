@@ -7298,7 +7298,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &656430106
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8043,9 +8043,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _uiSkillsManager: {fileID: 708921184}
   _weaponManager: {fileID: 1242311250}
+  _aiming: {fileID: 1893449638}
   _movementScript: {fileID: 2123491963}
   _dashUIIcon: {fileID: 21300000, guid: b923cca46962aac439b117375fd775e5, type: 3}
   _atkUIIcon: {fileID: 21300000, guid: 1a96fed1bc30238478ed913f08a46976, type: 3}
+  _aimIcon: {fileID: 21300000, guid: ec51de8c9060e33408b32cdaf1122a63, type: 3}
 --- !u!1 &725775662 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5179656762327452856, guid: 3203d52f4f1b45941bc4b290bda2c71f, type: 3}
@@ -11155,7 +11157,7 @@ GameObject:
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &996265012
 Transform:
   m_ObjectHideFlags: 0
@@ -11186,8 +11188,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _currentWorld: {fileID: 11400000, guid: 78221b79796d308469b208ae7bf29bf6, type: 2}
   _playerTransform: {fileID: 2123491962}
-  _innerRadius: 5
-  _spawnRadius: 15
+  _innerRadius: 6.45
+  _spawnRadius: 16.6
   _portalFx: {fileID: 438890597022870506, guid: cafdb8046d0bf254fbc2c9342844ef35, type: 3}
   _portalFxDuration: 0.3
 --- !u!114 &996265014
@@ -31209,8 +31211,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _mainCamera: {fileID: 519420031}
   _crosshair: {fileID: 1378892231}
+  _playerMovement: {fileID: 2123491963}
   _flipOffset: 2
-  _aimSmoothing: 11
+  _aimSmoothing: 21.49
 --- !u!1 &1904077553 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 45952177369979412, guid: 824586a7efb852c42943cf994ad28c44, type: 3}
@@ -32953,6 +32956,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 486cc6fadb00734448c00c586f7e58dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerManager: {fileID: 2123491969}
   _playerStats: {fileID: 11400000, guid: 77f8be5469984ec4b92db0a6e8c44838, type: 2}
   _playerAtkStats: {fileID: 11400000, guid: 5c0efc2d47ffa234c9cfe266e112553e, type: 2}
 --- !u!198 &2134075648 stripped

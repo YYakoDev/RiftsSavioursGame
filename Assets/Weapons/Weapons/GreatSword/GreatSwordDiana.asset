@@ -30,8 +30,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: df7c73a62b7d8ea4da3c4d678c5b278b, type: 2}
   - {fileID: 11400000, guid: 0429586a3501b674d98e9c4fcf8476e7, type: 2}
   _flipSprite: 1
-  _spawnPosition: {x: -0.9, y: 0.533, z: 0}
-  _spawnRotation: 0
+  _spawnPosition: {x: -0.9, y: 0, z: 0}
+  _spawnRotation: 45
   _weaponSounds:
   - {fileID: 8300000, guid: 307ccd91c05d4ea4abb03bf8099fa3c3, type: 3}
   - {fileID: 8300000, guid: 9a2ca58f29ba35f448ab633a27613e31, type: 3}

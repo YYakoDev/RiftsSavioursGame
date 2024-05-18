@@ -149,6 +149,7 @@ public class MeleeWeapon : WeaponBase
         SetRadiusOffset(_modifiedStats._atkRange);
         SetMaxEnemiesToHit(_modifiedStats._atkRange);
         _modifiedStats._atkDelay = _damageDelay / _modifiedStats._atkSpeed;
+        _modifiedStats._cooldown = Mathf.Clamp(_modifiedStats._cooldown, 0.1855f, 100f);
     }
 
     public override void DrawGizmos()

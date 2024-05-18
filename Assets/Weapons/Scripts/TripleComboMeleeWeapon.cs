@@ -219,7 +219,7 @@ public class TripleComboMeleeWeapon : MeleeWeapon
         _modifiedStats.KnockbackForce = _knockbackForce + stats.KnockbackForce + _upgradeStats.KnockbackForce;
         _modifiedStats.AtkSpeed = _attackSpeed + stats.AtkSpeed + _upgradeStats.AtkSpeed;
         _modifiedStats.Damage = _attackDamage + stats.Damage + _upgradeStats.Damage;
-        _modifiedStats.Cooldown = _attackCooldown - stats.Cooldown + _upgradeStats.Cooldown;
+        _modifiedStats.Cooldown = _attackCooldown - stats.Cooldown - _upgradeStats.Cooldown;
         _modifiedStats.PullForce = _pullForce + stats.PullForce + _upgradeStats.PullForce;
         _modifiedStats.AtkDelay = _damageDelay + stats.AtkDelay + _upgradeStats.AtkDelay;
         _modifiedStats.PullDuration = _pullDuration + stats.PullDuration;
@@ -227,6 +227,7 @@ public class TripleComboMeleeWeapon : MeleeWeapon
         _modifiedStats.UsedEffects = stats.UsedEffects;
         SetMaxEnemiesToHit(_modifiedStats.Range);
         SetRadiusOffset(_modifiedStats.Range);
+        _modifiedStats.Cooldown = Mathf.Clamp(_modifiedStats.Cooldown, 0.1855f, 100f);
     }
     void ChangeAnimatorSpeed(float newSpeed)
     {

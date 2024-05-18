@@ -122,4 +122,18 @@ public static class HelperMethods
         return totalNumbers[Random.Range(0, size)];
 
     }
+    
+    static double NthRoot(double A, float N)
+    {
+        return Math.Pow(A, 1.0 / N);
+    }
+
+    public static int GetLayerMaskIndex(LayerMask layer)
+    {
+        var layerValue = layer.value;
+        if(layerValue == 0) return 0;
+        var exponent = Mathf.Log10(layerValue) / Mathf.Log10(2f);
+        int result = Mathf.RoundToInt(exponent);
+        return result;
+    }
 }

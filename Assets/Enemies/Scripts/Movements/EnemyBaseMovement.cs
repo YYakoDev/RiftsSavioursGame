@@ -18,7 +18,8 @@ public class EnemyBaseMovement
     Timer _stunStopperTimer;
     Timer _movementStopTimer;
     bool _stopMovement;
-    bool _isFlipped;
+    FlipLogic _flipLogic;
+    bool IsFlipped => _flipLogic.IsFlipped;
 
 
     //KNOCKBACK LOGIC
@@ -47,6 +48,7 @@ public class EnemyBaseMovement
         _movementStopTimer.Stop();
         knockbackEnabled = false;
         _accelerationCurve = TweenCurveLibrary.GetCurve(CurveTypes.EaseInOut);
+        _flipLogic = new(_enemy.Renderer.transform, true, false, 0.15f + Random.Range(-0.055f, 0.055f));
     }
 
     public void ReInitialize(Transform transform, EnemyBrain enemy, float spriteOffset = 0.25f)
@@ -72,6 +74,7 @@ public class EnemyBaseMovement
 
     public void UpdateLogic()
     {
+        _flipLogic.UpdateLogic();
         if(!Enabled) return;
         _movementStopTimer.UpdateTime();
         _stunStopperTimer.UpdateTime();
@@ -98,7 +101,7 @@ public class EnemyBaseMovement
         if(directionToMove == vectorZero) return;
         rigidbody.MovePosition((Vector2)_transform.position + directionToMove);
 
-        CheckForFlip(direction);
+        _flipLogic.FlipCheck(direction.x);
         
         _sortOrderController.SortOrder();
         _enemy.Animation.PlayMove();
@@ -140,25 +143,6 @@ public class EnemyBaseMovement
         _stopMovement = false;
     }
 
-    void CheckForFlip(Vector2 direction)
-    {
-        if(direction.x > 0 && _isFlipped)
-        {
-            Flip();
-        }
-        else if(direction.x < 0 && !_isFlipped)
-        {
-            Flip();
-        }
-
-        void Flip()
-        {
-            _isFlipped = !_isFlipped;
-            Vector3 invertedScale = _transform.localScale;
-            invertedScale.x *= -1;
-            _transform.localScale = invertedScale;
-        }
-    }
     ~EnemyBaseMovement()
     {
         _movementStopTimer.onEnd -= ResumeMovement;

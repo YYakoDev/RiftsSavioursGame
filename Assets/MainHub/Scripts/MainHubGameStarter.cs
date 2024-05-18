@@ -73,7 +73,7 @@ public class MainHubGameStarter : MonoBehaviour, IInteractable
             var position = Vector3.Lerp(_startingPlayerPosition, _playerStandPoint.position, percent);
             _playerObj.position = position;
             _playerManager.AnimController.PlayStated(PlayerAnimationsNames.Run);
-            _playerManager.MovementScript.CheckForFlip(-position.x);
+            _playerManager.MovementScript.FlipLogic.FlipCheck(-position.x);
         }
     }
 

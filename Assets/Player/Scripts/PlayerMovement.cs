@@ -28,7 +28,7 @@ public class PlayerMovement : MonoBehaviour, IKnockback
     float _dashCooldown;
     Timer _dashDurationTimer, _dashCooldownTimer;
     [SerializeField] DashFXPrefab _dashFXPrefab;
-    [SerializeField] LayerMask _enemyLayer;
+    [SerializeField] LayerMask _enemyLayer, _resourceLayer;
     LayerMask _playerLayer;
     DashFXPrefab _dashFXInstance;
     Transform _dashFXTransform;
@@ -40,8 +40,7 @@ public class PlayerMovement : MonoBehaviour, IKnockback
     float _slowdownTime = 1f;
 
     //Flipping sprite based on direction
-    bool isFlipped;
-    float _lockFlipTime = 0f;
+    FlipLogic _flipLogic;
 
     //sort the order of the sprite based on movement
     SortingOrderController _sortingOrderController;
@@ -64,7 +63,8 @@ public class PlayerMovement : MonoBehaviour, IKnockback
     public float DashDuration => _dashDuration;
     public float DashForce => _dashForce;
     public float DashCooldown => _dashCooldown;
-    public int FacingDirection => (isFlipped) ? -1 : 1;
+    public FlipLogic FlipLogic => _flipLogic;
+    public int FacingDirection => (_flipLogic.IsFlipped) ? -1 : 1;
     private float MovementSpeed => _player.Stats.Speed;
     private float SlowdownMultiplier => _player.Stats.SlowdownMultiplier;
 
@@ -94,6 +94,7 @@ public class PlayerMovement : MonoBehaviour, IKnockback
         YYInputManager.OnMovement += SetMovement;
         _aimingScript.OnAimingChange += ChangeAimMode;
         _spriteGameObject = _player.Renderer.gameObject;
+        _flipLogic = new(_spriteGameObject.transform, true, false, 0.15f);
         _realSpeed = MovementSpeed;
         _slowdown = 1f;
         yield return null;
@@ -135,6 +136,7 @@ public class PlayerMovement : MonoBehaviour, IKnockback
             _dashDurationTimer.UpdateTime();
             _dashCooldownTimer.UpdateTime();
         }
+        _flipLogic?.UpdateLogic();
     }
     private void FixedUpdate()
     {
@@ -163,7 +165,8 @@ public class PlayerMovement : MonoBehaviour, IKnockback
         _isDashing = true;
         _dashDirection = _movement.normalized * _dashForce;
         _dashDurationTimer.Start();
-        Physics2D.IgnoreLayerCollision(_playerLayer, _enemyLayer, true);
+        Physics2D.IgnoreLayerCollision(_playerLayer, HelperMethods.GetLayerMaskIndex(_enemyLayer), true);
+        Physics2D.IgnoreLayerCollision(_playerLayer, HelperMethods.GetLayerMaskIndex(_resourceLayer), true);
         _dashParticleEffect.Play();
         onDash?.Invoke();
         var rot = _dashFXTransform.rotation.eulerAngles;
@@ -174,7 +177,8 @@ public class PlayerMovement : MonoBehaviour, IKnockback
     {
         _isDashing = false;
         _dashParticleEffect.Stop();
-        Physics2D.IgnoreLayerCollision(_playerLayer, _enemyLayer, false);
+        Physics2D.IgnoreLayerCollision(_playerLayer, HelperMethods.GetLayerMaskIndex(_enemyLayer), false);
+        Physics2D.IgnoreLayerCollision(_playerLayer, HelperMethods.GetLayerMaskIndex(_resourceLayer), false);
     }
 
     void UpdateDashCooldown()
@@ -222,10 +226,12 @@ public class PlayerMovement : MonoBehaviour, IKnockback
     {
         _dustEffect.Play();
         _audio.PlayWithCooldown(_stepSound, _stepSoundCooldown, ref _nextStepSound);
-        CheckForFlip(_movement.x);
         //change sprite sorting order based on its position
         _sortingOrderController.SortOrder();
         _player.AnimController.PlayStated(PlayerAnimationsNames.Run);
+
+        //if(_autoAiming && _aimingScript.EnemyResultsCount > 0) _flipLogic.FlipCheck(_aimingScript.TargetPoint.x, 0f);
+        //else _flipLogic.FlipCheck(_movement.x);
     }
 
     public void OnKnockbackChange(bool change)
@@ -235,37 +241,6 @@ public class PlayerMovement : MonoBehaviour, IKnockback
 
     void ChangeAimMode(bool state) => _autoAiming = state;
     
-
-
-    public void CheckForFlip(float xDirection, float lockFlipTime = 0f)
-    {
-        if(_autoAiming && _aimingScript.EnemyResultsCount > 0)
-        {
-            _lockFlipTime = 0f;
-            xDirection = _aimingScript.TargetPoint.x;
-        }
-        if(_lockFlipTime > Time.time)return;
-        _lockFlipTime = Time.time + lockFlipTime;
-
-        if(xDirection < 0 && !isFlipped)
-        {
-            Flip();
-
-        }else if(xDirection > 0 && isFlipped)
-        {
-            Flip();
-        }
-
-        void Flip()
-        {
-            isFlipped = !isFlipped;
-            //_player.Renderer.flipX = isFlipped;
-
-            Vector3 invertedScale = _spriteGameObject.transform.localScale;
-            invertedScale.x *= -1;
-            _spriteGameObject.transform.localScale = invertedScale;
-        }
-    }
 
     public void SlowdownMovement(float slowdownTime)
     {

@@ -42,7 +42,7 @@ public class PlayerAttackEffects : MonoBehaviour
     void FlipPlayer()
     {
         float xPoint = weaponPrefab.position.x - transform.position.x;
-        _player.MovementScript.CheckForFlip(xPoint, AttackDuration);
+        _player.MovementScript.FlipLogic.FlipCheck(xPoint, AttackDuration);
         /*var weaponDir = _weaponPrefab.position - transform.position;
         _player.MovementScript.SetAnimatorFacing(weaponDir);*/
     }

@@ -6,6 +6,7 @@ public class WeaponAiming : MonoBehaviour
     [Header("References")]
     [SerializeField] Camera _mainCamera;
     [SerializeField] Transform _crosshair;
+    [SerializeField] PlayerMovement _playerMovement;
     KeyInput _switchAimKey;
     private Vector3 _mousePosition;
     Vector2 _targetDirection;
@@ -19,10 +20,10 @@ public class WeaponAiming : MonoBehaviour
     int _resultsCount = 0;
 
     //Flip
-    bool _isFlipped;
+    //FlipLogic _flipLogic;
     [SerializeField] private float _flipOffset = 2f;
-    public bool IsFlipped => _isFlipped;
-    private float Sign => (_isFlipped) ? -1 : 1;
+    //public bool IsFlipped => _isFlipped;
+    private float Sign => (_playerMovement.FlipLogic.IsFlipped) ? -1 : 1;
     private float MouseOffset => _flipOffset * Sign;
 
 
@@ -43,6 +44,7 @@ public class WeaponAiming : MonoBehaviour
     {
         _enemyDetectionTimer = new(0.1f, true);
         _enemyDetectionTimer.onEnd += DetectEnemy;
+        //_flipLogic = new(transform, false, true, 0.12f);
     }
 
     public void Initialize(LayerMask layer)
@@ -62,6 +64,7 @@ public class WeaponAiming : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //_flipLogic.UpdateLogic();
         if (_stopAimingTime > 0)
         {
             _stopAimingTime -= Time.deltaTime;
@@ -156,34 +159,14 @@ public class WeaponAiming : MonoBehaviour
         angle = Mathf.LerpAngle(transform.rotation.eulerAngles.z, angle, Time.fixedDeltaTime * _aimSmoothing);
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         _crosshair.position = (Vector3)_targetDirection + transform.position;
-        if(_autoAiming) CheckForFlip(_targetDirection.x, MouseOffset / 3f);
-        else CheckForFlip(_targetDirection.x, MouseOffset);
+        //if(_autoAiming) _flipLogic.FlipCheck(_targetDirection.x + (MouseOffset / 3f));
+        //else _flipLogic.FlipCheck(_targetDirection.x + MouseOffset);
+        _playerMovement.FlipLogic?.FlipCheck(_targetDirection.x + MouseOffset);
     }
 
- void CheckForFlip(float xPoint, float offset)
-    {
-        Vector2 scale = transform.localScale;
-        
-        if(xPoint < offset && _isFlipped)
-        {
-            Flip();
-        } 
-        else if(xPoint >= offset && !_isFlipped)
-        {
-            Flip();
-        }
-        
-        transform.localScale = scale;
-
-        void Flip()
-        {
-            scale.y *= -1;
-            _isFlipped = !_isFlipped;
-        }
-    }
     void StopAiming()
     {
-        _stopAimingTime = _currentWeapon.AtkDuration / 1.25f;
+        _stopAimingTime = _currentWeapon.AtkDuration;
         _crosshair.gameObject.SetActive(false);
     }
 
