@@ -97,7 +97,7 @@ public class StoreMenu : MonoBehaviour
             _rarityAvailability.Add(rarity, true);
         }
         sw2.Stop();
-        Debug.Log("Populating used indexes array operation time:  " + sw2.ElapsedMilliseconds + " ms");
+        //Debug.Log("Populating used indexes array operation time:  " + sw2.ElapsedMilliseconds + " ms");
     }
 
     // Start is called before the first frame update
@@ -228,7 +228,7 @@ public class StoreMenu : MonoBehaviour
 
         int[] totalIndexes = _correspondingIndexesToRarity[rarity].Array;
         var size = _correspondingIndexesToRarity[rarity].UsedIndexesCount;
-        Debug.Log("Requested used indexes of  " + rarity + " of size:  " + size);
+        //Debug.Log("Requested used indexes of  " + rarity + " of size:  " + size);
         int[] usedIndexes = new int[size];
         int iterator = 0;
         for (int i = 0; i < totalIndexes.Length; i++)
@@ -303,7 +303,7 @@ public class StoreMenu : MonoBehaviour
             _ => UpgradeRarity.Common
         };
         var isAvailable = _rarityAvailability[rarity];
-        Debug.Log($"Is upgrade of rarity {rarity} available?  {isAvailable}");
+        //Debug.Log($"Is upgrade of rarity {rarity} available?  {isAvailable}");
         if(!isAvailable) return rarity switch
         {
             UpgradeRarity.Broken => UpgradeRarity.Common,

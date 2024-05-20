@@ -19,31 +19,32 @@ MonoBehaviour:
   - {fileID: 11400000, guid: df7c73a62b7d8ea4da3c4d678c5b278b, type: 2}
   - {fileID: 11400000, guid: 0f1731e4c0912a34eabf484ba539aa9c, type: 2}
   - {fileID: 11400000, guid: 0429586a3501b674d98e9c4fcf8476e7, type: 2}
+  - {fileID: 11400000, guid: 0429586a3501b674d98e9c4fcf8476e7, type: 2}
   _flipSprite: 1
   _spawnPosition: {x: -0.55, y: 0.25, z: 0}
-  _spawnRotation: 0
+  _spawnRotation: 45
   _weaponSounds:
   - {fileID: 8300000, guid: bc1c86abc18a4824c8de230090611919, type: 3}
   - {fileID: 8300000, guid: b84216003718d5943b73059e3b336319, type: 3}
   - {fileID: 8300000, guid: ea652bf6f93bd6d418c9ca0f92dace0f, type: 3}
   _pointCameraOnAttack: 0
-  _attackCooldown: 0.55
-  _pullForce: 0.4
-  _pullDuration: 0.1
+  _attackCooldown: 0.6
+  _pullForce: 0.45
+  _pullDuration: 0.085
   _attackRange: 1
   _attackSpeed: 1
   _rangeOffset: {x: 0, y: 0}
   _attackDamage: 10
-  _criticalChance: 15
-  _criticalDamageMultiplier: 2.2
-  _damageDelay: 0.04
-  _knockbackForce: 0.91
+  _criticalChance: 12
+  _criticalDamageMultiplier: 2
+  _damageDelay: 0.055
+  _knockbackForce: 0.67
   _speedUPComboAnimations: 1
-  _speedUpFactor: 1.12
+  _speedUpFactor: 1.1
   _comboStats:
   - Cooldown: 0
     Range: 0.42
-    KnockbackForce: 0.5
+    KnockbackForce: 0.12
     AtkSpeed: 0
     PullForce: 1
     AtkDelay: 0
@@ -63,9 +64,10 @@ MonoBehaviour:
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
+    - {fileID: 0}
   - Cooldown: 0
     Range: 1
-    KnockbackForce: 1
+    KnockbackForce: 0.41
     AtkSpeed: 0
     PullForce: 0
     AtkDelay: 0
@@ -91,9 +93,10 @@ MonoBehaviour:
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
+    - {fileID: 0}
   - Cooldown: 0
     Range: 1
-    KnockbackForce: 2
+    KnockbackForce: 1.06
     AtkSpeed: 0
     PullForce: 2
     AtkDelay: 0
@@ -105,6 +108,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: c9c1e59da1cfa0d438f4301a1069edcd, type: 2}
     - {fileID: 11400000, guid: 3961fbaed97e0aa4ea6fed7535dadd51, type: 2}
     UsedEffects:
+    - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}

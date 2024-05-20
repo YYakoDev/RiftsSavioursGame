@@ -14,13 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHealth: 50
   _currentHealth: 95
-  _level: 1
-  _currentXP: 40
-  _xpToNextLevel: 100
-  _speed: 4.5
+  _speed: 4.8
   _slowdownMultiplier: 0.95
-  _dashSpeed: 10
-  _dashCooldown: 0.8
+  _dashSpeed: 9
+  _dashCooldown: 0.75
   _dashInvulnerabilityTime: 0.044
   _pickUpRange: 1.8
   _collectingRange: 2
@@ -35,5 +32,7 @@ MonoBehaviour:
   _stunResistance: 1
   _knockbackResistance: 4
   _damageResistance: 1
+  _buffBooster: 1
+  _debuffResistance: 1
   _faith: 1
   _harvestMultiplier: 0

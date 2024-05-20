@@ -20,7 +20,7 @@ public class WeaponAiming : MonoBehaviour
     int _resultsCount = 0;
 
     //Flip
-    //FlipLogic _flipLogic;
+    FlipLogic _flipLogic;
     [SerializeField] private float _flipOffset = 2f;
     //public bool IsFlipped => _isFlipped;
     private float Sign => (_playerMovement.FlipLogic.IsFlipped) ? -1 : 1;
@@ -44,7 +44,7 @@ public class WeaponAiming : MonoBehaviour
     {
         _enemyDetectionTimer = new(0.1f, true);
         _enemyDetectionTimer.onEnd += DetectEnemy;
-        //_flipLogic = new(transform, false, true, 0.12f);
+        _flipLogic = new(transform, false, true, 0.12f);
     }
 
     public void Initialize(LayerMask layer)
@@ -64,7 +64,7 @@ public class WeaponAiming : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //_flipLogic.UpdateLogic();
+        _flipLogic.UpdateLogic();
         if (_stopAimingTime > 0)
         {
             _stopAimingTime -= Time.deltaTime;
@@ -161,12 +161,15 @@ public class WeaponAiming : MonoBehaviour
         _crosshair.position = (Vector3)_targetDirection + transform.position;
         //if(_autoAiming) _flipLogic.FlipCheck(_targetDirection.x + (MouseOffset / 3f));
         //else _flipLogic.FlipCheck(_targetDirection.x + MouseOffset);
-        _playerMovement.FlipLogic?.FlipCheck(_targetDirection.x + MouseOffset);
+        var offset = (_autoAiming) ? MouseOffset / 3f : MouseOffset;
+        _playerMovement.FlipLogic?.FlipCheck(_targetDirection.x + offset);
+        _flipLogic.FlipCheck(_targetDirection.x + offset);
+
     }
 
     void StopAiming()
     {
-        _stopAimingTime = _currentWeapon.AtkDuration;
+        _stopAimingTime = _currentWeapon.AtkDuration / 3f;
         _crosshair.gameObject.SetActive(false);
     }
 

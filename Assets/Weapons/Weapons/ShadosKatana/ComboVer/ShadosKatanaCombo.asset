@@ -16,37 +16,37 @@ MonoBehaviour:
   _description: 
   _SpriteAndAnimationsData: {fileID: 11400000, guid: fe301fefb53f91646b28abcd3bed37b4, type: 2}
   _effects:
-  - {fileID: 11400000, guid: fe2de886b8d5def4b8e07f40cecb93f2, type: 2}
   - {fileID: 11400000, guid: df7c73a62b7d8ea4da3c4d678c5b278b, type: 2}
-  - {fileID: 11400000, guid: 0429586a3501b674d98e9c4fcf8476e7, type: 2}
   - {fileID: 11400000, guid: 0f1731e4c0912a34eabf484ba539aa9c, type: 2}
-  - {fileID: 11400000, guid: 4780209016f8aa349864b33bf7198c79, type: 2}
+  - {fileID: 11400000, guid: 0429586a3501b674d98e9c4fcf8476e7, type: 2}
+  - {fileID: 11400000, guid: 0429586a3501b674d98e9c4fcf8476e7, type: 2}
+  - {fileID: 11400000, guid: fe2de886b8d5def4b8e07f40cecb93f2, type: 2}
   _flipSprite: 1
   _spawnPosition: {x: -0.55, y: 0.25, z: 0}
-  _spawnRotation: 0
+  _spawnRotation: 45
   _weaponSounds:
   - {fileID: 8300000, guid: bf6e2b4df56b93e45b6323a7837b73f2, type: 3}
   - {fileID: 8300000, guid: bb5a381345214dc469cd56d7f8b12a03, type: 3}
   - {fileID: 8300000, guid: 63576143d8a33204288b7f37ff6c7dd4, type: 3}
   _pointCameraOnAttack: 0
-  _attackCooldown: 0.5
-  _pullForce: 0.17
+  _attackCooldown: 0.55
+  _pullForce: 0.35
   _pullDuration: 0.12
   _attackRange: 1
-  _attackSpeed: 1.35
+  _attackSpeed: 1.22
   _rangeOffset: {x: -0.4, y: 0.18}
-  _attackDamage: 8
-  _criticalChance: 10
+  _attackDamage: 10
+  _criticalChance: 15
   _criticalDamageMultiplier: 2
   _damageDelay: 0.055
-  _knockbackForce: 0.13
+  _knockbackForce: 0.22
   _speedUPComboAnimations: 1
-  _speedUpFactor: 1.3
+  _speedUpFactor: 1.2
   _comboStats:
   - Cooldown: 0
     Range: 0.45
     KnockbackForce: 0.13
-    AtkSpeed: 2.19
+    AtkSpeed: 1.4
     PullForce: 1
     AtkDelay: 0
     PullDuration: 0
@@ -68,11 +68,10 @@ MonoBehaviour:
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
-    - {fileID: 0}
   - Cooldown: 0
     Range: 0.25
-    KnockbackForce: 0.5
-    AtkSpeed: -0.05
+    KnockbackForce: 0.34
+    AtkSpeed: 0
     PullForce: 1
     AtkDelay: 0
     PullDuration: 0
@@ -92,11 +91,10 @@ MonoBehaviour:
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
-    - {fileID: 0}
   - Cooldown: 0
     Range: 0.2
     KnockbackForce: 0.5
-    AtkSpeed: 0.18
+    AtkSpeed: 0.1
     PullForce: 1
     AtkDelay: 0
     PullDuration: 0
@@ -108,7 +106,6 @@ MonoBehaviour:
     - {fileID: 11400000, guid: fd169d3702aceec4e91005959470890e, type: 2}
     - {fileID: 11400000, guid: c9c1e59da1cfa0d438f4301a1069edcd, type: 2}
     UsedEffects:
-    - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}

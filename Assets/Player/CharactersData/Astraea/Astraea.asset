@@ -15,7 +15,7 @@ MonoBehaviour:
   _name: Astraea
   _description: 
   _stats: {fileID: 11400000, guid: 0d2fc2edbd497ee459ba5cca65a0d494, type: 2}
-  _atkStats: {fileID: 11400000, guid: 33ffee2aeeab8f648a9686d369dcf2e0, type: 2}
-  _sprite: {fileID: 21300000, guid: 926ca0b92d08f4348921201961e7c741, type: 3}
-  _animator: {fileID: 22100000, guid: 628bbdfa7ffabca43bb3825e12cbc893, type: 2}
+  _sprite: {fileID: 21300000, guid: a37b2ad9167301449b1438dcf524e4c5, type: 3}
+  _animator: {fileID: 22100000, guid: 1aa9a56bf1d19804c9f0bc17a4f60dad, type: 2}
   _dashData: {fileID: 11400000, guid: 1e8148ce67ed4f44db6f8b9f135ab5ef, type: 2}
+  _startingMaterials: []

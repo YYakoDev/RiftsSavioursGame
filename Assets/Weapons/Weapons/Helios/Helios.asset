@@ -24,14 +24,14 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0429586a3501b674d98e9c4fcf8476e7, type: 2}
   - {fileID: 11400000, guid: 0f1731e4c0912a34eabf484ba539aa9c, type: 2}
   _flipSprite: 1
-  _spawnPosition: {x: -0.55, y: 0.33, z: 0}
-  _spawnRotation: 0
+  _spawnPosition: {x: -0.793, y: 0.222, z: 0}
+  _spawnRotation: 45
   _weaponSounds:
   - {fileID: 8300000, guid: ba8fe44fc8785364a978c7ec7d17ce65, type: 3}
   - {fileID: 8300000, guid: 62831dff93289e44786d140f137d6408, type: 3}
   _pointCameraOnAttack: 0
-  _attackCooldown: 0.6
-  _pullForce: 0.7
+  _attackCooldown: 0.75
+  _pullForce: 0.6
   _pullDuration: 0.16
   _attackRange: 1.75
   _attackSpeed: 0.85

@@ -10,8 +10,6 @@ public class PlayerStatsManager : MonoBehaviour
     [SerializeField] SOPlayerStats _playerStats;
     [SerializeField] SOPlayerAttackStats _playerAtkStats;
 
-    public event Action<int, float> onStatModified;
-
     private void Awake() {
         
         if(_playerStats == null || _playerAtkStats == null) Debug.LogError("ASSIGN THE REFERENCES DUMBASS PlayerStatsManager: PlayerStats or PlayerAttackStats is null");

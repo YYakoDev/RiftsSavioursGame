@@ -9,7 +9,7 @@ using Debug = UnityEngine.Debug;
 public static class UpgradeCreator
 {
     private static bool areUpgradesCreated = false;
-    private static string Location = "Assets/UpgradesStuff/Upgrades/RandomizedUpgrades/";
+    //private static string Location = "Assets/UpgradesStuff/Upgrades/RandomizedUpgrades/";
     private static CraftingMaterial AureaAnima;
     static List<StoreUpgradeData?> upgrades;
     static int brokenUpgradesMaxIndex, commonUpgradesMaxIndex, uncommonUpgradesMaxIndex, rareUpgradesMaxIndex, epicUpgradesMaxIndex, legendaryUpgradesMaxIndex;
@@ -113,11 +113,10 @@ public static class UpgradeCreator
                     break;
             }
         }
-        Debug.Log("<b>Created " + Iterations + "  upgrades</b>");
+        Debug.Log("<b>Created " + Iterations + " upgrades</b>" + "  Upgrade creation duration:   " + sw.ElapsedMilliseconds + " ms");
         areUpgradesCreated = true;
         upgrades.RemoveAll(item => item == null);
         sw.Stop();
-        Debug.Log("Upgrade creation duration:   " + sw.ElapsedMilliseconds + " ms");
     }
 
     static void CreateUpgrade(UpgradeRarity rarity, params StatsTypes[] statsTypes)

@@ -7,7 +7,7 @@ public class TweenMoveToWorldPointTest : MonoBehaviour
     [SerializeField] Canvas _canvas;
     [SerializeField] Transform _worldPoint;
     [SerializeField] RectTransform _squareRepresentation;
-    [SerializeField] float _duration = 1f;
+    //[SerializeField] float _duration = 1f;
     TweenAnimator _animator;
     private void Awake() {
         _animator = GetComponent<TweenAnimator>();

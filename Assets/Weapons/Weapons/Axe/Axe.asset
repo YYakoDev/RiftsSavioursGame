@@ -22,7 +22,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: bc668329a2d90574a91d7f07ac9991c9, type: 2}
   _flipSprite: 1
   _spawnPosition: {x: -0.55, y: 0.25, z: 0}
-  _spawnRotation: 0
+  _spawnRotation: 45
   _weaponSounds:
   - {fileID: 8300000, guid: c2f1f5d5a1b06d3438f878f6008de986, type: 3}
   _pointCameraOnAttack: 0

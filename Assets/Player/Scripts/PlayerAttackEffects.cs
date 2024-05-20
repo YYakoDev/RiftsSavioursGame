@@ -47,7 +47,7 @@ public class PlayerAttackEffects : MonoBehaviour
         _player.MovementScript.SetAnimatorFacing(weaponDir);*/
     }
 
-    void PlayAttackAnimation() => _player.AnimController.PlayStated(PlayerAnimationsNames.Attack, AttackDuration);
+    void PlayAttackAnimation() => _player.AnimController.PlayStated(PlayerAnimationsNames.Attack, AttackDuration + 0.1f);
     public void SlowdownPlayer() => _player.MovementScript.SlowdownMovement(AttackDuration);   
     public void SlowdownPlayer(float force) => _player.MovementScript.SlowdownMovement(AttackDuration, force);   
     public void SlowdownPlayer(float duration, float force) => _player.MovementScript.SlowdownMovement(duration, force);   

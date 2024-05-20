@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _damageMultiplier: 1
   _baseDamageAddition: 1
-  _attackRange: 0.91
-  _attackCooldown: 1.78
-  _attackSpeed: 1.39
-  _attackKnockback: 0.42
+  _attackRange: 0.935
+  _attackCooldown: 1.5
+  _attackSpeed: 1.3
+  _attackKnockback: 0.5
   _projectilesCount: 1
   _projectilesSpeed: 1
   _summonDamage: 5
