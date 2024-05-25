@@ -125,6 +125,10 @@ public class UISkill : MonoBehaviour
         previousTrigger -= Interact;
         newTrigger += Interact;
     }
+    public void UpdateInputText(string text)
+    {
+        _inputText.text = text;
+    }
 
     void StartCooldownTimer()
     {

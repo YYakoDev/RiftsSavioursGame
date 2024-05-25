@@ -53,8 +53,8 @@ public class FlipLogic
 
         void Flip()
         {
-            _currentScale = _transform.localScale;
             _lockFlipTime = Time.time + lockFlipTime + _flipDuration + 0.075f;
+            _currentScale = _transform.localScale;
             _flipCharacter = true;
             _elapsedTime = 0;
             int flipXDir = (_flipX) ? -1 : 1;

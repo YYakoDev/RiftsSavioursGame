@@ -112,6 +112,7 @@ public class TripleComboMeleeWeapon : MeleeWeapon
     public override void UpdateLogic()
     {
         _atkExecutionTimer.UpdateTime();
+        DelayLogic();
         if(Time.time < _nextAttackTime) return;
         if(_inputDetected)
         {
@@ -126,6 +127,7 @@ public class TripleComboMeleeWeapon : MeleeWeapon
     }
     protected override void Attack(float cooldown)
     {
+        StartDelay();
         InvokeOnAttack();
         _nextAttackTime = Time.time + (TimeOffset * 1.3f) / _speedUpFactor;
         _waitForInputTimer.Start();

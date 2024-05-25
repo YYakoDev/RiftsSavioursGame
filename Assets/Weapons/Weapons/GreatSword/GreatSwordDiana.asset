@@ -29,6 +29,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0d45495b4c12acc4d9c2daf155b71534, type: 2}
   - {fileID: 11400000, guid: df7c73a62b7d8ea4da3c4d678c5b278b, type: 2}
   - {fileID: 11400000, guid: 0429586a3501b674d98e9c4fcf8476e7, type: 2}
+  - {fileID: 11400000, guid: 02239abe251495c4193d0bcea14ee9b0, type: 2}
   _flipSprite: 1
   _spawnPosition: {x: -0.9, y: 0, z: 0}
   _spawnRotation: 45
@@ -40,12 +41,14 @@ MonoBehaviour:
   _pullForce: 1.4
   _pullDuration: 0.3254
   _attackRange: 2.1
-  _attackSpeed: 0.7
+  _attackSpeed: 0.65
   _rangeOffset: {x: 0.31, y: 0.12}
   _attackDamage: 21
   _criticalChance: 10
   _criticalDamageMultiplier: 2
   _damageDelay: 0.1
   _knockbackForce: 2.73
+  _animationDelayTime: 0.107
+  _delayPercentage: 0.865
   _weaponSlashPrefab: {fileID: 3849386732562224976, guid: fc43b93d849be6c4b83d4696ed635697, type: 3}
   _slashOffset: {x: 0.2, y: 0.2, z: 0}

@@ -10,18 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fdf32160c393e054599b06c15ef35635, type: 3}
-  m_Name: World4 - Pluton - Blue Hell
+  m_Name: World2 - LoopTest
   m_EditorClassIdentifier: 
-  _name: Pluton
+  _name: thalasso
   _restInterval: 5
   _waves:
-  - {fileID: 11400000, guid: 9995c252d4850e2419ee3f8d86a31a69, type: 2}
-  - {fileID: 11400000, guid: fd272544097fc364584aba66f5e665ef, type: 2}
-  - {fileID: 11400000, guid: 75e9bbecc268c1c40a57f54b2f88d50f, type: 2}
   - {fileID: 11400000, guid: f167f6e3256b87744bd6b8b0dea3e631, type: 2}
-  - {fileID: 11400000, guid: b7e81002e613b3e4a869783175cddb09, type: 2}
-  - {fileID: 11400000, guid: d9fa6b7ad019ae1459b479957639d6a7, type: 2}
-  - {fileID: 11400000, guid: 6061721d9f4a9e5499bd5251aeccd99e, type: 2}
+  - {fileID: 11400000, guid: bb7718a5f534d684fa6850c6d5a9587b, type: 2}
+  - {fileID: 11400000, guid: 2c774f0f445ea42498acf19460fb54d6, type: 2}
+  - {fileID: 11400000, guid: 84201013fafb73c4c8570c7debbea728, type: 2}
+  - {fileID: 11400000, guid: 584bc0dc2ec2c964b85c9402c50c259d, type: 2}
+  - {fileID: 11400000, guid: ca0d74918f148834c8af771ed5731b22, type: 2}
   _chunks:
   - {fileID: 8802944811774838316, guid: 672779cfd9167ae4d86704cce8dc5562, type: 3}
   - {fileID: 8802944811774838316, guid: 20129998047db9f40975012e11bfe972, type: 3}

@@ -28,7 +28,7 @@ public class PortalFx : MonoBehaviour
         _elapsedLightTime = 0f;
         _light.intensity = 0f;
         _timer.Start();
-        _audio?.PlayWithVaryingPitch(openingSfx);
+        //_audio?.PlayWithVaryingPitch(openingSfx);
     }
     void Update()
     {

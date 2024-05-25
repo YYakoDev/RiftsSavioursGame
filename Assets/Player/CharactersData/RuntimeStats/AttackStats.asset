@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4730042eba027914ba014f3d15a86f64, type: 3}
   m_Name: AttackStats
   m_EditorClassIdentifier: 
-  _damageMultiplier: 1.85
+  _damageMultiplier: 1.64
   _baseDamageAddition: 1
-  _attackRange: 0.96
-  _attackCooldown: 0.96
-  _attackSpeed: 1
-  _attackKnockback: 1.4
+  _attackRange: 1.27
+  _attackCooldown: 1.5400001
+  _attackSpeed: 0.14
+  _attackKnockback: 2.01
   _projectilesCount: 1
-  _projectilesSpeed: 1.53
-  _summonDamage: 5
-  _summonSpeed: 1.5
+  _projectilesSpeed: 1.8
+  _summonDamage: 4
+  _summonSpeed: 2.49

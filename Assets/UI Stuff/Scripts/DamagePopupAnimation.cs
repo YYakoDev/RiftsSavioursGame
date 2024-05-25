@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-[RequireComponent(typeof(TweenAnimator))]
+[RequireComponent(typeof(TweenAnimatorMultiple))]
 public class DamagePopupAnimation : MonoBehaviour
 {
-    TweenAnimator _animator;
+    TweenAnimatorMultiple _animator;
     RectTransform _rect;
     TextMeshPro _text;
     Vector3 _startingScale = Vector3.zero;
@@ -13,7 +13,7 @@ public class DamagePopupAnimation : MonoBehaviour
     private void Awake() {
         _rect = GetComponent<RectTransform>();
         _text = _rect.GetComponent<TextMeshPro>();
-        _animator = _rect.GetComponent<TweenAnimator>();
+        _animator = _rect.GetComponent<TweenAnimatorMultiple>();
     }
 
     private void OnEnable() {
@@ -25,19 +25,14 @@ public class DamagePopupAnimation : MonoBehaviour
 
     void PlayAnimations()
     {
-        Vector3 startingScale = _rect.localScale;
-        Vector3 startingPos = _rect.position;
-        _animator.Scale(_rect, startingScale * 1.3f, 0.2f, CurveTypes.EaseInOut, onComplete: ScaleDown);
+        _rect.localScale = _startingScale;
+        _animator.Scale(_rect, _startingScale * 1.3f, 0.2f, CurveTypes.EaseInOut, onComplete: ScaleDown);
+        _animator.MoveTo(_rect, _startingPos + Vector3.up * 2f, 0.75f, CurveTypes.EaseInOut, onComplete: Deactivate);
     }
 
     void ScaleDown()
     {
-        _animator.Scale(_rect, _startingScale, 0.15f, CurveTypes.EaseInOut, onComplete: MoveUp);
-    }
-
-    void MoveUp()
-    {
-        _animator.MoveTo(_rect, _startingPos + Vector3.up * 2f, 0.4f, CurveTypes.EaseInOut, onComplete: Deactivate);
+        _animator.Scale(_rect, _startingScale, 0.35f, CurveTypes.EaseInOut);
     }
 
     void Deactivate()

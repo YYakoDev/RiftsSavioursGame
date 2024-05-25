@@ -21,9 +21,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0429586a3501b674d98e9c4fcf8476e7, type: 2}
   - {fileID: 11400000, guid: 0429586a3501b674d98e9c4fcf8476e7, type: 2}
   - {fileID: 11400000, guid: fe2de886b8d5def4b8e07f40cecb93f2, type: 2}
-  _flipSprite: 1
+  _flipSprite: 0
   _spawnPosition: {x: -0.55, y: 0.25, z: 0}
-  _spawnRotation: 45
+  _spawnRotation: 120
   _weaponSounds:
   - {fileID: 8300000, guid: bf6e2b4df56b93e45b6323a7837b73f2, type: 3}
   - {fileID: 8300000, guid: bb5a381345214dc469cd56d7f8b12a03, type: 3}
@@ -40,6 +40,8 @@ MonoBehaviour:
   _criticalDamageMultiplier: 2
   _damageDelay: 0.055
   _knockbackForce: 0.22
+  _animationDelayTime: 0
+  _delayPercentage: 0
   _speedUPComboAnimations: 1
   _speedUpFactor: 1.2
   _comboStats:
@@ -59,6 +61,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: f1b3174f673fb1a4b91613d5d1414674, type: 2}
     - {fileID: 11400000, guid: a46798bb6b4605f46a88a7cb00606fc1, type: 2}
     UsedEffects:
+    - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
@@ -91,6 +94,7 @@ MonoBehaviour:
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
+    - {fileID: 0}
   - Cooldown: 0
     Range: 0.2
     KnockbackForce: 0.5
@@ -106,6 +110,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: fd169d3702aceec4e91005959470890e, type: 2}
     - {fileID: 11400000, guid: c9c1e59da1cfa0d438f4301a1069edcd, type: 2}
     UsedEffects:
+    - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}

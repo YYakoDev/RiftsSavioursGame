@@ -162,7 +162,8 @@ public class WeaponAiming : MonoBehaviour
         //if(_autoAiming) _flipLogic.FlipCheck(_targetDirection.x + (MouseOffset / 3f));
         //else _flipLogic.FlipCheck(_targetDirection.x + MouseOffset);
         var offset = (_autoAiming) ? MouseOffset / 3f : MouseOffset;
-        _playerMovement.FlipLogic?.FlipCheck(_targetDirection.x + offset);
+        if(_autoAiming && _resultsCount == 0)_playerMovement.FlipLogic?.FlipCheck(_playerMovement.Movement.x);
+        else _playerMovement.FlipLogic?.FlipCheck(_targetDirection.x + offset);
         _flipLogic.FlipCheck(_targetDirection.x + offset);
 
     }

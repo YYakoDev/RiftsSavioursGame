@@ -15,13 +15,13 @@ MonoBehaviour:
   _sprite: {fileID: 21300000, guid: aafc5b07a1f2bb84cbdbb9059238fe4c, type: 3}
   _animator: {fileID: 22100000, guid: b869af702a4907a4dba565533e1ba8ff, type: 2}
   _stats:
-    _speed: 2.35
-    _stunDuration: 0.35
-    _stunResistance: 0
-    _knockbackResistance: 0
-    _maxHealth: 60
+    _speed: 2.57
+    _stunDuration: 0.16
+    _stunResistance: 6
+    _knockbackResistance: 4
+    _maxHealth: 14
     _damage: 1
-    _knockbackForce: 0.97
+    _knockbackForce: 0.89
   _drops:
   - {fileID: 11400000, guid: 646106529e721ce42a07611086bec9d2, type: 2}
   - {fileID: 11400000, guid: 646106529e721ce42a07611086bec9d2, type: 2}
@@ -49,4 +49,4 @@ MonoBehaviour:
   - {fileID: 8300000, guid: aeff8b144513d004f9ad297bb14cfc8f, type: 3}
   _attackSFXs: []
   _deathSFXs:
-  - {fileID: 8300000, guid: 7cf6107587eebde4eb66a0c33c6318ec, type: 3}
+  - {fileID: 8300000, guid: aeff8b144513d004f9ad297bb14cfc8f, type: 3}

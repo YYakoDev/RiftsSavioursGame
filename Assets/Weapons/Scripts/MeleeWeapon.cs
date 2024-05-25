@@ -25,9 +25,12 @@ public class MeleeWeapon : WeaponBase
     [SerializeField, Range(0f, 1f)] protected float _damageDelay = 0.2f;
     protected int _maxEnemiesToHit = 10;
     [SerializeField, Range(0f, 3.25f)]protected float _knockbackForce = 0.35f;
+    [SerializeField, Range(0f,1f)] protected float _animationDelayTime = 0f;
+    [SerializeField, Range(0f, 1f)] protected float _delayPercentage = 0f;
+    protected bool _delayingAnimation = false;
     private readonly int AtkAnim = Animator.StringToHash("Attack");
     protected List<GameObject> _hittedEnemiesGO = new();
-    protected Timer _atkExecutionTimer;
+    protected Timer _atkExecutionTimer, _delayTimer;
 
 
     //properties
@@ -51,10 +54,18 @@ public class MeleeWeapon : WeaponBase
         _atkExecutionTimer.onEnd += DoAttackLogic;
         _atkExecutionTimer.Stop();
 
+        _delayTimer = new(_animationDelayTime);
+        _delayTimer.Stop();
+        _delayTimer.onEnd += StopAnimationDelay;
+
         _modifiedStats = new(_attackCooldown, _pullForce, _attackRange, _attackSpeed, _knockbackForce, _damageDelay, _attackDamage);
     }
 
-    public override void UpdateLogic() => _atkExecutionTimer.UpdateTime();
+    public override void UpdateLogic()
+    {
+        _atkExecutionTimer.UpdateTime();
+        DelayLogic();
+    }
 
 
     protected override void TryAttack()
@@ -68,6 +79,7 @@ public class MeleeWeapon : WeaponBase
     {
         //this calls the onAttackEvent and also sets the cooldown.
         base.Attack(cooldown);
+        StartDelay();
         //InstantiateFX();
         SetAttackPoint();
         if(!DetectEnemies(_modifiedStats._atkRange)) return;
@@ -119,6 +131,30 @@ public class MeleeWeapon : WeaponBase
         }
     }
 
+    protected virtual void DelayLogic()
+    {
+        _delayTimer.UpdateTime();
+        if(_delayingAnimation)
+        {
+            var elapsedTime = _animationDelayTime - _delayTimer.CurrentTime;
+            var percent = elapsedTime / _animationDelayTime;
+            var delaySpeed = _attackSpeed - _attackSpeed * _delayPercentage;
+            var newSpeed = Mathf.Lerp(delaySpeed, _attackSpeed, percent);
+            _weaponAnimator.speed = newSpeed;
+        }
+    }
+
+    protected virtual void StartDelay()
+    {
+        _delayingAnimation = true;
+        _delayTimer.Start(); 
+    }
+    protected virtual void StopAnimationDelay()
+    {
+        _delayingAnimation = false;
+        _weaponAnimator.speed = _attackSpeed;
+    }
+
     protected virtual void ApplyDamage(Transform enemy, IDamageable entity, int damage)
     {
         int critRoll = Random.Range(0, 101);
@@ -148,7 +184,7 @@ public class MeleeWeapon : WeaponBase
         _modifiedStats._atkSpeed = _attackSpeed + (attackStats.AttackSpeed - 1);
         SetRadiusOffset(_modifiedStats._atkRange);
         SetMaxEnemiesToHit(_modifiedStats._atkRange);
-        _modifiedStats._atkDelay = _damageDelay / _modifiedStats._atkSpeed;
+        _modifiedStats._damageDelay = _damageDelay / _modifiedStats._atkSpeed;
         _modifiedStats._cooldown = Mathf.Clamp(_modifiedStats._cooldown, 0.1855f, 100f);
     }
 
@@ -168,7 +204,7 @@ public class MeleeWeapon : WeaponBase
     }
     protected struct MeleeWeaponStats
     {
-        public float _cooldown, _pullForce, _atkRange, _atkSpeed, _knockbackForce, _atkDelay;
+        public float _cooldown, _pullForce, _atkRange, _atkSpeed, _knockbackForce, _damageDelay;
         public int _atkDmg;
 
         public MeleeWeaponStats(float cooldown, float pullForce, float atkRange, float atkSpeed, float knockbackForce, float delay, int atkDmg)
@@ -178,7 +214,7 @@ public class MeleeWeapon : WeaponBase
             _atkRange = atkRange;
             _atkSpeed = atkSpeed;
             _knockbackForce = knockbackForce;
-            _atkDelay = delay;
+            _damageDelay = delay;
             _atkDmg = atkDmg;
         }
     }

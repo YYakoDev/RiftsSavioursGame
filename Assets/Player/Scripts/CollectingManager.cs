@@ -69,7 +69,7 @@ public class CollectingManager : MonoBehaviour
         }
     }
 
-    void GrabResource(IResources resource)
+    public void GrabResource(IResources resource)
     {
         //Debug.Log("Interacting With Resource");
         _resourcePosition = resource.ResourcePosition;

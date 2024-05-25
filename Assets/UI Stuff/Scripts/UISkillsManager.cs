@@ -32,7 +32,7 @@ public class UISkillsManager : MonoBehaviour
         return skill;
     }
 
-    public UISkill SearchIfItExist(KeyInputTypes type)
+    UISkill SearchIfItExist(KeyInputTypes type)
     {
         UISkill result = null;
 

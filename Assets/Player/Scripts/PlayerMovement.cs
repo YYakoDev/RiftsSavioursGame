@@ -10,7 +10,6 @@ public class PlayerMovement : MonoBehaviour, IKnockback
 {
     //References
     [Header("References")]
-    [SerializeField] WeaponAiming _aimingScript;
     [SerializeField]ParticleSystem _dustEffect, _dashParticleEffect;
     PlayerManager _player;
     [SerializeField] PlayerHealthManager _healthManager;
@@ -46,8 +45,6 @@ public class PlayerMovement : MonoBehaviour, IKnockback
     SortingOrderController _sortingOrderController;
     [SerializeField]private float _sortingOrderOffset; //this adds an offset to the position detected on the sprite    
     //aiming
-    bool _autoAiming = false;
-
 
     [Header("AudioStuff")]
     [SerializeField] AudioSource _audio;
@@ -58,7 +55,7 @@ public class PlayerMovement : MonoBehaviour, IKnockback
 
 
     //properties
-    //public Vector2 Movement => _movement;
+    public Vector2 Movement => _movement;
     //public bool IsFlipped => isFlipped;
     public float DashDuration => _dashDuration;
     public float DashForce => _dashForce;
@@ -92,7 +89,6 @@ public class PlayerMovement : MonoBehaviour, IKnockback
     IEnumerator Start()
     {
         YYInputManager.OnMovement += SetMovement;
-        _aimingScript.OnAimingChange += ChangeAimMode;
         _spriteGameObject = _player.Renderer.gameObject;
         _flipLogic = new(_spriteGameObject.transform, true, false, 0.15f);
         _realSpeed = MovementSpeed;
@@ -239,7 +235,6 @@ public class PlayerMovement : MonoBehaviour, IKnockback
         _knockbackEnabled = change;
     }
 
-    void ChangeAimMode(bool state) => _autoAiming = state;
     
 
     public void SlowdownMovement(float slowdownTime)
@@ -256,7 +251,6 @@ public class PlayerMovement : MonoBehaviour, IKnockback
 
     private void OnDestroy() {
         YYInputManager.OnMovement -= SetMovement;
-        _aimingScript.OnAimingChange -= ChangeAimMode;
         if(!_dashLogicInitialized) return;
         _dashDurationTimer.onEnd -= StopDash;
         _dashInput.OnKeyPressed -= SetDash;

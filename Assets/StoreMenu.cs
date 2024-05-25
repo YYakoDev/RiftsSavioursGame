@@ -115,7 +115,7 @@ public class StoreMenu : MonoBehaviour
     {
         if (state.GetType() == typeof(RestState))
         {
-            OpenMenu();
+            //OpenMenu();
         }
     }
 

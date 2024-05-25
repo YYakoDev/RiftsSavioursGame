@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbe3cf0a793b5614c85902cac6991d8a, type: 3}
+  m_Name: Ent
+  m_EditorClassIdentifier: 
+  _sprite: {fileID: 21300000, guid: 7aff36cb8e4b1274b913aa583f089339, type: 3}
+  _animator: {fileID: 22100000, guid: 8ad2ec68089ba7c4caca14454dbc3aa1, type: 2}
+  _stats:
+    _speed: 1.2
+    _stunDuration: 0.1
+    _stunResistance: 11
+    _knockbackResistance: 12
+    _maxHealth: 25
+    _damage: 1
+    _knockbackForce: 2.98
+  _drops:
+  - {fileID: 11400000, guid: 646106529e721ce42a07611086bec9d2, type: 2}
+  - {fileID: 11400000, guid: 3b90691a15d7e584aafc335711541a46, type: 2}
+  _isBoxTrigger: 1
+  _boxColliderSize: {x: 0.45, y: 0.95}
+  _isCircleTrigger: 0
+  _circleColliderOffset: {x: -0.075, y: -0.55}
+  _circleColliderRadius: 0.22
+  _enableEnemyDetector: 1
+  _enemyDetectionRadius: 0.45
+  _movementBehaviour: {fileID: 11400000, guid: 9506340d249ee2f4aa6eaa1981b01eda, type: 2}
+  _attackBehaviour: {fileID: 11400000, guid: fa81f5ed01e62f145b9699053d248833, type: 2}
+  _deathBehaviour: {fileID: 0}
+  _bloodSplatter: {fileID: 0}
+  _hasShadow: 1
+  _shadowPosition: {x: -0.1, y: -0.35, z: 0}
+  _shadowSize: {x: 1.47, y: 1, z: 1}
+  _moveSFXs:
+  - {fileID: 0}
+  _onHitSFXs:
+  - {fileID: 8300000, guid: af029666b69976a43be320c4548e0c22, type: 3}
+  - {fileID: 8300000, guid: a186b13580a4dd84eb917f5539099b5b, type: 3}
+  _attackSFXs: []
+  _deathSFXs:
+  - {fileID: 8300000, guid: 1f2261e7fc589074890f61acbba5fbe6, type: 3}

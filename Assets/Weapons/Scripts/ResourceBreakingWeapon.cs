@@ -8,6 +8,7 @@ public class ResourceBreakingWeapon : MeleeWeapon
     [SerializeField] LayerMask _resourcesLayer;
     [SerializeField] ResourcesTypes _targetType;
     LayerMask _targetsLayer;
+    [SerializeField] int _maxResourcesToHit = 1;
     public override void Initialize(WeaponManager weaponManager, Transform prefabTransform)
     {
         base.Initialize(weaponManager, prefabTransform);
@@ -34,17 +35,19 @@ public class ResourceBreakingWeapon : MeleeWeapon
 
     void AttackResources()
     {
+        int iterations = 0;
         for (int i = 0; i < _hittedEnemiesGO.Count; i++)
         {
             if(_hittedEnemiesGO[i] == null || !_hittedEnemiesGO[i].activeSelf)continue;
-
             if(_hittedEnemiesGO[i].TryGetComponent<Resource>(out Resource resource))
             {
                 if(resource.ResourceType != _targetType) continue;
+                iterations++;
                 resource.Interact(_modifiedStats._atkDmg);
                 //PopupsManager.Create(_hittedEnemiesGO[i].transform.position + Vector3.up * 0.75f, _modifiedStats._atkDmg);
                 InvokeOnEnemyHit(_hittedEnemiesGO[i].transform.position);
             }
+            if(i >= _maxResourcesToHit) break;
         }
     }
 }

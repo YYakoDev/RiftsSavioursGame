@@ -18,14 +18,15 @@ MonoBehaviour:
   _effects:
   - {fileID: 11400000, guid: a46798bb6b4605f46a88a7cb00606fc1, type: 2}
   - {fileID: 11400000, guid: 67c6ca3a55024ea40a9dc7c21f219eda, type: 2}
-  - {fileID: 11400000, guid: f1b3174f673fb1a4b91613d5d1414674, type: 2}
   - {fileID: 11400000, guid: 3961fbaed97e0aa4ea6fed7535dadd51, type: 2}
   - {fileID: 11400000, guid: df7c73a62b7d8ea4da3c4d678c5b278b, type: 2}
   - {fileID: 11400000, guid: 0429586a3501b674d98e9c4fcf8476e7, type: 2}
   - {fileID: 11400000, guid: 0f1731e4c0912a34eabf484ba539aa9c, type: 2}
-  _flipSprite: 1
+  - {fileID: 11400000, guid: bc668329a2d90574a91d7f07ac9991c9, type: 2}
+  - {fileID: 11400000, guid: 02239abe251495c4193d0bcea14ee9b0, type: 2}
+  _flipSprite: 0
   _spawnPosition: {x: -0.793, y: 0.222, z: 0}
-  _spawnRotation: 45
+  _spawnRotation: 120
   _weaponSounds:
   - {fileID: 8300000, guid: ba8fe44fc8785364a978c7ec7d17ce65, type: 3}
   - {fileID: 8300000, guid: 62831dff93289e44786d140f137d6408, type: 3}
@@ -41,5 +42,7 @@ MonoBehaviour:
   _criticalDamageMultiplier: 3
   _damageDelay: 0.085
   _knockbackForce: 1
+  _animationDelayTime: 0
+  _delayPercentage: 0
   _weaponSlashPrefab: {fileID: 3849386732562224976, guid: 518320ae3e20a2641a7d96a44985633f, type: 3}
   _slashOffset: {x: 0.5, y: 0.1, z: 0}

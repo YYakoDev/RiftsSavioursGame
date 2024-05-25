@@ -11,8 +11,9 @@ public class PlayerAttackEffects : MonoBehaviour
     [SerializeField]AudioSource _audio;
     WeaponBase _currentWeapon;
     Transform weaponPrefab => _currentWeapon.PrefabTransform;
-
     float AttackDuration => _currentWeapon.AtkDuration;
+
+
     private void Awake() {
         _weaponManager.OnWeaponChange += SwitchCurrentWeapon;
     }
@@ -35,24 +36,17 @@ public class PlayerAttackEffects : MonoBehaviour
 
     void AttackEffects()
     {
-        FlipPlayer();
+        //FlipPlayer();
         PlayAttackAnimation();
         if(_currentWeapon.PointCameraOnAttack)_cameraTargetting.SwitchTarget(_targetIndex, AttackDuration);
     }
-    void FlipPlayer()
-    {
-        float xPoint = weaponPrefab.position.x - transform.position.x;
-        _player.MovementScript.FlipLogic.FlipCheck(xPoint, AttackDuration);
-        /*var weaponDir = _weaponPrefab.position - transform.position;
-        _player.MovementScript.SetAnimatorFacing(weaponDir);*/
-    }
-
-    void PlayAttackAnimation() => _player.AnimController.PlayStated(PlayerAnimationsNames.Attack, AttackDuration + 0.1f);
+    
+    void PlayAttackAnimation() => _player.AnimController.PlayStated(PlayerAnimationsNames.Attack, AttackDuration);
     public void SlowdownPlayer() => _player.MovementScript.SlowdownMovement(AttackDuration);   
     public void SlowdownPlayer(float force) => _player.MovementScript.SlowdownMovement(AttackDuration, force);   
     public void SlowdownPlayer(float duration, float force) => _player.MovementScript.SlowdownMovement(duration, force);   
     public void SelfPush(float force) => _player.MovementScript.KnockbackLogic.SetKnockbackData(weaponPrefab, -force, ignoreResistance: true);
-    public void SelfPush(float force, float duration) => _player.MovementScript.KnockbackLogic.SetKnockbackData(weaponPrefab, -force, duration, true, 2f);
+    public void SelfPush(float force, float duration) => _player.MovementScript.KnockbackLogic.SetKnockbackData(weaponPrefab, -force, duration, true);
 
     public void KnockbackPlayer(float knockbackAmount) => _player.MovementScript.KnockbackLogic.SetKnockbackData(weaponPrefab, knockbackAmount, forceMultiplier: 0.25f);
     public void KnockbackPlayer(Vector3 emitterPosition, float knockbackAmount) => _player.MovementScript.KnockbackLogic.SetKnockbackData(emitterPosition, knockbackAmount, forceMultiplier: 0.25f);

@@ -57,8 +57,7 @@ public class EnemyWaveSpawner : MonoBehaviour
         if(_stopped) return;
         if (_nextSpawnTime < Time.time)
         {
-            _nextSpawnTime = _spawnCooldown + 0.15f + Time.time;
-            SelectSpawnPosition();
+            _nextSpawnTime = _spawnCooldown + 0.1f + Time.time;
             SpawnPortalFx(_selectedSpawnpoint);
             _spawnTimer.Start();
         }
@@ -74,8 +73,9 @@ public class EnemyWaveSpawner : MonoBehaviour
 
     }
 
-    void CreateEnemy()
+    public void CreateEnemy()
     {
+        SelectSpawnPosition();
         var data = _enemiesInfo[Random.Range(0, _enemiesInfo.Length)];
         var enemy = _pool.GetPooledObject();
         if(enemy.Value == null) return;
@@ -87,14 +87,19 @@ public class EnemyWaveSpawner : MonoBehaviour
         enemy.Key.SetActive(true);
     }
 
-    void StopSpawning(float time)
+    public void StopSpawning(float time)
     {
         _stopSpawningTimer.ChangeTime(time + 0.5f);
         _stopSpawningTimer.Start();
         _stopped = true;
     }
+    public void StopSpawning()
+    {
+        _stopped = true;
+    }
 
-    void ResumeSpawning()
+
+    public void ResumeSpawning()
     {
         _stopped = false;
     }
@@ -111,8 +116,11 @@ public class EnemyWaveSpawner : MonoBehaviour
     {
         //do the bag spawning like tetris
         Vector2 radius = Random.insideUnitCircle * _spawnRadius;
-        radius.x = Mathf.Clamp(radius.x, _innerRadius, _spawnRadius) * Mathf.Sign(radius.x);
-        radius.y = Mathf.Clamp(radius.y, _innerRadius, _spawnRadius) * Mathf.Sign(radius.y);
+        var xSign = Mathf.Sign(radius.x);
+        var ySign = Mathf.Sign(radius.y);
+        radius.x = Mathf.Clamp(radius.x, _innerRadius * xSign, _spawnRadius * xSign);
+        radius.y = Mathf.Clamp(radius.y, _innerRadius * ySign, _spawnRadius * ySign);
+
         _selectedSpawnpoint = _playerTransform.position + (Vector3)radius;
 
     }

@@ -51,24 +51,4 @@ public class PlayerAnimationController : MonoBehaviour
         _animator.runtimeAnimatorController = animator;
     }
 
-    public void SetAnimatorFacing(Vector2 facing)
-    {
-        _animator.SetFloat("MoveX", facing.x);
-        _animator.SetFloat("MoveY", facing.y);
-    }
-
-    /*void GetAttackDuration()
-    {
-        var clips = _animator.runtimeAnimatorController.animationClips;
-        foreach(AnimationClip clip in clips)
-        {
-            if(clip.name == PlayerAnimationsNames.Attack)
-            {
-                _attackDuration = clip.averageDuration;
-                break;  
-            } 
-        }
-    }*/
-
-
 }
