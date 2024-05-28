@@ -82,63 +82,18 @@ public class ChunkGenerator : MonoBehaviour
 
     void CheckPlayerPosition()
     {
-        Vector2Int playerPosOnGridLocal = new Vector2Int
-        (
-            Mathf.RoundToInt(_playersTransform.position.x/_referenceSize.x),
-            Mathf.RoundToInt(_playersTransform.position.y/_referenceSize.y)
-        );
-        if(_playerPositionOnGrid != playerPosOnGridLocal)
-        {
-            //_previousPlayerPosition = _playerPositionOnGrid;
-            _playerPositionOnGrid = playerPosOnGridLocal;
-            //Debug.Log("Player's NEW position on grid:  " + _playerPositionOnGrid);
-            TryToSpawnNewChunks();
-        }
-    }
-
-    void TryToSpawnNewChunks()
-    {
-        //Debug.Log("Render Distance:   " + _playerPositionOnGrid);
-        //Debug.Log($"sign of x {System.MathF.Sign(_playerPositionOnGrid.x)} \n  sign of y {System.Math.Sign(_playerPositionOnGrid.y)} ");
-        //spawn chunk on players position
-        //_spawnedChunkPositions.Add(_playerPositionOnGrid);
-        //SpawnChunk(GetChunkPosition(_playerPositionOnGrid));
-        //also spawn chunks in every 8 direction based on player's position on grid and also ONLY SPAWN if the position is NOT occupied
-        //SpawnChunksIn8Direction(renderDistance);
-        SpawnChunksIn8Direction(_playerPositionOnGrid);
-    }
-
-   /* void CreateChunksBasedOnPlayer()
-    {
         _playerPositionOnGrid = new Vector2Int
         (
             Mathf.RoundToInt(_playersTransform.position.x/_referenceSize.x),
             Mathf.RoundToInt(_playersTransform.position.y/_referenceSize.y)
         );
-        //Vector2Int renderDistance = _playerPositionOnGrid *_chunkRenderDistance;
-        //Vector2Int renderDistance = _playerPositionOnGrid *_chunkRenderDistance;
-        Vector2Int renderDistance = new Vector2Int
-        (
-            _playerPositionOnGrid.x + _chunkRenderDistance.x * (int)System.MathF.Sign(_playerPositionOnGrid.x),
+        TryToSpawnNewChunks();
+    }
 
-            _playerPositionOnGrid.y + _chunkRenderDistance.y * (int)System.MathF.Sign(_playerPositionOnGrid.y)
-        );
-        if(!_spawnedChunkPositions.Contains(renderDistance))
-        {
-            
-            Debug.Log("Player's position on grid:  " + _playerPositionOnGrid);
-            Debug.Log("Render Distance:   " + renderDistance);
-            //Debug.Log($"sign of x {System.MathF.Sign(_playerPositionOnGrid.x)} \n  sign of y {System.Math.Sign(_playerPositionOnGrid.y)} ");
-
-            //spawn chunk on players position
-            _spawnedChunkPositions.Add(_playerPositionOnGrid);
-            SpawnChunk(GetChunkPosition(_playerPositionOnGrid));
-
-            //also spawn chunks in every 8 direction based on player's position on grid and also ONLY SPAWN if the position is NOT occupied
-            //SpawnChunksIn8Direction(renderDistance);
-            SpawnChunksIn8Direction(_playerPositionOnGrid);
-        }
-    }*/
+    void TryToSpawnNewChunks()
+    {
+        SpawnChunksIn8Direction(_playerPositionOnGrid);
+    }
     public Transform GetChunkFromWorldPosition(Vector2 position)
     {
         Vector2Int positionOnGrid = new Vector2Int
@@ -171,16 +126,7 @@ public class ChunkGenerator : MonoBehaviour
 
     ChunkTileMap SpawnChunk(Vector2 worldPosition)
     {
-        
-        //_validChunks[0].CompressBounds();
-        /*Vector2 newPosition = new Vector2(
-            position.x + Mathf.Abs(_validChunks[0].size.x - _referenceSize.x),
-            position.y + Mathf.Abs(_validChunks[0].size.y - _referenceSize.y)
-            
-        );*/
-        //Debug.Log(newPosition);
-        int randomChunkIndex = Random.Range(0,_validChunks.Count);
-
+        int randomChunkIndex = Random.Range(0, _validChunks.Count);
         var chunk = Instantiate(_validChunks[randomChunkIndex], worldPosition, Quaternion.identity);
         chunk.transform.SetParent(_gridParent.transform);
         return chunk;

@@ -17,6 +17,8 @@ public class PrototypeGameState : MonoBehaviour
     bool _resting;
     int _wavesPassed;
     Timer _restTimer, _storeOpeningTimer;
+    Camera _mainCamera;
+    Vector3 _lastPlayerPosition = Vector3.zero;
 
     private void Awake()
     {
@@ -42,10 +44,11 @@ public class PrototypeGameState : MonoBehaviour
         _overworldParent.SetActive(false);
         _waveSpawner.gameObject.SetActive(false);
         _lensDistFXDefault = PostProcessingManager.GetDefaultValue<LensDistortion>();
+        _mainCamera = Camera.main;
     }
 
     private void Update() {
-        if(_transitionElapsedTime >= 0)
+        if(_transitionElapsedTime >= 0) // la distorsion deberia ser un fade in y fade out! (de -1 a 1 y devuelta a 0 o valor default)
         {
             _transitionElapsedTime -= Time.deltaTime;
             var percent = _transitionElapsedTime / _transitionDuration;
@@ -100,14 +103,15 @@ public class PrototypeGameState : MonoBehaviour
         ChangeWorld();
     }
 
-    void ChangeWorld()
+    void ChangeWorld() //esto es un change state de manual. 
     {
+
         var baseSpeed = _playerStatsManager.GetBaseStat(StatsTypes.Speed);
-        var speedDecrease = -baseSpeed / 2.25f;
+        var speedDecrease = -baseSpeed / 12.5f;
         var speedIncrease = baseSpeed * 0.1f;
         if(_resting)
         {
-            if(_wavesPassed != _wavesToFace+1) _playerStatsManager.SetStat(StatsTypes.Speed, -speedDecrease + speedIncrease);
+            _playerStatsManager.SetStat(StatsTypes.Speed, -speedDecrease + speedIncrease);
         }
         else
         {
@@ -119,8 +123,20 @@ public class PrototypeGameState : MonoBehaviour
         {
             _otherSideParent.SetActive(!_otherSideParent.activeInHierarchy);
             _overworldParent.SetActive(!_overworldParent.activeInHierarchy);
+            //SetPlayerPosition(); // this should be in the middle of the fade in and not when it finishes!
             _fadeEffect.FadeOut();
         });
+    }
+
+    void SetPlayerPosition()
+    {
+        var currentPosition = _playerStatsManager.transform.position;
+        if(_lastPlayerPosition != Vector3.zero) 
+        {
+            _playerStatsManager.transform.position = _lastPlayerPosition;
+            if(_mainCamera != null) _mainCamera.transform.position = _lastPlayerPosition - (Vector3.forward * 10f);
+        }
+        _lastPlayerPosition = currentPosition;
     }
 
     private void OnDestroy() {

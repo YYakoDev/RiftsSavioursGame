@@ -41,9 +41,13 @@ public class ToolFX : MonoBehaviour
         _collectingManager.onResourceInteraction += SelectToolFx;
     }
 
-    void SelectToolFx(ResourcesTypes resourceType)
+    void SelectToolFx(IResources resource)
     {
-        Vector3 resourcePostion = _collectingManager.ResourcePosition - (Vector3.right * 0.5f) * _collectingManager.PlayerFacingDirection;
+        var resourceType = resource.ResourceType;
+        var offset = (Vector3.up * 0.7f);
+        offset.x = -0.5f * _collectingManager.PlayerFacingDirection;
+        Vector3 resourcePostion = _collectingManager.ResourcePosition + offset;
+        //resourcePostion.x *= _collectingManager.PlayerFacingDirection;
         switch(resourceType)
         {
             case ResourcesTypes.Ore:

@@ -102,6 +102,7 @@ public class EnemyBrain : MonoBehaviour
 
 
         _boxColl.size = data.BoxColliderSize;
+        _boxColl.offset = data.BoxColliderOffset;
         _boxColl.isTrigger = data.IsBoxTrigger;
         _circleColl.radius = data.CircleColliderRadius;
         _circleColl.offset = data.CircleColliderOffset;

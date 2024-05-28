@@ -37,10 +37,10 @@ MonoBehaviour:
   _deathBehaviour: {fileID: 0}
   _bloodSplatter: {fileID: 0}
   _hasShadow: 1
-  _shadowPosition: {x: -0.1, y: -0.24, z: 0}
-  _shadowSize: {x: 1, y: 1, z: 1}
+  _shadowPosition: {x: 0, y: -0.1, z: 0}
+  _shadowSize: {x: 1.5, y: 1.15, z: 1}
   _moveSFXs:
-  - {fileID: 8300000, guid: 2031e68488368c94b837fbedbdcb420e, type: 3}
+  - {fileID: 0}
   _onHitSFXs:
   - {fileID: 8300000, guid: fe465e1aed4010e42abced11aba306a0, type: 3}
   - {fileID: 8300000, guid: 90d1214a0833ae6438a0707f701c870a, type: 3}

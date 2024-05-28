@@ -40,7 +40,7 @@ public class Resource : MonoBehaviour, IResources, IComparable, IMaskeable
     public int CurrentHealth => _currentHealth;
     public int MaxHealth => _maxHealth;
     public ResourcesTypes ResourceType => _type;
-    public Vector3 ResourcePosition => transform.position;
+    public Vector3 ResourcePosition => _coll.bounds.center;
     public SpriteRenderer MaskeableRenderer => _renderer;
     public bool IsBroken => _isBroken;
 

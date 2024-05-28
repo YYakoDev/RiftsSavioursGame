@@ -17,7 +17,7 @@ public class SOEnemy : ScriptableObject
 
     [Header("Collider Stuff")]
     [SerializeField] bool _isBoxTrigger = true;
-    [SerializeField] Vector2 _boxColliderSize = Vector2.one/2f;
+    [SerializeField] Vector2 _boxColliderSize = Vector2.one/2f, _boxColliderOffset = new Vector2(0, -0.125f);
     [SerializeField] bool _isCircleTrigger = false;
     [SerializeField] Vector2 _circleColliderOffset;
     [SerializeField] float _circleColliderRadius = 0.3f;
@@ -47,6 +47,7 @@ public class SOEnemy : ScriptableObject
 
     public bool IsBoxTrigger => _isBoxTrigger;
     public Vector2 BoxColliderSize => _boxColliderSize;
+    public Vector2 BoxColliderOffset => _boxColliderOffset;
     public bool IsCircleTrigger => _isCircleTrigger;
     public Vector2 CircleColliderOffset => _circleColliderOffset;
     public float CircleColliderRadius => _circleColliderRadius;

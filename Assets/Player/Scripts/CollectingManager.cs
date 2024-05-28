@@ -20,7 +20,7 @@ public class CollectingManager : MonoBehaviour
     Vector3 _resourcePosition;
     Collider2D[] _detectedResources = new Collider2D[100];
 
-    public event Action<ResourcesTypes> onResourceInteraction;
+    public event Action<IResources> onResourceInteraction;
 
 
     //properties
@@ -73,7 +73,7 @@ public class CollectingManager : MonoBehaviour
     {
         //Debug.Log("Interacting With Resource");
         _resourcePosition = resource.ResourcePosition;
-        onResourceInteraction?.Invoke(resource.ResourceType);
+        onResourceInteraction?.Invoke(resource);
         resource.Interact(_damage);
     }
 

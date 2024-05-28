@@ -8,7 +8,7 @@ public class EnemyMovement : MonoBehaviour, IKnockback
     EnemyBaseMovement _movementClass;
     SOEnemyMovementBehaviour _behaviour;
     public Knockbackeable KnockbackLogic => _movementClass.KnockbackLogic;
-    //references
+    float _nextSoundTime;
     public void Init(EnemyBaseMovement movementLogic, SOEnemyMovementBehaviour movementBehaviour)
     {
         _movementClass = movementLogic;
@@ -46,6 +46,8 @@ public class EnemyMovement : MonoBehaviour, IKnockback
     {
         _behaviour.Action();
         _movementClass.Move(_behaviour.GetDirection());
+        var stepSound = _brain.GetMoveSfx();
+        if(stepSound != null )_brain.Audio.PlayWithCooldown(stepSound, 0.4f, ref _nextSoundTime);
     }
 
     private void OnDestroy() {

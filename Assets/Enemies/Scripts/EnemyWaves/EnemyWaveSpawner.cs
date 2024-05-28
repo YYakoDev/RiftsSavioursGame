@@ -86,6 +86,19 @@ public class EnemyWaveSpawner : MonoBehaviour
         enemy.Key.transform.position = _selectedSpawnpoint + (Vector3)(Vector2.one * Random.Range(-1f, 1f));
         enemy.Key.SetActive(true);
     }
+    public GameObject CreateEnemy(SOEnemy enemyData)
+    {
+        SelectSpawnPosition();
+        var enemy = _pool.GetPooledObject();
+        if(enemy.Value == null) return null;
+        
+        enemy.Value.Initialize(enemyData, _playerTransform);
+
+        enemy.Key.transform.SetParent(null); //aca setearlo al parent del objeto "Units" adentro de environment
+        enemy.Key.transform.position = _selectedSpawnpoint + (Vector3)(Vector2.one * Random.Range(-1f, 1f));
+        enemy.Key.SetActive(true);
+        return enemy.Key;
+    }
 
     public void StopSpawning(float time)
     {

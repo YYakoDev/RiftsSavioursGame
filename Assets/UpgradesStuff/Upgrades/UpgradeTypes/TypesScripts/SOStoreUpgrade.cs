@@ -2,9 +2,11 @@ using UnityEngine;
 
 public class SOStoreUpgrade : StatChangingUpgrade
 {
+    [SerializeField]protected UpgradeRarity _rarity;
     int _listIndex = -1;
     public int ListIndex => _listIndex;
     public new int Costs => _costs[0].Cost;
+    public UpgradeRarity Rarity => _rarity;
     public void Initialize(StoreUpgradeData upgradeData, int listIndex)
     {
         _name = upgradeData.Name;

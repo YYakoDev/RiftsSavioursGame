@@ -12,26 +12,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc8b826c734252e40b580fc4ef82deb2, type: 3}
   m_Name: PlayerStats
   m_EditorClassIdentifier: 
-  _maxHealth: 75
-  _currentHealth: 23
-  _speed: 3.75
-  _slowdownMultiplier: 0.826
-  _dashSpeed: 12
-  _dashCooldown: 1.25
-  _dashInvulnerabilityTime: 0.15
-  _pickUpRange: 1.5
-  _collectingRange: 2.4
+  _maxHealth: 50
+  _currentHealth: 50
+  _speed: 3.54
+  _slowdownMultiplier: 0.815
+  _dashSpeed: 10
+  _dashCooldown: 1
+  _dashInvulnerabilityTime: 0.113
+  _pickUpRange: 1.88
+  _collectingRange: 2.3
   _collectingDamage: 1
-  _interactCooldown: 0.54
+  _interactCooldown: 0.75
   _maxResourceInteractions: 1
   _weapons:
-  - {fileID: 11400000, guid: 8f2b993e04490be4a95cc0b86f217589, type: 2}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 84bcd13ed162cfe409169cadca7a0f0e, type: 2}
+  - {fileID: 11400000, guid: e2eed48ae27d336409cb52e88cb7ef42, type: 2}
+  - {fileID: 11400000, guid: ade60ecdc6716a6488e930c2fc1fba28, type: 2}
   _attackStats: {fileID: 11400000, guid: 5c0efc2d47ffa234c9cfe266e112553e, type: 2}
-  _stunResistance: 10
+  _stunResistance: 0
   _knockbackResistance: 10
-  _damageResistance: 10
+  _damageResistance: 0
   _buffBooster: 0
   _debuffResistance: 0
   _faith: 1

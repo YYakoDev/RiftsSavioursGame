@@ -57,7 +57,7 @@ where TComponent : Component
     {
         foreach(var pairedObj in _objsAndComponents)
         {
-            if(pairedObj.Key.activeInHierarchy) continue;
+            if(pairedObj.Key.activeSelf) continue;
             if(_conditionToMeet != null && _conditionToMeet(pairedObj.Value)) continue;
             return pairedObj;
         }
