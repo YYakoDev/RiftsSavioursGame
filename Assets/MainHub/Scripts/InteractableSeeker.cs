@@ -15,11 +15,12 @@ public class InteractableSeeker : MonoBehaviour
     void Start()
     {
         _hotkeyPrefabInstance = Instantiate(_hotkeyPrefab);
-        _hotkeyPrefabInstance.Self.transform.SetParent(transform);
+        
         _hotkeyPrefabInstance.Self.SetActive(false);
         _interactKey = YYInputManager.GetKey(KeyInputTypes.Interact);
         _interactKey.OnKeyPressed += Interact;
         _hotkeyPrefabInstance.Text.text = _interactKey.PrimaryKey.ToString();
+        
     }
     void Interact()
     {
@@ -47,7 +48,7 @@ public class InteractableSeeker : MonoBehaviour
             Transform collidedObj = other.transform;
             _interactableObject = collidedObj.gameObject;
             _hotkeyPrefabInstance.ChangeState(true);
-            _hotkeyPrefabInstance.Self.transform.SetParent(collidedObj);
+            //_hotkeyPrefabInstance.Self.transform.SetParent(collidedObj);
             _hotkeyPrefabInstance.Self.transform.position = collidedObj.position + _interactableInterface.Offset;
         }
     }

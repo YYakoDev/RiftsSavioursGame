@@ -40,8 +40,8 @@ public class PrototypeGameState : MonoBehaviour
     }
 
     private void Start() {
-        _otherSideParent.SetActive(true);
-        _overworldParent.SetActive(false);
+        //_otherSideParent.SetActive(true);
+        //_overworldParent.SetActive(false);
         _waveSpawner.gameObject.SetActive(false);
         _lensDistFXDefault = PostProcessingManager.GetDefaultValue<LensDistortion>();
         _mainCamera = Camera.main;
@@ -60,7 +60,6 @@ public class PrototypeGameState : MonoBehaviour
         _storeOpeningTimer.UpdateTime();
         _restTimer.UpdateTime();
         if(_resting) return;
-        if(_nextSpawnTime > Time.time) return;
         SpawnEnemies();
     }
 
@@ -80,7 +79,7 @@ public class PrototypeGameState : MonoBehaviour
         _wavesPassed++;
     }
 
-    void KillEnemies()
+    public void KillEnemies()
     {
         var enemies = GameObject.FindObjectsOfType<EnemyBrain>();
         foreach(EnemyBrain enemy in enemies)
@@ -91,6 +90,7 @@ public class PrototypeGameState : MonoBehaviour
 
     void SpawnEnemies()
     {
+        if(_nextSpawnTime > Time.time) return;
         _nextSpawnTime = Time.time + _spawnCooldown;
         _waveSpawner.CreateEnemy();
     }
@@ -103,9 +103,22 @@ public class PrototypeGameState : MonoBehaviour
         ChangeWorld();
     }
 
-    void ChangeWorld() //esto es un change state de manual. 
+    public void ChangeWorld() //esto es un change state de manual. 
     {
+        //SpeedChange();
+        _transitionElapsedTime = _transitionDuration;
+        CameraShake.Shake(2f, _transitionDuration + 0.2f);
+        _fadeEffect.FadeIn(() => 
+        {
+            _otherSideParent.SetActive(!_otherSideParent.activeInHierarchy);
+            _overworldParent.SetActive(!_overworldParent.activeInHierarchy);
+            //SetPlayerPosition(); // this should be in the middle of the fade in and not when it finishes!
+            _fadeEffect.FadeOut();
+        });
+    }
 
+    void SpeedChange()
+    {
         var baseSpeed = _playerStatsManager.GetBaseStat(StatsTypes.Speed);
         var speedDecrease = -baseSpeed / 12.5f;
         var speedIncrease = baseSpeed * 0.1f;
@@ -117,15 +130,6 @@ public class PrototypeGameState : MonoBehaviour
         {
             _playerStatsManager.SetStat(StatsTypes.Speed, speedDecrease - speedIncrease);
         }
-        _transitionElapsedTime = _transitionDuration;
-        CameraShake.Shake(2f, _transitionDuration + 0.2f);
-        _fadeEffect.FadeIn(() => 
-        {
-            _otherSideParent.SetActive(!_otherSideParent.activeInHierarchy);
-            _overworldParent.SetActive(!_overworldParent.activeInHierarchy);
-            //SetPlayerPosition(); // this should be in the middle of the fade in and not when it finishes!
-            _fadeEffect.FadeOut();
-        });
     }
 
     void SetPlayerPosition()

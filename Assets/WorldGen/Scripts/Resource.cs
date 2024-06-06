@@ -33,7 +33,6 @@ public class Resource : MonoBehaviour, IResources, IComparable, IMaskeable
     private readonly int BreakingAnim = Animator.StringToHash("Breaking");
     private readonly int OnHitAnim = Animator.StringToHash("OnHit");
 
-    Vector3 _dmgPopupOffset = Vector3.up / 2f;
 
     //properties
 
@@ -108,7 +107,7 @@ public class Resource : MonoBehaviour, IResources, IComparable, IMaskeable
         if(_currentHealth > 0) _coll.enabled = true;
     }
 
-    public void Interact(int damage)
+    void Interact(int damage)
     {
         if(_currentHealth <= 0)
         {
@@ -118,7 +117,7 @@ public class Resource : MonoBehaviour, IResources, IComparable, IMaskeable
 
         _currentHealth -= damage;
         _blinkFX.Play();
-        PopupsManager.CreateDamagePopup(transform.position + _dmgPopupOffset, damage, false);
+        
         _animator.enabled = true;
         _animator.Play(OnHitAnim);
         if(HitSFX != null)
@@ -133,7 +132,7 @@ public class Resource : MonoBehaviour, IResources, IComparable, IMaskeable
             DestroyResource();
         }
     }
-    public void DestroyResource()
+    void DestroyResource()
     {
         _coll.enabled = false;
 
@@ -156,5 +155,15 @@ public class Resource : MonoBehaviour, IResources, IComparable, IMaskeable
     {
         Resource resource = obj as Resource;
         return _currentHealth.CompareTo(resource._currentHealth);
+    }
+
+    public void TakeDamage(int damage)
+    {
+        Interact(damage);
+    }
+
+    public void Die()
+    {
+        DestroyResource();
     }
 }

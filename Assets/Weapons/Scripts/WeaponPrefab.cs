@@ -29,7 +29,7 @@ public class WeaponPrefab : MonoBehaviour
     
     private void OnEnable() {
         if(_animator.runtimeAnimatorController == null) return;
-        _animator.ForcePlay(OnEquipAnim);
+        _animator.Play(OnEquipAnim);
         
     }
 

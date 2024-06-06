@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: PlayerStats
   m_EditorClassIdentifier: 
   _maxHealth: 50
-  _currentHealth: 50
-  _speed: 3.54
+  _currentHealth: 42
+  _speed: 3
   _slowdownMultiplier: 0.815
   _dashSpeed: 10
   _dashCooldown: 1

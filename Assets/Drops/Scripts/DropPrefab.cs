@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
-[RequireComponent(typeof(SpriteRenderer))]
 public class DropPrefab : MonoBehaviour
 {
-    SpriteRenderer _renderer;
+    [SerializeField]SpriteRenderer _renderer;
     PickUpsController _pickUpsController;
     Light2D _light;
     Drop _drop;

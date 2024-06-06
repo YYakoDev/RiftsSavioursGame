@@ -14,6 +14,10 @@ public class SortOrderForPosition : MonoBehaviour
         if(_sortOrderController == null) _sortOrderController = new SortingOrderController(transform, _spriteRenderer, _offsetPosition);
     }
 
+    private void OnEnable() {
+        _sortOrderController.SortOrder();
+    }
+
     // Start is called before the first frame update
     void Start()
     {

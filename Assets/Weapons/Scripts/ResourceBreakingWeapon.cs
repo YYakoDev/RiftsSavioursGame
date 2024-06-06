@@ -27,10 +27,23 @@ public class ResourceBreakingWeapon : MeleeWeapon
         }
         return true;
     }
+
+    protected override void ApplyDamage(Transform enemy, IDamageable entity, int damage)
+    {
+        if(enemy.TryGetComponent<Resource>(out var resource))
+        {
+            if(resource.ResourceType != _targetType)
+            {
+                return;
+            }
+        }
+        base.ApplyDamage(enemy, entity, damage);
+    }
+
     protected override void DoAttackLogic()
     {
         base.DoAttackLogic();
-        AttackResources();
+        //AttackResources();
     }
 
     void AttackResources()
@@ -43,7 +56,7 @@ public class ResourceBreakingWeapon : MeleeWeapon
             {
                 if(resource.ResourceType != _targetType) continue;
                 iterations++;
-                resource.Interact(_modifiedStats._atkDmg);
+                resource.TakeDamage(_modifiedStats._atkDmg);
                 //PopupsManager.Create(_hittedEnemiesGO[i].transform.position + Vector3.up * 0.75f, _modifiedStats._atkDmg);
                 InvokeOnEnemyHit(_hittedEnemiesGO[i].transform.position);
             }

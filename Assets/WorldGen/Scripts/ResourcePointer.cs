@@ -48,5 +48,6 @@ public class ResourcePointer : MonoBehaviour
     private void OnValidate() {
         if(_resourceData == null || name == _resourceData.name) return;
         name = _resourceData.name;
+        PreviewSprite();
     }
 }

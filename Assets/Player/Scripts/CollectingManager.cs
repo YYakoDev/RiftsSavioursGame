@@ -21,7 +21,7 @@ public class CollectingManager : MonoBehaviour
     Collider2D[] _detectedResources = new Collider2D[100];
 
     public event Action<IResources> onResourceInteraction;
-
+    Vector3 _dmgPopupOffset = Vector3.up / 1.5f;
 
     //properties
     public Vector3 ResourcePosition => _resourcePosition;
@@ -74,7 +74,8 @@ public class CollectingManager : MonoBehaviour
         //Debug.Log("Interacting With Resource");
         _resourcePosition = resource.ResourcePosition;
         onResourceInteraction?.Invoke(resource);
-        resource.Interact(_damage);
+        resource.TakeDamage(_damage);
+        PopupsManager.CreateDamagePopup(_resourcePosition + _dmgPopupOffset, _damage, false);
     }
 
     void SetValues()

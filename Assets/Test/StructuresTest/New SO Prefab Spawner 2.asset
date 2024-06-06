@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c01fcf23db9b374c9b52a2f21b59e95, type: 3}
+  m_Name: New SO Prefab Spawner 2
+  m_EditorClassIdentifier: 
+  _prefab: {fileID: 3392202618722522995, guid: 582232fc76d27a94e8c176899e52bae0, type: 3}

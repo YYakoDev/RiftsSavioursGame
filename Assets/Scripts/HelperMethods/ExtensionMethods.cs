@@ -7,7 +7,15 @@ using Random = UnityEngine.Random;
 
 public static class ExtensionMethods
 {
-    //ANIMATOR STUFF
+
+    public static void SetPosition(this Camera camera, Vector3 position)
+    {
+        position.z = camera.transform.position.z;
+        camera.transform.position = position;
+    }
+
+
+    /*//ANIMATOR STUFF
     public static void PlayWithEndTime(this Animator animator,string animationName)
     {
         if(animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.98f) animator.Play(animationName);
@@ -16,7 +24,7 @@ public static class ExtensionMethods
     {
         animator.StopPlayback();
         animator.Play(animationHash);
-    }
+    }*/
 
     //TRY TO GET COMPONENT IF ITS NOT NULL
     public static void CheckComponent<T>(this GameObject gameObj, ref T component) where T: Component

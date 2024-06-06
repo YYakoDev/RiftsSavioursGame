@@ -9,7 +9,7 @@ public class Dropper : MonoBehaviour
     private static NotMonoObjectPool DropsPool;
     [SerializeField] Drop[] _drops = new Drop[0];
     int _currentLength = 0;
-    Vector3 _dropOffset = Vector3.right / 2;
+    Vector3 _dropOffset = Vector3.zero;
 
     private void Awake() {
         if(_dropPrefab == null) _dropPrefab = Resources.Load<DropPrefab>("DropPrefab/DropPrefab");
@@ -31,19 +31,24 @@ public class Dropper : MonoBehaviour
 
     public void Drop()
     {
-        Vector3 previousDropPosition = transform.position;
-        foreach(Drop drop in _drops)
+        var currentPosition = transform.position;
+        Vector3 previousDropPosition = currentPosition;
+        int iterator = 0;
+        for (int i = 0; i < _drops.Length; i++)
         {
-            if(Random.Range(0,101) > drop.DropChance)continue;
-            if(drop == null) continue;
+            var drop = _drops[i];
+            if (drop == null) continue;
+            if (Random.Range(0, 101) > drop.DropChance) continue;
             GameObject dropGO = DropsPool.GetObjectFromPool();
-            Vector3 randomYOffset = Vector3.zero;
-            randomYOffset.y = Random.Range(-0.25f, 0.25f);
-            dropGO.transform.position = previousDropPosition + _dropOffset + randomYOffset;
+            var xOffset = (iterator % 2 == 0) ? 0.25f + (0.25f*iterator): -0.25f - (0.25f*iterator);
+            var yOffset = Random.Range(-0.25f, 0.25f);
+            _dropOffset.x = xOffset;
+            _dropOffset.y = yOffset;
+            dropGO.transform.position = previousDropPosition + _dropOffset;
             previousDropPosition = dropGO.transform.position;
-
             dropGO.SetActive(true);
             dropGO.GetComponent<DropPrefab>().Initialize(drop);
+            iterator++;
         }
     }
 

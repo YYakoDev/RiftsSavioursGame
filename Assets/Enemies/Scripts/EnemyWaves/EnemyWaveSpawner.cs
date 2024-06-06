@@ -13,7 +13,8 @@ public class EnemyWaveSpawner : MonoBehaviour
     [SerializeField] float _portalFxDuration = 0.3f;
     NotMonoObjectPool _portalPool;
     //current wave stats
-    public SOEnemyWave _currentWave => _currentWorld.CurrentWave; //THIS IS PUBLIC ONLY FOR DEBUG PURPOSES(made for the DebugTestCurrentWave class) remove this later
+    //public SOEnemyWave _currentWave => _currentWorld.CurrentWave; //THIS IS PUBLIC ONLY FOR DEBUG PURPOSES(made for the DebugTestCurrentWave class) remove this later
+    public SOEnemyWave _currentWave => _currentWorld.Waves[Random.Range(0, _currentWorld.Waves.Length)];
     private float _spawnCooldown => _currentWave.EnemySpawnCooldown;
     private float _nextSpawnTime = 0f;
     private Vector3 _selectedSpawnpoint;
@@ -46,7 +47,7 @@ public class EnemyWaveSpawner : MonoBehaviour
         GameStateManager.OnStateSwitch += CheckGameState;
         _stopSpawningTimer.onEnd += ResumeSpawning;
         _stopSpawningTimer.Start();
-        SelectSpawnPosition();
+        //SelectSpawnPosition();
     }
 
     // Update is called once per frame
@@ -58,7 +59,7 @@ public class EnemyWaveSpawner : MonoBehaviour
         if (_nextSpawnTime < Time.time)
         {
             _nextSpawnTime = _spawnCooldown + 0.1f + Time.time;
-            SpawnPortalFx(_selectedSpawnpoint);
+
             _spawnTimer.Start();
         }
     }
@@ -76,7 +77,8 @@ public class EnemyWaveSpawner : MonoBehaviour
     public void CreateEnemy()
     {
         SelectSpawnPosition();
-        var data = _enemiesInfo[Random.Range(0, _enemiesInfo.Length)];
+        var enemies = _currentWave.Enemies;
+        var data = enemies[Random.Range(0, enemies.Length)];
         var enemy = _pool.GetPooledObject();
         if(enemy.Value == null) return;
         
@@ -135,7 +137,7 @@ public class EnemyWaveSpawner : MonoBehaviour
         radius.y = Mathf.Clamp(radius.y, _innerRadius * ySign, _spawnRadius * ySign);
 
         _selectedSpawnpoint = _playerTransform.position + (Vector3)radius;
-
+        SpawnPortalFx(_selectedSpawnpoint);
     }
     void SpawnPortalFx(Vector3 position)
     {

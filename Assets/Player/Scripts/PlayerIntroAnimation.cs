@@ -30,7 +30,7 @@ public class PlayerIntroAnimation
     public void PlayAnimation()
     {
         _animTimer.Start();
-        _animator.ForcePlay(PlayerAnimationsNames.Landing);
+        _animator.Play(PlayerAnimationsNames.Landing);
         SpawnFX();
     }
 
