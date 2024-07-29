@@ -28,6 +28,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3b90691a15d7e584aafc335711541a46, type: 2}
   _isBoxTrigger: 1
   _boxColliderSize: {x: 0.45, y: 0.95}
+  _boxColliderOffset: {x: 0, y: -0.125}
   _isCircleTrigger: 0
   _circleColliderOffset: {x: -0.075, y: -0.55}
   _circleColliderRadius: 0.22
@@ -42,8 +43,7 @@ MonoBehaviour:
   _shadowSize: {x: 1, y: 1, z: 1}
   _moveSFXs: []
   _onHitSFXs:
-  - {fileID: 8300000, guid: 3fe221a89eb88674985f8b33737e4415, type: 3}
-  - {fileID: 8300000, guid: eef08406ec083db4ab7971f5cc4ac1dd, type: 3}
+  - {fileID: 8300000, guid: 028f4db3a0bb4ab4ba088ee82e8bc80e, type: 3}
   _attackSFXs: []
   _deathSFXs:
-  - {fileID: 8300000, guid: aeff8b144513d004f9ad297bb14cfc8f, type: 3}
+  - {fileID: 8300000, guid: fe581409034bb7348b55521d54dd8072, type: 3}

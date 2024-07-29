@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _fxPrefab: {fileID: 3766483536810720577, guid: 6dd32bec5ec5a8c49924e21f075ee29d, type: 3}
   _flipOnDirection: 1
+  _offset: {x: 0, y: 0}

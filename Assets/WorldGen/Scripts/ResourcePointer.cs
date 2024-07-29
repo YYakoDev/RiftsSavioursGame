@@ -42,12 +42,12 @@ public class ResourcePointer : MonoBehaviour
 
     void DestroySpritePreview()
     {
-        if(TryGetComponent<SpriteRenderer>(out var _renderer)) Destroy(_renderer);
+        if(TryGetComponent<SpriteRenderer>(out var _renderer)) _renderer.sprite = null;
     }
 
     private void OnValidate() {
         if(_resourceData == null || name == _resourceData.name) return;
         name = _resourceData.name;
-        PreviewSprite();
+        //PreviewSprite();
     }
 }

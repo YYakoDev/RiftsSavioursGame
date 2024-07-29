@@ -39,7 +39,7 @@ public class FadeImage : MonoBehaviour
     void Update()
     {
         if(_elapsedTime >= _fadeDuration) return;
-        _elapsedTime += Time.deltaTime;
+        _elapsedTime += Time.unscaledDeltaTime;
         float percent = _elapsedTime / _fadeDuration;
         var newColor = _img.color;
         newColor.a = Mathf.Lerp(_startValue, _endValue, _curve.Evaluate(percent));

@@ -39,6 +39,8 @@ MonoBehaviour:
   _criticalDamageMultiplier: 2
   _damageDelay: 0.055
   _knockbackForce: 0.67
+  _animationDelayTime: 0
+  _delayPercentage: 0
   _speedUPComboAnimations: 1
   _speedUpFactor: 1.1
   _comboStats:

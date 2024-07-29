@@ -27,6 +27,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3b90691a15d7e584aafc335711541a46, type: 2}
   _isBoxTrigger: 1
   _boxColliderSize: {x: 0.45, y: 0.95}
+  _boxColliderOffset: {x: 0, y: -0.125}
   _isCircleTrigger: 0
   _circleColliderOffset: {x: -0.075, y: -0.55}
   _circleColliderRadius: 0.22

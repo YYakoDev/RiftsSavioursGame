@@ -16,16 +16,17 @@ MonoBehaviour:
   _description: 
   _SpriteAndAnimationsData: {fileID: 11400000, guid: 7ececea671a0adb44b74cff559f4409c, type: 2}
   _effects:
-  - {fileID: 11400000, guid: df7c73a62b7d8ea4da3c4d678c5b278b, type: 2}
+  - {fileID: 11400000, guid: 02239abe251495c4193d0bcea14ee9b0, type: 2}
   - {fileID: 11400000, guid: bc668329a2d90574a91d7f07ac9991c9, type: 2}
   - {fileID: 11400000, guid: 0f1731e4c0912a34eabf484ba539aa9c, type: 2}
   - {fileID: 11400000, guid: 3961fbaed97e0aa4ea6fed7535dadd51, type: 2}
   - {fileID: 11400000, guid: 73356674117be624b89f398b7b526560, type: 2}
   - {fileID: 11400000, guid: fe2de886b8d5def4b8e07f40cecb93f2, type: 2}
-  - {fileID: 11400000, guid: 02239abe251495c4193d0bcea14ee9b0, type: 2}
+  - {fileID: 11400000, guid: d4e16b2053b94a344bdaec49dc2eba00, type: 2}
   - {fileID: 11400000, guid: 991c0113af06d224c9168cdf079fb751, type: 2}
   - {fileID: 11400000, guid: 4780209016f8aa349864b33bf7198c79, type: 2}
   - {fileID: 11400000, guid: 0429586a3501b674d98e9c4fcf8476e7, type: 2}
+  - {fileID: 11400000, guid: a46798bb6b4605f46a88a7cb00606fc1, type: 2}
   _flipSprite: 0
   _spawnPosition: {x: -0.55, y: 0.25, z: 0}
   _spawnRotation: 120
@@ -35,20 +36,20 @@ MonoBehaviour:
   - {fileID: 8300000, guid: fb3c88f79d40cfc40a7b56eb31cb7061, type: 3}
   _pointCameraOnAttack: 0
   _attackCooldown: 1
-  _pullForce: 0.3
+  _pullForce: 0.35
   _pullDuration: 0.07
-  _attackRange: 1.15
-  _attackSpeed: 1.25
+  _attackRange: 1.06
+  _attackSpeed: 1
   _rangeOffset: {x: 0, y: 0}
-  _attackDamage: 10
+  _attackDamage: 5
   _criticalChance: 12
   _criticalDamageMultiplier: 2
-  _damageDelay: 0.15
-  _knockbackForce: 0.15
-  _animationDelayTime: 0.329
-  _delayPercentage: 0.127
+  _damageDelay: 0.2
+  _knockbackForce: 0.11
+  _animationDelayTime: 0
+  _delayPercentage: 0
   _speedUPComboAnimations: 1
-  _speedUpFactor: 1
+  _speedUpFactor: 1.45
   _comboStats:
   - Cooldown: 0
     Range: 0.2
@@ -71,17 +72,19 @@ MonoBehaviour:
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
+    - {fileID: 0}
   - Cooldown: 0
-    Range: 0.21
+    Range: 0.3
     KnockbackForce: 0.2
     AtkSpeed: 0
     PullForce: 0
     AtkDelay: 0
     PullDuration: 0
-    Damage: 5
+    Damage: 2
     RangeOffset: {x: 0, y: 0}
     WeaponFxs: []
     UsedEffects:
+    - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
@@ -103,6 +106,7 @@ MonoBehaviour:
     RangeOffset: {x: 0, y: 0}
     WeaponFxs: []
     UsedEffects:
+    - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}

@@ -19,6 +19,7 @@ public class SOSpawnFXBase : WeaponEffects
     {
         Transform obj = _pool.GetObjectFromPool().transform;
         obj.position = spawnPosition + (Vector3)_offset;
+        var rotation = _fxPrefab.transform.rotation;
         if(_flipOnDirection)
         {
             Vector3 flippedScale = obj.localScale;
@@ -26,9 +27,10 @@ public class SOSpawnFXBase : WeaponEffects
             direction.Normalize();
             flippedScale.x = (direction.x > 0) ? -1 : 1;
             obj.localScale = flippedScale;
-
+            rotation.z *= flippedScale.x;
             obj.position = spawnPosition + (Vector3)(_offset * flippedScale.x);
         }
+        obj.rotation = rotation;
         obj.SetParent(null);
         obj.gameObject.SetActive(true);
     }

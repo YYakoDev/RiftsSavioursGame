@@ -105,7 +105,9 @@ public static class HelperMethods
             if(IndexMatchesExceptions(i)) continue;
             if(iterator >= size)
             {
+                // if this part is executed is probably because one of the exceptions is not actually on the range.
                 Debug.Log("Current random iteration:  " + iterator + "   total numbers size:  " + size);
+                break;
             }
             totalNumbers[iterator] = i;
             iterator++;

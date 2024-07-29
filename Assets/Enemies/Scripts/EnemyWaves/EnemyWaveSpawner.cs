@@ -14,8 +14,8 @@ public class EnemyWaveSpawner : MonoBehaviour
     NotMonoObjectPool _portalPool;
     //current wave stats
     //public SOEnemyWave _currentWave => _currentWorld.CurrentWave; //THIS IS PUBLIC ONLY FOR DEBUG PURPOSES(made for the DebugTestCurrentWave class) remove this later
-    public SOEnemyWave _currentWave => _currentWorld.Waves[Random.Range(0, _currentWorld.Waves.Length)];
-    private float _spawnCooldown => _currentWave.EnemySpawnCooldown;
+    public SOEnemyWave _currentWave => _currentWorld.CurrentWave;
+    private float _spawnCooldown => _currentWave.EnemySpawnCooldown; //
     private float _nextSpawnTime = 0f;
     private Vector3 _selectedSpawnpoint;
 

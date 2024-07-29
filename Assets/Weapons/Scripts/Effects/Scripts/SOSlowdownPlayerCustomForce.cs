@@ -11,7 +11,7 @@ public class SOSlowdownPlayerCustomForce : WeaponEffects
     {
         base.OnAttackFX();
         var forceResult = 1 - (forcePercentage / 100);
-        var duration = _weapon.AtkDuration * 1.4f;
+        var duration = (_weapon.AtkDuration * 1.25f) * (forcePercentage/100f);
         _effects.SlowdownPlayer(duration, forceResult);
     }
 

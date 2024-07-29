@@ -60,23 +60,41 @@ public class PrototypeGameState : MonoBehaviour
         _storeOpeningTimer.UpdateTime();
         _restTimer.UpdateTime();
         if(_resting) return;
-        SpawnEnemies();
+
+        //SpawnEnemies();
     }
 
     void WavePassed(GameStateBase state)
     {
         if(_resting) return;
+        CheckEnemies();
         if(_wavesPassed >= _wavesToFace)
         {
-            _resting = true;
-            _restTimer.Start();
-            _storeOpeningTimer.Start();
-            KillEnemies();
-            ChangeWorld();
-            _wavesPassed = 0;
+            Rest();
             return;
         }
         _wavesPassed++;
+    }
+
+    void Rest()
+    {
+        _resting = true;
+        _restTimer.Start();
+        _storeOpeningTimer.Start();
+        KillEnemies();
+        ChangeWorld();
+        _wavesPassed = 0;
+    }
+
+    void CheckEnemies()
+    {
+        var enemies = GameObject.FindObjectsOfType<EnemyBrain>();
+        bool allDead = true;
+        foreach(EnemyBrain enemy in enemies)
+        {
+            if(enemy.gameObject.activeInHierarchy) allDead = false;
+        }
+        if(allDead) Rest();
     }
 
     public void KillEnemies()

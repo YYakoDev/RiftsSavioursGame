@@ -84,7 +84,7 @@ public class PrototypeCraftingSystem : MonoBehaviour
 
     void SetRecipes()
     {
-        if(_recipes == null) CreateRecipes();
+        if(_recipes == null || _recipes.Length == 0) CreateRecipes();
         _eventSys.SetSelectedGameObject(_recipes[0].gameObject);
     }
 

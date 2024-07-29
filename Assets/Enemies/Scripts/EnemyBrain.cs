@@ -84,6 +84,8 @@ public class EnemyBrain : MonoBehaviour
             _circleColl
         };
         _aiStats = new();
+
+        _animation.Animator.keepAnimatorControllerStateOnDisable = true;
     }
 
     public void Initialize(SOEnemy data, Transform target)

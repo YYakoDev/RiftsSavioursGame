@@ -148,7 +148,7 @@ public class WeaponAiming : MonoBehaviour
         Vector2 directionToEnemy = _targetsDetected[closestEnemyIndex].transform.position - transform.position;
         _closestEnemyPosition = directionToEnemy;
         _crosshair.gameObject.SetActive(_stopAimingTime <= 0);
-        SetCameraTargetPoint(_closestEnemyPosition);
+        SetCameraTargetPoint(_targetsDetected[closestEnemyIndex].transform.position);
     }
 
     void PointToTarget()
@@ -170,7 +170,7 @@ public class WeaponAiming : MonoBehaviour
 
     void StopAiming()
     {
-        _stopAimingTime = _currentWeapon.AtkDuration / 3f;
+        _stopAimingTime = _currentWeapon.AtkDuration / 2f;
         _crosshair.gameObject.SetActive(false);
     }
 

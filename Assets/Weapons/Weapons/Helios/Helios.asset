@@ -19,11 +19,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a46798bb6b4605f46a88a7cb00606fc1, type: 2}
   - {fileID: 11400000, guid: 67c6ca3a55024ea40a9dc7c21f219eda, type: 2}
   - {fileID: 11400000, guid: 3961fbaed97e0aa4ea6fed7535dadd51, type: 2}
-  - {fileID: 11400000, guid: df7c73a62b7d8ea4da3c4d678c5b278b, type: 2}
   - {fileID: 11400000, guid: 0429586a3501b674d98e9c4fcf8476e7, type: 2}
   - {fileID: 11400000, guid: 0f1731e4c0912a34eabf484ba539aa9c, type: 2}
   - {fileID: 11400000, guid: bc668329a2d90574a91d7f07ac9991c9, type: 2}
-  - {fileID: 11400000, guid: 02239abe251495c4193d0bcea14ee9b0, type: 2}
+  - {fileID: 11400000, guid: d4e16b2053b94a344bdaec49dc2eba00, type: 2}
   _flipSprite: 0
   _spawnPosition: {x: -0.793, y: 0.222, z: 0}
   _spawnRotation: 120
@@ -32,12 +31,12 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 62831dff93289e44786d140f137d6408, type: 3}
   _pointCameraOnAttack: 0
   _attackCooldown: 0.75
-  _pullForce: 0.6
-  _pullDuration: 0.16
+  _pullForce: 0.5
+  _pullDuration: 0.1
   _attackRange: 1.75
   _attackSpeed: 0.85
   _rangeOffset: {x: 0, y: 0}
-  _attackDamage: 15
+  _attackDamage: 6
   _criticalChance: 5
   _criticalDamageMultiplier: 3
   _damageDelay: 0.085

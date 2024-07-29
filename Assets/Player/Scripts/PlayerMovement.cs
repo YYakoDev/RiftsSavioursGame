@@ -17,8 +17,8 @@ public class PlayerMovement : MonoBehaviour, IKnockback
 
     //Movement
     Vector2 _movement;
-    float _realSpeed;
-
+    float _realSpeed, _elapsedAcceleration = 0f;
+    [SerializeField] AnimationCurve _curve;
     // Dash
     KeyInput _dashInput;
     bool _isDashing, _dashOnCooldown, _dashLogicInitialized;
@@ -125,7 +125,6 @@ public class PlayerMovement : MonoBehaviour, IKnockback
         }else
         {
             _slowdown = 1f;
-            _realSpeed = MovementSpeed;
         }
         if(_dashLogicInitialized)
         {
@@ -202,12 +201,14 @@ public class PlayerMovement : MonoBehaviour, IKnockback
         _player.AnimController.PlayStated(PlayerAnimationsNames.Iddle);
         _sortingOrderController.SortOrder();
         _dustEffect.Stop();
+        if(_elapsedAcceleration > 0) _elapsedAcceleration -= Time.deltaTime * 2f;
     }
 
     void Move()
     {
-        _realSpeed = MovementSpeed * _slowdown;
-        Vector2 direction = (Vector2)transform.position + _movement * (_realSpeed *Time.fixedDeltaTime);
+        if(_elapsedAcceleration < 2f) _elapsedAcceleration += Time.deltaTime;
+        var speed = Mathf.Lerp(MovementSpeed * 0.85f * _slowdown , MovementSpeed * _slowdown * 1.35f, _curve.Evaluate(_elapsedAcceleration));
+        Vector2 direction = (Vector2)transform.position + _movement * (speed *Time.fixedDeltaTime);
         _player.RigidBody.MovePosition(direction);
         MovementEffects();
     }
