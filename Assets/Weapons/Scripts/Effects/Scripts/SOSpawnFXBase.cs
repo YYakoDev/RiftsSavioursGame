@@ -13,7 +13,7 @@ public class SOSpawnFXBase : WeaponEffects
     {
         base.Initialize(weapon);
         _player = weapon.FxsScript.transform;
-        _pool = new(50, _fxPrefab, _player, true);
+        _pool = new(25, _fxPrefab, _player, true);
     }
     protected void SpawnFX(Vector3 spawnPosition)
     {

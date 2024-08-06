@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 931b96bd6377f414c80f00c7b67ed1c2, type: 3}
+  m_Name: Wave 1 - SG - ENT
+  m_EditorClassIdentifier: 
+  _enemies:
+  - {fileID: 11400000, guid: 39f90e46fd05d7d40bc0a90fc3f702f4, type: 2}
+  - {fileID: 11400000, guid: 7d3e13af1a98bb74c9be9d84849e539d, type: 2}
+  _enemySpawnCooldown: 1.7
+  _enemiesToSpawn: 1
+  _waveDuration: 25
+  _changeStatsOvertime: 1

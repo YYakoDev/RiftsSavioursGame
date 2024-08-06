@@ -40,7 +40,7 @@ MonoBehaviour:
   _criticalChance: 5
   _criticalDamageMultiplier: 3
   _damageDelay: 0.085
-  _knockbackForce: 1
+  _knockbackForce: 0.28
   _animationDelayTime: 0
   _delayPercentage: 0
   _weaponSlashPrefab: {fileID: 3849386732562224976, guid: 518320ae3e20a2641a7d96a44985633f, type: 3}

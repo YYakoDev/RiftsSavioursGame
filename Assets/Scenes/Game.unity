@@ -3751,7 +3751,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 3, y: 1.5}
+  m_Size: {x: 1.5, y: 1.5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
@@ -3852,7 +3852,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &396567153
 Transform:
   m_ObjectHideFlags: 0
@@ -3926,7 +3926,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 4, y: 4}
+  m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -28473,10 +28473,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _worlds:
+  - {fileID: 11400000, guid: 70d5c4b2ee0091a4dacd6414cf7c1acc, type: 2}
+  - {fileID: 11400000, guid: f039bdf77ac47d04db97e14f333f6da0, type: 2}
   - {fileID: 11400000, guid: 4ff5e46103d8e214ab9af9ed9ced8655, type: 2}
   - {fileID: 11400000, guid: b56c1952ea27b7142aa5edd007aa8a68, type: 2}
-  - {fileID: 11400000, guid: f039bdf77ac47d04db97e14f333f6da0, type: 2}
-  - {fileID: 11400000, guid: 70d5c4b2ee0091a4dacd6414cf7c1acc, type: 2}
   _currentWorld: {fileID: 11400000, guid: 78221b79796d308469b208ae7bf29bf6, type: 2}
   _chunkGenerator: {fileID: 1756275651}
   _resourcePool: {fileID: 191889798}

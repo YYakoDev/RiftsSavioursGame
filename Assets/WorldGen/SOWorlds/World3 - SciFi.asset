@@ -12,8 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdf32160c393e054599b06c15ef35635, type: 3}
   m_Name: World3 - SciFi
   m_EditorClassIdentifier: 
-  _name: 
-  _wavesInterval: 52
-  _waves: []
-  _enemyPrefabs: []
-  _chunks: []
+  _name: s
+  _restInterval: 5
+  _waves:
+  - {fileID: 11400000, guid: fd272544097fc364584aba66f5e665ef, type: 2}
+  - {fileID: 11400000, guid: e2a2ad024801ad84cab524e206d9454d, type: 2}
+  - {fileID: 11400000, guid: ead4e8aa44a7f1d4f800c28fa4a2e1d9, type: 2}
+  - {fileID: 11400000, guid: 3a9fdedebfdf0c44aa7c9c56b1082881, type: 2}
+  - {fileID: 11400000, guid: 14e041f29e538e34885592bf6c70ac52, type: 2}
+  - {fileID: 11400000, guid: b846867b82719bf419d9980251204ae7, type: 2}
+  - {fileID: 11400000, guid: 8b55aa128dc9ae148a34dc6f92017e02, type: 2}
+  _chunks:
+  - {fileID: 8802944811774838316, guid: 8cf7beb72cc771945a68123cfccdd066, type: 3}

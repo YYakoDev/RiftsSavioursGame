@@ -7,7 +7,7 @@ public class YYExtensions : MonoBehaviour
 {
     //instance extensions for things not possible in static classes
     public static YYExtensions i;
-    Timer[] _animationsTimers = new Timer[0];
+    Timer[] _animationsTimers = new Timer[50];
     bool[] _timersAvailability = new bool[0];
     private void Awake() {
         if(i != null && i != this)
@@ -19,6 +19,12 @@ public class YYExtensions : MonoBehaviour
             i = this;
             i.transform.SetParent(null);
             DontDestroyOnLoad(i.gameObject);    
+        }
+        _timersAvailability = new bool[_animationsTimers.Length];
+        for (int i = 0; i < _animationsTimers.Length; i++)
+        {
+            _animationsTimers[i] = new(0f);
+            _timersAvailability[i] = true;
         }
     }
 

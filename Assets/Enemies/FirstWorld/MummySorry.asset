@@ -45,7 +45,10 @@ MonoBehaviour:
   _shadowSize: {x: 1, y: 1, z: 1}
   _moveSFXs: []
   _onHitSFXs:
-  - {fileID: 8300000, guid: 028f4db3a0bb4ab4ba088ee82e8bc80e, type: 3}
+  - {fileID: 8300000, guid: 5369da3a17abbf2438457d35d883e352, type: 3}
+  - {fileID: 8300000, guid: ed4f7f1e9621308449cf365fdc939989, type: 3}
   _attackSFXs: []
   _deathSFXs:
-  - {fileID: 8300000, guid: fe581409034bb7348b55521d54dd8072, type: 3}
+  - {fileID: 8300000, guid: 562e2bd6d047c9b45a2dcc432fee312a, type: 3}
+  - {fileID: 8300000, guid: 7558ce7db62f0d54bb38e0b7ffd9d1d3, type: 3}
+  - {fileID: 8300000, guid: 562e2bd6d047c9b45a2dcc432fee312a, type: 3}

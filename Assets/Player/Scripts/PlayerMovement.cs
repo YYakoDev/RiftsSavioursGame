@@ -93,6 +93,7 @@ public class PlayerMovement : MonoBehaviour, IKnockback
         _flipLogic = new(_spriteGameObject.transform, true, false, 0.15f);
         _realSpeed = MovementSpeed;
         _slowdown = 1f;
+        if(_curve == null) _curve = TweenCurveLibrary.GetCurve(CurveTypes.EaseInOut);
         yield return null;
         if(_player.DashData != null) InitializeDashLogic();
         _dashParticleEffect.Stop();

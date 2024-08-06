@@ -16,7 +16,6 @@ MonoBehaviour:
   _description: 
   _SpriteAndAnimationsData: {fileID: 11400000, guid: 7ececea671a0adb44b74cff559f4409c, type: 2}
   _effects:
-  - {fileID: 11400000, guid: 02239abe251495c4193d0bcea14ee9b0, type: 2}
   - {fileID: 11400000, guid: bc668329a2d90574a91d7f07ac9991c9, type: 2}
   - {fileID: 11400000, guid: 0f1731e4c0912a34eabf484ba539aa9c, type: 2}
   - {fileID: 11400000, guid: 3961fbaed97e0aa4ea6fed7535dadd51, type: 2}
@@ -27,6 +26,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4780209016f8aa349864b33bf7198c79, type: 2}
   - {fileID: 11400000, guid: 0429586a3501b674d98e9c4fcf8476e7, type: 2}
   - {fileID: 11400000, guid: a46798bb6b4605f46a88a7cb00606fc1, type: 2}
+  - {fileID: 11400000, guid: c9c1e59da1cfa0d438f4301a1069edcd, type: 2}
   _flipSprite: 0
   _spawnPosition: {x: -0.55, y: 0.25, z: 0}
   _spawnRotation: 120

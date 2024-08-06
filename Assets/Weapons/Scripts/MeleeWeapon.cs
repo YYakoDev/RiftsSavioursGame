@@ -31,6 +31,7 @@ public class MeleeWeapon : WeaponBase
     private readonly int AtkAnim = Animator.StringToHash("Attack");
     protected List<GameObject> _hittedEnemiesGO = new();
     protected Timer _atkExecutionTimer, _delayTimer;
+    private AudioSource _audioSource;
 
 
     //properties
@@ -39,11 +40,13 @@ public class MeleeWeapon : WeaponBase
     public override float GetWeaponCooldown() => _modifiedStats._cooldown;
     public virtual float GetAtkSpeed() => _modifiedStats._atkSpeed;
     public Animator Animator => _weaponAnimator;
+    public AudioSource Audio => _audioSource;
 
     public override void Initialize(WeaponManager weaponManager, Transform prefabTransform)
     {
         base.Initialize(weaponManager, prefabTransform);
         _weaponAnimator = prefabTransform.GetComponent<Animator>();
+        _audioSource = prefabTransform.GetComponent<AudioSource>();
         _weaponAnimator.speed = _attackSpeed;
         _nextAttackTime = 0;
         _parentTransform = prefabTransform.parent;

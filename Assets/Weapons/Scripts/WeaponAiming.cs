@@ -102,6 +102,7 @@ public class WeaponAiming : MonoBehaviour
             _mousePosition = _mainCamera.ScreenToWorldPoint(YYInputManager.MousePosition); 
             _targetDirection = _mousePosition - transform.position;
             SetCameraTargetPoint(_mousePosition);
+
         }
 
         //if (_targetDirection.sqrMagnitude > 0.1f)
@@ -163,7 +164,9 @@ public class WeaponAiming : MonoBehaviour
         //else _flipLogic.FlipCheck(_targetDirection.x + MouseOffset);
         var offset = (_autoAiming) ? MouseOffset / 3f : MouseOffset;
         if(_autoAiming && _resultsCount == 0)_playerMovement.FlipLogic?.FlipCheck(_playerMovement.Movement.x);
-        else _playerMovement.FlipLogic?.FlipCheck(_targetDirection.x + offset);
+        else _playerMovement.FlipLogic?.FlipCheck(_targetDirection.x + offset); //this is the real one, the line bellow is for testing
+        //else _playerMovement.FlipLogic?.FlipCheck(-_targetDirection.x);
+        //_playerMovement.FlipLogic?.FlipCheck(_playerMovement.Movement.x);
         _flipLogic.FlipCheck(_targetDirection.x + offset);
 
     }

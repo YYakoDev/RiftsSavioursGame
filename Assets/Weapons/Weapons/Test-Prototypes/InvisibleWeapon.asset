@@ -19,21 +19,22 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c9c1e59da1cfa0d438f4301a1069edcd, type: 2}
   - {fileID: 11400000, guid: 991c0113af06d224c9168cdf079fb751, type: 2}
   - {fileID: 11400000, guid: d4e16b2053b94a344bdaec49dc2eba00, type: 2}
-  - {fileID: 11400000, guid: fd169d3702aceec4e91005959470890e, type: 2}
   - {fileID: 11400000, guid: fe2de886b8d5def4b8e07f40cecb93f2, type: 2}
   - {fileID: 11400000, guid: 991c0113af06d224c9168cdf079fb751, type: 2}
   - {fileID: 11400000, guid: 0f1731e4c0912a34eabf484ba539aa9c, type: 2}
+  - {fileID: 11400000, guid: 0429586a3501b674d98e9c4fcf8476e7, type: 2}
+  - {fileID: 11400000, guid: 02239abe251495c4193d0bcea14ee9b0, type: 2}
   _flipSprite: 0
   _spawnPosition: {x: -0.55, y: 0.25, z: 0}
   _spawnRotation: 120
   _weaponSounds:
-  - {fileID: 8300000, guid: c9c9ab83dfc458c489cd6de612ef7bf2, type: 3}
+  - {fileID: 8300000, guid: 4b44864f6a44e594eb373a71bd3618fe, type: 3}
   _pointCameraOnAttack: 0
   _attackCooldown: 0.65
   _pullForce: 0.84
   _pullDuration: 0.21
   _attackRange: 1.5
-  _attackSpeed: 1.2
+  _attackSpeed: 0.46
   _rangeOffset: {x: 0, y: 0}
   _attackDamage: 6
   _criticalChance: 10

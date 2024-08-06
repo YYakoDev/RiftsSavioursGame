@@ -26,7 +26,7 @@ MonoBehaviour:
   _maxResourceInteractions: 1
   _weapons:
   - {fileID: 11400000, guid: 8f2b993e04490be4a95cc0b86f217589, type: 2}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 77c4c2247dc5e1d43a165ee3213cde47, type: 2}
   - {fileID: 0}
   _attackStats: {fileID: 11400000, guid: 33ffee2aeeab8f648a9686d369dcf2e0, type: 2}
   _stunResistance: 10
