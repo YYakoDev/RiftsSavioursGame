@@ -5271,7 +5271,6 @@ MonoBehaviour:
   _cameraTargetManager: {fileID: 40023160}
   _smoothFollow: 4
   _offset: {x: 0, y: 0}
-  _distanceThreshold: 1
 --- !u!114 &519420034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28128,7 +28127,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1954862453}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 42a3f17adb23151479eeaf1e6e7c2090, type: 3}
   m_Name: 
@@ -29196,30 +29195,6 @@ MonoBehaviour:
   _dustEffect: {fileID: 2134075648}
   _dashParticleEffect: {fileID: 5707563145638378319}
   _healthManager: {fileID: 2123491973}
-  _curve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
   _dashDuration: 0.18
   _dashForce: 1
   _dashFXPrefab: {fileID: 8879541030788343918, guid: ed6016f0c89a4ae44b65b0e19425336e, type: 3}

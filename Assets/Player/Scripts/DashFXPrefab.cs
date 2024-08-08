@@ -44,11 +44,6 @@ public class DashFXPrefab : MonoBehaviour
         _renderer.enabled = true;
         _animator.enabled = true;
         YYExtensions.i.PlayAnimationWithEvent(_animator, "Animation", Stop);
-        DoVisualEffects();
-    }
-
-    void DoVisualEffects()
-    {
         _dashData.PlayFX();
     }
 

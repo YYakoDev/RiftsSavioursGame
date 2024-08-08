@@ -15,7 +15,7 @@ PlayerSettings:
   companyName: YYakoDev
   productName: Rift Saviours
   defaultCursor: {fileID: 2800000, guid: 09af858dd764e6640b5ce53b42c53632, type: 3}
-  cursorHotspot: {x: 0.5, y: 0.5}
+  cursorHotspot: {x: 160, y: 160}
   m_SplashScreenBackgroundColor: {r: 0.23584908, g: 0.127937, b: 0.15491508, a: 1}
   m_ShowUnitySplashScreen: 1
   m_ShowUnitySplashLogo: 1
@@ -134,7 +134,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 0
-  bundleVersion: 0.0.1
+  bundleVersion: 0.0.2
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0

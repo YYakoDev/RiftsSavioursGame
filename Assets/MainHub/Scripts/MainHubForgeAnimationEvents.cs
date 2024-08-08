@@ -45,6 +45,6 @@ public class MainHubForgeAnimationEvents : MonoBehaviour
 
     public void DoCameraShake()
     {
-        CameraShake.Shake(_cameraShakeStrength);
+        CameraEffects.Shake(_cameraShakeStrength);
     }
 }

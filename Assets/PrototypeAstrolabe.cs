@@ -77,7 +77,7 @@ public class PrototypeAstrolabe : MonoBehaviour, IInteractable
         _player.position = position;
         position.z = -10;
         _camera.transform.position = position;
-        CameraShake.Shake(2f, 1f);
+        CameraEffects.Shake(2f, 1f);
         _fadeImage.FadeIn(() =>
         {
             _fadeImage.FadeOut();

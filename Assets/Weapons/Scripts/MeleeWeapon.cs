@@ -6,8 +6,9 @@ using UnityEngine;
 public class MeleeWeapon : WeaponBase
 {
     [Header("References")]
-    Transform _parentTransform;
+    protected Transform _parentTransform;
     protected Animator _weaponAnimator;
+    protected AudioSource _audioSource;
     protected LayerMask _enemyLayer;
 
     [Header("Stats")]
@@ -31,11 +32,10 @@ public class MeleeWeapon : WeaponBase
     private readonly int AtkAnim = Animator.StringToHash("Attack");
     protected List<GameObject> _hittedEnemiesGO = new();
     protected Timer _atkExecutionTimer, _delayTimer;
-    private AudioSource _audioSource;
 
 
     //properties
-    public virtual float GetPullForce() => _pullForce;
+    public virtual float GetPullForce() => _modifiedStats._pullForce;
     public virtual float GetPullDuration() => _pullDuration;
     public override float GetWeaponCooldown() => _modifiedStats._cooldown;
     public virtual float GetAtkSpeed() => _modifiedStats._atkSpeed;
@@ -115,7 +115,7 @@ public class MeleeWeapon : WeaponBase
     {
         AttackLogic(_modifiedStats._atkDmg, _modifiedStats._knockbackForce);
     }
-    protected void AttackLogic(int damage, float knockbackForce)
+    protected virtual void AttackLogic(int damage, float knockbackForce)
     {
         if(_hittedEnemiesGO.Count == 0) return;
         for(int i = 0; i < _hittedEnemiesGO.Count; i++)

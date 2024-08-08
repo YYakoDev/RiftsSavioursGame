@@ -54,7 +54,7 @@ public class WeaponPrefab : MonoBehaviour
     }
     void PlayAttackSound()
     {
-        _audio.PlayWithVaryingPitch(_weaponBase.Sound);
+        _audio.PlayOneShot(_weaponBase.Sound);
     }
 
     IEnumerator ReplayAnimation(Animator animator, int hash)

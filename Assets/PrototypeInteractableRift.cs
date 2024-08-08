@@ -64,7 +64,7 @@ public class PrototypeInteractableRift : PrototypeStructure
 
     void EndChallenge()
     {
-        CameraShake.Shake(2f, 0.55f);
+        CameraEffects.Shake(2f, 0.55f);
         _fadeEffect.FadeIn(() =>
         {
             _fadeEffect.FadeOut(duration: 0.1f);

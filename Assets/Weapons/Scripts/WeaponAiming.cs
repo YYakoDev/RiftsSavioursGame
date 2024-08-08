@@ -39,6 +39,7 @@ public class WeaponAiming : MonoBehaviour
     Vector2 _targetPoint;
     public Vector2 TargetPoint => _targetPoint;
     public int EnemyResultsCount => _resultsCount;
+    public float AimSmoothing{ get => _aimSmoothing; set => _aimSmoothing = value; }
 
     private void Awake()
     {
@@ -170,6 +171,13 @@ public class WeaponAiming : MonoBehaviour
         _flipLogic.FlipCheck(_targetDirection.x + offset);
 
     }
+
+    public void LockFlip(float time)
+    {
+        _flipLogic.LockFlip(time);
+        _playerMovement.FlipLogic.LockFlip(time);
+    }
+
 
     void StopAiming()
     {

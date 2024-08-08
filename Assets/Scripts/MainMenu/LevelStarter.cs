@@ -70,7 +70,7 @@ public class LevelStarter : MonoBehaviour
         _audio.PlayWithVaryingPitch(_buttonSfx);
         yield return new WaitForSeconds(buttonSfxDuration + 0.2f);
         _audio.PlayWithVaryingPitch(_gearsSfx);
-        CameraShake.Shake(_shakeStrength, _movementDuration - 1f);
+        CameraEffects.Shake(_shakeStrength, _movementDuration - 1f);
         yield return new WaitForSeconds(0.3f);
         _audio.PlayWithVaryingPitch(_movingSfx);
         //start to move the platform here?

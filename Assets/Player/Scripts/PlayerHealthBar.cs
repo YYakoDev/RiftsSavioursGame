@@ -78,7 +78,7 @@ public class PlayerHealthBar : MonoBehaviour
     void PlayAnimations()
     {
         _animations.Stop();
-        CameraShake.Shake(1f);
+        CameraEffects.Shake(1f);
         _animations.BlinkBarAnim();
         //_animations.ShakeAnimation();
     }

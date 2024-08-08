@@ -14,11 +14,10 @@ public class PlayerMovement : MonoBehaviour, IKnockback
     PlayerManager _player;
     [SerializeField] PlayerHealthManager _healthManager;
     GameObject _spriteGameObject;
-
     //Movement
     Vector2 _movement;
     float _realSpeed, _elapsedAcceleration = 0f;
-    [SerializeField] AnimationCurve _curve;
+    AnimationCurve _curve;
     // Dash
     KeyInput _dashInput;
     bool _isDashing, _dashOnCooldown, _dashLogicInitialized;
@@ -93,7 +92,9 @@ public class PlayerMovement : MonoBehaviour, IKnockback
         _flipLogic = new(_spriteGameObject.transform, true, false, 0.15f);
         _realSpeed = MovementSpeed;
         _slowdown = 1f;
-        if(_curve == null) _curve = TweenCurveLibrary.GetCurve(CurveTypes.EaseInOut);
+        //_testCurve = new(new Keyframe(0.0f, 0.1273f, 2.9473f, 2.9473f, 0.0f, 0.1208f), new Keyframe(0.75f, 1.001f, 0.09f, 0.09f, 0.333f, 0.333f) ,new Keyframe(1.0f, 1f, 0f, 0f, 0f, 0f)); //this is an ease out curve
+        //serializedVersion":"3","time":0.0,"value":0.127349853515625,"inSlope":2.947371482849121,"outSlope":2.947371482849121,"tangentMode":0,"weightedMode":0,"inWeight":0.0,"outWeight":0.12083332985639572},{"serializedVersion":"3","time":1.0,"value":1.0,"inSlope":0.0,"outSlope":0.0,"tangentMode":0,"weightedMode":0,"inWeight":0.0,"outWeight":0.0}],
+        _curve = TweenCurveLibrary.EaseInExpo;
         yield return null;
         if(_player.DashData != null) InitializeDashLogic();
         _dashParticleEffect.Stop();
@@ -155,11 +156,22 @@ public class PlayerMovement : MonoBehaviour, IKnockback
     public void SetDash()
     {
         if(_dashOnCooldown) return;
-        if(_movement == Vector2.zero) return;
+        //if(_movement == Vector2.zero) return;
         _dashOnCooldown = true;
         _dashCooldownTimer.Start();
         _isDashing = true;
-        _dashDirection = _movement.normalized * _dashForce;
+        if(_movement != Vector2.zero) _dashDirection = _movement.normalized * _dashForce;
+        if(_movement == Vector2.zero)
+        {
+            var mouseDir = (transform.position - HelperMethods.MainCamera.ScreenToWorldPoint(YYInputManager.MousePosition)).normalized;
+            Vector2 finalDir = new
+            (
+                GetVectorValue(mouseDir.x), GetVectorValue(mouseDir.y)
+            );
+            finalDir.Normalize();
+            if(finalDir.sqrMagnitude < 0.05f) finalDir = Vector2.right * -FacingDirection;
+            _dashDirection =  finalDir * _dashForce;
+        }
         _dashDurationTimer.Start();
         Physics2D.IgnoreLayerCollision(_playerLayer, HelperMethods.GetLayerMaskIndex(_enemyLayer), true);
         Physics2D.IgnoreLayerCollision(_playerLayer, HelperMethods.GetLayerMaskIndex(_resourceLayer), true);
@@ -168,6 +180,10 @@ public class PlayerMovement : MonoBehaviour, IKnockback
         var rot = _dashFXTransform.rotation.eulerAngles;
         rot.z = Mathf.Atan2(_movement.y, _movement.x) * Mathf.Rad2Deg;
         _dashFXTransform.rotation = Quaternion.Euler(rot);
+        float GetVectorValue(float value)
+        {
+            return (value > 0.12f) ?  1f : (value < -0.12f) ? -1f : 0f;
+        }
     }
     public void StopDash()
     {
@@ -207,26 +223,29 @@ public class PlayerMovement : MonoBehaviour, IKnockback
 
     void Move()
     {
+        if(_slowdown <= 0.05f) return;
         if(_elapsedAcceleration < 2f) _elapsedAcceleration += Time.deltaTime;
         var speed = Mathf.Lerp(MovementSpeed * 0.85f * _slowdown , MovementSpeed * _slowdown * 1.35f, _curve.Evaluate(_elapsedAcceleration));
         Vector2 direction = (Vector2)transform.position + _movement * (speed *Time.fixedDeltaTime);
         _player.RigidBody.MovePosition(direction);
         MovementEffects();
+        _audio.PlayWithCooldown(_stepSound, _stepSoundCooldown, ref _nextStepSound);
+        _player.AnimController.PlayStated(PlayerAnimationsNames.Run);
     }
     void DashMovement(Vector2 moveDirection, float speed)
     {
         Vector2 direction = (Vector2)transform.position + moveDirection * (speed *Time.fixedDeltaTime);
         _player.RigidBody.MovePosition(direction);
         MovementEffects();
+        _player.AnimController.PlayStated(PlayerAnimationsNames.BackDash, 0.65f); //execute the animation depending on the direction of the movement in comparision to the facing direction!
+        _elapsedAcceleration = 0f;
     }
 
     void MovementEffects()
     {
         _dustEffect.Play();
-        _audio.PlayWithCooldown(_stepSound, _stepSoundCooldown, ref _nextStepSound);
         //change sprite sorting order based on its position
         _sortingOrderController.SortOrder();
-        _player.AnimController.PlayStated(PlayerAnimationsNames.Run);
 
         //if(_autoAiming && _aimingScript.EnemyResultsCount > 0) _flipLogic.FlipCheck(_aimingScript.TargetPoint.x, 0f);
         //else _flipLogic.FlipCheck(_movement.x);
@@ -248,7 +267,7 @@ public class PlayerMovement : MonoBehaviour, IKnockback
     {
         _slowdownTime = duration;
         _slowdown = force - SlowdownMultiplier;
-        if(_slowdown <= 0) _slowdown = 0.1f;
+        if(_slowdown <= 0) _slowdown = 0f;
     }
 
     private void OnDestroy() {

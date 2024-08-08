@@ -8,7 +8,7 @@ public class CameraFollowAtTarget : MonoBehaviour
     Transform _currentTarget;
     [SerializeField]float _smoothFollow = 10f;
     [SerializeField]Vector2 _offset;
-    [SerializeField] float _distanceThreshold = 0.4f;
+    //[SerializeField] float _distanceThreshold = 0.4f;
 
     private void OnEnable() => _cameraTargetManager.onTargetSwitch += SwitchTarget;
     
@@ -24,7 +24,7 @@ public class CameraFollowAtTarget : MonoBehaviour
     void FixedUpdate()
     {
         Vector3 currentPosition = transform.position;
-        if(Mathf.Abs(Vector3.Distance(currentPosition, _currentTarget.position)) < _distanceThreshold) return;
+        //if(Mathf.Abs(Vector3.Distance(currentPosition, _currentTarget.position)) < _distanceThreshold) return;
         MoveCamera(currentPosition);
     }
 

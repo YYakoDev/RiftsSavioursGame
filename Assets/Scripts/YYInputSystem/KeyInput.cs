@@ -5,12 +5,15 @@ using UnityEngine;
 public class KeyInput
 {
     //string _name = "KeyInput";
+    bool _enabled = true;
     [SerializeField]KeyInputTypes _type;
     [SerializeField]KeyCode _keyCode, _secondaryKeyCode;
     [SerializeField]JoystickKeyCodes _controllerKey;
     public event Action OnKeyPressed;
     public event Action OnKeyHold;
+    public event Action OnKeyUp;
 
+    public bool Enabled => _enabled;
     public KeyCode PrimaryKey => _keyCode;
     public KeyCode SecondaryKey => _secondaryKeyCode;
     public KeyCode ControllerKey => (KeyCode)_controllerKey;
@@ -18,6 +21,7 @@ public class KeyInput
 
     public void KeyPressed() => OnKeyPressed?.Invoke();
     public void KeyHolded() => OnKeyHold?.Invoke();
+    public void KeyUp() => OnKeyUp?.Invoke();
     public string GetInputKeyName()
     {
         string result = "";
@@ -43,5 +47,10 @@ public class KeyInput
                 break;
         }
         return result;
+    }
+
+    public void SetActive(bool enabled)
+    {
+        _enabled = enabled;
     }
 }

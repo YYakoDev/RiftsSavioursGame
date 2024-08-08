@@ -38,6 +38,8 @@ public class FlipLogic
         }
     }
 
+    public void LockFlip(float lockTime) => _lockFlipTime = Time.time + lockTime + _flipDuration;
+
     public void FlipCheck(float xDirection, float lockFlipTime = 0f)
     {
         if(_lockFlipTime > Time.time)return;

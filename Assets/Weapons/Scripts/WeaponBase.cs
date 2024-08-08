@@ -21,9 +21,6 @@ public abstract class WeaponBase: ScriptableObject
     [SerializeField]private WeaponEffects[] _effects;
     protected WeaponEffects[] _usedEffects = new WeaponEffects[0];
     private const string AtkAnimName = "Attack";
-    [SerializeField]private bool _flipSprite = true;
-    [SerializeField]private Vector3 _spawnPosition = new Vector3(-0.55f, 0.25f, 0f);
-    [SerializeField]private float _spawnRotation = 0;
     protected int _currentAnim;
     [SerializeField]protected AudioClip[] _weaponSounds;
     protected bool _randomizeSounds = true;
@@ -45,9 +42,9 @@ public abstract class WeaponBase: ScriptableObject
     public string Description => _description;
     public SOWeaponSpriteAnimationData SpriteAndAnimationData => _SpriteAndAnimationsData;
     public WeaponEffects[] WeaponEffects => _effects;
-    public bool FlipSprite => _flipSprite;
-    public Vector3 SpawnPosition => _spawnPosition;
-    public float SpawnRotation => _spawnRotation;
+    public bool FlipSprite => _SpriteAndAnimationsData.FlipSprite;
+    public Vector3 SpawnPosition => _SpriteAndAnimationsData.SpawnPosition;
+    public float SpawnRotation => _SpriteAndAnimationsData.SpawnRotation;
     public Transform PrefabTransform => _weaponPrefabTransform;
     public float AtkDuration => _attackDuration;
     public bool PointCameraOnAttack => _pointCameraOnAttack;
@@ -109,7 +106,7 @@ public abstract class WeaponBase: ScriptableObject
         return _SpriteAndAnimationsData.AnimatorOverride[animName].averageDuration;
     }
 
-    public void SetWeaponActive(bool active)
+    public virtual void SetWeaponActive(bool active)
     {
         _deactivated = !active;
     }
@@ -132,14 +129,16 @@ public abstract class WeaponBase: ScriptableObject
     {
         foreach(WeaponEffects fx in _usedEffects)
         {
-            fx?.OnAttackFX();
+            if(fx == null) continue;
+            fx.OnAttackFX();
         }
     }
     protected virtual void PlayHitFXS(Vector3 pos)
     {
         foreach(WeaponEffects fx in _usedEffects)
         {
-            fx?.OnHitFX(pos);
+            if(fx == null) continue;
+            fx.OnHitFX(pos);
         }
     }
     public void RemoveFxFromList(WeaponEffects fx)
@@ -147,7 +146,7 @@ public abstract class WeaponBase: ScriptableObject
         int index = -1;
         for (int i = 0; i < _usedEffects.Length; i++)
         {
-            if(_effects[i] == fx)
+            if(_usedEffects[i] == fx)
             {
                 index = i;
                 break;

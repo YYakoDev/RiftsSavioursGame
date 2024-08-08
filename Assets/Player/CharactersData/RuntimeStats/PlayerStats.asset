@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc8b826c734252e40b580fc4ef82deb2, type: 3}
   m_Name: PlayerStats
   m_EditorClassIdentifier: 
-  _maxHealth: 56
-  _currentHealth: 44
+  _maxHealth: 50
+  _currentHealth: 50
   _speed: 3
   _slowdownMultiplier: 0.815
   _dashSpeed: 10
@@ -25,9 +25,9 @@ MonoBehaviour:
   _interactCooldown: 0.65
   _maxResourceInteractions: 1
   _weapons:
+  - {fileID: 11400000, guid: 9e17bf3495947ee47a9cc4325633cfb2, type: 2}
   - {fileID: 11400000, guid: a54d0edc150fd4b4ba98b57fc755930b, type: 2}
-  - {fileID: 11400000, guid: 5f7416b72e2720a42ac16e43b5f6ff75, type: 2}
-  - {fileID: 11400000, guid: 84bcd13ed162cfe409169cadca7a0f0e, type: 2}
+  - {fileID: 11400000, guid: 77c4c2247dc5e1d43a165ee3213cde47, type: 2}
   _attackStats: {fileID: 11400000, guid: 5c0efc2d47ffa234c9cfe266e112553e, type: 2}
   _stunResistance: 0
   _knockbackResistance: 10

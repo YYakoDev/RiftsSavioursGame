@@ -17,7 +17,7 @@ public class PrototypeInteractableResource : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        CameraShake.Shake(1.5f);
+        CameraEffects.Shake(1.5f);
         _animator.Play("Death");
         _dropper.Drop();
     }

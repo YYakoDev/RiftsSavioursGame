@@ -5,8 +5,9 @@ using UnityEngine;
 public class SOSpawnFXBase : WeaponEffects
 {
     [SerializeField] GameObject _fxPrefab;
-    [SerializeField] bool _flipOnDirection;
+    [SerializeField] bool _flipOnDirection, _offsetRotation = true;
     [SerializeField] Vector2 _offset = Vector2.zero;
+    [SerializeField, Range(0, 35)] float _angleOffset = 25;
     Transform _player;
     NotMonoObjectPool _pool;
     public override void Initialize(WeaponBase weapon)
@@ -30,7 +31,9 @@ public class SOSpawnFXBase : WeaponEffects
             rotation.z *= flippedScale.x;
             obj.position = spawnPosition + (Vector3)(_offset * flippedScale.x);
         }
-        obj.rotation = rotation;
+        var euler = rotation.eulerAngles;
+        if(_offsetRotation) euler.z += Random.Range(_angleOffset, -_angleOffset);
+        obj.rotation = Quaternion.Euler(euler);
         obj.SetParent(null);
         obj.gameObject.SetActive(true);
     }

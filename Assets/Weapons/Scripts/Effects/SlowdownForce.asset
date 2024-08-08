@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40416f6cd324fe943b23d04d4b372778, type: 3}
   m_Name: SlowdownForce
   m_EditorClassIdentifier: 
-  forcePercentage: 31
+  forcePercentage: 91

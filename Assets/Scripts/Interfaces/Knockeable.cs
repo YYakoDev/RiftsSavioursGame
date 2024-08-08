@@ -7,9 +7,10 @@ public class Knockbackeable
     Transform _ownTransform;
     Rigidbody2D _rb;
     Transform _emitterTransform;
+    AnimationCurve _curve;
     Vector3 _emitterPosition; //alternative way if you dont want to use a transform
-    Vector2 _newKnockbackDir = Vector2.zero;
-    float _force;
+    Vector2 _newKnockbackDir = Vector2.zero, _firstDir = Vector2.zero;
+    float _force, _currentDuration;
     int _resistance;
     Timer _knockbackTimer;
     bool _enabled = false;
@@ -57,6 +58,7 @@ public class Knockbackeable
     public void SetKnockbackData(Vector3 emitterPos, float force, float duration = 0.13f, bool ignoreResistance = false, float forceMultiplier = 2f)
     {
         SetLogic(null, emitterPos, force, duration, ignoreResistance, forceMultiplier);
+        _firstDir = _ownTransform.position - _emitterPosition;
     }
     void SetLogic(Transform emitterTransform, Vector3 emitterPos,  float force, float duration, bool ignoreResistance, float forceMultiplier)
     {
@@ -72,7 +74,7 @@ public class Knockbackeable
             }
             if(_emitterTransform != null) _newKnockbackDir = _emitterTransform.position;
             else _newKnockbackDir = emitterPos;
-            _knockbackTimer.ChangeTime(_knockbackTimer.CurrentTime + duration / 1.5f + Random.Range(0.01f, 0.07f));
+            _knockbackTimer.ChangeTime(_knockbackTimer.CurrentTime + duration / 1.5f + Random.Range(0.05f, 0.25f));
             Force += force / 1.25f;
             return;
         }
@@ -81,7 +83,8 @@ public class Knockbackeable
         Force = force * forceMultiplier;
 
         _enabled = true;
-        _knockbackTimer.ChangeTime(duration + Random.Range(0.01f, 0.1f));
+        _currentDuration = duration + Random.Range(-0.02f, 0.05f);
+        _knockbackTimer.ChangeTime(_currentDuration);
         _knockbackTimer.Start();
         OnKnockbackChange?.Invoke(_enabled);
         _rb.velocity = Vector2.zero;
@@ -93,15 +96,23 @@ public class Knockbackeable
         _knockbackTimer.UpdateTime();
         //Debug.Log("Applying Knockback!");
         Vector2 currentPos = _ownTransform.position;
-        Vector2 firstDirection = (_emitterTransform != null) ?
-        currentPos - (Vector2)_emitterTransform.position :
-        currentPos - (Vector2)_emitterPosition;
+        if(_emitterTransform != null)
+        {
+            _firstDir = currentPos - (Vector2)_emitterTransform.position;
+        }
         Vector2 secondDirection = currentPos - _newKnockbackDir;
-        Vector2 direction;
-        if(secondDirection == currentPos) direction = firstDirection.normalized;
-        else direction = firstDirection.normalized + secondDirection.normalized;
+        var direction = Vector2.zero;
+        if(secondDirection == currentPos) direction = _firstDir.normalized;
+        else
+        {
+            Debug.Log("Applying second knockback");
+            direction = _firstDir.normalized + secondDirection.normalized;
+        }
 
-        _rb.MovePosition(currentPos + direction.normalized * (Force * Time.fixedDeltaTime));
+        var percent = 1f - _knockbackTimer.CurrentTime / _currentDuration;
+        var force = Mathf.Lerp(Force / 3f, Force * 1.33f, TweenCurveLibrary.EaseInOutCurve.Evaluate(percent));
+
+        _rb.MovePosition(currentPos + direction.normalized * (force * Time.fixedDeltaTime));
     }
 
     public void StopKnockback()

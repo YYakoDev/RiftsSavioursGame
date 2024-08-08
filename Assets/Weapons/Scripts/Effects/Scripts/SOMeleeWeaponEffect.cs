@@ -11,7 +11,6 @@ public class SOMeleeWeaponEffect : WeaponEffects
         //Debug.Log(weapon.GetType().IsSubclassOf(typeof(MeleeWeapon)));
         var type = weapon.GetType();
         var isSubclass = type.IsSubclassOf(typeof(MeleeWeapon));
-        //Debug.Log((type == typeof(MeleeWeapon)) + "    " + isSubclass);
         if(!isSubclass  && type != typeof(MeleeWeapon))
         {
             _weapon.RemoveFxFromList(this);

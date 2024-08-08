@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2ca1a7466740d64a953e48efa81dca7, type: 3}
   m_Name: WeakFrameFreeze
   m_EditorClassIdentifier: 
-  _freezeTime: 0.00354
+  _freezeTime: 0.0045

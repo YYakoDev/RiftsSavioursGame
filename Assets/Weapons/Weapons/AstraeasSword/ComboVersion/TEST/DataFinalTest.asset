@@ -14,3 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sprite: {fileID: 21300000, guid: f85cf57bdc27131449209869937b1032, type: 3}
   _animOverrideController: {fileID: 22100000, guid: 743dbf22a4b34fd499b044644286b3e5, type: 2}
+  _flipSprite: 0
+  _spawnPosition: {x: -0.6, y: 0.33, z: 0}
+  _spawnRotation: 120

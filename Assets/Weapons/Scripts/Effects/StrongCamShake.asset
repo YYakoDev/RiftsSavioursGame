@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: StrongCamShake
   m_EditorClassIdentifier: 
   _strength: 6
-  _duration: 0.0089
+  _duration: 0.0143

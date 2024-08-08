@@ -125,7 +125,7 @@ public class PrototypeGameState : MonoBehaviour
     {
         //SpeedChange();
         _transitionElapsedTime = _transitionDuration;
-        CameraShake.Shake(2f, _transitionDuration + 0.2f);
+        CameraEffects.Shake(2f, _transitionDuration + 0.2f);
         _fadeEffect.FadeIn(() => 
         {
             _otherSideParent.SetActive(!_otherSideParent.activeInHierarchy);
