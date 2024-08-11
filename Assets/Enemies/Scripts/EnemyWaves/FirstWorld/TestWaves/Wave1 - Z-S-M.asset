@@ -16,7 +16,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4a98fb802e5c1b5468038e11b67941a2, type: 2}
   - {fileID: 11400000, guid: da1f7dc4125b5de49be6608d5a2a7d3e, type: 2}
   - {fileID: 11400000, guid: ba96fa896a50db74fb5489be80d3f533, type: 2}
-  _enemySpawnCooldown: 1.7
+  _enemySpawnCooldown: 1.87
   _enemiesToSpawn: 4
   _waveDuration: 15
   _changeStatsOvertime: 1

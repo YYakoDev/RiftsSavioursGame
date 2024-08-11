@@ -45,7 +45,7 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Player
+  - name: Above
     uniqueID: 3555872019
     locked: 0
   - name: World UI

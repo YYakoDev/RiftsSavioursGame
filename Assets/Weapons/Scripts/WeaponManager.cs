@@ -29,6 +29,7 @@ public class WeaponManager : MonoBehaviour
     }
     public event Action<WeaponBase> OnWeaponChange;
 
+    public WeaponAiming AimingLogic => _weaponAiming;
     public PlayerAttackEffects AtkEffects => _effects;
     public LayerMask EnemyLayer => _enemyLayer;
 

@@ -67,7 +67,6 @@ public class CameraEffects : MonoBehaviour
 
     public static void ResetScale()
     {
-        Debug.Log("Resetting scale");
         _scaling = true;
         _startSize = _camera.orthographicSize;
         _newSize = _defaultSize;

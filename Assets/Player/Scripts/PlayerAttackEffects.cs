@@ -8,13 +8,14 @@ public class PlayerAttackEffects : MonoBehaviour
     [SerializeField]WeaponManager _weaponManager;
     [SerializeField]PlayerManager _player;
     [SerializeField]CameraTarget _cameraTargetting;
+    WeaponAiming _weaponAiming;
     int _targetIndex = -1;
     [SerializeField]AudioSource _audio;
     WeaponBase _currentWeapon;
     Transform weaponPrefab => _currentWeapon.PrefabTransform;
     public AudioSource Audio => _audio;
     float AttackDuration => _currentWeapon.AtkDuration;
-
+    public Vector3 MousePosition => _mainCamera.ScreenToWorldPoint(YYInputManager.MousePosition);
 
     private void Awake() {
         _weaponManager.OnWeaponChange += SwitchCurrentWeapon;
@@ -23,6 +24,7 @@ public class PlayerAttackEffects : MonoBehaviour
     private IEnumerator Start()
     {
         _mainCamera = Camera.main;
+        _weaponAiming = _weaponManager.AimingLogic;
         yield return null;
         yield return null;
         _targetIndex = _cameraTargetting.AddTarget(weaponPrefab);
@@ -45,15 +47,15 @@ public class PlayerAttackEffects : MonoBehaviour
     }
     
     void PlayAttackAnimation() => _player.AnimController.PlayStated(PlayerAnimationsNames.Attack, AttackDuration);
-    void FlipPlayer() => _player.MovementScript.FlipLogic.FlipCheck(weaponPrefab.position.x - _player.Position.x, 0.25f);
+    void FlipPlayer() => _player.MovementScript.FlipLogic.FlipCheck((MousePosition.x + _weaponAiming.MouseFlipOffset )- _player.Position.x, 0.25f);
     public void SlowdownPlayer() => _player.MovementScript.SlowdownMovement(AttackDuration);   
     public void SlowdownPlayer(float force) => _player.MovementScript.SlowdownMovement(AttackDuration, force);   
     public void SlowdownPlayer(float duration, float force) => _player.MovementScript.SlowdownMovement(duration, force);   
-    public void SelfPush(float force) => _player.MovementScript.KnockbackLogic.SetKnockbackData(_mainCamera.ScreenToWorldPoint(YYInputManager.MousePosition), -force, ignoreResistance: true);
-    public void SelfPush(float force, float duration) => _player.MovementScript.KnockbackLogic.SetKnockbackData(_mainCamera.ScreenToWorldPoint(YYInputManager.MousePosition), -force, duration, true);
+    public void SelfPush(float force) => _player.MovementScript.KnockbackLogic.SetKnockbackData(MousePosition, -force, ignoreResistance: true);
+    public void SelfPush(float force, float duration) => _player.MovementScript.KnockbackLogic.SetKnockbackData(MousePosition, -force, duration, true);
 
-    public void KnockbackPlayer(float knockbackAmount) => _player.MovementScript.KnockbackLogic.SetKnockbackData(weaponPrefab.position, knockbackAmount, forceMultiplier: 0.25f);
-    public void KnockbackPlayer(Vector3 emitterPosition, float knockbackAmount) => _player.MovementScript.KnockbackLogic.SetKnockbackData(emitterPosition, knockbackAmount, forceMultiplier: 0.25f);
+    public void KnockbackPlayer(float knockbackAmount) => _player.MovementScript.KnockbackLogic.SetKnockbackData(MousePosition, knockbackAmount, forceMultiplier: 0.5f);
+    public void KnockbackPlayer(Vector3 emitterPosition, float knockbackAmount) => _player.MovementScript.KnockbackLogic.SetKnockbackData(emitterPosition, knockbackAmount, forceMultiplier: 0.5f);
     
 
     public void ScreenShake(float strength) => CameraEffects.Shake(strength);

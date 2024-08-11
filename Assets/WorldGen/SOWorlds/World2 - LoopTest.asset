@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: World2 - LoopTest
   m_EditorClassIdentifier: 
   _name: thalasso
-  _restInterval: 5
+  _restInterval: 3
   _waves:
   - {fileID: 11400000, guid: 9995c252d4850e2419ee3f8d86a31a69, type: 2}
   - {fileID: 11400000, guid: 75e9bbecc268c1c40a57f54b2f88d50f, type: 2}
@@ -23,7 +23,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fd272544097fc364584aba66f5e665ef, type: 2}
   - {fileID: 11400000, guid: d9fa6b7ad019ae1459b479957639d6a7, type: 2}
   - {fileID: 11400000, guid: f167f6e3256b87744bd6b8b0dea3e631, type: 2}
-  - {fileID: 11400000, guid: 2c774f0f445ea42498acf19460fb54d6, type: 2}
   - {fileID: 11400000, guid: 6061721d9f4a9e5499bd5251aeccd99e, type: 2}
   _chunks:
   - {fileID: 8802944811774838316, guid: 13589a58368ac0749875a8c6d487b1aa, type: 3}
+  - {fileID: 8802944811774838316, guid: e56aae2e7f1fde144be1c22c2904ba95, type: 3}
+  - {fileID: 8802944811774838316, guid: fc73c8f83d2ed17449d31922e6651c21, type: 3}
+  - {fileID: 8802944811774838316, guid: 672779cfd9167ae4d86704cce8dc5562, type: 3}

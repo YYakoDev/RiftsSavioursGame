@@ -61,7 +61,7 @@ public class MeleeWeapon : WeaponBase
         _delayTimer.Stop();
         _delayTimer.onEnd += StopAnimationDelay;
 
-        _modifiedStats = new(_attackCooldown, _pullForce, _attackRange, _attackSpeed, _knockbackForce, _damageDelay, _attackDamage);
+        _modifiedStats = new(_attackCooldown, _pullForce, _attackRange, _attackSpeed, _knockbackForce, _damageDelay, _attackDamage, 0);
     }
 
     public override void UpdateLogic()
@@ -208,9 +208,9 @@ public class MeleeWeapon : WeaponBase
     protected struct MeleeWeaponStats
     {
         public float _cooldown, _pullForce, _atkRange, _atkSpeed, _knockbackForce, _damageDelay;
-        public int _atkDmg;
+        public int _atkDmg, _staminaConsumption;
 
-        public MeleeWeaponStats(float cooldown, float pullForce, float atkRange, float atkSpeed, float knockbackForce, float delay, int atkDmg)
+        public MeleeWeaponStats(float cooldown, float pullForce, float atkRange, float atkSpeed, float knockbackForce, float delay, int atkDmg, int staminaConsumption)
         {
             _cooldown = cooldown;
             _pullForce = pullForce;
@@ -219,6 +219,7 @@ public class MeleeWeapon : WeaponBase
             _knockbackForce = knockbackForce;
             _damageDelay = delay;
             _atkDmg = atkDmg;
+            _staminaConsumption = staminaConsumption;
         }
     }
 }

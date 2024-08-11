@@ -65,6 +65,12 @@ public class Timer
         _timerStopped = true;
     }
 
+    public void End()
+    {
+        _timerStopped = true;
+        onEnd?.Invoke();
+    }
+
     public void ClearOnStartEvent() => onStart = null;
     public void ClearOnEndEvent() => onEnd = null;
 

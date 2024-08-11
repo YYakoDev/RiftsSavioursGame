@@ -23,8 +23,8 @@ public class WeaponAiming : MonoBehaviour
     FlipLogic _flipLogic;
     [SerializeField] private float _flipOffset = 2f;
     //public bool IsFlipped => _isFlipped;
-    private float Sign => (_playerMovement.FlipLogic.IsFlipped) ? -1 : 1;
-    private float MouseOffset => _flipOffset * Sign;
+    private float Sign => (_flipLogic.IsFlipped) ? -1 : 1;
+    public float MouseFlipOffset => _flipOffset * Sign;
 
 
     [Header("Values")]
@@ -163,7 +163,7 @@ public class WeaponAiming : MonoBehaviour
         _crosshair.position = (Vector3)_targetDirection + transform.position;
         //if(_autoAiming) _flipLogic.FlipCheck(_targetDirection.x + (MouseOffset / 3f));
         //else _flipLogic.FlipCheck(_targetDirection.x + MouseOffset);
-        var offset = (_autoAiming) ? MouseOffset / 3f : MouseOffset;
+        var offset = (_autoAiming) ? MouseFlipOffset / 3f : MouseFlipOffset;
         if(_autoAiming && _resultsCount == 0)_playerMovement.FlipLogic?.FlipCheck(_playerMovement.Movement.x);
         else _playerMovement.FlipLogic?.FlipCheck(_targetDirection.x + offset); //this is the real one, the line bellow is for testing
         //else _playerMovement.FlipLogic?.FlipCheck(-_targetDirection.x);

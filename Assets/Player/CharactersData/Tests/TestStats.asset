@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc8b826c734252e40b580fc4ef82deb2, type: 3}
   m_Name: TestStats
   m_EditorClassIdentifier: 
-  _maxHealth: 50
+  _maxHealth: 100
   _currentHealth: 0
-  _speed: 3
-  _slowdownMultiplier: 0.196
-  _dashSpeed: 10
-  _dashCooldown: 1
+  _speed: 3.55
+  _slowdownMultiplier: 0.257
+  _dashSpeed: 9
+  _dashCooldown: 0.6
   _dashInvulnerabilityTime: 0.113
   _pickUpRange: 10
   _collectingRange: 2

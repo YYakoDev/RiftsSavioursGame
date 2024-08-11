@@ -17,7 +17,7 @@ public class PlayerMovement : MonoBehaviour, IKnockback
     //Movement
     Vector2 _movement;
     float _realSpeed, _elapsedAcceleration = 0f;
-    AnimationCurve _curve;
+    [SerializeField]AnimationCurve _curve;
     // Dash
     KeyInput _dashInput;
     bool _isDashing, _dashOnCooldown, _dashLogicInitialized;
@@ -94,7 +94,7 @@ public class PlayerMovement : MonoBehaviour, IKnockback
         _slowdown = 1f;
         //_testCurve = new(new Keyframe(0.0f, 0.1273f, 2.9473f, 2.9473f, 0.0f, 0.1208f), new Keyframe(0.75f, 1.001f, 0.09f, 0.09f, 0.333f, 0.333f) ,new Keyframe(1.0f, 1f, 0f, 0f, 0f, 0f)); //this is an ease out curve
         //serializedVersion":"3","time":0.0,"value":0.127349853515625,"inSlope":2.947371482849121,"outSlope":2.947371482849121,"tangentMode":0,"weightedMode":0,"inWeight":0.0,"outWeight":0.12083332985639572},{"serializedVersion":"3","time":1.0,"value":1.0,"inSlope":0.0,"outSlope":0.0,"tangentMode":0,"weightedMode":0,"inWeight":0.0,"outWeight":0.0}],
-        _curve = TweenCurveLibrary.EaseInExpo;
+        if(_curve == null)_curve = TweenCurveLibrary.EaseOutCirc;
         yield return null;
         if(_player.DashData != null) InitializeDashLogic();
         _dashParticleEffect.Stop();
@@ -225,7 +225,7 @@ public class PlayerMovement : MonoBehaviour, IKnockback
     {
         if(_slowdown <= 0.05f) return;
         if(_elapsedAcceleration < 2f) _elapsedAcceleration += Time.deltaTime;
-        var speed = Mathf.Lerp(MovementSpeed * 0.85f * _slowdown , MovementSpeed * _slowdown * 1.35f, _curve.Evaluate(_elapsedAcceleration));
+        var speed = Mathf.Lerp(MovementSpeed * 0.5f * _slowdown , MovementSpeed * _slowdown * 1.1f, _curve.Evaluate(_elapsedAcceleration));
         Vector2 direction = (Vector2)transform.position + _movement * (speed *Time.fixedDeltaTime);
         _player.RigidBody.MovePosition(direction);
         MovementEffects();
@@ -238,7 +238,7 @@ public class PlayerMovement : MonoBehaviour, IKnockback
         _player.RigidBody.MovePosition(direction);
         MovementEffects();
         _player.AnimController.PlayStated(PlayerAnimationsNames.BackDash, 0.65f); //execute the animation depending on the direction of the movement in comparision to the facing direction!
-        _elapsedAcceleration = 0f;
+        //_elapsedAcceleration = 0f; //only if it is a backstep??
     }
 
     void MovementEffects()
@@ -255,8 +255,6 @@ public class PlayerMovement : MonoBehaviour, IKnockback
     {
         _knockbackEnabled = change;
     }
-
-    
 
     public void SlowdownMovement(float slowdownTime)
     {

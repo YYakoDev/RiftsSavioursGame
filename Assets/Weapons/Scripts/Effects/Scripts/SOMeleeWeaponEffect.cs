@@ -13,6 +13,7 @@ public class SOMeleeWeaponEffect : WeaponEffects
         var isSubclass = type.IsSubclassOf(typeof(MeleeWeapon));
         if(!isSubclass  && type != typeof(MeleeWeapon))
         {
+            Debug.Log("removing fx:  " + name);
             _weapon.RemoveFxFromList(this);
             return;
         }

@@ -27,23 +27,81 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c9c1e59da1cfa0d438f4301a1069edcd, type: 2}
   - {fileID: 11400000, guid: 09d7f5330f8f034429287665ec6f885f, type: 2}
   _weaponSounds:
-  - {fileID: 8300000, guid: 790133ebf7614104db10e43cb4d2942a, type: 3}
+  - {fileID: 8300000, guid: 4b44864f6a44e594eb373a71bd3618fe, type: 3}
   _pointCameraOnAttack: 0
-  _attackCooldown: 0.65
-  _pullForce: 0.95
-  _pullDuration: 0.141
-  _attackRange: 1.25
-  _attackSpeed: 1.1
+  _attackCooldown: 0.4
+  _baseStats:
+    _cooldown: 0.5
+    _pullForce: 1.1
+    _atkRange: 1
+    _atkSpeed: 1
+    _knockbackForce: 1
+    _damageDelay: 0.15
+    _criticalDamageMultiplier: 2
+    _pullDuration: 0
+    _atkDmg: 6
+    _criticalChance: 10
+    _staminaConsumption: 0
   _rangeOffset: {x: 0, y: 0}
-  _attackDamage: 6
-  _criticalChance: 10
-  _criticalDamageMultiplier: 2
-  _damageDelay: 0.2
-  _knockbackForce: 0.66
-  _animationDelayTime: 0
-  _delayPercentage: 0
+  _comboAttacks:
+  - _stats:
+      _cooldown: 0
+      _pullForce: 0
+      _atkRange: 0
+      _atkSpeed: 0
+      _knockbackForce: 0
+      _damageDelay: 0
+      _criticalDamageMultiplier: 0
+      _pullDuration: 0
+      _atkDmg: 0
+      _criticalChance: 0
+      _staminaConsumption: 0
+    _effects: {fileID: 0}
+    _sounds:
+    - {fileID: 0}
+  - _stats:
+      _cooldown: 0
+      _pullForce: 0
+      _atkRange: 0
+      _atkSpeed: 0
+      _knockbackForce: 0
+      _damageDelay: 0
+      _criticalDamageMultiplier: 0
+      _pullDuration: 0
+      _atkDmg: 0
+      _criticalChance: 0
+      _staminaConsumption: 0
+    _effects: {fileID: 0}
+    _sounds:
+    - {fileID: 0}
+  - _stats:
+      _cooldown: 0
+      _pullForce: 0
+      _atkRange: 0
+      _atkSpeed: 0
+      _knockbackForce: 0
+      _damageDelay: 0
+      _criticalDamageMultiplier: 0
+      _pullDuration: 0
+      _atkDmg: 0
+      _criticalChance: 0
+      _staminaConsumption: 0
+    _effects: {fileID: 0}
+    _sounds:
+    - {fileID: 0}
+  _heavyAttackBonus:
+    _cooldown: 0.4
+    _pullForce: 1
+    _atkRange: 1
+    _atkSpeed: 0
+    _knockbackForce: 0.5
+    _damageDelay: 0
+    _criticalDamageMultiplier: 0
+    _pullDuration: 0
+    _atkDmg: 4
+    _criticalChance: 5
+    _staminaConsumption: 0
   _cameraZoomPercent: 7
-  _staminaConsumption: 0
   _heavyAtkEffects:
   - {fileID: 11400000, guid: df7c73a62b7d8ea4da3c4d678c5b278b, type: 2}
   - {fileID: 11400000, guid: f1b3174f673fb1a4b91613d5d1414674, type: 2}
@@ -51,9 +109,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b38795998130cfd4e9799775cf5b0360, type: 2}
   - {fileID: 11400000, guid: bfb68f75966a4294992ea75fe9a1dd9a, type: 2}
   - {fileID: 11400000, guid: 0d45495b4c12acc4d9c2daf155b71534, type: 2}
-  - {fileID: 11400000, guid: 0d45495b4c12acc4d9c2daf155b71534, type: 2}
   - {fileID: 11400000, guid: 0429586a3501b674d98e9c4fcf8476e7, type: 2}
   - {fileID: 11400000, guid: a46798bb6b4605f46a88a7cb00606fc1, type: 2}
-  - {fileID: 11400000, guid: 05757c7f0a957e24f902c060c93f1a06, type: 2}
+  - {fileID: 11400000, guid: 09d7f5330f8f034429287665ec6f885f, type: 2}
   _heavyAtkCueSFX: {fileID: 8300000, guid: 69a4ab26339bcc04389ea607e95b43f2, type: 3}
   _heavyAtkChargeUpSfx: {fileID: 8300000, guid: 3401fd0402f64d740886d6968e3f9650, type: 3}
+  _heavyAtkSound: {fileID: 0}
