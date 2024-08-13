@@ -75,7 +75,7 @@ public class CollectingManager : MonoBehaviour
         _resourcePosition = resource.ResourcePosition;
         onResourceInteraction?.Invoke(resource);
         resource.TakeDamage(_damage);
-        PopupsManager.CreateDamagePopup(_resourcePosition + _dmgPopupOffset, _damage, false);
+        PopupsManager.CreateDamagePopup(_resourcePosition + _dmgPopupOffset, _damage);
     }
 
     void SetValues()

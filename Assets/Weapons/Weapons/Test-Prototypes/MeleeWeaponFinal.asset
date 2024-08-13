@@ -31,7 +31,7 @@ MonoBehaviour:
   _pointCameraOnAttack: 0
   _attackCooldown: 0.4
   _baseStats:
-    _cooldown: 0.5
+    _cooldown: 0.4
     _pullForce: 1.1
     _atkRange: 1
     _atkSpeed: 1
@@ -58,37 +58,37 @@ MonoBehaviour:
       _staminaConsumption: 0
     _effects: {fileID: 0}
     _sounds:
-    - {fileID: 0}
+    - {fileID: 8300000, guid: 790133ebf7614104db10e43cb4d2942a, type: 3}
   - _stats:
       _cooldown: 0
       _pullForce: 0
-      _atkRange: 0
-      _atkSpeed: 0
-      _knockbackForce: 0
+      _atkRange: 0.33
+      _atkSpeed: -0.15
+      _knockbackForce: 0.3
       _damageDelay: 0
       _criticalDamageMultiplier: 0
       _pullDuration: 0
-      _atkDmg: 0
+      _atkDmg: 2
       _criticalChance: 0
       _staminaConsumption: 0
     _effects: {fileID: 0}
     _sounds:
-    - {fileID: 0}
+    - {fileID: 8300000, guid: 4b44864f6a44e594eb373a71bd3618fe, type: 3}
   - _stats:
       _cooldown: 0
       _pullForce: 0
       _atkRange: 0
-      _atkSpeed: 0
-      _knockbackForce: 0
+      _atkSpeed: 0.2
+      _knockbackForce: -0.21
       _damageDelay: 0
       _criticalDamageMultiplier: 0
       _pullDuration: 0
-      _atkDmg: 0
+      _atkDmg: 1
       _criticalChance: 0
       _staminaConsumption: 0
     _effects: {fileID: 0}
     _sounds:
-    - {fileID: 0}
+    - {fileID: 8300000, guid: bc1c86abc18a4824c8de230090611919, type: 3}
   _heavyAttackBonus:
     _cooldown: 0.4
     _pullForce: 1

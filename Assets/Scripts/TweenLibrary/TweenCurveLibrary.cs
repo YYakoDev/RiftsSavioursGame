@@ -6,6 +6,11 @@ public enum CurveTypes
 {
     Linear,
     EaseInOut,
+    EaseInOutExpo,
+    EaseOutCirc,
+    EaseInCirc,
+    EaseInBounce,
+    EaseInExpo
         
 }
 public static class TweenCurveLibrary
@@ -67,6 +72,11 @@ public static class TweenCurveLibrary
         _animationCurves.Add(CurveTypes.Linear, _linearCurve);
         _easeInOutCurve = AnimationCurve.EaseInOut(0,0,1,1);
         _animationCurves.Add(CurveTypes.EaseInOut, _easeInOutCurve);
+        _animationCurves.Add(CurveTypes.EaseInOutExpo, _easeInOutExpo);
+        _animationCurves.Add(CurveTypes.EaseOutCirc, _easeOutCirc);
+        _animationCurves.Add(CurveTypes.EaseInCirc, _easeInCirc);
+        _animationCurves.Add(CurveTypes.EaseInBounce, _easeInBounce);
+        _animationCurves.Add(CurveTypes.EaseInExpo, _easeInExpo);
         _initialized = true;
     }
 

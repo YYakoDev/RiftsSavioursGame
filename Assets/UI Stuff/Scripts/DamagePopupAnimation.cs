@@ -18,7 +18,7 @@ public class DamagePopupAnimation : MonoBehaviour
 
     private void OnEnable() {
         _animator.Clear();
-        _startingScale = _rect.localScale;
+        if(_startingScale == Vector3.zero)_startingScale = _rect.localScale;
         _startingPos = _rect.position;
         PlayAnimations();
     }
@@ -26,13 +26,13 @@ public class DamagePopupAnimation : MonoBehaviour
     void PlayAnimations()
     {
         _rect.localScale = _startingScale;
-        _animator.Scale(_rect, _startingScale * 1.3f, 0.2f, CurveTypes.EaseInOut, onComplete: ScaleDown);
-        _animator.MoveTo(_rect, _startingPos + Vector3.up * 2f, 0.75f, CurveTypes.EaseInOut, onComplete: Deactivate);
+        _animator.Scale(_rect, _startingScale * 1.35f, 0.4f, CurveTypes.EaseInBounce, onComplete: ScaleDown);
+        _animator.MoveTo(_rect, _startingPos + Vector3.up / 2f, 0.55f, CurveTypes.EaseInBounce, onComplete: Deactivate);
     }
 
     void ScaleDown()
     {
-        _animator.Scale(_rect, _startingScale, 0.35f, CurveTypes.EaseInOut);
+        _animator.Scale(_rect, Vector3.zero, 0.25f, CurveTypes.EaseOutCirc);
     }
 
     void Deactivate()
