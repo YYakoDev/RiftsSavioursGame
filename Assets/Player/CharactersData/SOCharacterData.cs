@@ -11,7 +11,7 @@ public class SOCharacterData : ScriptableObject
    // [SerializeField] SOPlayerAttackStats _atkStats;
     [SerializeField] Sprite _sprite;
     [SerializeField] AnimatorOverrideController _animator;
-    [SerializeField] SODashData _dashData;
+    [SerializeField] SODashData _dashData, _backDashData;
     [SerializeField]List<InventoryMaterialData> _startingMaterials = new();
 
     public string Name => _name;
@@ -21,5 +21,6 @@ public class SOCharacterData : ScriptableObject
     public Sprite Sprite => _sprite;
     public AnimatorOverrideController Animator => _animator;
     public SODashData DashData => _dashData;
+    public SODashData BackDashData => _backDashData;
     public List<InventoryMaterialData> StartingInventory => _startingMaterials;
 }

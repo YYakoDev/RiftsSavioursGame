@@ -5,11 +5,13 @@ using UnityEngine;
 
 public class PlayerAnimationController : MonoBehaviour
 {
+    [SerializeField] PlayerManager _player;
     [SerializeField]Animator _animator;
     [SerializeField]EntryAnimationFX _introFX;
     int _currentAnimation;
     float _lockedTime;
     private PlayerIntroAnimation _introAnim;
+    Dictionary<int, float> _durations;
 
     /*float _attackDuration;
     //bool _action;
@@ -24,6 +26,16 @@ public class PlayerAnimationController : MonoBehaviour
     }
 
     private void Start() {
+        _durations = new()
+        {
+            {PlayerAnimationsNames.Iddle, GetAnimationDuration(PlayerAnimationsNames.Iddle)},
+            {PlayerAnimationsNames.Run, GetAnimationDuration(PlayerAnimationsNames.Run)},
+            {PlayerAnimationsNames.Attack, GetAnimationDuration(PlayerAnimationsNames.Attack)},
+            {PlayerAnimationsNames.Landing, GetAnimationDuration(PlayerAnimationsNames.Landing)},
+            {PlayerAnimationsNames.ForwardDash, GetAnimationDuration(PlayerAnimationsNames.ForwardDash)},
+            {PlayerAnimationsNames.BackDash, GetAnimationDuration(PlayerAnimationsNames.BackDash)},
+        };
+        Debug.Log("Forward dash duration:  " + _durations[PlayerAnimationsNames.ForwardDash] + "\n Back Dash: " + _durations[PlayerAnimationsNames.BackDash]);
         _introAnim.PlayAnimation();
     }
 
@@ -31,32 +43,48 @@ public class PlayerAnimationController : MonoBehaviour
         _introAnim.UpdateLogic();
     }
 
-    public void PlayStated(int animationHash, float duration = -0.05f)
+    public void PlayStated(int animationHash, float lockDuration = -0.05f)
     {
         if(Time.time < _lockedTime) return;
         if(animationHash == _currentAnimation)return;
 
-        LockAnimator(duration);
+        LockAnimator(lockDuration);
         _currentAnimation = animationHash;
         _animator.Play(animationHash);
     }
+    public void PlayWithDuration(int animHash)
+    {
+        float duration = 0f;
+        _durations.TryGetValue(animHash, out duration);
+        PlayStated(animHash, duration - 0.05f);
+    }
 
-    public void LockAnimator()
-    {
-        _lockedTime = 500f;
-    }
-    public void UnlockAnimator()
-    {
-        _lockedTime = 0f;
-    }
-    public void LockAnimator(float time)
-    {
-        _lockedTime = Time.time + time;
-    }
+    void LockAnimator(float time) => _lockedTime = Time.time + time;
+    public void LockAnimator() => _lockedTime = Time.time + 500f;
+    public void UnlockAnimator() => _lockedTime = 0f;
+    
 
     public void ChangeAnimator(AnimatorOverrideController animator)
     {
         _animator.runtimeAnimatorController = animator;
+    }
+
+    float GetAnimationDuration(int animHash)
+    {
+        var originalClips = _player.CharacterData.Animator.runtimeAnimatorController.animationClips;
+        var clips = _player.CharacterData.Animator.animationClips;
+        for (int i = 0; i < clips.Length; i++)
+        {
+            var clip = clips[i];
+            var originalClip = originalClips[i];
+            int hash = Animator.StringToHash(originalClip.name);
+            if (hash == animHash)
+            {
+                return clip.averageDuration;
+            }
+        }
+        Debug.Log("Didnt found anim duration");
+        return 0.2f;
     }
 
 }

@@ -15,4 +15,7 @@ MonoBehaviour:
   _dashAnimation: {fileID: 22100000, guid: fb3f776621c30284d892b74063e45dda, type: 2}
   _motionBlur: 0.5
   _cameraShake: 0.4
+  _dashDuration: 0.28
+  _doBlinkFX: 1
+  _abovePlayer: 0
   _dashSFX: {fileID: 8300000, guid: c67633847f5a1554baa9b77cd4e0e6f2, type: 3}

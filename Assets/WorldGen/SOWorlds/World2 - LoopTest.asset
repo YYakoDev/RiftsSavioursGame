@@ -25,7 +25,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f167f6e3256b87744bd6b8b0dea3e631, type: 2}
   - {fileID: 11400000, guid: 6061721d9f4a9e5499bd5251aeccd99e, type: 2}
   _chunks:
-  - {fileID: 8802944811774838316, guid: 13589a58368ac0749875a8c6d487b1aa, type: 3}
-  - {fileID: 8802944811774838316, guid: e56aae2e7f1fde144be1c22c2904ba95, type: 3}
   - {fileID: 8802944811774838316, guid: fc73c8f83d2ed17449d31922e6651c21, type: 3}
-  - {fileID: 8802944811774838316, guid: 672779cfd9167ae4d86704cce8dc5562, type: 3}

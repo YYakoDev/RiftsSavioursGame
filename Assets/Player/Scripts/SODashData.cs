@@ -6,39 +6,35 @@ using UnityEngine;
 public class SODashData : ScriptableObject
 {
     bool _initialized = false;
-    private PlayerManager _player;
-    private PlayerHealthManager _healthManager;
-    private AudioSource _audio;
     [SerializeField] AnimatorOverrideController _dashAnimation;
-    [SerializeField] float _motionBlur = 0.4f, _cameraShake = 0.4f;
-    [SerializeField] bool _invulnerability = true, _doBlinkFX = true;
+    [SerializeField] float _motionBlur = 0.4f, _cameraShake = 0.4f, _dashDuration = 0.3f, _dashForceMultiplier = 0.9f;
+    [SerializeField] bool _doBlinkFX = true, _abovePlayer = true;
     [SerializeField] AudioClip _dashSFX;
 
     //properties
-    public AnimatorOverrideController DashAnimation => _dashAnimation;
+    public AnimatorOverrideController DashAnimator => _dashAnimation;
+    public float DashDuration => _dashDuration;
+    public float ForceMultiplier => _dashForceMultiplier;
+    public bool AbovePlayer => _abovePlayer;
+    public bool DoBlinkFX => _doBlinkFX;
     public AudioClip DashSfx => _dashSFX;
 
-    public void Initialize(PlayerManager player, PlayerHealthManager healthManager, AudioSource audio)
+    public void Initialize()
     {
-        _player = player;
-        _audio = audio;
-        _healthManager = healthManager;
         _initialized = true;
     }
     public virtual void PlayFX()
     {
         if(!_initialized) return;
-        if(_doBlinkFX) _healthManager.BlinkFX.Play();
+
         PostProcessingManager.SetMotionBlur(_motionBlur);
         CameraEffects.Shake(2f * _cameraShake);
-        _audio.PlayOneShot(_dashSFX);
-        if(_invulnerability)_healthManager.SetInvulnerabilityTime(_player.Stats.DashInvulnerabilityTime + _player.MovementScript.DashDuration);
+        
     }
 
     public virtual void StopFX()
     {
         if(!_initialized) return;
         PostProcessingManager.SetMotionBlur(0f);
-        _healthManager.BlinkFX.Stop();
     }
 }

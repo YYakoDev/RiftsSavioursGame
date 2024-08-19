@@ -20085,8 +20085,8 @@ Tilemap:
   - first: {x: -6, y: -11, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 28
-      m_TileSpriteIndex: 26
+      m_TileIndex: 27
+      m_TileSpriteIndex: 25
       m_TileMatrixIndex: 0
       m_TileColorIndex: 1
       m_TileObjectToInstantiateIndex: 65535
@@ -20445,8 +20445,8 @@ Tilemap:
   - first: {x: -3, y: -10, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 28
-      m_TileSpriteIndex: 26
+      m_TileIndex: 27
+      m_TileSpriteIndex: 25
       m_TileMatrixIndex: 0
       m_TileColorIndex: 1
       m_TileObjectToInstantiateIndex: 65535
@@ -20465,8 +20465,8 @@ Tilemap:
   - first: {x: -1, y: -10, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 28
-      m_TileSpriteIndex: 26
+      m_TileIndex: 27
+      m_TileSpriteIndex: 25
       m_TileMatrixIndex: 0
       m_TileColorIndex: 1
       m_TileObjectToInstantiateIndex: 65535
@@ -20685,8 +20685,8 @@ Tilemap:
   - first: {x: -12, y: -9, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 28
-      m_TileSpriteIndex: 26
+      m_TileIndex: 27
+      m_TileSpriteIndex: 25
       m_TileMatrixIndex: 0
       m_TileColorIndex: 1
       m_TileObjectToInstantiateIndex: 65535
@@ -21655,8 +21655,8 @@ Tilemap:
   - first: {x: -14, y: -6, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 28
-      m_TileSpriteIndex: 26
+      m_TileIndex: 27
+      m_TileSpriteIndex: 25
       m_TileMatrixIndex: 0
       m_TileColorIndex: 1
       m_TileObjectToInstantiateIndex: 65535
@@ -22705,8 +22705,8 @@ Tilemap:
   - first: {x: -8, y: -3, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 28
-      m_TileSpriteIndex: 26
+      m_TileIndex: 27
+      m_TileSpriteIndex: 25
       m_TileMatrixIndex: 0
       m_TileColorIndex: 1
       m_TileObjectToInstantiateIndex: 65535
@@ -22975,8 +22975,8 @@ Tilemap:
   - first: {x: -14, y: -2, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 28
-      m_TileSpriteIndex: 26
+      m_TileIndex: 27
+      m_TileSpriteIndex: 25
       m_TileMatrixIndex: 0
       m_TileColorIndex: 1
       m_TileObjectToInstantiateIndex: 65535
@@ -23205,8 +23205,8 @@ Tilemap:
   - first: {x: 9, y: -2, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 28
-      m_TileSpriteIndex: 26
+      m_TileIndex: 27
+      m_TileSpriteIndex: 25
       m_TileMatrixIndex: 0
       m_TileColorIndex: 1
       m_TileObjectToInstantiateIndex: 65535
@@ -23905,8 +23905,8 @@ Tilemap:
   - first: {x: 13, y: 0, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 28
-      m_TileSpriteIndex: 26
+      m_TileIndex: 27
+      m_TileSpriteIndex: 25
       m_TileMatrixIndex: 0
       m_TileColorIndex: 1
       m_TileObjectToInstantiateIndex: 65535
@@ -24645,8 +24645,8 @@ Tilemap:
   - first: {x: -12, y: 3, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 28
-      m_TileSpriteIndex: 26
+      m_TileIndex: 27
+      m_TileSpriteIndex: 25
       m_TileMatrixIndex: 0
       m_TileColorIndex: 1
       m_TileObjectToInstantiateIndex: 65535
@@ -27628,9 +27628,9 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 0a341be397695894b9532f0bd9368f95, type: 2}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
-  - m_RefCount: 11
+  - m_RefCount: 10
+    m_Data: {fileID: 11400000, guid: 66ed3583026ddb34b94830f90d68ac5e, type: 2}
+  - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: f34ef6e85b2a3fc45bd104345ead6137, type: 2}
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 5ecbc12794510604da345bc4f3d912fc, type: 2}
@@ -27693,9 +27693,9 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
-  - m_RefCount: 11
+  - m_RefCount: 10
+    m_Data: {fileID: 140106356, guid: 99540c2253c0c5a4ca532927c13dc64e, type: 3}
+  - m_RefCount: 1
     m_Data: {fileID: -722303803, guid: 99540c2253c0c5a4ca532927c13dc64e, type: 3}
   - m_RefCount: 2
     m_Data: {fileID: 919299312, guid: 99540c2253c0c5a4ca532927c13dc64e, type: 3}
@@ -29195,6 +29195,12 @@ MonoBehaviour:
   _dustEffect: {fileID: 2134075648}
   _dashParticleEffect: {fileID: 5707563145638378319}
   _healthManager: {fileID: 2123491973}
+  _curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   _dashDuration: 0.18
   _dashForce: 1
   _dashFXPrefab: {fileID: 8879541030788343918, guid: ed6016f0c89a4ae44b65b0e19425336e, type: 3}

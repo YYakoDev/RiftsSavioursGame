@@ -161,14 +161,10 @@ public class WeaponAiming : MonoBehaviour
         angle = Mathf.LerpAngle(transform.rotation.eulerAngles.z, angle, Time.fixedDeltaTime * _aimSmoothing);
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         _crosshair.position = (Vector3)_targetDirection + transform.position;
-        //if(_autoAiming) _flipLogic.FlipCheck(_targetDirection.x + (MouseOffset / 3f));
-        //else _flipLogic.FlipCheck(_targetDirection.x + MouseOffset);
-        var offset = (_autoAiming) ? MouseFlipOffset / 3f : MouseFlipOffset;
+        //var offset = (_autoAiming) ? MouseFlipOffset / 3f : MouseFlipOffset;
         if(_autoAiming && _resultsCount == 0)_playerMovement.FlipLogic?.FlipCheck(_playerMovement.Movement.x);
-        else _playerMovement.FlipLogic?.FlipCheck(_targetDirection.x + offset); //this is the real one, the line bellow is for testing
-        //else _playerMovement.FlipLogic?.FlipCheck(-_targetDirection.x);
-        //_playerMovement.FlipLogic?.FlipCheck(_playerMovement.Movement.x);
-        _flipLogic.FlipCheck(_targetDirection.x + offset);
+        else _playerMovement.FlipLogic?.FlipCheck(_targetDirection.x + MouseFlipOffset);
+        _flipLogic.FlipCheck(_targetDirection.x + MouseFlipOffset);
 
     }
 

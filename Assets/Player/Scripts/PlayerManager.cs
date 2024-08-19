@@ -19,7 +19,6 @@ public class PlayerManager : MonoBehaviour
     [SerializeField]PlayerMovement _movementScript;
     [SerializeField]PlayerUpgradesManager _upgradesManager;
     [SerializeField] PlayerStatsManager _statsManager;
-    SODashData _dashData;
     bool _gettedComponents = false;
 
     public SOPlayerStats Stats => _stats;
@@ -29,7 +28,6 @@ public class PlayerManager : MonoBehaviour
     public SOPlayerInventory Inventory => _inventory;
     public PlayerLevelManager LevelManager => _levelManager;
     public PlayerMovement MovementScript => _movementScript;
-    public SODashData DashData => _dashData;
     public PlayerStatsManager StatsManager => _statsManager;
     public SOCharacterData CharacterData => _charData;
 
@@ -64,7 +62,6 @@ public class PlayerManager : MonoBehaviour
         //_levelManager?.SetPlayerStats(_stats);
         _animatorController.ChangeAnimator(_charData.Animator);
         _inventory?.Initialize(_upgradesManager, _charData.StartingInventory);
-        _dashData = _charData.DashData;
     }
 
 

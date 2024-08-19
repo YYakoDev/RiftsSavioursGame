@@ -29,9 +29,9 @@ MonoBehaviour:
   _weaponSounds:
   - {fileID: 8300000, guid: 4b44864f6a44e594eb373a71bd3618fe, type: 3}
   _pointCameraOnAttack: 0
-  _attackCooldown: 0.4
+  _attackCooldown: 0.62
   _baseStats:
-    _cooldown: 0.4
+    _cooldown: 0.47
     _pullForce: 1.1
     _atkRange: 1
     _atkSpeed: 1
@@ -101,7 +101,7 @@ MonoBehaviour:
     _atkDmg: 4
     _criticalChance: 5
     _staminaConsumption: 0
-  _cameraZoomPercent: 7
+  _cameraZoomPercent: 8
   _heavyAtkEffects:
   - {fileID: 11400000, guid: df7c73a62b7d8ea4da3c4d678c5b278b, type: 2}
   - {fileID: 11400000, guid: f1b3174f673fb1a4b91613d5d1414674, type: 2}

@@ -5,16 +5,12 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 public class Dropper : MonoBehaviour
 {
-    private static DropPrefab _dropPrefab;
-    private static NotMonoObjectPool DropsPool;
+
     [SerializeField] Drop[] _drops = new Drop[0];
     int _currentLength = 0;
     Vector3 _dropOffset = Vector3.zero;
 
-    private void Awake() {
-        if(_dropPrefab == null) _dropPrefab = Resources.Load<DropPrefab>("DropPrefab/DropPrefab");
-        if(DropsPool == null) DropsPool = new(250, _dropPrefab.gameObject, null, true);
-    }
+
 
     public void AddDrop(Drop drop)
     {
@@ -39,7 +35,7 @@ public class Dropper : MonoBehaviour
             var drop = _drops[i];
             if (drop == null) continue;
             if (Random.Range(0, 101) > drop.DropChance) continue;
-            GameObject dropGO = DropsPool.GetObjectFromPool();
+            GameObject dropGO = DropsPool.GetDropPrefab();
             var xOffset = (iterator % 2 == 0) ? 0.25f + (0.25f*iterator): -0.25f - (0.25f*iterator);
             var yOffset = Random.Range(-0.25f, 0.25f);
             _dropOffset.x = xOffset;

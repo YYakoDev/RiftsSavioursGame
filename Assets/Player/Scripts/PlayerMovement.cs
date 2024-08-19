@@ -10,32 +10,34 @@ public class PlayerMovement : MonoBehaviour, IKnockback
 {
     //References
     [Header("References")]
-    [SerializeField]ParticleSystem _dustEffect, _dashParticleEffect;
-    PlayerManager _player;
     [SerializeField] PlayerHealthManager _healthManager;
+    PlayerManager _player;
+    [SerializeField] WeaponAiming _aimingLogic;
+    [SerializeField]ParticleSystem _dustEffect, _dashParticleEffect;
     GameObject _spriteGameObject;
+
+
     //Movement
     Vector2 _movement;
     float _realSpeed, _elapsedAcceleration = 0f;
     [SerializeField]AnimationCurve _curve;
+
+
     // Dash
     KeyInput _dashInput;
     bool _isDashing, _dashOnCooldown, _dashLogicInitialized;
-    Vector2 _dashDirection;
-    [SerializeField] float _dashDuration = 0.1f, _dashForce = 1f;
+    Vector2 _dashDirection, _startingDashPosition;
     float _dashCooldown;
     Timer _dashDurationTimer, _dashCooldownTimer;
     [SerializeField] DashFXPrefab _dashFXPrefab;
     [SerializeField] LayerMask _enemyLayer, _resourceLayer;
     LayerMask _playerLayer;
-    DashFXPrefab _dashFXInstance;
-    Transform _dashFXTransform;
+    DashFXPrefab _dashFXInstance, _backDashFXInstance;
     public event Action onDash;
 
 
     //Slowdown when attacking
-    float _slowdown = 1f;
-    float _slowdownTime = 1f;
+    float _slowdown = 1f, _slowdownTime = 1f;
 
     //Flipping sprite based on direction
     FlipLogic _flipLogic;
@@ -53,11 +55,11 @@ public class PlayerMovement : MonoBehaviour, IKnockback
     private AudioClip _stepSound => _stepSounds[Random.Range(0, _stepSounds.Length)];
 
 
+    bool _autoAim;
+
     //properties
     public Vector2 Movement => _movement;
     //public bool IsFlipped => isFlipped;
-    public float DashDuration => _dashDuration;
-    public float DashForce => _dashForce;
     public float DashCooldown => _dashCooldown;
     public FlipLogic FlipLogic => _flipLogic;
     public int FacingDirection => (_flipLogic.IsFlipped) ? -1 : 1;
@@ -88,6 +90,7 @@ public class PlayerMovement : MonoBehaviour, IKnockback
     IEnumerator Start()
     {
         YYInputManager.OnMovement += SetMovement;
+        _aimingLogic.OnAimingChange += ChangeAiming;
         _spriteGameObject = _player.Renderer.gameObject;
         _flipLogic = new(_spriteGameObject.transform, true, false, 0.15f);
         _realSpeed = MovementSpeed;
@@ -96,14 +99,14 @@ public class PlayerMovement : MonoBehaviour, IKnockback
         //serializedVersion":"3","time":0.0,"value":0.127349853515625,"inSlope":2.947371482849121,"outSlope":2.947371482849121,"tangentMode":0,"weightedMode":0,"inWeight":0.0,"outWeight":0.12083332985639572},{"serializedVersion":"3","time":1.0,"value":1.0,"inSlope":0.0,"outSlope":0.0,"tangentMode":0,"weightedMode":0,"inWeight":0.0,"outWeight":0.0}],
         if(_curve == null)_curve = TweenCurveLibrary.EaseOutCirc;
         yield return null;
-        if(_player.DashData != null) InitializeDashLogic();
+        if(_player.CharacterData.DashData != null) InitializeDashLogic();
         _dashParticleEffect.Stop();
         _playerLayer = gameObject.layer;
     }
 
     void InitializeDashLogic()
     {
-        _dashDurationTimer = new(_dashDuration);
+        _dashDurationTimer = new(_player.CharacterData.DashData.DashDuration);
         _dashDurationTimer.Stop();
         _dashDurationTimer.onEnd += StopDash;
         UpdateDashCooldown();
@@ -111,10 +114,15 @@ public class PlayerMovement : MonoBehaviour, IKnockback
         _dashInput = YYInputManager.GetKey(KeyInputTypes.Dash);
         _dashInput.OnKeyPressed += SetDash;
         _player.Stats.onStatsChange += UpdateDashCooldown;
-        if(_dashFXInstance == null) _dashFXInstance = Instantiate(_dashFXPrefab);
-        _dashFXInstance.SetDashData(_player, _healthManager, _audio);
-        _dashFXTransform = _dashFXInstance.transform;
-        _dashFXTransform.SetParent(transform, false);
+
+        _dashFXInstance = Instantiate(_dashFXPrefab);
+        _dashFXInstance.SetDashReferences(_player.CharacterData.DashData);
+        _dashFXInstance.transform.SetParent(transform, false);
+
+        _backDashFXInstance = Instantiate(_dashFXPrefab);
+        _backDashFXInstance.SetDashReferences(_player.CharacterData.BackDashData);
+        _backDashFXInstance.transform.SetParent(transform, false);
+
         _dashLogicInitialized = true;
     }
 
@@ -156,34 +164,51 @@ public class PlayerMovement : MonoBehaviour, IKnockback
     public void SetDash()
     {
         if(_dashOnCooldown) return;
-        //if(_movement == Vector2.zero) return;
-        _dashOnCooldown = true;
         _dashCooldownTimer.Start();
+        _dashOnCooldown = true;
         _isDashing = true;
-        if(_movement != Vector2.zero) _dashDirection = _movement.normalized * _dashForce;
-        if(_movement == Vector2.zero)
+        _startingDashPosition = transform.position;
+
+        bool backDash = true;
+        if(_movement.sqrMagnitude > 0.1f)
         {
-            var mouseDir = (transform.position - HelperMethods.MainCamera.ScreenToWorldPoint(YYInputManager.MousePosition)).normalized;
+            var mouseDir = (HelperMethods.MainCamera.ScreenToWorldPoint(YYInputManager.MousePosition) - transform.position).normalized;
+            _dashDirection = _movement.normalized;
+            if(!_autoAim) backDash = (Vector3.Dot(_movement, mouseDir) < 0f);
+            else backDash = false;
+
+        }else
+        {
+            var mouseOppositeDir = (transform.position - HelperMethods.MainCamera.ScreenToWorldPoint(YYInputManager.MousePosition)).normalized;
             Vector2 finalDir = new
             (
-                GetVectorValue(mouseDir.x), GetVectorValue(mouseDir.y)
+                GetVectorValue(mouseOppositeDir.x), GetVectorValue(mouseOppositeDir.y)
             );
             finalDir.Normalize();
             if(finalDir.sqrMagnitude < 0.05f) finalDir = Vector2.right * -FacingDirection;
-            _dashDirection =  finalDir * _dashForce;
+            _dashDirection =  finalDir;
+            
+                float GetVectorValue(float value)
+                {
+                    return (value > 0.12f) ?  1f : (value < -0.12f) ? -1f : 0f;
+                }
         }
+
+        var animation = (backDash) ? PlayerAnimationsNames.BackDash : PlayerAnimationsNames.ForwardDash;
+        var prefab = (backDash) ? _backDashFXInstance : _dashFXInstance;
+        var dashForce = prefab.DashData.ForceMultiplier;
+        _dashDirection *= dashForce;
+        _dashDurationTimer.ChangeTime(prefab.DashData.DashDuration);
         _dashDurationTimer.Start();
         Physics2D.IgnoreLayerCollision(_playerLayer, HelperMethods.GetLayerMaskIndex(_enemyLayer), true);
         Physics2D.IgnoreLayerCollision(_playerLayer, HelperMethods.GetLayerMaskIndex(_resourceLayer), true);
         _dashParticleEffect.Play();
         onDash?.Invoke();
-        var rot = _dashFXTransform.rotation.eulerAngles;
-        rot.z = Mathf.Atan2(_movement.y, _movement.x) * Mathf.Rad2Deg;
-        _dashFXTransform.rotation = Quaternion.Euler(rot);
-        float GetVectorValue(float value)
-        {
-            return (value > 0.12f) ?  1f : (value < -0.12f) ? -1f : 0f;
-        }
+        prefab.Play(_dashDirection);
+        _healthManager.SetInvulnerabilityTime(_player.Stats.DashInvulnerabilityTime + prefab.DashData.DashDuration);
+        if(prefab.DashData.DoBlinkFX) _healthManager.BlinkFX.Play();
+        _player.AnimController.PlayWithDuration(animation);
+
     }
     public void StopDash()
     {
@@ -191,6 +216,7 @@ public class PlayerMovement : MonoBehaviour, IKnockback
         _dashParticleEffect.Stop();
         Physics2D.IgnoreLayerCollision(_playerLayer, HelperMethods.GetLayerMaskIndex(_enemyLayer), false);
         Physics2D.IgnoreLayerCollision(_playerLayer, HelperMethods.GetLayerMaskIndex(_resourceLayer), false);
+        _healthManager.BlinkFX.Stop();
     }
 
     void UpdateDashCooldown()
@@ -234,10 +260,10 @@ public class PlayerMovement : MonoBehaviour, IKnockback
     }
     void DashMovement(Vector2 moveDirection, float speed)
     {
+
         Vector2 direction = (Vector2)transform.position + moveDirection * (speed *Time.fixedDeltaTime);
         _player.RigidBody.MovePosition(direction);
         MovementEffects();
-        _player.AnimController.PlayStated(PlayerAnimationsNames.BackDash, 0.65f); //execute the animation depending on the direction of the movement in comparision to the facing direction!
         //_elapsedAcceleration = 0f; //only if it is a backstep??
     }
 
@@ -268,8 +294,11 @@ public class PlayerMovement : MonoBehaviour, IKnockback
         if(_slowdown <= 0) _slowdown = 0f;
     }
 
+    void ChangeAiming(bool state) => _autoAim = state;
+
     private void OnDestroy() {
         YYInputManager.OnMovement -= SetMovement;
+        _aimingLogic.OnAimingChange -= ChangeAiming;
         if(!_dashLogicInitialized) return;
         _dashDurationTimer.onEnd -= StopDash;
         _dashInput.OnKeyPressed -= SetDash;

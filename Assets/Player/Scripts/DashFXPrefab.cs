@@ -5,56 +5,57 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public class DashFXPrefab : MonoBehaviour
 {
-    PlayerManager _player;
-    PlayerHealthManager _healthManager;
+    [SerializeField] SOPlayerStats _stats;
+    AudioSource _audio;
     SpriteRenderer _renderer;
     Animator _animator;
     SODashData _dashData;
     float _animDuration = 1f;
-    AudioSource _audio;
-    AudioClip _dashSFX;
+
+    public SODashData DashData => _dashData;
+
     private void Awake() {
         _renderer = GetComponent<SpriteRenderer>();
         _animator = GetComponent<Animator>();
+        _audio = GetComponent<AudioSource>();
     }
 
-    public void SetDashData(PlayerManager player, PlayerHealthManager healthManager, AudioSource audio)
+    public void SetDashReferences(SODashData dashData)
     {
-        _player = player;
-        _audio = audio;
-        _healthManager = healthManager;
-        _dashSFX = _player.DashData.DashSfx;
-        _dashData = _player.DashData;
-        _dashData.Initialize(_player, _healthManager, _audio);
-        _animator.runtimeAnimatorController = _player.DashData.DashAnimation;
-        _animDuration = _player.DashData.DashAnimation["DashAnimation"].averageDuration;
-        var speed = _animDuration / _player.MovementScript.DashDuration;
+        _dashData = dashData;
+        _animator.runtimeAnimatorController = dashData.DashAnimator;
+        _animDuration = dashData.DashAnimator["DashAnimation"].averageDuration;
+        var speed = _animDuration / _dashData.DashDuration;
         _animator.speed = speed;
-        _player.MovementScript.onDash += Play;
+        Debug.Log(speed);
+        var layerID = (_dashData.AbovePlayer) ? SortingLayerManager.GetLayer(LayerType.Above) : SortingLayerManager.GetLayer(LayerType.Below);
+        _renderer.sortingLayerID = layerID;
     }
 
-    public void UpdateDashDuration(float dashDuration)
+    void UpdateDashDuration()
     {
-        var speed = _animDuration / dashDuration;
+        var speed = _animDuration / _dashData.DashDuration;
         _animator.speed = speed;
     }
 
-    public void Play()
+    public void Play(Vector3 direction)
     {
         _renderer.enabled = true;
         _animator.enabled = true;
+        UpdateDashDuration();
+        var rot = transform.rotation.eulerAngles;
+        rot.z = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(rot);
+
         YYExtensions.i.PlayAnimationWithEvent(_animator, "Animation", Stop);
         _dashData.PlayFX();
+        _audio.PlayOneShot(_dashData.DashSfx);
     }
 
     void Stop()
     {
-        _animator.enabled = false;
+        //_animator.enabled = false;
         _renderer.enabled = false;
         _dashData.StopFX();
-    }
-
-    private void OnDestroy() {
-        _player.MovementScript.onDash -= Play;
     }
 }
