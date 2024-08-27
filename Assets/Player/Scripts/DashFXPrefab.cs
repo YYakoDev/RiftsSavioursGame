@@ -27,7 +27,6 @@ public class DashFXPrefab : MonoBehaviour
         _animDuration = dashData.DashAnimator["DashAnimation"].averageDuration;
         var speed = _animDuration / _dashData.DashDuration;
         _animator.speed = speed;
-        Debug.Log(speed);
         var layerID = (_dashData.AbovePlayer) ? SortingLayerManager.GetLayer(LayerType.Above) : SortingLayerManager.GetLayer(LayerType.Below);
         _renderer.sortingLayerID = layerID;
     }

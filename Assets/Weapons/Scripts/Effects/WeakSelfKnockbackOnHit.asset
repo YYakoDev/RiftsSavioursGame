@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d7d208a62f31e7449b89c307eeada07, type: 3}
   m_Name: WeakSelfKnockbackOnHit
   m_EditorClassIdentifier: 
-  _amount: 3
+  _amount: 2

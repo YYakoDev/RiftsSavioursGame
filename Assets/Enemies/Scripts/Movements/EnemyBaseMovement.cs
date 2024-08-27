@@ -9,6 +9,7 @@ public class EnemyBaseMovement
     [Header("References")]
     Transform _transform;
     EnemyBrain _enemy;
+    Rigidbody2D _rb;
     SortingOrderController _sortOrderController;
     float _realSpeed;
     float _elapsedTime = 0f;
@@ -39,8 +40,9 @@ public class EnemyBaseMovement
     {
         _transform = transform;
         _enemy = enemy;
+        _rb = enemy.Rigidbody;
         _sortOrderController = new SortingOrderController(transform, _enemy.Renderer, spriteOffset);
-        _knockbackLogic = new(transform, _enemy.Rigidbody, OnKnockbackChange, _enemy.Stats.KnockbackResistance);
+        _knockbackLogic = new(transform, _rb, OnKnockbackChange, _enemy.Stats.KnockbackResistance);
         _movementStopTimer = new(0f);
         _movementStopTimer.onEnd += ResumeMovement;
         _stunStopperTimer = new(0f);
@@ -55,8 +57,9 @@ public class EnemyBaseMovement
     {
         _transform = transform;
         _enemy = enemy;
+        _rb = enemy.Rigidbody;
         _sortOrderController.ReInitialize(transform, _enemy.Renderer, spriteOffset);
-        _knockbackLogic.ReInitialize(transform, enemy.Rigidbody, OnKnockbackChange, enemy.Stats.KnockbackResistance);
+        _knockbackLogic.ReInitialize(transform, _rb, OnKnockbackChange, enemy.Stats.KnockbackResistance);
         _movementStopTimer.ChangeTime(0f);
         _movementStopTimer.Stop();
         knockbackEnabled = false;
@@ -91,15 +94,14 @@ public class EnemyBaseMovement
         if(_stopMovement || knockbackEnabled) return;
         var fixedDeltaTime = Time.fixedDeltaTime;
         var vectorZero = Vector2.zero;
-        var rigidbody = _enemy.Rigidbody;
-        rigidbody.velocity = vectorZero;
+        _rb.velocity = vectorZero;
         //Vector2 directionToMove = _avoidanceBehaviour.ResultDirection * (_enemy.Stats.Speed * Time.fixedDeltaTime);        
         _elapsedTime += fixedDeltaTime;
         float percent = _elapsedTime / _accelerationTime;
         if(percent <= 1.1f)  _realSpeed = Mathf.Lerp(0, _enemy.Stats.Speed, _accelerationCurve.Evaluate(percent));
         Vector2 directionToMove = (direction + _enemy.EnemyDetector.AvoidanceDirection).normalized * (_realSpeed * fixedDeltaTime);
         if(directionToMove == vectorZero) return;
-        rigidbody.MovePosition((Vector2)_transform.position + directionToMove);
+        _rb.MovePosition((Vector2)_transform.position + directionToMove);
 
         _flipLogic.FlipCheck(direction.x);
         

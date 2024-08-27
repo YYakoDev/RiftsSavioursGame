@@ -27,7 +27,8 @@ public class PlayerMovement : MonoBehaviour, IKnockback
     KeyInput _dashInput;
     bool _isDashing, _dashOnCooldown, _dashLogicInitialized;
     Vector2 _dashDirection, _startingDashPosition;
-    float _dashCooldown;
+    float _dashCooldown, _elapsedDashTime = 0f, _dashDuration = 0.25f;
+    AnimationCurve _dashCurve;
     Timer _dashDurationTimer, _dashCooldownTimer;
     [SerializeField] DashFXPrefab _dashFXPrefab;
     [SerializeField] LayerMask _enemyLayer, _resourceLayer;
@@ -65,6 +66,7 @@ public class PlayerMovement : MonoBehaviour, IKnockback
     public int FacingDirection => (_flipLogic.IsFlipped) ? -1 : 1;
     private float MovementSpeed => _player.Stats.Speed;
     private float SlowdownMultiplier => _player.Stats.SlowdownMultiplier;
+    public float DashDuration => _dashDuration;
 
     //Knockback Stuff
     Knockbackeable _knockbackLogic;
@@ -94,10 +96,9 @@ public class PlayerMovement : MonoBehaviour, IKnockback
         _spriteGameObject = _player.Renderer.gameObject;
         _flipLogic = new(_spriteGameObject.transform, true, false, 0.15f);
         _realSpeed = MovementSpeed;
-        _slowdown = 1f;
-        //_testCurve = new(new Keyframe(0.0f, 0.1273f, 2.9473f, 2.9473f, 0.0f, 0.1208f), new Keyframe(0.75f, 1.001f, 0.09f, 0.09f, 0.333f, 0.333f) ,new Keyframe(1.0f, 1f, 0f, 0f, 0f, 0f)); //this is an ease out curve
-        //serializedVersion":"3","time":0.0,"value":0.127349853515625,"inSlope":2.947371482849121,"outSlope":2.947371482849121,"tangentMode":0,"weightedMode":0,"inWeight":0.0,"outWeight":0.12083332985639572},{"serializedVersion":"3","time":1.0,"value":1.0,"inSlope":0.0,"outSlope":0.0,"tangentMode":0,"weightedMode":0,"inWeight":0.0,"outWeight":0.0}],
+        _slowdown = 1f;   
         if(_curve == null)_curve = TweenCurveLibrary.EaseOutCirc;
+        _dashCurve = TweenCurveLibrary.EaseOutCirc;
         yield return null;
         if(_player.CharacterData.DashData != null) InitializeDashLogic();
         _dashParticleEffect.Stop();
@@ -147,7 +148,7 @@ public class PlayerMovement : MonoBehaviour, IKnockback
     {
         if(_isDashing)
         {
-            DashMovement(_dashDirection, _player.Stats.DashSpeed);
+            DashMovement(_dashDirection);
             return;
         }
         if(KnockbackEnabled) _knockbackLogic.ApplyKnockback();
@@ -163,7 +164,7 @@ public class PlayerMovement : MonoBehaviour, IKnockback
 
     public void SetDash()
     {
-        if(_dashOnCooldown) return;
+        if(_dashOnCooldown || _isDashing) return;
         _dashCooldownTimer.Start();
         _dashOnCooldown = true;
         _isDashing = true;
@@ -174,7 +175,7 @@ public class PlayerMovement : MonoBehaviour, IKnockback
         {
             var mouseDir = (HelperMethods.MainCamera.ScreenToWorldPoint(YYInputManager.MousePosition) - transform.position).normalized;
             _dashDirection = _movement.normalized;
-            if(!_autoAim) backDash = (Vector3.Dot(_movement, mouseDir) < 0f);
+            if(!_autoAim) backDash = (Vector3.Dot(_movement, mouseDir) < 0.15f);
             else backDash = false;
 
         }else
@@ -197,26 +198,32 @@ public class PlayerMovement : MonoBehaviour, IKnockback
         var animation = (backDash) ? PlayerAnimationsNames.BackDash : PlayerAnimationsNames.ForwardDash;
         var prefab = (backDash) ? _backDashFXInstance : _dashFXInstance;
         var dashForce = prefab.DashData.ForceMultiplier;
-        _dashDirection *= dashForce;
-        _dashDurationTimer.ChangeTime(prefab.DashData.DashDuration);
+        _dashDirection *= (dashForce * _player.Stats.DashSpeed * Time.fixedDeltaTime);
+        prefab.Play(_dashDirection);
+        _dashDirection += (Vector2)transform.position;
+        _dashDuration = prefab.DashData.DashDuration;
+        _dashDurationTimer.ChangeTime(_dashDuration);
         _dashDurationTimer.Start();
         Physics2D.IgnoreLayerCollision(_playerLayer, HelperMethods.GetLayerMaskIndex(_enemyLayer), true);
         Physics2D.IgnoreLayerCollision(_playerLayer, HelperMethods.GetLayerMaskIndex(_resourceLayer), true);
         _dashParticleEffect.Play();
         onDash?.Invoke();
-        prefab.Play(_dashDirection);
-        _healthManager.SetInvulnerabilityTime(_player.Stats.DashInvulnerabilityTime + prefab.DashData.DashDuration);
+        _healthManager.SetInvulnerabilityTime(_player.Stats.DashInvulnerabilityTime + _dashDuration);
+        _flipLogic.LockFlip(_dashDuration / 2f);
         if(prefab.DashData.DoBlinkFX) _healthManager.BlinkFX.Play();
         _player.AnimController.PlayWithDuration(animation);
+        if(backDash) _elapsedAcceleration = 0f;
 
     }
     public void StopDash()
     {
         _isDashing = false;
+        _elapsedDashTime = 0f;
         _dashParticleEffect.Stop();
         Physics2D.IgnoreLayerCollision(_playerLayer, HelperMethods.GetLayerMaskIndex(_enemyLayer), false);
         Physics2D.IgnoreLayerCollision(_playerLayer, HelperMethods.GetLayerMaskIndex(_resourceLayer), false);
         _healthManager.BlinkFX.Stop();
+        
     }
 
     void UpdateDashCooldown()
@@ -258,11 +265,11 @@ public class PlayerMovement : MonoBehaviour, IKnockback
         _audio.PlayWithCooldown(_stepSound, _stepSoundCooldown, ref _nextStepSound);
         _player.AnimController.PlayStated(PlayerAnimationsNames.Run);
     }
-    void DashMovement(Vector2 moveDirection, float speed)
+    void DashMovement(Vector2 moveDirection)
     {
-
-        Vector2 direction = (Vector2)transform.position + moveDirection * (speed *Time.fixedDeltaTime);
-        _player.RigidBody.MovePosition(direction);
+        _elapsedDashTime += Time.fixedDeltaTime;
+        var percent = _elapsedDashTime / _dashDuration;
+        _player.RigidBody.MovePosition(Vector2.Lerp(_startingDashPosition, moveDirection, _dashCurve.Evaluate(percent)));
         MovementEffects();
         //_elapsedAcceleration = 0f; //only if it is a backstep??
     }

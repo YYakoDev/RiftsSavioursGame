@@ -29,12 +29,12 @@ MonoBehaviour:
   _weaponSounds:
   - {fileID: 8300000, guid: 4b44864f6a44e594eb373a71bd3618fe, type: 3}
   _pointCameraOnAttack: 0
-  _attackCooldown: 0.62
+  _attackCooldown: 0.4
   _baseStats:
-    _cooldown: 0.47
+    _cooldown: 0.35
     _pullForce: 1.1
     _atkRange: 1
-    _atkSpeed: 1
+    _atkSpeed: 1.15
     _knockbackForce: 1
     _damageDelay: 0.15
     _criticalDamageMultiplier: 2

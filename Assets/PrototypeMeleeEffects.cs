@@ -8,11 +8,13 @@ public class PrototypeMeleeEffects : MonoBehaviour
     [SerializeField] WeaponAiming _aiming;
     [SerializeField] WeaponManager _weaponManager;
     [SerializeField] PlayerAnimationController _playerAnimator;
+    [SerializeField] PlayerAttackEffects _attackEffects;
     KeyInput _attackButton, _dashButton;
-    bool _holding;
+    bool _holding, _dashing;
     Timer _atkTimer, _holdTimer;
     AnimationCurve _aimCurve;
-    float _holdDuration = 0.7f, _elapsedTime, _initialAimSpeed; //get the heavyatktime threshold for the hold duration
+    float _holdDuration = 0.7f, _elapsedTime, _initialAimSpeed, _dashTime = 0.2f; //get the heavyatktime threshold for the hold duration
+    [SerializeField] float _dashPullForce = 1f;
 
     private void Awake() {
         _atkTimer = new(0.4f);
@@ -22,6 +24,8 @@ public class PrototypeMeleeEffects : MonoBehaviour
         _holdTimer = new(0.7f + 0.05f); //this should be more than half the medium attack threshold
         _holdTimer.Stop();
         _holdTimer.onEnd += ReleaseHeavyAttack;
+
+
     }
 
     // Start is called before the first frame update
@@ -33,6 +37,7 @@ public class PrototypeMeleeEffects : MonoBehaviour
         _attackButton = YYInputManager.GetKey(KeyInputTypes.Attack);
         _attackButton.OnKeyPressed += Hold;
         _attackButton.OnKeyUp += Release;
+        _movement.onDash += SetDash;
     }
 
     // Update is called once per frame
@@ -60,11 +65,21 @@ public class PrototypeMeleeEffects : MonoBehaviour
             }
         }
 
+        if(_dashTime > 0f)
+        {
+            _dashTime -= Time.deltaTime;
+            if(_dashTime <= 0f) _dashing = false;
+        }
+
         
     }
 
     void Hold()
     {
+        if(_dashing)
+        {
+            _attackEffects.SelfPush(_dashPullForce, 0.06f);
+        }
         _holdTimer.Start();
         _holding = true;
         //you could disable the dash a few miliseconds after the attack holding, so the player can correct his course
@@ -87,6 +102,11 @@ public class PrototypeMeleeEffects : MonoBehaviour
         _holdTimer.Stop();
         //_aiming.LockFlip(0f);
         //_playerAnimator.UnlockAnimator();
+        var percent = _elapsedTime / _holdDuration;
+        if(_dashing && percent < 0.25f)
+        {
+            //_attackEffects.SelfPush(_dashPullForce, 0.06f);
+        }
         _elapsedTime = 0f;
         //_atkTimer.ChangeTime(_weaponManager.) //get the atk duration of the current weapon
         _atkTimer.Start();
@@ -98,10 +118,17 @@ public class PrototypeMeleeEffects : MonoBehaviour
         _dashButton.SetActive(true);
     }
 
+    void SetDash()
+    {
+        _dashTime = _movement.DashDuration * 0.7f;
+        _dashing = true;
+    }
+
     private void OnDestroy() {
         _attackButton.OnKeyPressed -= Hold;
         _attackButton.OnKeyUp -= Release;
         _atkTimer.onEnd -= ReturnPlayerFreedom;
         _holdTimer.onEnd -= ReleaseHeavyAttack;
+        _movement.onDash -= SetDash;
     }
 }

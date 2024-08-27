@@ -1277,6 +1277,8 @@ MonoBehaviour:
   _aiming: {fileID: 1893449638}
   _weaponManager: {fileID: 1242311250}
   _playerAnimator: {fileID: 2123491968}
+  _attackEffects: {fileID: 582213555}
+  _dashPullForce: 2
 --- !u!1 &44417209
 GameObject:
   m_ObjectHideFlags: 0
