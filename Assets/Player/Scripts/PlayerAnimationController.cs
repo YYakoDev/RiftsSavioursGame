@@ -35,7 +35,7 @@ public class PlayerAnimationController : MonoBehaviour
             {PlayerAnimationsNames.ForwardDash, GetAnimationDuration(PlayerAnimationsNames.ForwardDash)},
             {PlayerAnimationsNames.BackDash, GetAnimationDuration(PlayerAnimationsNames.BackDash)},
         };
-        Debug.Log("Forward dash duration:  " + _durations[PlayerAnimationsNames.ForwardDash] + "\n Back Dash: " + _durations[PlayerAnimationsNames.BackDash]);
+        //Debug.Log("Forward dash duration:  " + _durations[PlayerAnimationsNames.ForwardDash] + "\n Back Dash: " + _durations[PlayerAnimationsNames.BackDash]);
         _introAnim.PlayAnimation();
     }
 
@@ -43,20 +43,20 @@ public class PlayerAnimationController : MonoBehaviour
         _introAnim.UpdateLogic();
     }
 
-    public void PlayStated(int animationHash, float lockDuration = -0.05f)
+    public void PlayStated(int animationHash, float lockDuration = -0.05f, bool replay = false)
     {
         if(Time.time < _lockedTime) return;
-        if(animationHash == _currentAnimation)return;
-
+        if(animationHash == _currentAnimation && !replay)return;
         LockAnimator(lockDuration);
         _currentAnimation = animationHash;
-        _animator.Play(animationHash);
+        if(replay) _animator.Play(animationHash, -1, 0f);
+        else _animator.Play(animationHash);
     }
-    public void PlayWithDuration(int animHash)
+    public void PlayWithDuration(int animHash, bool replay = false)
     {
         float duration = 0f;
         _durations.TryGetValue(animHash, out duration);
-        PlayStated(animHash, duration - 0.05f);
+        PlayStated(animHash, duration - Time.deltaTime, replay);
     }
 
     void LockAnimator(float time) => _lockedTime = Time.time + time;

@@ -16,8 +16,8 @@ MonoBehaviour:
   _currentHealth: 100
   _speed: 3.55
   _slowdownMultiplier: 0.257
-  _dashSpeed: 140
-  _dashCooldown: 0.4
+  _dashSpeed: 125
+  _dashCooldown: 0.45
   _dashInvulnerabilityTime: 0
   _pickUpRange: 1.8
   _collectingRange: 2

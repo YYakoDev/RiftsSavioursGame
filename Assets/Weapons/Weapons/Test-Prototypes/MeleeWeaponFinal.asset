@@ -24,17 +24,16 @@ MonoBehaviour:
   - {fileID: 11400000, guid: bc668329a2d90574a91d7f07ac9991c9, type: 2}
   - {fileID: 11400000, guid: bfb68f75966a4294992ea75fe9a1dd9a, type: 2}
   - {fileID: 11400000, guid: d4e16b2053b94a344bdaec49dc2eba00, type: 2}
-  - {fileID: 11400000, guid: c9c1e59da1cfa0d438f4301a1069edcd, type: 2}
   - {fileID: 11400000, guid: 09d7f5330f8f034429287665ec6f885f, type: 2}
   _weaponSounds:
   - {fileID: 8300000, guid: 4b44864f6a44e594eb373a71bd3618fe, type: 3}
   _pointCameraOnAttack: 0
-  _attackCooldown: 0.4
+  _attackCooldown: -14.64
   _baseStats:
-    _cooldown: 0.35
+    _cooldown: 0
     _pullForce: 1.1
-    _atkRange: 1
-    _atkSpeed: 1.15
+    _atkRange: 0.85
+    _atkSpeed: 1.57
     _knockbackForce: 1
     _damageDelay: 0.15
     _criticalDamageMultiplier: 2
@@ -56,7 +55,11 @@ MonoBehaviour:
       _atkDmg: 0
       _criticalChance: 0
       _staminaConsumption: 0
-    _effects: {fileID: 0}
+    _effects:
+    - {fileID: 11400000, guid: 73356674117be624b89f398b7b526560, type: 2}
+    - {fileID: 11400000, guid: 67c6ca3a55024ea40a9dc7c21f219eda, type: 2}
+    - {fileID: 11400000, guid: 5aa96cb87718dbb42b53feddbbdae7b1, type: 2}
+    - {fileID: 11400000, guid: bc668329a2d90574a91d7f07ac9991c9, type: 2}
     _sounds:
     - {fileID: 8300000, guid: 790133ebf7614104db10e43cb4d2942a, type: 3}
   - _stats:
@@ -71,7 +74,9 @@ MonoBehaviour:
       _atkDmg: 2
       _criticalChance: 0
       _staminaConsumption: 0
-    _effects: {fileID: 0}
+    _effects:
+    - {fileID: 11400000, guid: f1b3174f673fb1a4b91613d5d1414674, type: 2}
+    - {fileID: 11400000, guid: c9c1e59da1cfa0d438f4301a1069edcd, type: 2}
     _sounds:
     - {fileID: 8300000, guid: 4b44864f6a44e594eb373a71bd3618fe, type: 3}
   - _stats:
@@ -86,7 +91,9 @@ MonoBehaviour:
       _atkDmg: 1
       _criticalChance: 0
       _staminaConsumption: 0
-    _effects: {fileID: 0}
+    _effects:
+    - {fileID: 11400000, guid: fd169d3702aceec4e91005959470890e, type: 2}
+    - {fileID: 11400000, guid: a46798bb6b4605f46a88a7cb00606fc1, type: 2}
     _sounds:
     - {fileID: 8300000, guid: bc1c86abc18a4824c8de230090611919, type: 3}
   _heavyAttackBonus:
@@ -107,7 +114,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f1b3174f673fb1a4b91613d5d1414674, type: 2}
   - {fileID: 11400000, guid: 4780209016f8aa349864b33bf7198c79, type: 2}
   - {fileID: 11400000, guid: b38795998130cfd4e9799775cf5b0360, type: 2}
-  - {fileID: 11400000, guid: bfb68f75966a4294992ea75fe9a1dd9a, type: 2}
   - {fileID: 11400000, guid: 0d45495b4c12acc4d9c2daf155b71534, type: 2}
   - {fileID: 11400000, guid: 0429586a3501b674d98e9c4fcf8476e7, type: 2}
   - {fileID: 11400000, guid: a46798bb6b4605f46a88a7cb00606fc1, type: 2}

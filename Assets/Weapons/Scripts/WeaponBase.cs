@@ -117,25 +117,25 @@ public abstract class WeaponBase: ScriptableObject
     protected void InvokeOnAttack()
     {
         onAttack?.Invoke();
-        PlayAtkFXS();
+        PlayAtkFXS(_usedEffects);
     }
     protected void InvokeOnEnemyHit(Vector3 enemyPos)
     {
         onEnemyHit?.Invoke(enemyPos);
-        PlayHitFXS(enemyPos);
+        PlayHitFXS(_usedEffects, enemyPos);
     }
 
-    protected virtual void PlayAtkFXS()
+    protected virtual void PlayAtkFXS(WeaponEffects[] effects)
     {
-        foreach(WeaponEffects fx in _usedEffects)
+        foreach(WeaponEffects fx in effects)
         {
             if(fx == null) continue;
             fx.OnAttackFX();
         }
     }
-    protected virtual void PlayHitFXS(Vector3 pos)
+    protected virtual void PlayHitFXS(WeaponEffects[] effects, Vector3 pos)
     {
-        foreach(WeaponEffects fx in _usedEffects)
+        foreach(WeaponEffects fx in effects)
         {
             if(fx == null) continue;
             fx.OnHitFX(pos);

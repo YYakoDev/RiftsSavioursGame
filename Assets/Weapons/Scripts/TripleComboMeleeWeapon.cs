@@ -236,11 +236,11 @@ public class TripleComboMeleeWeapon : MeleeWeapon
         _weaponInstanceAnimator.speed = newSpeed;
     }
 
-    protected override void PlayAtkFXS()
+    protected override void PlayAtkFXS(WeaponEffects[] effects)
     {
         foreach(WeaponEffects fx in _modifiedStats.UsedEffects)  fx?.OnAttackFX();
     }
-    protected override void PlayHitFXS(Vector3 pos)
+    protected override void PlayHitFXS(WeaponEffects[] effects, Vector3 pos)
     {
         foreach(WeaponEffects fx in _modifiedStats.UsedEffects) fx?.OnHitFX(pos);
     }

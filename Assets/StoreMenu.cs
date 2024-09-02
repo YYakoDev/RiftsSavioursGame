@@ -111,8 +111,16 @@ public class StoreMenu : MonoBehaviour
         if (_parent.activeInHierarchy) OpenMenu();
     }
 
+    private void Update() {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            CloseMenu();
+        }
+    }
+
     void StateSwitchCheck(GameStateBase state)
     {
+        if (!_animations.IsFinished) return;
         if (state.GetType() == typeof(RestState))
         {
             OpenMenu();

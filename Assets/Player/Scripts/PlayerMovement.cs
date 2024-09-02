@@ -175,7 +175,7 @@ public class PlayerMovement : MonoBehaviour, IKnockback
         {
             var mouseDir = (HelperMethods.MainCamera.ScreenToWorldPoint(YYInputManager.MousePosition) - transform.position).normalized;
             _dashDirection = _movement.normalized;
-            if(!_autoAim) backDash = (Vector3.Dot(_movement, mouseDir) < 0.15f);
+            if(!_autoAim) backDash = (Mathf.Sign(_movement.x) != Mathf.Sign(FacingDirection));
             else backDash = false;
 
         }else
@@ -211,7 +211,8 @@ public class PlayerMovement : MonoBehaviour, IKnockback
         _healthManager.SetInvulnerabilityTime(_player.Stats.DashInvulnerabilityTime + _dashDuration);
         _flipLogic.LockFlip(_dashDuration / 2f);
         if(prefab.DashData.DoBlinkFX) _healthManager.BlinkFX.Play();
-        _player.AnimController.PlayWithDuration(animation);
+        _player.AnimController.UnlockAnimator();
+        _player.AnimController.PlayWithDuration(animation, true);
         if(backDash) _elapsedAcceleration = 0f;
 
     }

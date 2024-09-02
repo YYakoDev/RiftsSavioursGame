@@ -17,6 +17,20 @@
             _criticalChance = criticalChance;
             _staminaConsumption = staminaConsumption;
         }
+        public MeleeWeaponStat()
+        {
+            _cooldown = 0f;
+            _pullForce = 0f;
+            _pullDuration = 0f;
+            _atkRange = 0f;
+            _atkSpeed = 0f;
+            _knockbackForce = 0f;
+            _damageDelay = 0f;
+            _atkDmg = 0;
+            _criticalDamageMultiplier = 0f;
+            _criticalChance = 0;
+            _staminaConsumption = 0;
+        }
         public MeleeWeaponStat(MeleeWeaponStat statsToInherit)
         {
             this.GetStats(statsToInherit);

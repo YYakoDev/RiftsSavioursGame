@@ -7,6 +7,7 @@ public class WeaponAiming : MonoBehaviour
     [SerializeField] Camera _mainCamera;
     [SerializeField] Transform _crosshair;
     [SerializeField] PlayerMovement _playerMovement;
+    [SerializeField] SOPlayerAttackStats _attackStats;
     KeyInput _switchAimKey;
     private Vector3 _mousePosition;
     Vector2 _targetDirection;
@@ -60,6 +61,7 @@ public class WeaponAiming : MonoBehaviour
         _switchAimKey.OnKeyPressed += SwitchAim;
         _crosshair.gameObject.SetActive(false);
         if(_currentWeapon != null) _currentWeapon.onAttack += StopAiming;
+        _attackStats.onStatsChange += IncreaseDetectionRadius;
     }
 
     // Update is called once per frame
@@ -112,7 +114,7 @@ public class WeaponAiming : MonoBehaviour
     }
 
     private void SetCameraTargetPoint(Vector3 v) => _targetPoint = v;
-    
+    private void IncreaseDetectionRadius() => _detectionRadius = 4f + _attackStats.AttackRange;
 
     void DetectEnemy()
     {
@@ -192,5 +194,6 @@ public class WeaponAiming : MonoBehaviour
         if(_switchAimKey != null) _switchAimKey.OnKeyPressed -= SwitchAim;
         _enemyDetectionTimer.onEnd -= DetectEnemy;
         _currentWeapon.onAttack -= StopAiming;
+        _attackStats.onStatsChange -= IncreaseDetectionRadius;
     }
 }

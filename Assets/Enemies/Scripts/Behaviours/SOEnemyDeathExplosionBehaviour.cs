@@ -8,6 +8,6 @@ public class SOEnemyDeathExplosionBehaviour : SOEnemyBehaviour
     public override void Action()
     {
         //do the physics check here, similar to the anvil (spawn a explosion prefab too!)
-        Debug.Log("Death on explosion");
+        //Debug.Log("Death on explosion");
     }
 }

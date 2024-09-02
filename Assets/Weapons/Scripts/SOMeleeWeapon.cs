@@ -30,7 +30,7 @@ public class SOMeleeWeapon : WeaponBase
 
     [Header("Stats")]
     [SerializeField]MeleeWeaponStat _baseStats;
-    MeleeWeaponStat _modifiedStats;
+    MeleeWeaponStat _modifiedStats, _upgradeStats;
     [SerializeField] protected Vector2 _rangeOffset;
     [SerializeField]ComboAttack[] _comboAttacks = new ComboAttack[3];
     bool _holding, _attackIsHeavy = false;
@@ -38,7 +38,7 @@ public class SOMeleeWeapon : WeaponBase
     Timer _releaseAtkTimer, _holdTriggerTimer;
     int _currentComboIndex = -1;
     const int ComboMaxCount = 3;
-    WeaponEffects[] _attackEffects, _heavyAtkEffectsInstance;
+    WeaponEffects[] _heavyAtkEffectsInstance;
     const float MediumAtkThreshold = 0.4f, HeavyAtkThreshold = 0.75f; // with this you could have special effects play when this thresholds are met, also when you attack and hit
 
     [Header("Heavy Attack")]
@@ -57,6 +57,7 @@ public class SOMeleeWeapon : WeaponBase
     {
         _weaponAnimator = prefabTransform.GetComponent<Animator>();
         _audioSource = prefabTransform.GetComponent<AudioSource>();
+        _upgradeStats = new();
         _modifiedStats = new(_baseStats);
         _parentTransform = prefabTransform.parent;
         _enemyLayer = weaponManager.EnemyLayer;
@@ -101,6 +102,16 @@ public class SOMeleeWeapon : WeaponBase
     protected override void InitializeFXS()
     {
         base.InitializeFXS();
+        _heavyAtkEffectsInstance = new WeaponEffects[_heavyAtkEffects.Length];
+        for (int i = 0; i < _heavyAtkEffectsInstance.Length; i++)
+        {
+            _heavyAtkEffectsInstance[i] = Instantiate(_heavyAtkEffects[i]);
+            _heavyAtkEffectsInstance[i].Initialize(this);
+        }
+        for (int i = 0; i < _comboAttacks.Length; i++)
+        {
+            _comboAttacks[i].InitializeEffects(this);
+        }
     }
 
     public override void SetWeaponActive(bool active)
@@ -150,7 +161,7 @@ public class SOMeleeWeapon : WeaponBase
                 _effectsAudio.Stop();
                 _effectsAudio.PlayOneShot(_heavyAtkCueSFX);
                 _holding = false;
-
+                
 
                 //TryAttack();
             }
@@ -160,7 +171,7 @@ public class SOMeleeWeapon : WeaponBase
     {
         if(_deactivated) return;
         if(_holding) return;
-        if(_nextAttackTime - (HeavyAtkThreshold + 0.05f) >= Time.time) return;
+        if(_nextAttackTime + 0.05f - (HeavyAtkThreshold) >= Time.time) return;
         _holdTriggerTimer.Start();
         _effectsAudio.PlayWithVaryingPitch(_heavyAtkChargeUpSfx);
         _holding = true;
@@ -170,18 +181,21 @@ public class SOMeleeWeapon : WeaponBase
     {
         if(!_holding) return;
         _releaseAtkTimer.Start();
-        Debug.Log("Holding");
+        if(_currentComboIndex < ComboMaxCount-1) _weaponAnimator.speed = 0f;
+        //Debug.Log("Holding");
     }
 
     void StopHolding()
     {
         _releaseAtkTimer.End();
-        if(_holding) _holding = false;
+        _holding = false;
     }
 
     void ResetCombo()
     {
-        _nextAttackTime = Time.time + _attackCooldown * ((float)(_currentComboIndex + 1) / 3f);
+        _weaponAnimator.speed = _modifiedStats._atkSpeed;
+        _weaponAnimator.SetTrigger("Exit");
+        _nextAttackTime = Time.time + _modifiedStats._cooldown * ((float)(_currentComboIndex + 1) / 3f);
         _currentComboIndex = -1;
     }
 
@@ -202,8 +216,8 @@ public class SOMeleeWeapon : WeaponBase
             2 => AtkAnim3,
             _ => AtkAnim
         };
-        Debug.Log("First Attack Duration:   " + _animDurations[0]);
-        var currentAnimDuration = _animDurations[_currentComboIndex];
+        //Debug.Log("First Attack Duration:   " + _animDurations[0]);
+        var currentAnimDuration = _animDurations[_currentComboIndex] / _modifiedStats._atkSpeed;
         var currentComboStats = _comboAttacks[_currentComboIndex].Stats;
         //_comboWaitTime = _animDurations[_currentComboIndex];
 
@@ -211,6 +225,7 @@ public class SOMeleeWeapon : WeaponBase
         //see if the holdtime has reached any thresholds and execute the attacks based on that
         _modifiedStats.GetStats(_baseStats);
         _modifiedStats.Add(currentComboStats);
+        _modifiedStats.Add(_upgradeStats);
         _attackIsHeavy = false;
         if(_holdTime >= MediumAtkThreshold && _holdTime < HeavyAtkThreshold)
         {
@@ -220,20 +235,24 @@ public class SOMeleeWeapon : WeaponBase
             _attackIsHeavy = true;
             _modifiedStats.Add(_heavyAttackBonus);
         }
-        _resetComboTime = currentAnimDuration + 0.3f; //this 0.3f could be replaced with a variable called _comboWaitTime
-        if(_currentComboIndex < ComboMaxCount-1) _modifiedStats._cooldown = currentAnimDuration;
-        if(_currentAnim == ComboMaxCount-1) _modifiedStats._cooldown = _resetComboTime + _attackCooldown;
+        _resetComboTime = currentAnimDuration + 0.2f; //this 0.3f could be replaced with a variable called _comboWaitTime
+        var cooldown = currentAnimDuration;
+        if(_currentComboIndex == ComboMaxCount-1) cooldown = _resetComboTime + _modifiedStats._cooldown;
         _weaponAnimator.speed = _modifiedStats._atkSpeed;
         _holdTime = 0f;
-        Attack(_modifiedStats._cooldown);
+        Attack(cooldown);
 
     }
 
     protected override void Attack(float cooldown)
     {
+        PlayAtkFXS(_comboAttacks[_currentComboIndex].Effects);
+        if(_attackIsHeavy) PlayAtkFXS(_heavyAtkEffectsInstance);
         _nextAttackTime = Time.time + cooldown;
         InvokeOnAttack();
         SetAttackPoint();
+        SetRadiusOffset(_modifiedStats._atkRange);
+        SetMaxEnemiesToHit(_modifiedStats._atkRange);
         if(!DetectEnemies(_modifiedStats._atkRange)) return;
         _atkExecutionTimer.Start();
     }
@@ -285,12 +304,14 @@ public class SOMeleeWeapon : WeaponBase
     protected void ApplyDamage(Transform enemy, IDamageable entity, int damage)
     {
         int critRoll = Random.Range(0, 101);
-        bool critHit = (_baseStats._criticalChance > critRoll);
-        int realDamage = (critHit) ? (int)(damage * _baseStats._criticalDamageMultiplier) : damage;
+        bool critHit = (_modifiedStats._criticalChance > critRoll);
+        int realDamage = (critHit) ? (int)(damage * _modifiedStats._criticalDamageMultiplier) : damage;
         entity.TakeDamage(realDamage);
         InvokeOnEnemyHit(enemy.position);
         DamagePopupTypes popupType = (critHit) ? DamagePopupTypes.CriticalRed : (_attackIsHeavy) ? DamagePopupTypes.CriticalYellow : DamagePopupTypes.Normal;
         PopupsManager.CreateDamagePopup(enemy.position + Vector3.up * 0.85f, realDamage, popupType);
+        PlayHitFXS(_comboAttacks[_currentComboIndex].Effects, enemy.position);
+        if(_attackIsHeavy) PlayHitFXS(_heavyAtkEffectsInstance, enemy.position);
     }
 
     protected void SetRadiusOffset(float atkRange)
@@ -306,26 +327,34 @@ public class SOMeleeWeapon : WeaponBase
     {
         //codear esto para que se modifiquen las stats del arma pero sin escalar hasta el infinito sin querer
         //Mirar el oldweapon system!
-        _modifiedStats._atkDmg = (int)((_baseStats._atkDmg + (attackStats.BaseDamageAddition - 1)) * attackStats.DamageMultiplier);
-        _modifiedStats._atkRange = _baseStats._atkRange + (attackStats.AttackRange - 1f);
-        _modifiedStats._cooldown = _attackCooldown - (attackStats.AttackCooldown - 1f);
-        _modifiedStats._knockbackForce = _baseStats._knockbackForce +( attackStats.AttackKnockback - 1f);
-        _modifiedStats._atkSpeed = _baseStats._atkSpeed + (attackStats.AttackSpeed - 1f);
-        SetRadiusOffset(_modifiedStats._atkRange);
-        SetMaxEnemiesToHit(_modifiedStats._atkRange);
-        _modifiedStats._damageDelay = _baseStats._damageDelay / _modifiedStats._atkSpeed;
-        _modifiedStats._cooldown = Mathf.Clamp(_modifiedStats._cooldown, 0.1855f, 100f);
+        _upgradeStats._atkDmg = Mathf.RoundToInt((_baseStats._atkDmg + attackStats.BaseDamageAddition - 1) * attackStats.DamageMultiplier) - _baseStats._atkDmg;
+        _upgradeStats._atkRange = Mathf.RoundToInt(attackStats.AttackRange - 1f);
+        _upgradeStats._cooldown = -(attackStats.AttackCooldown - 1f);
+        _upgradeStats._knockbackForce = ( attackStats.AttackKnockback - 1f);
+        _upgradeStats._atkSpeed = (attackStats.AttackSpeed - 1f);
+        //_upgradeStats._cooldown = Mathf.Clamp(_modifiedStats._cooldown, 0.1855f, 100f); i think you should clamp the range and cooldown
     }
 
     [Serializable]
     protected class ComboAttack
     {
         [SerializeField] MeleeWeaponStat _stats;
-        [SerializeField] WeaponEffects _effects;
+        [SerializeField] WeaponEffects[] _effects;
+        WeaponEffects[] _initializedFxs;
         [SerializeField] AudioClip[] _sounds = new AudioClip[1];
         public MeleeWeaponStat Stats => _stats;
-        public WeaponEffects Effects => _effects;
+        public WeaponEffects[] Effects => _initializedFxs;
         public AudioClip AtkSound => _sounds[Random.Range(0, _sounds.Length)];
+
+        public void InitializeEffects(WeaponBase weapon)
+        {
+            Array.Resize<WeaponEffects>(ref _initializedFxs, _effects.Length);
+            for (int i = 0; i < _effects.Length; i++)
+            {
+                _initializedFxs[i] = Instantiate(_effects[i]);
+                _initializedFxs[i].Initialize(weapon);
+            }
+        }
     }
 
     private void OnValidate() {

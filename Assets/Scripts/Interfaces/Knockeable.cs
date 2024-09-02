@@ -105,7 +105,7 @@ public class Knockbackeable
         if(secondDirection == currentPos) direction = _firstDir.normalized;
         else
         {
-            Debug.Log("Applying second knockback");
+            //Debug.Log("Applying second knockback");
             direction = _firstDir.normalized + secondDirection.normalized;
         }
 
