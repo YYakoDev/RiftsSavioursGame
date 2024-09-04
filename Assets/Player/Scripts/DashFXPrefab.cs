@@ -48,7 +48,7 @@ public class DashFXPrefab : MonoBehaviour
 
         YYExtensions.i.PlayAnimationWithEvent(_animator, "Animation", Stop);
         _dashData.PlayFX();
-        _audio.PlayOneShot(_dashData.DashSfx);
+        _audio.PlayWithVaryingPitch(_dashData.DashSfx);
     }
 
     void Stop()

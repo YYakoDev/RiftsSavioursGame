@@ -194,7 +194,7 @@ public class SOMeleeWeapon : WeaponBase
     void ResetCombo()
     {
         _weaponAnimator.speed = _modifiedStats._atkSpeed;
-        _weaponAnimator.SetTrigger("Exit");
+        //_weaponAnimator.SetTrigger("Exit");//
         _nextAttackTime = Time.time + _modifiedStats._cooldown * ((float)(_currentComboIndex + 1) / 3f);
         _currentComboIndex = -1;
     }

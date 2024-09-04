@@ -33,7 +33,7 @@ MonoBehaviour:
     _cooldown: 0
     _pullForce: 1.1
     _atkRange: 0.85
-    _atkSpeed: 1.57
+    _atkSpeed: 1.25
     _knockbackForce: 1
     _damageDelay: 0.15
     _criticalDamageMultiplier: 2
