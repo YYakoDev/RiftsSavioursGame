@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.InputSystem;
 public class InteractableSeeker : MonoBehaviour
 {
     GameObject _interactableObject;
     IInteractable _interactableInterface;
-    KeyInput _interactKey;
+    [SerializeField]InputActionReference _interactKey;
     [SerializeField]InteractableHotkey _hotkeyPrefab;
     InteractableHotkey _hotkeyPrefabInstance;
     [SerializeField] AudioSource _audio;
@@ -17,12 +18,11 @@ public class InteractableSeeker : MonoBehaviour
         _hotkeyPrefabInstance = Instantiate(_hotkeyPrefab);
         
         _hotkeyPrefabInstance.Self.SetActive(false);
-        _interactKey = YYInputManager.GetKey(KeyInputTypes.Interact);
-        _interactKey.OnKeyPressed += Interact;
-        _hotkeyPrefabInstance.Text.text = _interactKey.PrimaryKey.ToString();
+      
+        _interactKey.action.performed += Interact;
         
     }
-    void Interact()
+    void Interact(InputAction.CallbackContext obj)
     {
         if(_interactableInterface == null) return;
         if(_interactableInterface.AlreadyInteracted) return;
@@ -61,6 +61,6 @@ public class InteractableSeeker : MonoBehaviour
     }
 
     private void OnDestroy() {
-        if(_interactKey != null) _interactKey.OnKeyPressed -= Interact;
+        _interactKey.action.performed -= Interact;
     }
 }

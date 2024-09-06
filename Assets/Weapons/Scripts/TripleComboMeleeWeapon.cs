@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [CreateAssetMenu(menuName = MenuPath + "TripleComboMeleeWeapon")]
 public class TripleComboMeleeWeapon : MeleeWeapon
@@ -80,12 +81,12 @@ public class TripleComboMeleeWeapon : MeleeWeapon
             
         }
     }
-    protected override void SubscribeInput() => _attackKey.OnKeyHold += TryAttack;
+    protected override void SubscribeInput() => _attackKey.action.started += TryAttack;
     
-    public override void UnsubscribeInput() => _attackKey.OnKeyHold -= TryAttack;
+    public override void UnsubscribeInput() => _attackKey.action.started -= TryAttack;
     
 
-    protected override void TryAttack()
+    protected override void TryAttack(InputAction.CallbackContext obj)
     {
         if(_deactivated) return;
         if(Time.time < _nextAttackTime) return;

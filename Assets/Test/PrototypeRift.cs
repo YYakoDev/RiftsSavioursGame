@@ -1,17 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PrototypeRift : MonoBehaviour
 {
     [SerializeField] EnemyWaveSpawner _waveSpawner;
     bool _playerInRange, _alreadyInteracted = false;
-    KeyInput _interactKey;
+    [SerializeField]InputActionReference _interactKey;
     Timer _timer;
 
     private void Awake() {
-        _interactKey = YYInputManager.GetKey(KeyInputTypes.Interact);
-        _interactKey.OnKeyPressed += InitiateChallenge;
+        _interactKey.action.performed += InitiateChallenge;
         _timer = new(20f);
         _timer.Stop();
         _timer.onEnd += EndChallenge;
@@ -21,7 +21,7 @@ public class PrototypeRift : MonoBehaviour
         _timer.UpdateTime();
     }
 
-    void InitiateChallenge()
+    void InitiateChallenge(InputAction.CallbackContext obj)
     {
         if(!_playerInRange) return;
         if(_alreadyInteracted) return;
@@ -39,7 +39,7 @@ public class PrototypeRift : MonoBehaviour
     }
 
     private void OnDestroy() {
-        _interactKey.OnKeyPressed -= InitiateChallenge;
+        _interactKey.action.performed -= InitiateChallenge;
         _timer.onEnd -= EndChallenge;
     }
 

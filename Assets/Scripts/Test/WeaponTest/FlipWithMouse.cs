@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FlipWithMouse : MonoBehaviour
 {
-    Camera _mainCamera;
+    /*Camera _mainCamera;
     Vector2 _mousePosition;
     bool _isFlipped;
     public Vector2 Position => _mousePosition;
@@ -56,5 +56,5 @@ public class FlipWithMouse : MonoBehaviour
         Gizmos.DrawWireSphere(_mousePosition, 1f);
         Gizmos.color = Color.black;
         Gizmos.DrawWireSphere(transform.position + (Vector3.up + (Vector3.right * offset)), 1f);
-    }
+    }*/
 }

@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class SoulsWeapon : MonoBehaviour
 {
-    //[SerializeField] Animator _playerAnimator;
+    
+    /*//[SerializeField] Animator _playerAnimator;
     [SerializeField] Animator _weaponAnimator;
     [SerializeField] TestWeaponSlash _weaponSlash;
     //Animator _parentAnimator;
@@ -79,5 +80,5 @@ public class SoulsWeapon : MonoBehaviour
 
     private void OnDestroy() {
         YYInputManager.GetKey(KeyInputTypes.Attack).OnKeyHold -= TryAttack;
-    }
+    }*/
 }

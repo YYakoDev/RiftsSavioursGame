@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -14,7 +15,7 @@ public class LevelStarter : MonoBehaviour
     [SerializeField] Vector3 _chunksStartPos, _chunksEndPos;
     AnimationCurve _movementCurve;
     bool _playerInRange = false, _moveChunks = false;
-    KeyInput _interactKey;
+    [SerializeField]InputActionReference _interactKey;
     float _elapsedTime, _movementDuration;
     [SerializeField] float _shakeStrength;
     [SerializeField] AudioClip _buttonSfx, _gearsSfx, _movingSfx;
@@ -27,8 +28,7 @@ public class LevelStarter : MonoBehaviour
         _movementCurve = TweenCurveLibrary.GetCurve(CurveTypes.EaseInOut);
         _movementDuration = _movingSfx.length;
         _chunks.position = _chunksStartPos;
-        _interactKey = YYInputManager.GetKey(KeyInputTypes.Attack);
-        _interactKey.OnKeyPressed += Interact;
+        _interactKey.action.performed += Interact;
     }
 
     private void Update() {
@@ -52,7 +52,7 @@ public class LevelStarter : MonoBehaviour
         }
     }
 
-    void Interact()
+    void Interact(InputAction.CallbackContext obj)
     {
         if(!_playerInRange || _moveChunks) return;
         StartCoroutine(DoEffects());
@@ -93,6 +93,6 @@ public class LevelStarter : MonoBehaviour
     }
 
     private void OnDestroy() {
-        _interactKey.OnKeyPressed -= Interact;
+        _interactKey.action.performed -= Interact;
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class WeaponAiming : MonoBehaviour
 {
@@ -8,7 +9,7 @@ public class WeaponAiming : MonoBehaviour
     [SerializeField] Transform _crosshair;
     [SerializeField] PlayerMovement _playerMovement;
     [SerializeField] SOPlayerAttackStats _attackStats;
-    KeyInput _switchAimKey;
+    [SerializeField]InputActionReference _switchAimKey, _pointerPosition;
     private Vector3 _mousePosition;
     Vector2 _targetDirection;
     WeaponBase _currentWeapon;
@@ -57,8 +58,7 @@ public class WeaponAiming : MonoBehaviour
     void Start()
     {
         if (_mainCamera == null) _mainCamera = Camera.main;
-        _switchAimKey = YYInputManager.GetKey(KeyInputTypes.SwitchAim);
-        _switchAimKey.OnKeyPressed += SwitchAim;
+        _switchAimKey.action.performed += SwitchAim;
         _crosshair.gameObject.SetActive(false);
         if(_currentWeapon != null) _currentWeapon.onAttack += StopAiming;
         _attackStats.onStatsChange += IncreaseDetectionRadius;
@@ -76,7 +76,7 @@ public class WeaponAiming : MonoBehaviour
         if (_autoAiming) _enemyDetectionTimer.UpdateTime();
     }
 
-    void SwitchAim()
+    void SwitchAim(InputAction.CallbackContext obj)
     {
         _autoAiming = !_autoAiming;
         if (_autoAiming)
@@ -102,7 +102,7 @@ public class WeaponAiming : MonoBehaviour
         }
         else
         {
-            _mousePosition = _mainCamera.ScreenToWorldPoint(YYInputManager.MousePosition); 
+            _mousePosition = _mainCamera.ScreenToWorldPoint( _pointerPosition.action.ReadValue<Vector2>());
             _targetDirection = _mousePosition - transform.position;
             SetCameraTargetPoint(_mousePosition);
 
@@ -191,7 +191,7 @@ public class WeaponAiming : MonoBehaviour
     }
 
     private void OnDestroy() {
-        if(_switchAimKey != null) _switchAimKey.OnKeyPressed -= SwitchAim;
+        _switchAimKey.action.performed -= SwitchAim;
         _enemyDetectionTimer.onEnd -= DetectEnemy;
         _currentWeapon.onAttack -= StopAiming;
         _attackStats.onStatsChange -= IncreaseDetectionRadius;

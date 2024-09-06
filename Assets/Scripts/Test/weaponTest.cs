@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class weaponTest : MonoBehaviour
 {
-    //[SerializeField] Animator _playerAnimator;
+   /* //[SerializeField] Animator _playerAnimator;
     [SerializeField]PlayerMovementDirectional _playerMovement;
     [SerializeField]Vector2 _offset;
     [SerializeField] Animator _weaponAnimator;
@@ -90,5 +90,5 @@ public class weaponTest : MonoBehaviour
     private void OnDestroy() {
         _playerMovement.OnMovement -= SetWeaponPos;
         YYInputManager.GetKey(KeyInputTypes.Attack).OnKeyHold -= TryAttack;
-    }
+    }*/
 }

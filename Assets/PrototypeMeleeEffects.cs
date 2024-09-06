@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PrototypeMeleeEffects : MonoBehaviour
 {
@@ -9,13 +10,13 @@ public class PrototypeMeleeEffects : MonoBehaviour
     [SerializeField] WeaponManager _weaponManager;
     [SerializeField] PlayerAnimationController _playerAnimator;
     [SerializeField] PlayerAttackEffects _attackEffects;
-    KeyInput _attackButton, _dashButton;
+    [SerializeField]InputActionReference _attackButton, _dashButton;
     bool _holding, _dashing;
     Timer _atkTimer, _holdTimer;
     AnimationCurve _aimCurve;
     float _holdDuration = 0.7f, _elapsedTime, _initialAimSpeed, _dashTime = 0.2f; //get the heavyatktime threshold for the hold duration
     [SerializeField] float _dashPullForce = 1f;
-
+    InputAction.CallbackContext _callbackContextEmpty = new();
     private void Awake() {
         _atkTimer = new(0.4f);
         _atkTimer.Stop();
@@ -33,10 +34,8 @@ public class PrototypeMeleeEffects : MonoBehaviour
     {
         _aimCurve = TweenCurveLibrary.EaseInCirc;
         _initialAimSpeed = _aiming.AimSmoothing;
-        _dashButton = YYInputManager.GetKey(KeyInputTypes.Dash);
-        _attackButton = YYInputManager.GetKey(KeyInputTypes.Attack);
-        _attackButton.OnKeyPressed += Hold;
-        _attackButton.OnKeyUp += Release;
+        _attackButton.action.performed += Hold;
+        _attackButton.action.canceled += Release;
         _movement.onDash += SetDash;
     }
 
@@ -74,7 +73,7 @@ public class PrototypeMeleeEffects : MonoBehaviour
         
     }
 
-    void Hold()
+    void Hold(InputAction.CallbackContext obj)
     {
         if(_dashing)
         {
@@ -88,14 +87,14 @@ public class PrototypeMeleeEffects : MonoBehaviour
 
     void ReleaseHeavyAttack()
     {
-        Release();
+        Release(_callbackContextEmpty);
         //do more stuff?
 
         //_playerAnimator.PlayStated(PlayerAnimationsNames.ChargingAttack);
         //_playerAnimator.LockAnimator();
     }
 
-    void Release() //the release is now caused not only when button is up but when the time for heavy atk has been reached and not a second longer
+    void Release(InputAction.CallbackContext obj) //the release is now caused not only when button is up but when the time for heavy atk has been reached and not a second longer
     {
         if(!_holding) return;
         _holding = false;
@@ -110,12 +109,12 @@ public class PrototypeMeleeEffects : MonoBehaviour
         _elapsedTime = 0f;
         //_atkTimer.ChangeTime(_weaponManager.) //get the atk duration of the current weapon
         _atkTimer.Start();
-        _dashButton.SetActive(false);
+        _dashButton.action.Disable();
     }
 
     void ReturnPlayerFreedom()
     {
-        _dashButton.SetActive(true);
+        _dashButton.action.Enable();
     }
 
     void SetDash()
@@ -125,8 +124,8 @@ public class PrototypeMeleeEffects : MonoBehaviour
     }
 
     private void OnDestroy() {
-        _attackButton.OnKeyPressed -= Hold;
-        _attackButton.OnKeyUp -= Release;
+        _attackButton.action.performed -= Hold;
+        _attackButton.action.canceled -= Release;
         _atkTimer.onEnd -= ReturnPlayerFreedom;
         _holdTimer.onEnd -= ReleaseHeavyAttack;
         _movement.onDash -= SetDash;

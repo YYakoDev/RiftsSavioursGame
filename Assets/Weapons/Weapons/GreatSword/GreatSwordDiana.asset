@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93fe133b00f61ba4cb106b67db658a5b, type: 3}
   m_Name: GreatSwordDiana
   m_EditorClassIdentifier: 
+  _attackKey: {fileID: -2831406729901597417, guid: 4d54cc78634f7354fbb24fa0c72ecc2e, type: 3}
   _name: Diana
   _description: 
   _SpriteAndAnimationsData: {fileID: 11400000, guid: c4a6ab0ca1fb6634ab614941446af409, type: 2}
@@ -25,9 +26,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d4e16b2053b94a344bdaec49dc2eba00, type: 2}
   - {fileID: 11400000, guid: 0f1731e4c0912a34eabf484ba539aa9c, type: 2}
   - {fileID: 11400000, guid: 5aa96cb87718dbb42b53feddbbdae7b1, type: 2}
-  _flipSprite: 1
-  _spawnPosition: {x: -1, y: 0.25, z: 0}
-  _spawnRotation: 45
   _weaponSounds:
   - {fileID: 8300000, guid: 9a2ca58f29ba35f448ab633a27613e31, type: 3}
   - {fileID: 8300000, guid: 307ccd91c05d4ea4abb03bf8099fa3c3, type: 3}

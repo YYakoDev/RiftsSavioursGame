@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PlayerMovementDirectional : MonoBehaviour
 {
-    [SerializeField]Rigidbody2D _rigidbody;
+    /*[SerializeField]Rigidbody2D _rigidbody;
     [SerializeField]Animator _animator;
     Vector2 _movement;
     [SerializeField]float _speed;
@@ -75,5 +75,5 @@ public class PlayerMovementDirectional : MonoBehaviour
 
     private void OnDestroy() {
         YYInputManager.OnMovement -= TryMovement;
-    }
+   }*/
 }

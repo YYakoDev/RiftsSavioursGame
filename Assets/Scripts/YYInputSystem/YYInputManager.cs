@@ -2,12 +2,27 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.InputSystem;
 public class YYInputManager : MonoBehaviour
 {
-    static YYInputManager i;
+    public static YYInputManager i;
     static bool _stopInput = false;
-    [SerializeField]KeyInput[] _keys = new KeyInput[0];
+    [SerializeField] InputActionReference _pointerPosition;
+    public Vector3 GetMousePosition()
+    {
+        return HelperMethods.MainCamera.ScreenToWorldPoint(_pointerPosition.action.ReadValue<Vector2>());
+    }
+    private void Awake() {
+        if(i != null && i != this) Destroy(this);
+        else i = this;
+        //DontDestroyOnLoad(i);//
+        //KeyInputs = _keys; // if you have a save system this is where you would change the keycodes to the saved ones (modified by the player)
+    }
+
+    private void Start() {
+        ResumeInput();
+    }
+    /*[SerializeField]KeyInput[] _keys = new KeyInput[0];
     const string HorizontalAxis = "Horizontal";
     const string VerticalAxis = "Vertical";
     Vector2 _movementAxis;
@@ -19,20 +34,11 @@ public class YYInputManager : MonoBehaviour
     //public static Vector2 MovementInput => _movementAxis;
     public static Vector3 MousePosition => _mousePosition;
 
-    private void Awake() {
-        if(i != null && i != this) Destroy(this);
-        else i = this;
-        //DontDestroyOnLoad(i);//
-        KeyInputs = _keys; // if you have a save system this is where you would change the keycodes to the saved ones (modified by the player)
-    }
-
-    private void Start() {
-        ResumeInput();
-    }
 
     private void Update() {
         if(_stopInput) return;
-
+        if(true) return;
+        
         foreach (var key in _keys)
         {
             if(!key.Enabled) continue;
@@ -66,10 +72,11 @@ public class YYInputManager : MonoBehaviour
         return key;
     }
 
+    */
     public static void ResumeInput() => _stopInput = false;
     public static void StopInput()
     {
         _stopInput = true;
-        OnMovement?.Invoke(Vector2.zero);
+        //OnMovement?.Invoke(Vector2.zero);
     }
 }

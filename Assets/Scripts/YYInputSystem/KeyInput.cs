@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [Serializable]
 public class KeyInput
@@ -7,22 +8,19 @@ public class KeyInput
     //string _name = "KeyInput";
     bool _enabled = true;
     [SerializeField]KeyInputTypes _type;
-    [SerializeField]KeyCode _keyCode, _secondaryKeyCode;
-    [SerializeField]JoystickKeyCodes _controllerKey;
+    [SerializeField]InputActionReference _key;
+//    [SerializeField]JoystickKeyCodes _controllerKey;
     public event Action OnKeyPressed;
     public event Action OnKeyHold;
     public event Action OnKeyUp;
 
     public bool Enabled => _enabled;
-    public KeyCode PrimaryKey => _keyCode;
-    public KeyCode SecondaryKey => _secondaryKeyCode;
-    public KeyCode ControllerKey => (KeyCode)_controllerKey;
     public KeyInputTypes Type => _type;
 
     public void KeyPressed() => OnKeyPressed?.Invoke();
     public void KeyHolded() => OnKeyHold?.Invoke();
     public void KeyUp() => OnKeyUp?.Invoke();
-    public string GetInputKeyName()
+    /*public string GetInputKeyName()
     {
         string result = "";
         switch(_keyCode) //this is the primary key if you are using a keyboard!!  if you are using a controller you can use this primary key!
@@ -47,7 +45,7 @@ public class KeyInput
                 break;
         }
         return result;
-    }
+    }*/
 
     public void SetActive(bool enabled)
     {

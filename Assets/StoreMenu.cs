@@ -112,10 +112,10 @@ public class StoreMenu : MonoBehaviour
     }
 
     private void Update() {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        /*if(Input.GetKeyDown(KeyCode.Escape))
         {
             CloseMenu();
-        }
+        }*/
     }
 
     void StateSwitchCheck(GameStateBase state)

@@ -35,10 +35,10 @@ public class PauseMenuManager : MonoBehaviour
     void Update()
     {
         if(_disablePauseBehaviour)return;
-        if(Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P))
+        /*if(Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P))
         {
             SwitchPauseMenu(!_activeMenu);
-        }
+        }*/
     }
 
     public void Continue()

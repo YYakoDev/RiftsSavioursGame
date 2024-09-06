@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RotateWithMouse : MonoBehaviour
 {
-    [SerializeField] FlipWithMouse _mouseScript;
+    /*[SerializeField] FlipWithMouse _mouseScript;
     [SerializeField] SpriteRenderer _renderer;
     // Start is called before the first frame update
     void Start()
@@ -23,5 +23,5 @@ public class RotateWithMouse : MonoBehaviour
         Vector3 eulerRotation = transform.rotation.eulerAngles;
         eulerRotation.z = angle;
         transform.rotation = Quaternion.Euler(eulerRotation);
-    }
+    }*/
 }

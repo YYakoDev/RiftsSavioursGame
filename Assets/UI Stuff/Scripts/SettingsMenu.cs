@@ -2,10 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class SettingsMenu : MonoBehaviour
 {
-    KeyInput _hotkey;
+    [SerializeField]InputActionReference _hotkey;
     [SerializeField]Canvas _canvas;
     [SerializeField] UISkillsManager _uiSkillsManager;
     [SerializeField] Sprite _settingsIcon;
@@ -18,18 +19,17 @@ public class SettingsMenu : MonoBehaviour
         var itemTransform = _inputItem.transform;
         itemTransform.SetParent(_uiSkillsManager.transform, false);
         itemTransform.localPosition = _iconPosition;
-        _hotkey = YYInputManager.GetKey(KeyInputTypes.Settings);
-        _hotkey.OnKeyPressed += PlaySettingsButtonAnimation;
+        _hotkey.action.performed += PlaySettingsButtonAnimation;
         //itemTransform.localScale = Vector3.one;
     }
 
-    void PlaySettingsButtonAnimation()
+    void PlaySettingsButtonAnimation(InputAction.CallbackContext obj)
     {
         _inputItem.Interact();
     }
 
     private void OnDestroy() {
-        _hotkey.OnKeyPressed -= PlaySettingsButtonAnimation;
+        _hotkey.action.performed -= PlaySettingsButtonAnimation;
     }
 
     private void OnDrawGizmosSelected() {

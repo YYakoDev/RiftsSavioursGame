@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
 
 public abstract class WeaponBase: ScriptableObject
@@ -9,7 +10,7 @@ public abstract class WeaponBase: ScriptableObject
     public const string MenuPath = "ScriptableObjects/Weapons/";
     //references
     protected WeaponManager _weaponManager;
-    protected KeyInput _attackKey;
+    [SerializeField]protected InputActionReference _attackKey;
 
     protected bool _deactivated = false;
 
@@ -63,14 +64,13 @@ public abstract class WeaponBase: ScriptableObject
         _weaponPrefabTransform = prefabTransform;
         _currentAnim = Animator.StringToHash(AtkAnimName);
         _attackDuration = GetAnimationDuration(AtkAnimName);
-        _attackKey = YYInputManager.GetKey(KeyInputTypes.Attack);
         onAttack = null;
         onEnemyHit = null;
         SubscribeInput();
         InitializeFXS();
     }
-    protected virtual void SubscribeInput() => _attackKey.OnKeyHold += TryAttack;
-    public virtual void UnsubscribeInput() => _attackKey.OnKeyHold -= TryAttack;
+    protected virtual void SubscribeInput() => _attackKey.action.started += TryAttack;
+    public virtual void UnsubscribeInput() => _attackKey.action.started -= TryAttack;
     protected virtual void InitializeFXS()
     {
         if(_effects == null) return;
@@ -94,7 +94,7 @@ public abstract class WeaponBase: ScriptableObject
         if(_deactivated) return;
     }
     
-    protected virtual void TryAttack()
+    protected virtual void TryAttack(InputAction.CallbackContext obj)
     {
         if(_deactivated) return;
         if(_nextAttackTime >= Time.time) return;

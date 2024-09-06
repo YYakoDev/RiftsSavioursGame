@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class WeaponManager : MonoBehaviour
 {
@@ -17,7 +18,7 @@ public class WeaponManager : MonoBehaviour
     private WeaponBase _currentWeapon;
     GameObject _weaponPrefabInstance;
     WeaponPrefab _weaponLogicInstance;
-    private KeyInput _switchKey;
+    [SerializeField] InputActionReference _switchKey;
     private int _weaponIndex, _maxWeaponAmount = 3;
     private int WeaponIndex 
     {
@@ -54,8 +55,7 @@ public class WeaponManager : MonoBehaviour
         CreatePrefab();
         _weaponAiming.Initialize(_enemyLayer);
         SetWeapon(_playerStats.Weapons[0]);
-        _switchKey = YYInputManager.GetKey(KeyInputTypes.SwitchWeapon);
-        _switchKey.OnKeyPressed += SwitchWeapon;
+        _switchKey.action.performed += SwitchWeapon;
     }
 
 
@@ -88,7 +88,7 @@ public class WeaponManager : MonoBehaviour
         _currentWeapon.SetWeaponActive(true);
     }
 
-    void SwitchWeapon()
+    void SwitchWeapon(InputAction.CallbackContext obj)
     {
         WeaponIndex++;
         SetWeapon(_playerStats.Weapons[WeaponIndex]);
@@ -119,7 +119,7 @@ public class WeaponManager : MonoBehaviour
     private void OnDestroy() {
         PlayerManager.onCharacterChange -= SetWeaponFromNewCharacter;
         _playerAttackStats.onStatsChange -= ApplyNewAttackStats;
-        _switchKey.OnKeyPressed -= SwitchWeapon;
+        _switchKey.action.performed -= SwitchWeapon;
         foreach(var weapon in _playerStats.Weapons) weapon?.UnsubscribeInput();
     }
 

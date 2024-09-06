@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class DropsPool : MonoBehaviour
 {
+    //
     private static NotMonoObjectPool dropsPool;
     private static DropPrefab _dropPrefab;
 

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using UnityEngine.InputSystem;
 
 [CreateAssetMenu(menuName = MenuPath + "SOMeleeWeapon")]
 public class SOMeleeWeapon : WeaponBase
@@ -14,7 +15,8 @@ public class SOMeleeWeapon : WeaponBase
     AudioSource _effectsAudio;
     Camera _mainCamera;
     public event Action onHolding;
-    
+    InputAction.CallbackContext _callbackContextEmpty = new();
+
     AnimationCurve _cameraAnimCurve, _slowdownCurve;
     protected float _radiusOffset = 0;
     protected Vector3 _attackPoint = Vector2.zero;
@@ -122,13 +124,13 @@ public class SOMeleeWeapon : WeaponBase
 
     protected override void SubscribeInput()
     {
-        _attackKey.OnKeyPressed += Hold;
-        _attackKey.OnKeyUp += StopHolding;
+        _attackKey.action.performed += Hold;
+        _attackKey.action.canceled += StopHolding;
     }
     public override void UnsubscribeInput()
     {
-        _attackKey.OnKeyPressed -= Hold;
-        _attackKey.OnKeyUp -= StopHolding;
+        _attackKey.action.performed -= Hold;
+        _attackKey.action.canceled -= StopHolding;
     }
 
     public override void UpdateLogic()
@@ -167,7 +169,7 @@ public class SOMeleeWeapon : WeaponBase
             }
         }
     }
-    void Hold()
+    void Hold(InputAction.CallbackContext obj)
     {
         if(_deactivated) return;
         if(_holding) return;
@@ -185,7 +187,7 @@ public class SOMeleeWeapon : WeaponBase
         //Debug.Log("Holding");
     }
 
-    void StopHolding()
+    void StopHolding(InputAction.CallbackContext obj)
     {
         _releaseAtkTimer.End();
         _holding = false;
@@ -199,7 +201,11 @@ public class SOMeleeWeapon : WeaponBase
         _currentComboIndex = -1;
     }
 
-    protected override void TryAttack()
+    void TryAttack()
+    {
+        TryAttack(_callbackContextEmpty);
+    }
+    protected override void TryAttack(InputAction.CallbackContext obj)
     {
         if(_deactivated) return;
         if(_holdTime < HeavyAtkThreshold) _effectsAudio.Stop();

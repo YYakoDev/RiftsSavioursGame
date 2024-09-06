@@ -37,7 +37,7 @@ public class PointToMouse : MonoBehaviour
 
     void RotateWithMouse()
     {
-        _mouseDirection = _mainCamera.ScreenToWorldPoint(YYInputManager.MousePosition) - transform.position;
+        _mouseDirection = YYInputManager.i.GetMousePosition() - transform.position;
         float angle = Mathf.Atan2(-_mouseDirection.y,-_mouseDirection.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         Flip(_mouseDirection);

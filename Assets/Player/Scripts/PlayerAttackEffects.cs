@@ -15,7 +15,7 @@ public class PlayerAttackEffects : MonoBehaviour
     Transform weaponPrefab => _currentWeapon.PrefabTransform;
     public AudioSource Audio => _audio;
     float AttackDuration => _currentWeapon.AtkDuration;
-    public Vector3 MousePosition => _mainCamera.ScreenToWorldPoint(YYInputManager.MousePosition);
+    public Vector3 MousePosition => YYInputManager.i.GetMousePosition();
 
     private void Awake() {
         _weaponManager.OnWeaponChange += SwitchCurrentWeapon;

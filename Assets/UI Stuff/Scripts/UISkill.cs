@@ -35,13 +35,13 @@ public class UISkill : MonoBehaviour
     public void Initialize(KeyInputTypes inputType, Sprite skillIcon)
     {
         _inputType = inputType;
-        var hotKey = YYInputManager.GetKey(inputType);
+        //var hotKey = YYInputManager.GetKey(inputType);
         //_hotKey.OnKeyPressed += Interact;
         _cooldownBehaviour = false;
         _startingMaterial = _skillIcon.material;
         _objStartScale = _objRect.localScale;
         UpdateSkillIcon(skillIcon);
-        _inputText.text = hotKey.GetInputKeyName();
+        //_inputText.text = hotKey.GetInputKeyName();
         name = inputType.ToString() + "_inputItem";
     }
     public void Initialize(KeyInputTypes inputType, Sprite skillIcon,float cooldown)

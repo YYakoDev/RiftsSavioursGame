@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5d477e5c1f07ee42bee6417298698fe, type: 3}
   m_Name: MeleeWeaponFinal
   m_EditorClassIdentifier: 
+  _attackKey: {fileID: -2831406729901597417, guid: 4d54cc78634f7354fbb24fa0c72ecc2e, type: 3}
   _name: Melee Weapon
   _description: 
   _SpriteAndAnimationsData: {fileID: 11400000, guid: 7ececea671a0adb44b74cff559f4409c, type: 2}

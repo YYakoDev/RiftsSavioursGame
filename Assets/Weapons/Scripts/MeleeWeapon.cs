@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+
 
 [CreateAssetMenu(fileName = "New Melee Weapon", menuName = MenuPath + "Melee Weapon")]
 public class MeleeWeapon : WeaponBase
@@ -71,7 +73,7 @@ public class MeleeWeapon : WeaponBase
     }
 
 
-    protected override void TryAttack()
+    protected override void TryAttack(InputAction.CallbackContext obj)
     {
         if(_deactivated) return;
         if(_nextAttackTime >= Time.time) return;

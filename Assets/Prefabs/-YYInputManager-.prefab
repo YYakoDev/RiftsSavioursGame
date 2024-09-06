@@ -44,28 +44,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe93a05ccdc682f4c8b4e6128731e00d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _keys:
-  - _type: 1
-    _keyCode: 323
-    _secondaryKeyCode: 101
-    _controllerKey: 333
-  - _type: 2
-    _keyCode: 306
-    _secondaryKeyCode: 324
-    _controllerKey: 335
-  - _type: 3
-    _keyCode: 113
-    _secondaryKeyCode: 0
-    _controllerKey: 334
-  - _type: 4
-    _keyCode: 120
-    _secondaryKeyCode: 0
-    _controllerKey: 337
-  - _type: 5
-    _keyCode: 32
-    _secondaryKeyCode: 0
-    _controllerKey: 332
-  - _type: 6
-    _keyCode: 27
-    _secondaryKeyCode: 0
-    _controllerKey: 339
+  _pointerPosition: {fileID: -5647068493810286312, guid: 4d54cc78634f7354fbb24fa0c72ecc2e, type: 3}
