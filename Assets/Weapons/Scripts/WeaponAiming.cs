@@ -110,7 +110,7 @@ public class WeaponAiming : MonoBehaviour
                 SetCameraTargetPoint(_mousePosition);
             }else
             {
-                _targetDirection = _playerMovement.LastMovement;
+                _targetDirection = Vector2.right * _playerMovement.FacingDirection;
             }
 
         }
