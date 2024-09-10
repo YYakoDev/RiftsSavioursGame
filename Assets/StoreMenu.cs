@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 using Random = UnityEngine.Random;
 using Debug = UnityEngine.Debug;
 using TMPro;
+using UnityEngine.InputSystem;
 public class StoreMenu : MonoBehaviour
 {
     [SerializeField] World _currentWorld;
@@ -25,7 +26,7 @@ public class StoreMenu : MonoBehaviour
     int _ownedCoins = -1, _rerollPrice = 0, _rerollsTries = 0;
     [SerializeField] int _rerollInitialPrice = 10;
 
-    
+
     //ui stuff
     EventSystem _eventSys;
 
@@ -43,6 +44,8 @@ public class StoreMenu : MonoBehaviour
     Dictionary<UpgradeRarity, IndexStorage> _correspondingIndexesToRarity = new();
     Dictionary<UpgradeRarity, bool> _rarityAvailability = new();
 
+    //input
+    [SerializeField] InputActionReference _escapeInput;
 
     private class IndexStorage
     {
@@ -104,18 +107,11 @@ public class StoreMenu : MonoBehaviour
     void Start()
     {
         _eventSys = EventSystem.current;
-
+        _escapeInput.action.performed += CloseMenu;
         //PickUpgrades();
         GameStateManager.OnStateEnd += StateSwitchCheck;
         _playerInventory.onInventoryChange += GetCoins;
         if (_parent.activeInHierarchy) OpenMenu();
-    }
-
-    private void Update() {
-        /*if(Input.GetKeyDown(KeyCode.Escape))
-        {
-            CloseMenu();
-        }*/
     }
 
     void StateSwitchCheck(GameStateBase state)
@@ -146,7 +142,7 @@ public class StoreMenu : MonoBehaviour
         SetRerollPrice();
     }
 
-    public void CloseMenu()
+    public void CloseMenu(InputAction.CallbackContext obj)
     {
         if (!_animations.IsFinished) return;
         _parent.SetActive(false);
@@ -162,6 +158,7 @@ public class StoreMenu : MonoBehaviour
     {
         _playerInventory.onInventoryChange -= GetCoins;
         GameStateManager.OnStateEnd -= StateSwitchCheck;
+        _escapeInput.action.performed -= CloseMenu;
     }
 
     #endregion

@@ -102,9 +102,16 @@ public class WeaponAiming : MonoBehaviour
         }
         else
         {
-            _mousePosition = _mainCamera.ScreenToWorldPoint( _pointerPosition.action.ReadValue<Vector2>());
-            _targetDirection = _mousePosition - transform.position;
-            SetCameraTargetPoint(_mousePosition);
+            var mouseInput = _pointerPosition.action.ReadValue<Vector2>();
+            _mousePosition = _mainCamera.ScreenToWorldPoint(mouseInput);
+            if(mouseInput != Vector2.zero)
+            {
+                _targetDirection = _mousePosition - transform.position;
+                SetCameraTargetPoint(_mousePosition);
+            }else
+            {
+                _targetDirection = _playerMovement.LastMovement;
+            }
 
         }
 
@@ -113,7 +120,10 @@ public class WeaponAiming : MonoBehaviour
      
     }
 
-    private void SetCameraTargetPoint(Vector3 v) => _targetPoint = v;
+    private void SetCameraTargetPoint(Vector3 v)
+    {
+        _targetPoint = v;
+    }
     private void IncreaseDetectionRadius() => _detectionRadius = 4f + _attackStats.AttackRange;
 
     void DetectEnemy()
@@ -164,7 +174,7 @@ public class WeaponAiming : MonoBehaviour
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         _crosshair.position = (Vector3)_targetDirection + transform.position;
         //var offset = (_autoAiming) ? MouseFlipOffset / 3f : MouseFlipOffset;
-        if(_autoAiming && _resultsCount == 0)_playerMovement.FlipLogic?.FlipCheck(_playerMovement.Movement.x);
+        if(_autoAiming && _resultsCount == 0)_playerMovement.FlipLogic?.FlipCheck(_playerMovement.LastMovement.x);
         else _playerMovement.FlipLogic?.FlipCheck(_targetDirection.x + MouseFlipOffset);
         _flipLogic.FlipCheck(_targetDirection.x + MouseFlipOffset);
 
@@ -179,6 +189,12 @@ public class WeaponAiming : MonoBehaviour
 
     void StopAiming()
     {
+        var mouseInput = _pointerPosition.action.ReadValue<Vector2>();
+        if(mouseInput == Vector2.zero)
+        {
+            var angle = Mathf.Atan2(-_playerMovement.LastMovement.y, -_playerMovement.LastMovement.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        }
         _stopAimingTime = _currentWeapon.AtkDuration / 2f;
         _crosshair.gameObject.SetActive(false);
     }

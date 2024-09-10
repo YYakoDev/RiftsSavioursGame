@@ -18,7 +18,7 @@ public class PrototypeMeleeEffects : MonoBehaviour
     [SerializeField] float _dashPullForce = 1f;
     InputAction.CallbackContext _callbackContextEmpty = new();
     private void Awake() {
-        _atkTimer = new(0.4f);
+        _atkTimer = new(0.2f);
         _atkTimer.Stop();
         _atkTimer.onEnd += ReturnPlayerFreedom;
         //_holdTimer = new(0.2f); //this should be more than half the medium attack threshold

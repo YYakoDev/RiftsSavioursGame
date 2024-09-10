@@ -30,10 +30,10 @@ public class PrototypeCraftingSystem : MonoBehaviour
     }
 
     private void Update() {
-        if(Input.GetButtonDown("Crafting"))
+        /*if(Input.GetButtonDown("Crafting"))
         {
             ToggleMenu();
-        }
+        }*/
     }
 
     void ToggleMenu()

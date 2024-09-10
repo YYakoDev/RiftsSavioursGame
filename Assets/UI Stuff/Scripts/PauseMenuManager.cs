@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 public class PauseMenuManager : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class PauseMenuManager : MonoBehaviour
     float _previousTimeScale = 1f;
     EventSystem _eventSys;
     GameObject _previouslySelectedObj;
+    [SerializeField]InputActionReference _escapeButton;
+
 
     public static void DisablePauseBehaviour(bool state)
     {
@@ -28,17 +31,13 @@ public class PauseMenuManager : MonoBehaviour
         _confirmationObj.SetActive(false);
         //_upgradeMenu.OnMenuClose += ClosingCheck;
         _eventSys = EventSystem.current;
+        _escapeButton.action.performed += SwitchPauseMenuWithInput;
     }
-    
-
-    // Update is called once per frame
-    void Update()
+    void SwitchPauseMenuWithInput(InputAction.CallbackContext obj)
     {
+        //
         if(_disablePauseBehaviour)return;
-        /*if(Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P))
-        {
-            SwitchPauseMenu(!_activeMenu);
-        }*/
+        SwitchPauseMenu(!_activeMenu);
     }
 
     public void Continue()
@@ -78,5 +77,9 @@ public class PauseMenuManager : MonoBehaviour
             _eventSys.SetSelectedGameObject(_previouslySelectedObj);
         }
         else YYInputManager.StopInput();
+    }
+
+    private void OnDestroy() {
+        _escapeButton.action.performed -= SwitchPauseMenuWithInput;
     }
 }

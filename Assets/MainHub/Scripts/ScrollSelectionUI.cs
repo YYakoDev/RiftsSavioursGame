@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(TweenAnimatorMultiple))]
 public class ScrollSelectionUI<T> : MonoBehaviour
@@ -29,6 +30,7 @@ public class ScrollSelectionUI<T> : MonoBehaviour
     [SerializeField] protected Image _characterIcon;
     [SerializeField] protected Button _confirmButton, _closeButton;
     [SerializeField] protected ScaleOnSelected _leftArrow, _rightArrow;
+    [SerializeField] InputActionReference _escapeInput;
     GameObject _confirmButtonObj;
     WaitForSecondsRealtime _pauseEnablingWait;
     int _currentIndex = 0;
@@ -88,10 +90,11 @@ public class ScrollSelectionUI<T> : MonoBehaviour
             ScaleArrows(scrollDirection == 1);
         }
     }
-
+    
     private void Start()
     {
         if (!_initialized) Initialize();
+        _escapeInput.action.performed += CloseWithInput;
     }
 
 
@@ -160,6 +163,10 @@ public class ScrollSelectionUI<T> : MonoBehaviour
         //if(!skipAudio) //play the close sfx
     }
 
+    void CloseWithInput(InputAction.CallbackContext obj)
+    {
+        Close();
+    }
     public void Confirm()
     {
         _leftArrow.ScaleDown();
@@ -173,5 +180,9 @@ public class ScrollSelectionUI<T> : MonoBehaviour
     {
         yield return _pauseEnablingWait;
         PauseMenuManager.DisablePauseBehaviour(false);
+    }
+
+    private void OnDestroy() {
+        _escapeInput.action.performed -= CloseWithInput;
     }
 }

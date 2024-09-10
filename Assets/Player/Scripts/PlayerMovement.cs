@@ -21,7 +21,7 @@ public class PlayerMovement : MonoBehaviour, IKnockback
     [SerializeField] InputActionReference _movementInput, _dashInput;
 
     //Movement
-    Vector2 _movement;
+    Vector2 _movement, _lastMovement;
     float _realSpeed, _elapsedAcceleration = 0f;
     [SerializeField] AnimationCurve _curve;
 
@@ -62,6 +62,7 @@ public class PlayerMovement : MonoBehaviour, IKnockback
 
     //properties
     public Vector2 Movement => _movement;
+    public Vector2 LastMovement => _lastMovement;
     //public bool IsFlipped => isFlipped;
     public float DashCooldown => _dashCooldown;
     public FlipLogic FlipLogic => _flipLogic;
@@ -73,6 +74,8 @@ public class PlayerMovement : MonoBehaviour, IKnockback
     //Knockback Stuff
     Knockbackeable _knockbackLogic;
     bool _knockbackEnabled;
+
+
     public Knockbackeable KnockbackLogic { get => _knockbackLogic; }
     public bool KnockbackEnabled => _knockbackEnabled;
 
@@ -163,6 +166,7 @@ public class PlayerMovement : MonoBehaviour, IKnockback
     {
         _movement = _movementInput.action.ReadValue<Vector2>();
         _movement.Normalize();
+        _lastMovement = _movement;
     }
     void SetIdle(InputAction.CallbackContext obj)
     {

@@ -815,7 +815,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 27563847}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -1246,7 +1246,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &41342078
 Transform:
   m_ObjectHideFlags: 0
@@ -4636,6 +4636,7 @@ GameObject:
   m_Component:
   - component: {fileID: 139493170}
   - component: {fileID: 139493169}
+  - component: {fileID: 139493171}
   m_Layer: 0
   m_Name: PlayerInput
   m_TagString: Untagged
@@ -4670,9 +4671,9 @@ MonoBehaviour:
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: PlayerInput
+  m_DefaultActionMap: Gameplay
   m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 519420031}
 --- !u!4 &139493170
 Transform:
   m_ObjectHideFlags: 0
@@ -4688,6 +4689,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &139493171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 139493168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5597f983874760646acbc984ec869478, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _input: {fileID: 139493169}
 --- !u!1001 &167407933
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5858,6 +5872,7 @@ MonoBehaviour:
   _pauseMenuParent: {fileID: 1961916976}
   _confirmationObj: {fileID: 1803379924}
   _continueButton: {fileID: 1536973314}
+  _escapeButton: {fileID: 7546945293799072156, guid: 4d54cc78634f7354fbb24fa0c72ecc2e, type: 3}
 --- !u!222 &287409692
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -18637,6 +18652,7 @@ MonoBehaviour:
   _buySFX: {fileID: 8300000, guid: d535a32af2fb3f449916892bc10d6dfd, type: 3}
   _rerollSFX: {fileID: 8300000, guid: bf79cfefe9eb742498f38d28de4284ba, type: 3}
   _closeSFX: {fileID: 8300000, guid: 7e8921b9f19ad364580e77264c4f5b3d, type: 3}
+  _escapeInput: {fileID: 6819337814142037885, guid: 4d54cc78634f7354fbb24fa0c72ecc2e, type: 3}
 --- !u!82 &1452474231
 AudioSource:
   m_ObjectHideFlags: 0
@@ -19403,16 +19419,16 @@ MonoBehaviour:
   m_MoveRepeatRate: 0.1
   m_XRTrackingOrigin: {fileID: 0}
   m_ActionsAsset: {fileID: -944628639613478452, guid: 4d54cc78634f7354fbb24fa0c72ecc2e, type: 3}
-  m_PointAction: {fileID: 0}
-  m_MoveAction: {fileID: 0}
-  m_SubmitAction: {fileID: 0}
-  m_CancelAction: {fileID: 0}
-  m_LeftClickAction: {fileID: 0}
-  m_MiddleClickAction: {fileID: 0}
-  m_RightClickAction: {fileID: 0}
-  m_ScrollWheelAction: {fileID: 0}
-  m_TrackedDevicePositionAction: {fileID: 0}
-  m_TrackedDeviceOrientationAction: {fileID: 0}
+  m_PointAction: {fileID: 5080710429034904421, guid: 4d54cc78634f7354fbb24fa0c72ecc2e, type: 3}
+  m_MoveAction: {fileID: -938301967346323856, guid: 4d54cc78634f7354fbb24fa0c72ecc2e, type: 3}
+  m_SubmitAction: {fileID: -493914390227582566, guid: 4d54cc78634f7354fbb24fa0c72ecc2e, type: 3}
+  m_CancelAction: {fileID: 4267652200523501055, guid: 4d54cc78634f7354fbb24fa0c72ecc2e, type: 3}
+  m_LeftClickAction: {fileID: -6310997432688290192, guid: 4d54cc78634f7354fbb24fa0c72ecc2e, type: 3}
+  m_MiddleClickAction: {fileID: -6616730801685230819, guid: 4d54cc78634f7354fbb24fa0c72ecc2e, type: 3}
+  m_RightClickAction: {fileID: -6409207965548378493, guid: 4d54cc78634f7354fbb24fa0c72ecc2e, type: 3}
+  m_ScrollWheelAction: {fileID: -7165020701009883153, guid: 4d54cc78634f7354fbb24fa0c72ecc2e, type: 3}
+  m_TrackedDevicePositionAction: {fileID: 6611436887129729508, guid: 4d54cc78634f7354fbb24fa0c72ecc2e, type: 3}
+  m_TrackedDeviceOrientationAction: {fileID: 3107880564445417257, guid: 4d54cc78634f7354fbb24fa0c72ecc2e, type: 3}
   m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0
   m_CursorLockBehavior: 0

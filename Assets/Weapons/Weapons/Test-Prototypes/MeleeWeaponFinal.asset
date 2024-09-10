@@ -31,7 +31,7 @@ MonoBehaviour:
   _pointCameraOnAttack: 0
   _attackCooldown: -14.64
   _baseStats:
-    _cooldown: 0
+    _cooldown: -0.15
     _pullForce: 1.1
     _atkRange: 0.85
     _atkSpeed: 1.25
