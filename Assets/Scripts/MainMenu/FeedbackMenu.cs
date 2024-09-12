@@ -6,7 +6,8 @@ using UnityEngine.UI;
 using TMPro;
 public class FeedbackMenu : MonoBehaviour, ISelectHandler
 {
-
+    [SerializeField] MenuQuitter _menuQuitter;
+    [SerializeField] RectTransform _menuVisuals;
     [SerializeField] TMP_InputField _inputField;
     [SerializeField] Button _sendButton;
 
@@ -15,10 +16,33 @@ public class FeedbackMenu : MonoBehaviour, ISelectHandler
 
     private void Start() {
         eventSys = EventSystem.current;
+        _inputField.onSelect.AddListener(DisableReturnKey);
         _inputField.onEndEdit.AddListener(GetUserInput);
     }
+
+    private void OnEnable() {
+        
+    }
+
+    public void Enable()
+    {
+        _menuVisuals.gameObject.SetActive(true);
+        _menuQuitter.SetCurrentMenu(null);
+    }
+
+    void DisableReturnKey(string text)
+    {
+        _menuQuitter.SetCurrentMenu(null);
+    }
+
+    public void Disable()
+    {
+        _menuVisuals.gameObject.SetActive(false);
+    }
+
     void GetUserInput(string inputFieldText)
     {
+        _menuQuitter.SetCurrentMenu(_menuVisuals.gameObject);
         _body = inputFieldText;
         if(!eventSys.alreadySelecting) eventSys.SetSelectedGameObject(_sendButton.gameObject);
     }
@@ -30,6 +54,7 @@ public class FeedbackMenu : MonoBehaviour, ISelectHandler
     }
 
     private void OnDestroy() {
+        _inputField.onSelect.RemoveListener(DisableReturnKey);
         _inputField.onEndEdit.RemoveListener(GetUserInput);
     }
 

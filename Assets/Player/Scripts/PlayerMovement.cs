@@ -225,6 +225,7 @@ public class PlayerMovement : MonoBehaviour, IKnockback
         _player.AnimController.UnlockAnimator();
         _player.AnimController.PlayWithDuration(animation, true);
         if(backDash) _elapsedAcceleration = 0f;
+        _knockbackLogic.StopKnockback();
 
     }
     public void StopDash()

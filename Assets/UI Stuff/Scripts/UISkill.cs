@@ -2,13 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using TMPro;
 
 [RequireComponent(typeof(TweenAnimatorMultiple))]
 public class UISkill : MonoBehaviour
 {
-    KeyInputTypes _inputType;
+    InputActionReference _inputType;
     bool _cooldownBehaviour, _skillOnCooldown, _skillBlinking;
     float _cooldown = 0f;
     Timer _cooldownTimer, _iconBlinkTimer;
@@ -21,18 +22,20 @@ public class UISkill : MonoBehaviour
     [Header("Animation")]
     [SerializeField] Vector2 _endObjScale, _endObjScaleOffset;
     Vector3 _objStartScale;
+    Vector2 _objStartSizeDelta;
     [SerializeField] float _scaleDuration = 0.3f, _blinkDuration;
     TweenAnimatorMultiple _animator;
     Material _startingMaterial;
     [SerializeField] Material _whiteBlinkUIMat;
 
-    public KeyInputTypes InputType => _inputType;
+    public InputActionReference InputType => _inputType;
 
-    private void Awake() {
+    private void Awake()
+    {
         _animator = GetComponent<TweenAnimatorMultiple>();
     }
 
-    public void Initialize(KeyInputTypes inputType, Sprite skillIcon)
+    public void Initialize(InputActionReference inputType, Sprite skillIcon)
     {
         _inputType = inputType;
         //var hotKey = YYInputManager.GetKey(inputType);
@@ -40,11 +43,13 @@ public class UISkill : MonoBehaviour
         _cooldownBehaviour = false;
         _startingMaterial = _skillIcon.material;
         _objStartScale = _objRect.localScale;
+        _objStartSizeDelta = _objRect.sizeDelta;
+        UpdateInputText(inputType);
         UpdateSkillIcon(skillIcon);
         //_inputText.text = hotKey.GetInputKeyName();
-        name = inputType.ToString() + "_inputItem";
+        name = inputType.action.name + "_inputItem";
     }
-    public void Initialize(KeyInputTypes inputType, Sprite skillIcon,float cooldown)
+    public void Initialize(InputActionReference inputType, Sprite skillIcon, float cooldown)
     {
         Initialize(inputType, skillIcon);
         _cooldownBehaviour = true;
@@ -62,7 +67,9 @@ public class UISkill : MonoBehaviour
         _cooldownSlider.value = 0f;
 
         UpdateCooldown(cooldown);
+
     }
+
     private void Update() {
         if(!_cooldownBehaviour) return;
         _cooldownTimer.UpdateTime();
@@ -125,9 +132,34 @@ public class UISkill : MonoBehaviour
         previousTrigger -= Interact;
         newTrigger += Interact;
     }
-    public void UpdateInputText(string text)
+    public void UpdateInputText(InputActionReference inputType)
     {
-        _inputText.text = text;
+        var text = inputType.action.GetBindingDisplayString();
+        _inputText.SetText(text);
+        _inputText.ForceMeshUpdate();
+        var textSize = _inputText.GetRenderedValues(true);
+        var sizeDiff = new Vector2
+        (
+            _objStartSizeDelta.x - textSize.x,
+            _objStartSizeDelta.y - textSize.y
+        );
+        if(sizeDiff.x > 0) sizeDiff.x = 0;
+        if(sizeDiff.y > 0) sizeDiff.y = 0;
+        _objRect.sizeDelta = _objStartSizeDelta + sizeDiff + new Vector2(50f, 35f);
+        _inputText.rectTransform.sizeDelta = textSize / 1.3f;
+        if(textSize.x > _objRect.sizeDelta.x)
+        {
+            _inputText.enableWordWrapping = true;
+        }
+    }
+
+    public Vector2 GetItemSize()
+    {
+        return _objRect.sizeDelta;
+    }
+    public void SetItemSize(Vector2 sizeDelta)
+    {
+        _objRect.sizeDelta = sizeDelta;
     }
 
     void StartCooldownTimer()

@@ -16,7 +16,7 @@ public class InteractableSeeker : MonoBehaviour
     void Start()
     {
         _hotkeyPrefabInstance = Instantiate(_hotkeyPrefab);
-        
+        _hotkeyPrefabInstance.Text.SetText(_interactKey.action.GetBindingDisplayString());
         _hotkeyPrefabInstance.Self.SetActive(false);
       
         _interactKey.action.performed += Interact;

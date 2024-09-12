@@ -31,7 +31,7 @@ public class WeaponAiming : MonoBehaviour
 
     [Header("Values")]
     [SerializeField] float _aimSmoothing = 8f;
-    float _detectionRadius = 3.5f;
+    float _detectionRadius = 4f;
     float _stopAimingTime = 0f;
     bool _autoAiming = false;
     public event Action<bool> OnAimingChange;
@@ -124,7 +124,7 @@ public class WeaponAiming : MonoBehaviour
     {
         _targetPoint = v;
     }
-    private void IncreaseDetectionRadius() => _detectionRadius = 4f + _attackStats.AttackRange;
+    private void IncreaseDetectionRadius() => _detectionRadius = 4.5f + _attackStats.AttackRange;
 
     void DetectEnemy()
     {
@@ -190,12 +190,12 @@ public class WeaponAiming : MonoBehaviour
     void StopAiming()
     {
         var mouseInput = _pointerPosition.action.ReadValue<Vector2>();
-        if(mouseInput == Vector2.zero)
+        if(mouseInput == Vector2.zero && (!_autoAiming || _resultsCount == 0))
         {
             var angle = Mathf.Atan2(-_playerMovement.LastMovement.y, -_playerMovement.LastMovement.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         }
-        _stopAimingTime = _currentWeapon.AtkDuration / 2f;
+        _stopAimingTime = _currentWeapon.AtkDuration / 2.3f;
         _crosshair.gameObject.SetActive(false);
     }
 

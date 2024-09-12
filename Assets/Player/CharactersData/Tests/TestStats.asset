@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHealth: 100
   _currentHealth: 0
-  _speed: 3.55
+  _speed: 4
   _slowdownMultiplier: 0.257
-  _dashSpeed: 125
-  _dashCooldown: 0.45
+  _dashSpeed: 135
+  _dashCooldown: 0.3
   _dashInvulnerabilityTime: 0
-  _pickUpRange: 1.8
+  _pickUpRange: 1.55
   _collectingRange: 2
   _collectingDamage: 1
   _interactCooldown: 0.65

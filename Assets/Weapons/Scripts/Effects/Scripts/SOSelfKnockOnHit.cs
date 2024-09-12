@@ -12,7 +12,7 @@ public class SOSelfKnockOnHit : WeaponEffects
     {
         base.Initialize(weapon);
         _nextApplyTime = 0f;
-        _cooldown = weapon.AtkDuration / 2f;
+        _cooldown = weapon.AtkDuration / 3f;
     }
     public override void OnHitFX(Vector3 pos)
     {

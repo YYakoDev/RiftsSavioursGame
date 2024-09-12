@@ -39,7 +39,7 @@ public class EnemyMovement : MonoBehaviour, IKnockback
     void DoKnockbackOnCollision(Transform emitter)
     {
         _movementClass.StopStun(0.25f);
-        _movementClass.KnockbackLogic.SetKnockbackData(emitter, _brain.Stats.Speed / 3f, 0.13f, true);
+        _movementClass.KnockbackLogic.SetKnockbackData(emitter, _brain.Stats.Speed / 3f, 0.15f, true);
     }
 
     private void Movement()
@@ -47,7 +47,7 @@ public class EnemyMovement : MonoBehaviour, IKnockback
         _behaviour.Action();
         _movementClass.Move(_behaviour.GetDirection());
         var stepSound = _brain.GetMoveSfx();
-        if(stepSound != null )_brain.Audio.PlayWithCooldown(stepSound, 0.4f, ref _nextSoundTime);
+        if(stepSound != null )_brain.Audio.PlayWithCooldown(stepSound, 0.485f + Random.Range(-0.05f, 0.15f), ref _nextSoundTime);
     }
 
     private void OnDestroy() {

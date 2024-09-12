@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6343358689766265033}
   - component: {fileID: 5822650490395108457}
   - component: {fileID: 4343063081871004544}
+  - component: {fileID: -1672263256417765578}
   m_Layer: 0
   m_Name: EnemyPortalFX
   m_TagString: Untagged
@@ -487,7 +488,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 9003180404515484610, guid: f0d50b753945cfc4d89a5365a6cc26de, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.018
+  m_Volume: 0.22
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -571,3 +572,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-1672263256417765578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 438890597022870506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0103a8af1f80ac848be1fda70164a2c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audio: {fileID: 0}
+  _target: {fileID: 0}
+  _distanceThreshold: 2
+  _minVolume: 0.1

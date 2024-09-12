@@ -176,7 +176,15 @@ AudioMixerController:
   m_SuspendThreshold: -80
   m_EnableSuspend: 1
   m_UpdateMode: 0
-  m_ExposedParameters: []
+  m_ExposedParameters:
+  - guid: b3b7d3e0a79f46141ba76fa9cde73780
+    name: MasterVolume
+  - guid: 7eb1809caccf3084782affe060f67748
+    name: MusicVolume
+  - guid: a902704644b5ca34d9a9f3a4c29ffc96
+    name: SoundsVolume
+  - guid: 6ec3dc83c1074df42987f3050b55f990
+    name: UIVolume
   m_AudioMixerGroupViews:
   - guids:
     - 988aab91117af164ebf167207b44dba1
@@ -202,7 +210,6 @@ AudioMixerGroupController:
   m_Children:
   - {fileID: 9003180404515484610}
   - {fileID: 212995086376726809}
-  - {fileID: -3353526848237209659}
   m_Volume: b3b7d3e0a79f46141ba76fa9cde73780
   m_Pitch: 6a73b2bfabf238c4db420a7175ddead2
   m_Send: 00000000000000000000000000000000
@@ -240,10 +247,10 @@ AudioMixerSnapshotController:
     b3b7d3e0a79f46141ba76fa9cde73780: 0
     01ab52224eeae7a4986f7f9dd0111d35: 1.08
     ac9333422726cec499c13f67a00eba8d: 0.287
-    2b3e2e03f8335b14daf80af5a6dbd30a: -6.4
+    2b3e2e03f8335b14daf80af5a6dbd30a: -1.52
     6ec3dc83c1074df42987f3050b55f990: -1.2
     8163c8141ccc87145a1bd7d652b6a1b9: -1.2
-    2f04018517951c14caebc4a622c54301: -3.1841109
+    2f04018517951c14caebc4a622c54301: -0.28
     7618e8d51b71eb54f88fde20b1f571c8: 0.224
     a902704644b5ca34d9a9f3a4c29ffc96: -0.034891494
     c3097807446851e47b80c12c8e5233d2: 2000
@@ -368,6 +375,7 @@ AudioMixerGroupController:
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: 842984e8d7c027b478385d0faa6df3d0
   m_Children:
+  - {fileID: -3353526848237209659}
   - {fileID: 7610748752731351042}
   - {fileID: -6708159154563097722}
   - {fileID: -1342128300185757079}

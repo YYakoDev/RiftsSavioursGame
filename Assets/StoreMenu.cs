@@ -11,6 +11,7 @@ using UnityEngine.InputSystem;
 public class StoreMenu : MonoBehaviour
 {
     [SerializeField] World _currentWorld;
+    [SerializeField] PlayerInput _inputController;
     [SerializeField] GameObject _parent;
     [SerializeField] StoreMenuAnimation _animations;
     [SerializeField] PlayerUpgradesManager _upgradesManager;
@@ -28,6 +29,7 @@ public class StoreMenu : MonoBehaviour
 
 
     //ui stuff
+    bool _menuState = false;
     EventSystem _eventSys;
 
     //cursor stuff
@@ -107,7 +109,7 @@ public class StoreMenu : MonoBehaviour
     void Start()
     {
         _eventSys = EventSystem.current;
-        _escapeInput.action.performed += CloseMenu;
+        _escapeInput.action.performed += CloseMenuWithInput;
         //PickUpgrades();
         GameStateManager.OnStateEnd += StateSwitchCheck;
         _playerInventory.onInventoryChange += GetCoins;
@@ -116,7 +118,6 @@ public class StoreMenu : MonoBehaviour
 
     void StateSwitchCheck(GameStateBase state)
     {
-        if (!_animations.IsFinished) return;
         if (state.GetType() == typeof(RestState))
         {
             OpenMenu();
@@ -125,7 +126,9 @@ public class StoreMenu : MonoBehaviour
 
     public void OpenMenu()
     {
+        _menuState = true;
         _selectedItem = null;
+        _inputController.SwitchCurrentActionMap("UI");
         YYInputManager.StopInput();
         TimeScaleManager.ForceTimeScale(0f);
         PauseMenuManager.DisablePauseBehaviour(true);
@@ -142,11 +145,18 @@ public class StoreMenu : MonoBehaviour
         SetRerollPrice();
     }
 
-    public void CloseMenu(InputAction.CallbackContext obj)
+    void CloseMenuWithInput(InputAction.CallbackContext obj)
+    {
+        CloseMenu();
+    }
+
+    public void CloseMenu()
     {
         if (!_animations.IsFinished) return;
+        if(!_menuState) return;
+        _menuState = false;
         _parent.SetActive(false);
-        YYInputManager.ResumeInput();
+        _inputController.SwitchCurrentActionMap("Gameplay");
         TimeScaleManager.ForceTimeScale(1f);
         PauseMenuManager.DisablePauseBehaviour(false);
         Cursor.visible = _previousCursorState;
@@ -158,7 +168,7 @@ public class StoreMenu : MonoBehaviour
     {
         _playerInventory.onInventoryChange -= GetCoins;
         GameStateManager.OnStateEnd -= StateSwitchCheck;
-        _escapeInput.action.performed -= CloseMenu;
+        _escapeInput.action.performed -= CloseMenuWithInput;
     }
 
     #endregion

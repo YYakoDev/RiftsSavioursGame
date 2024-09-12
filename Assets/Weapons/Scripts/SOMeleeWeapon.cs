@@ -37,11 +37,11 @@ public class SOMeleeWeapon : WeaponBase
     [SerializeField]ComboAttack[] _comboAttacks = new ComboAttack[3];
     bool _holding, _attackIsHeavy = false;
     float _holdTime, _resetComboTime;
-    Timer _releaseAtkTimer, _holdTriggerTimer;
+    Timer _releaseHoldAtkTimer, _holdTriggerTimer, _comboWaitTimer;
     int _currentComboIndex = -1;
     const int ComboMaxCount = 3;
     WeaponEffects[] _heavyAtkEffectsInstance;
-    const float MediumAtkThreshold = 0.4f, HeavyAtkThreshold = 0.75f; // with this you could have special effects play when this thresholds are met, also when you attack and hit
+    const float MediumAtkThreshold = 0.3f, HeavyAtkThreshold = 0.51f; // with this you could have special effects play when this thresholds are met, also when you attack and hit
 
     [Header("Heavy Attack")]
     [SerializeField] MeleeWeaponStat _heavyAttackBonus;
@@ -84,9 +84,13 @@ public class SOMeleeWeapon : WeaponBase
         _holdTriggerTimer.Stop();
         _holdTriggerTimer.onEnd += HoldingLogic;
 
-        _releaseAtkTimer = new(HeavyAtkThreshold + 0.05f - 0.15f);
-        _releaseAtkTimer.Stop();
-        _releaseAtkTimer.onEnd += TryAttack;
+        _releaseHoldAtkTimer = new(HeavyAtkThreshold + 0.05f - 0.15f);
+        _releaseHoldAtkTimer.Stop();
+        _releaseHoldAtkTimer.onEnd += TryAttack;
+
+        _comboWaitTimer = new(_attackDuration - Time.deltaTime * 3f);
+        _comboWaitTimer.Stop();
+        _comboWaitTimer.onEnd += FreezeComboAnimation;
 
         _effectsAudio = _weaponManager.AtkEffects.Audio;
         _mainCamera = HelperMethods.MainCamera;
@@ -137,9 +141,10 @@ public class SOMeleeWeapon : WeaponBase
     {
         if(_deactivated) return;
         _holdTriggerTimer.UpdateTime();
-        _releaseAtkTimer.UpdateTime();
+        _releaseHoldAtkTimer.UpdateTime();
         _atkExecutionTimer.UpdateTime();
-        
+        _comboWaitTimer.UpdateTime();
+
         if(_resetComboTime > 0f && !_holding)
         {
             _resetComboTime -= Time.deltaTime;
@@ -159,6 +164,7 @@ public class SOMeleeWeapon : WeaponBase
             _weaponManager.AtkEffects.SlowdownPlayer(Time.deltaTime * 10f, slowdownForce);
             if(_holdTime > HeavyAtkThreshold)
             {
+                //make weapon blink and player blink. Also show a little popup that says "atk charged"
                 _weaponManager.AtkEffects.SlowdownPlayer(100f, slowdownForce);
                 _effectsAudio.Stop();
                 _effectsAudio.PlayOneShot(_heavyAtkCueSFX);
@@ -182,15 +188,20 @@ public class SOMeleeWeapon : WeaponBase
     void HoldingLogic()
     {
         if(!_holding) return;
-        _releaseAtkTimer.Start();
-        if(_currentComboIndex < ComboMaxCount-1) _weaponAnimator.speed = 0f;
+        _releaseHoldAtkTimer.Start();
+        //if(_currentComboIndex < ComboMaxCount-1) _weaponAnimator.speed = 0f;
         //Debug.Log("Holding");
     }
 
     void StopHolding(InputAction.CallbackContext obj)
     {
-        _releaseAtkTimer.End();
+        _releaseHoldAtkTimer.End();
         _holding = false;
+    }
+
+    void FreezeComboAnimation()
+    {
+        _weaponAnimator.speed = 0f;
     }
 
     void ResetCombo()
@@ -241,11 +252,17 @@ public class SOMeleeWeapon : WeaponBase
             _attackIsHeavy = true;
             _modifiedStats.Add(_heavyAttackBonus);
         }
-        _resetComboTime = currentAnimDuration + 0.2f; //this 0.3f could be replaced with a variable called _comboWaitTime
+        _resetComboTime = currentAnimDuration + 0.25f; //this 0.3f could be replaced with a variable called _comboWaitTime
         var cooldown = currentAnimDuration;
         if(_currentComboIndex == ComboMaxCount-1) cooldown = _resetComboTime + _modifiedStats._cooldown;
         _weaponAnimator.speed = _modifiedStats._atkSpeed;
         _holdTime = 0f;
+        _attackDuration = currentAnimDuration;
+        if(_currentComboIndex < ComboMaxCount-1)
+        {
+            _comboWaitTimer.ChangeTime(currentAnimDuration - Time.deltaTime * 3f);
+            _comboWaitTimer.Start();
+        }
         Attack(cooldown);
 
     }

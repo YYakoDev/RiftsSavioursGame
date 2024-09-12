@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class FadeImage : MonoBehaviour
 {
-    float _fadeDuration = 0.5f;
+    float _fadeDuration = 1f;
     [SerializeField] bool _fadeIn = false;
     Image _img;
     AnimationCurve _curve;

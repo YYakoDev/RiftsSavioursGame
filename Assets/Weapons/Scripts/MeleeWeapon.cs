@@ -166,7 +166,8 @@ public class MeleeWeapon : WeaponBase
         bool critHit = (_criticalChance > critRoll);
         int realDamage = (critHit) ? (int)(damage * _criticalDamageMultiplier) : damage;
         entity.TakeDamage(realDamage);
-        PopupsManager.CreateDamagePopup(enemy.position + Vector3.up * 0.8f, realDamage, DamagePopupTypes.CriticalYellow);
+        var popupType = (critHit) ? DamagePopupTypes.CriticalRed : DamagePopupTypes.Normal;
+        PopupsManager.CreateDamagePopup(enemy.position + Vector3.up * 0.9f, realDamage, popupType);
         InvokeOnEnemyHit(enemy.position);
     }
 

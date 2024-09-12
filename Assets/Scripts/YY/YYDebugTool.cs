@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class YYDebugTool : MonoBehaviour
 {
-    // Start is called before the first frame update
+    
     void Start()
     {
-        
+        //register a hotkey to take screenshtos
+        //ScreenCapture.CaptureScreenshot("12312", 2);
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
         

@@ -15,13 +15,13 @@ MonoBehaviour:
   _sprite: {fileID: 21300000, guid: aafc5b07a1f2bb84cbdbb9059238fe4c, type: 3}
   _animator: {fileID: 22100000, guid: b869af702a4907a4dba565533e1ba8ff, type: 2}
   _stats:
-    _speed: 2.57
-    _stunDuration: 0.16
-    _stunResistance: 6
+    _speed: 3
+    _stunDuration: 0.22
+    _stunResistance: 0
     _knockbackResistance: 4
-    _maxHealth: 14
+    _maxHealth: 11
     _damage: 1
-    _knockbackForce: 0.89
+    _knockbackForce: 0.57
   _drops:
   - {fileID: 11400000, guid: 646106529e721ce42a07611086bec9d2, type: 2}
   - {fileID: 11400000, guid: 646106529e721ce42a07611086bec9d2, type: 2}
@@ -42,7 +42,11 @@ MonoBehaviour:
   _hasShadow: 1
   _shadowPosition: {x: -0.1, y: 0.1, z: 0}
   _shadowSize: {x: 1, y: 1, z: 1}
-  _moveSFXs: []
+  _moveSFXs:
+  - {fileID: 8300000, guid: 48aea40683e3d534e9f1ce2f44410a0c, type: 3}
+  - {fileID: 8300000, guid: 48aea40683e3d534e9f1ce2f44410a0c, type: 3}
+  - {fileID: 8300000, guid: 50eaa3c7ba553a64ca62375eb63c4520, type: 3}
+  - {fileID: 8300000, guid: ab5d74a9aec828844bce181708d8da7f, type: 3}
   _onHitSFXs:
   - {fileID: 8300000, guid: 5369da3a17abbf2438457d35d883e352, type: 3}
   - {fileID: 8300000, guid: ed4f7f1e9621308449cf365fdc939989, type: 3}

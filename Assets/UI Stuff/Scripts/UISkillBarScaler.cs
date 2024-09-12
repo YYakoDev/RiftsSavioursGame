@@ -18,6 +18,7 @@ public class UISkillBarScaler : MonoBehaviour
         yield return null;
         var childCount = _skillsParent.childCount;
         var childWidth = _skillsParent.GetChild(0).GetComponent<RectTransform>().sizeDelta.x;
+        Debug.Log(childWidth);
         var desiredWidth = (childWidth * childCount) + _widthOffset;
         var startingPos = _barRect.localPosition;
         startingPos.x = (startingPos.x - (_barRect.sizeDelta.x / 2f)) +(desiredWidth / 2f);

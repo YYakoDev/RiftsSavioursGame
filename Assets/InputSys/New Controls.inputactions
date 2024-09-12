@@ -957,6 +957,116 @@
                     "isPartOfComposite": true
                 },
                 {
+                    "name": "2D Vector",
+                    "id": "a3e40bf2-3edb-4836-a35c-b67ca56e358e",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Navigate",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "6c13f3b6-afb2-4185-a78d-f7f1c52b250a",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Navigate",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "52f6238c-346d-414e-9bfe-bf730b81b3ca",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Navigate",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "fa542d81-6aca-4162-86cc-b60a4415ceed",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Navigate",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "d5e49405-6443-44bc-9b4f-747fdea273f1",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Navigate",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "WASD",
+                    "id": "00900171-3792-4323-9f0c-0c889bd1c773",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Navigate",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "1271d7cc-5a88-4588-b459-2466c944df0d",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Navigate",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "6d324152-8a07-4743-bca0-3edec588375a",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Navigate",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "0b489aeb-60ee-4938-b823-c90d1a01aa0a",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Navigate",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "1662fceb-706c-4a7a-8449-50d75c35b28f",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Navigate",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
                     "name": "",
                     "id": "0f044344-493b-4930-9448-3e20625dbde0",
                     "path": "*/{Submit}",
@@ -969,11 +1079,77 @@
                 },
                 {
                     "name": "",
+                    "id": "21013a08-8d39-446b-974a-2b2de0cfc2ed",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Submit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f9552789-353e-4f47-9463-f85732d00bc3",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Submit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0004cfa2-af78-421c-baf1-918b50895a18",
+                    "path": "<HID:: USB Gamepad          >/button3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "USB Gamepad",
+                    "action": "Submit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c3cacb21-acc7-4c0f-831d-224758d51da1",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Submit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "bbeb6477-9146-45c9-a9d8-9acd529a79d1",
                     "path": "*/{Cancel}",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse;Gamepad;Touch;Joystick;XR",
+                    "action": "Cancel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "69de0d73-0500-417d-aff0-5391f5f60040",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Cancel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "02f8ebc5-760b-4de3-85ee-c055c4577afd",
+                    "path": "<HID:: USB Gamepad          >/button2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "USB Gamepad",
                     "action": "Cancel",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -1007,6 +1183,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Touch",
+                    "action": "Point",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f5a71489-74e3-4638-bca4-0fd7520a60de",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
                     "action": "Point",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -1057,11 +1244,33 @@
                 },
                 {
                     "name": "",
+                    "id": "8faf5c77-b079-44e5-b129-e6d76b806712",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard;Joystick;USB Gamepad;Gamepad",
+                    "action": "Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "1fd993cc-ba6e-43a2-bee0-e9067bef42fe",
                     "path": "<Mouse>/scroll",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
+                    "action": "ScrollWheel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "646a092e-7c29-42a8-b1cc-fdc597ca40d1",
+                    "path": "<Mouse>/scroll",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard;Gamepad;USB Gamepad;Joystick",
                     "action": "ScrollWheel",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -1079,11 +1288,33 @@
                 },
                 {
                     "name": "",
+                    "id": "1d5a8542-af73-4e59-a406-8c29d6f234b1",
+                    "path": "<Mouse>/middleButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard;Joystick;USB Gamepad;Gamepad",
+                    "action": "MiddleClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "dc92e3aa-a6b7-4842-8795-d95cdc7cccda",
                     "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
+                    "action": "RightClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1f1d493b-c1de-48d5-a6c2-eb436fbc6957",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard;Joystick;Gamepad;USB Gamepad",
                     "action": "RightClick",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -1101,11 +1332,33 @@
                 },
                 {
                     "name": "",
+                    "id": "9d95f508-4154-4623-a659-959b6718bc0f",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "TrackedDevicePosition",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "919e6fb6-8c7e-4f5a-ba0c-9ac73e72f19a",
                     "path": "<XRController>/deviceRotation",
                     "interactions": "",
                     "processors": "",
                     "groups": "XR",
+                    "action": "TrackedDeviceOrientation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1ee0aa63-69ad-49ac-b70e-f00f8bdb364f",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
                     "action": "TrackedDeviceOrientation",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -1124,13 +1377,90 @@
                 {
                     "name": "",
                     "id": "9c278659-d4ed-4def-9e4a-ccd5bb5dbf8f",
-                    "path": "<Gamepad>/start",
+                    "path": "<Gamepad>/buttonEast",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Escape",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8d1d3481-3120-41c9-9785-9db70d0e476d",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Escape",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "63e36db3-b1dc-4cd6-9647-5e49fc2fbc85",
+                    "path": "<HID:: USB Gamepad          >/button10",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "USB Gamepad",
+                    "action": "Escape",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "2D Vector",
+                    "id": "c9d05ba6-6802-4909-83c4-6b8b32338827",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "USB Gamepad",
+                    "action": "Navigate",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "061b0b2c-9bf6-4e80-b170-6e59c07100ee",
+                    "path": "<Joystick>/stick/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "USB Gamepad",
+                    "action": "Navigate",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "2aef4238-8c70-461e-98e6-4d2b4b407663",
+                    "path": "<Joystick>/stick/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "USB Gamepad",
+                    "action": "Navigate",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "b8ea8531-2929-4923-8d78-ce778a475e2a",
+                    "path": "<Joystick>/stick/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "USB Gamepad",
+                    "action": "Navigate",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "65176de6-c5a3-4935-8e8a-79a7e5a25907",
+                    "path": "<Joystick>/stick/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "USB Gamepad",
+                    "action": "Navigate",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }

@@ -1,17 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-public class PrototypeRift : MonoBehaviour
+public class PrototypeRift : MonoBehaviour, IInteractable
 {
     [SerializeField] EnemyWaveSpawner _waveSpawner;
-    bool _playerInRange, _alreadyInteracted = false;
-    [SerializeField]InputActionReference _interactKey;
+    bool _alreadyInteracted = false;
     Timer _timer;
 
+    [SerializeField] Vector3 _buttonOffset;
+
+    public bool AlreadyInteracted { get => _alreadyInteracted; set => _alreadyInteracted = value; }
+
+    public Vector3 Offset => _buttonOffset;
+
+    public AudioClip InteractSfx => null;
+
     private void Awake() {
-        _interactKey.action.performed += InitiateChallenge;
         _timer = new(20f);
         _timer.Stop();
         _timer.onEnd += EndChallenge;
@@ -21,39 +26,27 @@ public class PrototypeRift : MonoBehaviour
         _timer.UpdateTime();
     }
 
-    void InitiateChallenge(InputAction.CallbackContext obj)
+    public void Interact()
     {
-        if(!_playerInRange) return;
-        if(_alreadyInteracted) return;
+        Debug.Log("hI");
+        //if(_alreadyInteracted) return;
         if(!_waveSpawner.gameObject.activeInHierarchy) _waveSpawner.gameObject.SetActive(true);
         _timer.Start();
         _waveSpawner.ResumeSpawning();
         _alreadyInteracted = true;
+        gameObject.SetActive(false);
     }
 
     void EndChallenge()
     {
-        _waveSpawner.StopSpawning();
-        _alreadyInteracted = false;
+        //_waveSpawner.StopSpawning();
+        //_alreadyInteracted = false;
         //destroy the rift instead of resetting it
     }
 
     private void OnDestroy() {
-        _interactKey.action.performed -= InitiateChallenge;
         _timer.onEnd -= EndChallenge;
     }
 
-    private void OnTriggerEnter2D(Collider2D other) {
-        if(other.CompareTag("Player"))
-        {
-            _playerInRange = true;
-        }
-    }
 
-    private void OnTriggerExit2D(Collider2D other) {
-        if(other.CompareTag("Player"))
-        {
-            _playerInRange = false;
-        }
-    }
 }

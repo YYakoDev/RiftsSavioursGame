@@ -7,6 +7,9 @@ using UnityEngine.InputSystem;
 
 public class PauseMenuManager : MonoBehaviour
 {
+    [SerializeField] PlayerInput _input;
+    [SerializeField] GameObject _buttonsParent;
+    [SerializeField] MenuController _menuController;
     static bool _disablePauseBehaviour = false;
     [SerializeField] GameObject _pauseMenuParent, _confirmationObj, _continueButton;
     //[SerializeField] UpgradesMenu _upgradeMenu;
@@ -15,7 +18,7 @@ public class PauseMenuManager : MonoBehaviour
     float _previousTimeScale = 1f;
     EventSystem _eventSys;
     GameObject _previouslySelectedObj;
-    [SerializeField]InputActionReference _escapeButton;
+    [SerializeField]InputActionReference _escapeButton, _UICancelButton;
 
 
     public static void DisablePauseBehaviour(bool state)
@@ -32,6 +35,7 @@ public class PauseMenuManager : MonoBehaviour
         //_upgradeMenu.OnMenuClose += ClosingCheck;
         _eventSys = EventSystem.current;
         _escapeButton.action.performed += SwitchPauseMenuWithInput;
+        _UICancelButton.action.performed += SwitchPauseMenuWithInput;
     }
     void SwitchPauseMenuWithInput(InputAction.CallbackContext obj)
     {
@@ -63,6 +67,8 @@ public class PauseMenuManager : MonoBehaviour
             _previouslySelectedObj = _eventSys.currentSelectedGameObject;
             _eventSys.SetSelectedGameObject(_continueButton);
             _disablePauseBehaviour = false;
+            _input.SwitchCurrentActionMap("UI");
+            _menuController.SwitchCurrentMenu(_pauseMenuParent);
         }
         _activeMenu = state;
         _confirmationObj.SetActive(false);
@@ -73,13 +79,15 @@ public class PauseMenuManager : MonoBehaviour
 
         if(!state)
         {
-            YYInputManager.ResumeInput();
+            //YYInputManager.ResumeInput();
             _eventSys.SetSelectedGameObject(_previouslySelectedObj);
+            _input.SwitchCurrentActionMap("GAMEPLAY");
+            _menuController.SwitchCurrentMenu(null);
         }
-        else YYInputManager.StopInput();
     }
 
     private void OnDestroy() {
         _escapeButton.action.performed -= SwitchPauseMenuWithInput;
+        _UICancelButton.action.performed -= SwitchPauseMenuWithInput;
     }
 }

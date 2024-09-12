@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerInputUI : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class PlayerInputUI : MonoBehaviour
     [SerializeField] PlayerMovement _movementScript;
     [SerializeField] Sprite _dashUIIcon, _atkUIIcon, _aimIcon;
     UISkill _dashSkill, _attackSkill, _switchAimSkill;
+    [SerializeField]InputActionReference _atkInput, _dashInput, _switchAimInput;
     WeaponBase _currentWeapon;
 
 
@@ -38,36 +40,36 @@ public class PlayerInputUI : MonoBehaviour
         _currentWeapon.onAttack += PlayAttackInput;
     }
 
-    void SetInputOnUI(ref UISkill item, KeyInputTypes type, Sprite icon, float cooldown)
+    void SetInputOnUI(ref UISkill item, InputActionReference inputType, Sprite icon, float cooldown)
     {
         if(_uiSkillsManager == null) return;
         if(item == null)
         {
-            item = _uiSkillsManager.SetInputSkill(type, icon, cooldown);
+            item = _uiSkillsManager.SetInputSkill(inputType, icon, cooldown);
         }
         else item.UpdateCooldown(cooldown);
     }
-    void SetInputOnUI(ref UISkill item, KeyInputTypes type, Sprite icon)
+    void SetInputOnUI(ref UISkill item, InputActionReference inputType, Sprite icon)
     {
         if(_uiSkillsManager == null) return;
         if(item == null)
         {
-            item = _uiSkillsManager.SetInputSkill(type, icon);
+            item = _uiSkillsManager.SetInputSkill(inputType, icon);
         }
     }
 
 
     void SetDashInputOnUI()
     {
-        SetInputOnUI(ref _dashSkill, KeyInputTypes.Dash, _dashUIIcon, _movementScript.DashCooldown);
+        SetInputOnUI(ref _dashSkill, _dashInput, _dashUIIcon, _movementScript.DashCooldown);
     }
     void SetAtkInputOnUI()
     {
-        SetInputOnUI(ref _attackSkill, KeyInputTypes.Attack, _atkUIIcon);
+        SetInputOnUI(ref _attackSkill, _atkInput, _atkUIIcon);
     }
     void SetSwitchAimOnUI()
     {
-        SetInputOnUI(ref _switchAimSkill, KeyInputTypes.SwitchAim, _aimIcon);
+        SetInputOnUI(ref _switchAimSkill, _switchAimInput, _aimIcon);
     }
 
     void PlayAttackInput()

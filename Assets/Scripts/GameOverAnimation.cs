@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
@@ -14,6 +15,7 @@ public class GameOverAnimation : MonoBehaviour
     [SerializeField] Canvas _canvas;
     [SerializeField] SOPlayerStats _playerStats;
     [SerializeField] Camera _mainCamera;
+    [SerializeField] PlayerInput _inputController;
     [SerializeField] GameObject _visualsParent;
     [SerializeField] RectTransform _redScreenRect;
     Image _redScreenImg;
@@ -70,6 +72,8 @@ public class GameOverAnimation : MonoBehaviour
         _gameFreezeTimer = new(_slowFreezeTime, useUnscaledTime: true);
         _gameFreezeTimer.onEnd += GameOver;
         _gameFreezeTimer.Start();
+
+        if(Application.installMode != ApplicationInstallMode.Editor) _debugPlayAnimationAtStart = false;
     }
 
     private void Start()
@@ -101,8 +105,10 @@ public class GameOverAnimation : MonoBehaviour
         {
             Debug.Log("<b>Game Over :( </b>");
             _playGameOver = true;
-            YYInputManager.StopInput();
+            //YYInputManager.StopInput();
             //GameOver();
+            _inputController.SwitchCurrentActionMap("UI");
+            PauseMenuManager.DisablePauseBehaviour(true);
         }
     }
 
@@ -255,7 +261,15 @@ public class GameOverAnimation : MonoBehaviour
         //you need to restart the run with the same parameters chosen at the start like character & weapon selected
         TimeScaleManager.ForceTimeScale(1f);
         SceneManager.LoadScene("MainHub");
+        _inputController.SwitchCurrentActionMap("GAMEPLAY");
+        PauseMenuManager.DisablePauseBehaviour(false);
 
+    }
+    public void Restart()
+    {
+        TimeScaleManager.ForceTimeScale(1f);
+        SceneManager.LoadScene(1);
+        _inputController.SwitchCurrentActionMap("GAMEPLAY");
     }
 
     public void QuitGame()

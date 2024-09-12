@@ -15,10 +15,10 @@ MonoBehaviour:
   _sprite: {fileID: 21300000, guid: 286e9b332ddbec243b9e52b936d8da6e, type: 3}
   _animator: {fileID: 22100000, guid: b9f821d99ff66ae45ad6061fce689351, type: 2}
   _stats:
-    _speed: 2.57
-    _stunDuration: 0.16
-    _stunResistance: 6
-    _knockbackResistance: 4
+    _speed: 2.75
+    _stunDuration: 0.22
+    _stunResistance: 0
+    _knockbackResistance: 5
     _maxHealth: 14
     _damage: 1
     _knockbackForce: 0.89
@@ -33,7 +33,7 @@ MonoBehaviour:
   _circleColliderOffset: {x: -0.075, y: -0.55}
   _circleColliderRadius: 0.22
   _enableEnemyDetector: 1
-  _enemyDetectionRadius: 0.45
+  _enemyDetectionRadius: 0.4
   _movementBehaviour: {fileID: 11400000, guid: 9506340d249ee2f4aa6eaa1981b01eda, type: 2}
   _attackBehaviour: {fileID: 11400000, guid: fa81f5ed01e62f145b9699053d248833, type: 2}
   _deathBehaviour: {fileID: 11400000, guid: a7b25a3cf6c05e042962e5efafe778b3, type: 2}
@@ -41,7 +41,11 @@ MonoBehaviour:
   _hasShadow: 1
   _shadowPosition: {x: -0.1, y: 0.1, z: 0}
   _shadowSize: {x: 1, y: 1, z: 1}
-  _moveSFXs: []
+  _moveSFXs:
+  - {fileID: 8300000, guid: 48aea40683e3d534e9f1ce2f44410a0c, type: 3}
+  - {fileID: 8300000, guid: 48aea40683e3d534e9f1ce2f44410a0c, type: 3}
+  - {fileID: 8300000, guid: 50eaa3c7ba553a64ca62375eb63c4520, type: 3}
+  - {fileID: 8300000, guid: ab5d74a9aec828844bce181708d8da7f, type: 3}
   _onHitSFXs:
   - {fileID: 8300000, guid: 5369da3a17abbf2438457d35d883e352, type: 3}
   - {fileID: 8300000, guid: ed4f7f1e9621308449cf365fdc939989, type: 3}

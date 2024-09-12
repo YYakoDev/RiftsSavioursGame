@@ -14,11 +14,11 @@ public class PrototypeMeleeEffects : MonoBehaviour
     bool _holding, _dashing;
     Timer _atkTimer, _holdTimer;
     AnimationCurve _aimCurve;
-    float _holdDuration = 0.7f, _elapsedTime, _initialAimSpeed, _dashTime = 0.2f; //get the heavyatktime threshold for the hold duration
+    float _holdDuration = 0.52f, _elapsedTime, _initialAimSpeed, _dashTime = 0.2f; //get the heavyatktime threshold for the hold duration
     [SerializeField] float _dashPullForce = 1f;
     InputAction.CallbackContext _callbackContextEmpty = new();
     private void Awake() {
-        _atkTimer = new(0.2f);
+        _atkTimer = new(0.25f);
         _atkTimer.Stop();
         _atkTimer.onEnd += ReturnPlayerFreedom;
         //_holdTimer = new(0.2f); //this should be more than half the medium attack threshold
@@ -51,11 +51,11 @@ public class PrototypeMeleeEffects : MonoBehaviour
             var percent = _elapsedTime / _holdDuration;
             if(percent <= 1.01f)
             {
-                _aiming.AimSmoothing = Mathf.Lerp(_initialAimSpeed, _initialAimSpeed / 4f, _aimCurve.Evaluate(percent));
+                _aiming.AimSmoothing = Mathf.Lerp(_initialAimSpeed, _initialAimSpeed / 3f, _aimCurve.Evaluate(percent));
             }
         }else if(_movement.Movement.sqrMagnitude > 0.1f)
         {
-            _aiming.AimSmoothing = _initialAimSpeed / 1.65f;
+            _aiming.AimSmoothing = _initialAimSpeed / 1.45f;
         }else
         {
             if(_aiming.AimSmoothing < _initialAimSpeed)

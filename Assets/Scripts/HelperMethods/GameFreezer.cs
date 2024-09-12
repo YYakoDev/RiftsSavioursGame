@@ -12,9 +12,12 @@ public static class GameFreezer
     {
         int miliseconds = (int)(seconds * 1000f);
         TimeScaleManager.SetTimeScale(0);
+        #if !UNITY_WEBGL
         await Task.Delay(miliseconds);
+        #endif
         TimeScaleManager.SetTimeScale(1);
     }
+
 
     public static void Freeze()
     {
