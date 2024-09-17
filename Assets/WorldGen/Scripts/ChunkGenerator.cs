@@ -104,7 +104,7 @@ public class ChunkGenerator : MonoBehaviour
         if(_spawnedChunks.ContainsKey(positionOnGrid)) return _spawnedChunks[positionOnGrid].transform;
         else
         {
-            Debug.Log("No parent found in the chunk:  " + positionOnGrid + " \n original position:  " + position);
+            //Debug.Log("No parent found in the chunk:  " + positionOnGrid + " \n original position:  " + position);
             if(gameObject.activeInHierarchy) return null;
             return _chunkReference.transform; // CHANGE THIS TO NULL IF YOU ARE ON THE ORIGINAL GAMEPLAY LOOP
         }

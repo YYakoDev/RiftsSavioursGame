@@ -8,7 +8,6 @@ using UnityEngine.InputSystem;
 public class PauseMenuManager : MonoBehaviour
 {
     [SerializeField] PlayerInput _input;
-    [SerializeField] GameObject _buttonsParent;
     [SerializeField] MenuController _menuController;
     static bool _disablePauseBehaviour = false;
     [SerializeField] GameObject _pauseMenuParent, _confirmationObj, _continueButton;

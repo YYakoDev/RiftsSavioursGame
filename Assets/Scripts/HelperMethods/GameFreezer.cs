@@ -11,16 +11,16 @@ public static class GameFreezer
     public static async void FreezeGame(float seconds)
     {
         int miliseconds = (int)(seconds * 1000f);
-        TimeScaleManager.SetTimeScale(0);
+        TimeScaleManager.SetTimeScale(0f);
         #if !UNITY_WEBGL
         await Task.Delay(miliseconds);
         #endif
-        TimeScaleManager.SetTimeScale(1);
+        TimeScaleManager.SetTimeScale(1f);
     }
 
 
-    public static void Freeze()
+    /*public static void Freeze()
     {
         // await the freeze game async task and check if it is ongoing or not completed then cancel it and execute again?
-    }
+    }*/
 }

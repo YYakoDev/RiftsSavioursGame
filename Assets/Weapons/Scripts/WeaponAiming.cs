@@ -133,12 +133,13 @@ public class WeaponAiming : MonoBehaviour
 
     void GetNearestEnemy()
     {
+        var currentPos = transform.position;
         if(_resultsCount == 0)
         {
             _crosshair.gameObject.SetActive(false);
             //_mousePosition = _mainCamera.ScreenToWorldPoint(YYInputManager.MousePosition); 
             _closestEnemyPosition = _currentWeapon.PrefabTransform.position;
-            SetCameraTargetPoint(transform.position);
+            SetCameraTargetPoint(currentPos);
             return;
         }
         _closestEnemyPosition = Vector2.zero;
@@ -147,8 +148,9 @@ public class WeaponAiming : MonoBehaviour
         for(int i = 0; i < _resultsCount; i++)
         {
             if(!_targetsDetected[i].isTrigger || !_targetsDetected[i].gameObject.activeInHierarchy) continue;
-            var distanceToEnemy = Vector3.Distance(_targetsDetected[i].transform.position, transform.position);
-            if(distanceToEnemy < distance)
+            var distanceToEnemy = Vector3.Distance(_targetsDetected[i].ClosestPoint(currentPos), currentPos);
+            //Debug.Log("Distance:   " + distanceToEnemy);
+            if(distanceToEnemy < (distance - 1.21f)) // this 1.21f is an arbitrary threshold the next closest enemy has to surpass in order for the target switch to occur
             {
                 distance = distanceToEnemy;
                 closestEnemyIndex = i;

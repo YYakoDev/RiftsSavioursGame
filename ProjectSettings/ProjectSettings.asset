@@ -14,7 +14,7 @@ PlayerSettings:
   accelerometerFrequency: 60
   companyName: YYakoDev
   productName: Rift Saviours
-  defaultCursor: {fileID: 2800000, guid: 09af858dd764e6640b5ce53b42c53632, type: 3}
+  defaultCursor: {fileID: 0}
   cursorHotspot: {x: 160, y: 160}
   m_SplashScreenBackgroundColor: {r: 0.23584908, g: 0.127937, b: 0.15491508, a: 1}
   m_ShowUnitySplashScreen: 1
@@ -607,7 +607,7 @@ PlayerSettings:
   allowUnsafeCode: 0
   useDeterministicCompilation: 1
   enableRoslynAnalyzers: 1
-  selectedPlatform: 2
+  selectedPlatform: 0
   additionalIl2CppArgs: 
   scriptingRuntimeVersion: 1
   gcIncremental: 1

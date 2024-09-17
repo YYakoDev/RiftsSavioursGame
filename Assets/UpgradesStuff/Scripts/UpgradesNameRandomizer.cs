@@ -44,13 +44,15 @@ public static class UpgradesNameRandomizer
         {StatsTypes.ProjectilesSpeed, new StringMultiple("Gunpowder")},
         {StatsTypes.SummonDamage, new StringMultiple("Voodoo Doll")},
         {StatsTypes.SummonSpeed, new StringMultiple("Totem")},
+        {StatsTypes.CriticalChance, new StringMultiple("Blade Reforging")},
+        {StatsTypes.CriticalDamageMultiplier, new StringMultiple("Edge")},
     };
 
     private static Dictionary<StatsTypes, StringMultiple> itemAdjectives = new()
     {
         {StatsTypes.MaxHealth, new StringMultiple("Healthy", "Lovely") },
         {StatsTypes.CurrentHealth, new StringMultiple("Beautiful", "Charming") },
-        {StatsTypes.Speed, new StringMultiple("Rapid", "Hasty", "Mercury's") },
+        {StatsTypes.Speed, new StringMultiple("Fleet footed", "Hasty", "Mercury's") },
         {StatsTypes.SlowdownMultiplier, new StringMultiple("Slow", "Sluggish") },
         {StatsTypes.DashSpeed, new StringMultiple("Quick", "Brisk", "Speedy") },
         {StatsTypes.DashCooldown, new StringMultiple("Balanced", "Steady") },
@@ -77,6 +79,8 @@ public static class UpgradesNameRandomizer
         {StatsTypes.ProjectilesSpeed, new StringMultiple("Asian", "Chinese")},
         {StatsTypes.SummonDamage, new StringMultiple("Dark", "Raven", "Dusky")},
         {StatsTypes.SummonSpeed, new StringMultiple("Necromantic", "Demon Worshipper", "Sacrificial")},
+        {StatsTypes.CriticalChance, new StringMultiple("Critical")},
+        {StatsTypes.CriticalDamageMultiplier, new StringMultiple("Critical")},
     };
     private static Dictionary<StatsTypes, StringMultiple> thirdItemName = new()
     {
@@ -109,6 +113,8 @@ public static class UpgradesNameRandomizer
         {StatsTypes.ProjectilesSpeed, new StringMultiple("discovered in China", "from the alchemist")},
         {StatsTypes.SummonDamage, new StringMultiple("of the forest witch", "from the witch", "born in Warnow", "found in the forest")},
         {StatsTypes.SummonSpeed, new StringMultiple("from the sorceress", "of the priest")},
+        {StatsTypes.CriticalChance, new StringMultiple("from the swordmaster")},
+        {StatsTypes.CriticalDamageMultiplier, new StringMultiple("reforged")},
     };
     private static Dictionary<StatsTypes, StringMultiple> fourthItemName = new()
     {
@@ -141,6 +147,8 @@ public static class UpgradesNameRandomizer
         {StatsTypes.ProjectilesSpeed, new StringMultiple(", with gunpowder inside")},
         {StatsTypes.SummonDamage, new StringMultiple(", that was present in the dragon tournament in mars")},
         {StatsTypes.SummonSpeed, new StringMultiple("from yours truly", "stolen from a necromancer")},
+        {StatsTypes.CriticalChance, new StringMultiple("from the hands of an unyielding warrior")},
+        {StatsTypes.CriticalDamageMultiplier, new StringMultiple("used in 100 duels")},
     };
 
     private static Dictionary<UpgradeRarity, StringMultiple> RarityNames = new()

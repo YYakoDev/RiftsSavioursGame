@@ -4,12 +4,13 @@ using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(Animator))]
-[RequireComponent(typeof(AudioSource))]
+[RequireComponent(typeof(AudioSource), typeof(WhiteBlinkEffect))]
 public class WeaponPrefab : MonoBehaviour
 {
     private SpriteRenderer _spriteRenderer;
     private Animator _animator;
     private WeaponBase _weaponBase;
+    private WhiteBlinkEffect _blinkFX;
     private readonly int OnEquipAnim = Animator.StringToHash("OnEquip");
     //private readonly int AttackAnim1 = Animator.StringToHash("Attack");
 
@@ -19,12 +20,14 @@ public class WeaponPrefab : MonoBehaviour
 
     public SpriteRenderer Renderer => _spriteRenderer;
     public Animator Animator => _animator;
+    public WhiteBlinkEffect BlinkFX => _blinkFX;
 
     private void Awake() {
         GameObject thisGO = gameObject;
         thisGO.CheckComponent<SpriteRenderer>(ref _spriteRenderer);
         thisGO.CheckComponent<Animator>(ref _animator);
         thisGO.CheckComponent<AudioSource>(ref _audio);
+        thisGO.CheckComponent<WhiteBlinkEffect>(ref _blinkFX);
     }
     
     private void OnEnable() {
@@ -41,16 +44,17 @@ public class WeaponPrefab : MonoBehaviour
 
     void AttackEffects()
     {
+        _blinkFX.Stop();
         PlayAttackAnimation();
         PlayAttackSound();
     }
     void PlayAttackAnimation()
     {
-        _animator.Play(_weaponBase.Animation);
-        if(_animator.GetCurrentAnimatorStateInfo(0).shortNameHash == _weaponBase.Animation)
+        _animator.Play(_weaponBase.Animation, 0, 0f);
+        /*if(_animator.GetCurrentAnimatorStateInfo(0).shortNameHash == _weaponBase.Animation)
         {
             StartCoroutine(ReplayAnimation(_animator, _weaponBase.Animation));
-        }
+        }*/
     }
     void PlayAttackSound()
     {
@@ -63,7 +67,7 @@ public class WeaponPrefab : MonoBehaviour
         {
             yield return null;
         }
-        _animator.Play(hash);
+        _animator.Play(hash, 0, 0f);
     }
 
     public void SetWeaponBase(WeaponBase weapon)
@@ -100,3 +104,4 @@ public class WeaponPrefab : MonoBehaviour
         _weaponBase.onAttack -= AttackEffects;
     }
 }
+

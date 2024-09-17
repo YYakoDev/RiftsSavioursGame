@@ -35,7 +35,7 @@ public class CameraEffects : MonoBehaviour
         for (int i = 0; i < maxIterations; i++)
         {
             var randomSign = Mathf.Sign(Random.Range(-1, 2));
-            var dir = GetNewDirection(1.5f + strength * randomSign);
+            var dir = GetNewDirection(1.5f * strength * randomSign);
             var realDuration = (duration) / (float)maxIterations;
             _animator.TweenTransformMoveTo(_cameraTransform, previousDir, dir, realDuration, CurveTypes.EaseInOut);
             previousDir = dir;

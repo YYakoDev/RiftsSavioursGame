@@ -123,6 +123,12 @@ public class PlayerStatsManager : MonoBehaviour
             case 28:
                 result = atkStats.AttackSpeed;
                 break;
+            case 29:
+                result = atkStats.CriticalChance;
+                break;
+            case 30:
+                result = atkStats.CriticalDamageMultiplier;
+                break;
         }
         return result;
     }
@@ -218,6 +224,12 @@ public class PlayerStatsManager : MonoBehaviour
                 break;
             case 28:
                 _playerAtkStats.AttackSpeed += increment;
+                break;
+            case 29:
+                _playerAtkStats.CriticalChance += increment;
+                break;
+            case 30:
+                _playerAtkStats.CriticalDamageMultiplier += increment;
                 break;
         }
 

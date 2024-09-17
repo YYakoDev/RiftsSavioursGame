@@ -81,6 +81,30 @@ public class TripleComboMeleeWeapon : MeleeWeapon
             
         }
     }
+
+    public override void RemoveFxFromList(WeaponEffects fx)
+    {
+
+        int fxIndex = -1, comboIndex = -1;
+        for (int i = 0; i < _comboStats.Length; i++)
+        {
+            var combo = _comboStats[i];
+            for (int j = 0; j < combo.UsedEffects.Length; j++)
+            {
+                if(fx == combo.UsedEffects[j])
+                {
+                    comboIndex = i;
+                    fxIndex = j;
+                    break;
+                }
+            }
+        }
+        if(comboIndex != -1)
+        {
+            _comboStats[comboIndex].UsedEffects[fxIndex] = null;
+        }
+
+    }
     protected override void SubscribeInput() => _attackKey.action.started += TryAttack;
     
     public override void UnsubscribeInput() => _attackKey.action.started -= TryAttack;

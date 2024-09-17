@@ -56,6 +56,8 @@ public static class StoreUpgradeIcons
             {StatsTypes.SummonDamage, summonIcon},
             {StatsTypes.SummonSpeed, summonIcon},
             {StatsTypes.AttackSpeed, swordIcon},
+            {StatsTypes.CriticalChance, swordIcon},
+            {StatsTypes.CriticalDamageMultiplier, swordIcon},
         };
     }
 

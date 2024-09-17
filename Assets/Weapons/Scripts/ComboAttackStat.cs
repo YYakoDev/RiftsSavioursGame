@@ -38,6 +38,7 @@ public class ComboAttackStat
         for (int i = 0; i < UsedEffects.Length; i++)
         {
             var baseFx = WeaponFxs[i];
+            if(baseFx == null) continue;
             UsedEffects[i] = GameObject.Instantiate(baseFx);
         }
     }

@@ -125,6 +125,6 @@ public class SOPlayerStats : PlayerStatsBase
     }
 
     private void OnValidate() {
-        if(_weapons.Length > 2)Array.Resize<WeaponBase>(ref _weapons, 3);
+        if(_weapons.Length > 2)Array.Resize<WeaponBase>(ref _weapons, 2);
     }
 }

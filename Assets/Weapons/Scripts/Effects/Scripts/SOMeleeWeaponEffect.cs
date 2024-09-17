@@ -4,19 +4,27 @@ using UnityEngine;
 
 public class SOMeleeWeaponEffect : WeaponEffects
 {
-    protected MeleeWeapon _meleeWeapon;
+    protected SOMeleeWeapon _meleeWeapon;
     public override void Initialize(WeaponBase weapon)
     {
         base.Initialize(weapon);
         //Debug.Log(weapon.GetType().IsSubclassOf(typeof(MeleeWeapon)));
         var type = weapon.GetType();
-        var isSubclass = type.IsSubclassOf(typeof(MeleeWeapon));
-        if(!isSubclass  && type != typeof(MeleeWeapon))
+        var isSubclass = type.IsSubclassOf(typeof(SOMeleeWeapon));
+        if(!isSubclass  && type != typeof(SOMeleeWeapon))
         {
-            Debug.Log("removing fx:  " + name);
+            Debug.Log("removing fx:  " + name + "  from:  " + weapon.name);
             _weapon.RemoveFxFromList(this);
             return;
         }
-        this._meleeWeapon = base._weapon as MeleeWeapon;
+        this._meleeWeapon = base._weapon as SOMeleeWeapon;
+    }
+
+    public override void OnAttackFX()
+    {
+        base.OnAttackFX();
+        if(_meleeWeapon == null)
+        {
+        }
     }
 }

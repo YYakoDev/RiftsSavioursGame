@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
 
-public abstract class WeaponBase: ScriptableObject
+public abstract class WeaponBase: ScriptableObject, IQuickSwitchHandler
 {
     public const string MenuPath = "ScriptableObjects/Weapons/";
     //references
@@ -27,6 +27,7 @@ public abstract class WeaponBase: ScriptableObject
     protected bool _randomizeSounds = true;
     [SerializeField]private bool _pointCameraOnAttack = false;
     protected Transform _weaponPrefabTransform;
+
 
     [Header("Weapon Attack Stats")]
     [SerializeField]protected float _attackCooldown = 0.5f;
@@ -141,7 +142,7 @@ public abstract class WeaponBase: ScriptableObject
             fx.OnHitFX(pos);
         }
     }
-    public void RemoveFxFromList(WeaponEffects fx)
+    public virtual void RemoveFxFromList(WeaponEffects fx)
     {
         int index = -1;
         for (int i = 0; i < _usedEffects.Length; i++)
@@ -156,6 +157,11 @@ public abstract class WeaponBase: ScriptableObject
     }
 
     public virtual void DrawGizmos(){}
+
+    public virtual QuickSwitchInfo GetSwitchInfo() => null;
+
+    public virtual void QuickSwitch(QuickSwitchInfo info)
+    {}
 
     ~WeaponBase()
     {

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 [RequireComponent(typeof(TweenAnimatorMultiple))]
 public class UIWaveProgressChecker : MonoBehaviour
@@ -9,8 +10,10 @@ public class UIWaveProgressChecker : MonoBehaviour
     [SerializeField]Slider _slider;
     [SerializeField] Image _fillImg, _barIcon;
     [SerializeField] Sprite _enemyWaveImg, _restImg;
+    [SerializeField] TextMeshProUGUI _waveCountText, _difficultyLevelText, _timeText;
     RectTransform _sliderRect;
     Timer _waveTimer;
+    int _waveCount = 0; 
     float _currentWaveDuration = 0f;
     bool _timerIsRunning = false;
     TweenAnimatorMultiple _animator;
@@ -30,6 +33,7 @@ public class UIWaveProgressChecker : MonoBehaviour
     private void Start() {
         //_handleImg.sprite = _enemyWaveImg;
         //_fillImg.color = UIColors.GetColor(UIColor.Red);
+        _waveCount = 0;
         _slider.value = 0f;
         _slider.maxValue = 1f;
         _slider.wholeNumbers = false;
@@ -38,21 +42,29 @@ public class UIWaveProgressChecker : MonoBehaviour
 
     void StateSwitchCheck(GameStateBase state)
     {
-        
         if(state.GetType() == typeof(ConvergenceState))
         {
             var ConvergenceState = (ConvergenceState)state;
             _currentWaveDuration = ConvergenceState.CountdownTime;
             _barIcon.sprite = _enemyWaveImg;
+            AdvanceWaveCount();
         }
         else if(state.GetType() == typeof(RestState))
         {
             var RestState = (RestState)state;
             _currentWaveDuration = RestState.CountdownTime;
             _barIcon.sprite = _restImg;
+            _waveCountText.SetText("RESTING");
         }
         SetEnemyWaveSlider(_currentWaveDuration);
     }
+
+    void AdvanceWaveCount()
+    {
+        _waveCount++;
+        _waveCountText.SetText($"CURRENT WAVE: {_waveCount}");
+    }
+
     void SetEnemyWaveSlider(float time)
     {
         PlayAnimation();
@@ -79,6 +91,10 @@ public class UIWaveProgressChecker : MonoBehaviour
             var percentage = _waveTimer.CurrentTime / _currentWaveDuration;
             _slider.value = percentage;
         }
+        var minutes = Mathf.FloorToInt(GameTime.RunTime/60);
+        var seconds = Mathf.FloorToInt(GameTime.RunTime % 60);
+        var time = string.Format("{0:00}:{1:00}",minutes,seconds);
+        _timeText.SetText(time);
     }
     private void OnDestroy() {
         GameStateManager.OnStateSwitch -= StateSwitchCheck;

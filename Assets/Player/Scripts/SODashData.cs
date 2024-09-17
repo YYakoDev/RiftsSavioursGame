@@ -25,7 +25,7 @@ public class SODashData : ScriptableObject
     }
     public virtual void PlayFX()
     {
-        if(!_initialized) return;
+        
 
         PostProcessingManager.SetMotionBlur(_motionBlur);
         CameraEffects.Shake(2f * _cameraShake);
@@ -34,7 +34,7 @@ public class SODashData : ScriptableObject
 
     public virtual void StopFX()
     {
-        if(!_initialized) return;
+        
         PostProcessingManager.SetMotionBlur(0f);
     }
 }

@@ -8137,7 +8137,6 @@ MonoBehaviour:
   _world: {fileID: 11400000, guid: 4ff5e46103d8e214ab9af9ed9ced8655, type: 2}
   xOffset: 0.5
   yOffset: 0
-  _maxSpawnCount: -1
 --- !u!1 &6050088859260544758
 GameObject:
   m_ObjectHideFlags: 0

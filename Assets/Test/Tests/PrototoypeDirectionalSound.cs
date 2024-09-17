@@ -7,7 +7,7 @@ public class PrototoypeDirectionalSound : MonoBehaviour
     Transform _cachedTransform;
     [SerializeField] AudioSource _audio;
     [SerializeField] Transform _target;
-    [SerializeField] float _distanceThreshold, _minVolume = 0.1f;
+    [SerializeField] float _distanceThreshold, _minVolume = 0.1f, _effectStrength = 1f;
     float _updateRate = 0.1f, _nextUpdate, _defaultVolume;
     
 
@@ -22,6 +22,9 @@ public class PrototoypeDirectionalSound : MonoBehaviour
 
     public void SetTarget(Transform target) => _target = target;
 
+    private void OnEnable() {
+        UpdateAudio();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -30,6 +33,7 @@ public class PrototoypeDirectionalSound : MonoBehaviour
         //TEST ONLY
         _target = HelperMethods.MainCamera.transform;
     }
+
 
     // Update is called once per frame
     void Update()
@@ -52,21 +56,21 @@ public class PrototoypeDirectionalSound : MonoBehaviour
         if(distance > _distanceThreshold)
         {
             var diff = _distanceThreshold / distance;
-            var volume = _defaultVolume * diff;
+            var volume = _defaultVolume * diff / _effectStrength;
             if(volume < _minVolume) volume = _minVolume;
             _audio.volume = volume;
 
             var dirToTarget = _target.position - _cachedTransform.position;
             dirToTarget.Normalize();
-            _audio.panStereo = -dirToTarget.x / 1.2f;
+            _audio.panStereo = -dirToTarget.x / 1.2f * _effectStrength;
 
-            _audio.reverbZoneMix = 1f - (0.25f - diff);
+            //_audio.reverbZoneMix = 1f - (0.25f - diff);
         }
         else
         {
             _audio.volume = _defaultVolume;
             _audio.panStereo = 0f;
-            _audio.reverbZoneMix = 1f;
+            //_audio.reverbZoneMix = 1f;
         }
     }
 

@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class YYInputManager : MonoBehaviour
 {
     public static YYInputManager i;
-    static bool _stopInput = false;
+    //static bool _stopInput = false;
     [SerializeField] InputActionReference _pointerPosition;
     public Vector3 GetMousePosition()
     {
@@ -20,7 +20,7 @@ public class YYInputManager : MonoBehaviour
     }
 
     private void Start() {
-        ResumeInput();
+        //ResumeInput();
     }
     /*[SerializeField]KeyInput[] _keys = new KeyInput[0];
     const string HorizontalAxis = "Horizontal";
@@ -73,10 +73,13 @@ public class YYInputManager : MonoBehaviour
     }
 
     */
-    public static void ResumeInput() => _stopInput = false;
+    public static void ResumeInput()
+    {
+        //_stopInput = false;
+    }
     public static void StopInput()
     {
-        _stopInput = true;
+        //_stopInput = true;
         //OnMovement?.Invoke(Vector2.zero);
     }
 }

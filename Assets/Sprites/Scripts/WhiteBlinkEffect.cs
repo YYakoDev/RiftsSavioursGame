@@ -39,6 +39,11 @@ public class WhiteBlinkEffect : MonoBehaviour
         _blinkTimer.ChangeTime(_duration);
         _blinkTimer.Start();
     }
+    public void Play(float duration)
+    {
+        _blinkTimer.ChangeTime(duration);
+        _blinkTimer.Start();
+    }
 
     public void Stop()
     {

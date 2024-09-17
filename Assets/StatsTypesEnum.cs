@@ -30,5 +30,7 @@ public enum StatsTypes
     SummonDamage = 26,
     SummonSpeed = 27,
     AttackSpeed = 28,
+    CriticalChance = 29,
+    CriticalDamageMultiplier = 30
 
 }

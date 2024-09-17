@@ -54,7 +54,7 @@ public class DashFXPrefab : MonoBehaviour
     void Stop()
     {
         //_animator.enabled = false;
-        _renderer.enabled = false;
-        _dashData.StopFX();
+        _dashData?.StopFX();
+        if(_renderer != null) _renderer.enabled = false;
     }
 }

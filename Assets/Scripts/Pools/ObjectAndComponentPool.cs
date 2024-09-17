@@ -17,7 +17,7 @@ where TComponent : Component
 
     Func<TComponent, bool> _conditionToMeet;
 
-    public ObjectAndComponentPool(int amountToPool, GameObject objToPool, Transform parent, bool isResizable, Func<TComponent, bool> skipCondition = null)
+    public ObjectAndComponentPool(int amountToPool, GameObject objToPool, Transform parent, bool isResizable = true, Func<TComponent, bool> skipCondition = null)
     {
         if(!objToPool.TryGetComponent<TComponent>(out var component))
         {

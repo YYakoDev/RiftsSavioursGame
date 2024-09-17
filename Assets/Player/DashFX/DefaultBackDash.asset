@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: DefaultBackDash
   m_EditorClassIdentifier: 
   _dashAnimation: {fileID: 22100000, guid: f172713fe74e7cd4fa21611e361d329c, type: 2}
-  _motionBlur: 0.2
-  _cameraShake: 0.2
-  _dashDuration: 0.4
-  _dashForceMultiplier: 0.9
-  _doBlinkFX: 0
+  _motionBlur: 0.1
+  _cameraShake: 0
+  _dashDuration: 0.45
+  _dashForceMultiplier: 1
+  _doBlinkFX: 1
   _abovePlayer: 0
   _dashSFX: {fileID: 8300000, guid: c67633847f5a1554baa9b77cd4e0e6f2, type: 3}

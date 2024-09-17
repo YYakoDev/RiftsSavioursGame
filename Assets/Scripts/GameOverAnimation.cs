@@ -79,7 +79,7 @@ public class GameOverAnimation : MonoBehaviour
     private void Start()
     {
         if (_mainCamera == null) _mainCamera = Camera.main;
-
+        TimeScaleManager.ForceTimeScale(1f);
         _playerStats.onStatsChange += CheckHealth;
         _redScreenImg = _redScreenRect.GetComponent<Image>();
         _playerImg = _playerImageRect.GetComponent<Image>();
@@ -129,7 +129,7 @@ public class GameOverAnimation : MonoBehaviour
         TimeScaleManager.ForceTimeScale(0f);
         SetInitialStates();
         PlayAnimations();
-
+        _inputController.SwitchCurrentActionMap("UI");
     }
 
     void CheckAnimators()
@@ -259,7 +259,7 @@ public class GameOverAnimation : MonoBehaviour
     {
         //here you reset player stats, or maybe fire an event called onGameReset
         //you need to restart the run with the same parameters chosen at the start like character & weapon selected
-        TimeScaleManager.ForceTimeScale(1f);
+        //TimeScaleManager.ForceTimeScale(1f);
         SceneManager.LoadScene("MainHub");
         _inputController.SwitchCurrentActionMap("GAMEPLAY");
         PauseMenuManager.DisablePauseBehaviour(false);
@@ -267,7 +267,7 @@ public class GameOverAnimation : MonoBehaviour
     }
     public void Restart()
     {
-        TimeScaleManager.ForceTimeScale(1f);
+        //TimeScaleManager.ForceTimeScale(1f);
         SceneManager.LoadScene(1);
         _inputController.SwitchCurrentActionMap("GAMEPLAY");
     }

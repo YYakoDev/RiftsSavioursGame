@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4730042eba027914ba014f3d15a86f64, type: 3}
-  m_Name: AttackStats
+  m_Name: AttackStatsRuntime
   m_EditorClassIdentifier: 
   _damageMultiplier: 1
   _baseDamageAddition: 1

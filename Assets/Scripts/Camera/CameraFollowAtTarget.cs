@@ -8,6 +8,8 @@ public class CameraFollowAtTarget : MonoBehaviour
     Transform _currentTarget;
     [SerializeField]float _smoothFollow = 10f;
     [SerializeField]Vector2 _offset;
+    [SerializeField] WorldBounds _worldBounds;
+    [SerializeField] Vector2 _boundsOffset;
     //[SerializeField] float _distanceThreshold = 0.4f;
 
     private void OnEnable() => _cameraTargetManager.onTargetSwitch += SwitchTarget;
@@ -32,7 +34,10 @@ public class CameraFollowAtTarget : MonoBehaviour
     {
         Vector3 targetPosition = _currentTarget.position + (Vector3)_offset;
         targetPosition.z = currentPos.z;
-        transform.position = Vector3.Lerp(currentPos, targetPosition, _smoothFollow * Time.fixedDeltaTime);
+        var direction = Vector3.Lerp(currentPos, targetPosition, _smoothFollow * Time.fixedDeltaTime);
+        direction.x = Mathf.Clamp(direction.x, -_worldBounds.BoundsArea.x - _boundsOffset.x, +_worldBounds.BoundsArea.x + _boundsOffset.x);
+        direction.y = Mathf.Clamp(direction.y, -_worldBounds.BoundsArea.y - _boundsOffset.y, +_worldBounds.BoundsArea.y + _boundsOffset.y);
+        transform.position = direction;
     }
 
     void SwitchTarget()
@@ -41,4 +46,10 @@ public class CameraFollowAtTarget : MonoBehaviour
     }
 
     private void OnDisable() => _cameraTargetManager.onTargetSwitch -= SwitchTarget;
+
+    private void OnDrawGizmosSelected() {
+        if(Application.isPlaying) return;
+        Gizmos.color = Color.magenta;
+        Gizmos.DrawWireCube(transform.position, _worldBounds.BoundsArea *2f + _boundsOffset);
+    }
 }

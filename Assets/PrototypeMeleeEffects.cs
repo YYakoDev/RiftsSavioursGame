@@ -34,7 +34,7 @@ public class PrototypeMeleeEffects : MonoBehaviour
     {
         _aimCurve = TweenCurveLibrary.EaseInCirc;
         _initialAimSpeed = _aiming.AimSmoothing;
-        _attackButton.action.performed += Hold;
+        _attackButton.action.started += Hold;
         _attackButton.action.canceled += Release;
         _movement.onDash += SetDash;
     }
@@ -104,6 +104,7 @@ public class PrototypeMeleeEffects : MonoBehaviour
         var percent = _elapsedTime / _holdDuration;
         if(_dashing && percent < 0.25f)
         {
+            //DASH ATTACK!
             //_attackEffects.SelfPush(_dashPullForce, 0.06f);
         }
         _elapsedTime = 0f;

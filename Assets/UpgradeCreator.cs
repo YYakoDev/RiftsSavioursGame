@@ -26,7 +26,7 @@ public static class UpgradeCreator
         //if (GeneratedStoreUpgrades != null) return;
         Iterations = 0;
         var totalStats = Enum.GetValues(typeof(StatsTypes)) as StatsTypes[];
-        StatsTypes[] statTypes = new StatsTypes[totalStats.Length - 7]; //THIS MINUS 7 IS EQUAL TO THE AMOUNT OF SKIPS IN THE FOR THE LOOP BELLOW IF YOU FORGET THIS YOU WILL GET REPEATED MAX HEALTH UPGRADES
+        StatsTypes[] statTypes = new StatsTypes[totalStats.Length - 15]; //THIS MINUS 7 IS EQUAL TO THE AMOUNT OF SKIPS IN THE FOR THE LOOP BELLOW IF YOU FORGET THIS YOU WILL GET REPEATED MAX HEALTH UPGRADES
         int index = 0;
         for (int i = 0; i < totalStats.Length; i++)
         {
@@ -37,7 +37,15 @@ public static class UpgradeCreator
             || statType == StatsTypes.BuffBooster
             || statType == StatsTypes.StunResistance
             || statType == StatsTypes.Faith
-            || statType == StatsTypes.AttackSpeed) continue;
+            || statType == StatsTypes.AttackSpeed
+            || statType == StatsTypes.ToolsCooldown
+            || statType == StatsTypes.ToolsDamage
+            || statType == StatsTypes.ToolsRange
+            || statType == StatsTypes.MaxAmountOfTools
+            || statType == StatsTypes.ProjectilesCount
+            || statType == StatsTypes.ProjectilesSpeed
+            || statType == StatsTypes.SummonDamage
+            || statType == StatsTypes.SummonSpeed) continue;
             statTypes[index] = statType;
             index++;
         }
@@ -61,7 +69,7 @@ public static class UpgradeCreator
                 //StatsTypes[] types = new StatsTypes[amountOfStats];
                 if (amountOfStats == 1)
                 {
-                    CreateUpgrade(rarity, primaryStat);
+                    AddUpgradeToList(CreateUpgrade(rarity, primaryStat));
                     continue;
                 }
                 foreach (var secondaryStat in statTypes)
@@ -69,7 +77,7 @@ public static class UpgradeCreator
                     if (secondaryStat == primaryStat) continue;
                     if (amountOfStats == 2)
                     {
-                        CreateUpgrade(rarity, primaryStat, secondaryStat);
+                        AddUpgradeToList(CreateUpgrade(rarity, primaryStat, secondaryStat));
                         continue;
                     };
                     foreach (var terciaryStat in statTypes)
@@ -78,13 +86,13 @@ public static class UpgradeCreator
                         if (amountOfStats == 3)
                         {
 
-                            CreateUpgrade(rarity, primaryStat, secondaryStat, terciaryStat);
+                            AddUpgradeToList(CreateUpgrade(rarity, primaryStat, secondaryStat, terciaryStat));
                             continue;
                         };
                         foreach (var quaternyStat in statTypes)
                         {
                             if (quaternyStat == terciaryStat || quaternyStat == secondaryStat || quaternyStat == primaryStat) continue;
-                            CreateUpgrade(rarity, primaryStat, secondaryStat, terciaryStat, quaternyStat);
+                            AddUpgradeToList(CreateUpgrade(rarity, primaryStat, secondaryStat, terciaryStat, quaternyStat));
                             continue;
                         }
                     }
@@ -119,9 +127,8 @@ public static class UpgradeCreator
         sw.Stop();
     }
 
-    static void CreateUpgrade(UpgradeRarity rarity, params StatsTypes[] statsTypes)
+    static StoreUpgradeData CreateUpgrade(UpgradeRarity rarity, params StatsTypes[] statsTypes)
     {
-        if (Iterations >= MaxIterations) return;
         var primaryStat = statsTypes[0];
         StatsTypes? secondaryStat = null, terciaryStat = null, quaternaryStat = null;
         if (statsTypes.Length > 1)
@@ -178,21 +185,27 @@ public static class UpgradeCreator
 
         var cost = GetUpgradeCost(rarity);
         StoreUpgradeData upgrade = new(name, icon, rarity, statsTypes, newValues, cost);
-
-        if (Iterations >= upgrades.Count)
-        {
-            upgrades.Add(upgrade);
-            Iterations++;
-            return;
-        }
-        upgrades[Iterations] = upgrade;
-        Iterations++;
+        return upgrade;
         /*upgrade.name = name;
         upgrade.Initialize(name, icon, rarity, statsTypes, newValues, cost);
         AssetDatabase.CreateAsset(upgrade, Location+name+".asset");*/
 
 
     }
+
+    static void AddUpgradeToList(StoreUpgradeData upgradeData)
+    {
+        if (Iterations >= MaxIterations) return;
+        if (Iterations >= upgrades.Count)
+        {
+            upgrades.Add(upgradeData);
+            Iterations++;
+            return;
+        }
+        upgrades[Iterations] = upgradeData;
+        Iterations++;
+    }
+
     static int ApplyNegativeBalancing(int value, int totalNumberOfStats, int negativeAmounts)
     {
         float negativeDiff = (float)(negativeAmounts / totalNumberOfStats);
@@ -241,6 +254,76 @@ public static class UpgradeCreator
         return upgradeCost;
     }
 
+
+    public static StoreUpgradeData GetRandomUpgrade(UpgradeRarity rarity)
+    {
+        var totalStats = Enum.GetValues(typeof(StatsTypes)) as StatsTypes[];
+        StatsTypes[] statTypes = new StatsTypes[totalStats.Length - 15]; //THIS MINUS 7 IS EQUAL TO THE AMOUNT OF SKIPS IN THE FOR THE LOOP BELLOW IF YOU FORGET THIS YOU WILL GET REPEATED MAX HEALTH UPGRADES
+        int index = 0;
+        for (int i = 0; i < totalStats.Length; i++)
+        {
+            var statType = totalStats[i];
+            if (statType == StatsTypes.CurrentHealth 
+            || statType == StatsTypes.SlowdownMultiplier 
+            || statType == StatsTypes.DebuffResistance 
+            || statType == StatsTypes.BuffBooster
+            || statType == StatsTypes.StunResistance
+            || statType == StatsTypes.Faith
+            || statType == StatsTypes.AttackSpeed
+            || statType == StatsTypes.ToolsCooldown
+            || statType == StatsTypes.ToolsDamage
+            || statType == StatsTypes.ToolsRange
+            || statType == StatsTypes.MaxAmountOfTools
+            || statType == StatsTypes.ProjectilesCount
+            || statType == StatsTypes.ProjectilesSpeed
+            || statType == StatsTypes.SummonDamage
+            || statType == StatsTypes.SummonSpeed) continue;
+            statTypes[index] = statType;
+            index++;
+        }
+
+        int amountOfStats = (rarity) switch
+        {
+            UpgradeRarity.Broken => 1,
+            UpgradeRarity.Common => Random.Range(1, 3),
+            UpgradeRarity.Uncommon => (Random.Range(1, 4) > 2) ? 2 : 1,
+            UpgradeRarity.Rare => (Random.Range(2, 4)),
+            UpgradeRarity.Epic => (Random.Range(1, 6) > 2) ? 3 : 2,
+            UpgradeRarity.Legendary => (Random.Range(1, 6) > 2) ? Random.Range(3, 5) : Random.Range(2, 5),
+            _ => 1
+        };
+        //Satsypes[] types = new StatsTypes[amountOfStats];
+        var primaryStatIndex = HelperMethods.GetRandomIndexExcept(statTypes.Length);
+        var primaryStat = statTypes[primaryStatIndex];
+        if (amountOfStats == 1)
+        {
+            return CreateUpgrade(rarity, primaryStat);
+        }
+        else if (amountOfStats == 2)
+        {
+            var secondaryStatIndex = HelperMethods.GetRandomIndexExcept(statTypes.Length, primaryStatIndex);
+            var secondaryStat = statTypes[secondaryStatIndex];
+            return CreateUpgrade(rarity, primaryStat, secondaryStat);
+        }
+        else if (amountOfStats == 3)
+        {
+            var secondaryStatIndex = HelperMethods.GetRandomIndexExcept(statTypes.Length, primaryStatIndex);
+            var secondaryStat = statTypes[secondaryStatIndex];
+            var thirdIndex = HelperMethods.GetRandomIndexExcept(statTypes.Length, primaryStatIndex, secondaryStatIndex);
+            var thirdStat = statTypes[thirdIndex];
+            return CreateUpgrade(rarity, primaryStat, secondaryStat, thirdStat);
+        }
+        else
+        {
+            var secondaryStatIndex = HelperMethods.GetRandomIndexExcept(statTypes.Length, primaryStatIndex);
+            var secondaryStat = statTypes[secondaryStatIndex];
+            var thirdIndex = HelperMethods.GetRandomIndexExcept(statTypes.Length, primaryStatIndex, secondaryStatIndex);
+            var thirdStat = statTypes[thirdIndex];
+            var fourthIndex = HelperMethods.GetRandomIndexExcept(statTypes.Length, primaryStatIndex, secondaryStatIndex, thirdIndex);
+            var fourthStat = statTypes[fourthIndex];
+            return CreateUpgrade(rarity, primaryStat, secondaryStat, thirdStat, fourthStat);
+        }
+    }
 
 
     public static int GetRandomUpgradeIndex(UpgradeRarity rarity, params int[] skippeableIndexes)

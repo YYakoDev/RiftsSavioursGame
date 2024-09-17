@@ -99,6 +99,7 @@ GameObject:
   - component: {fileID: 8498780903729252531}
   - component: {fileID: 3860226768022192089}
   - component: {fileID: 8327559895561113060}
+  - component: {fileID: 504476724919975769}
   m_Layer: 12
   m_Name: DropPrefab
   m_TagString: Untagged
@@ -155,8 +156,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _renderer: {fileID: 6639604720731432319}
+  _rb: {fileID: 504476724919975769}
   _trail: {fileID: 1547347327800143018}
-  _pickupVelocity: 4.5
+  _curveType: 4
+  _moveAwayTime: 0.5
+  _moveToTime: 0.66
   _pickupSoundDefault: {fileID: 8300000, guid: d80cf89b22fa784469bdfbd237b1fc38, type: 3}
 --- !u!61 &8498780903729252531
 BoxCollider2D:
@@ -277,6 +281,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _spriteRenderer: {fileID: 6639604720731432319}
   _offsetPosition: 0.15
+--- !u!50 &504476724919975769
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8016294593690498618}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 1
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &8440446554987853321
 GameObject:
   m_ObjectHideFlags: 0

@@ -20,6 +20,12 @@ public class YYExtensions : MonoBehaviour
             i.transform.SetParent(null);
             DontDestroyOnLoad(i.gameObject);    
         }
+        Initialize();
+    }
+
+    void Initialize()
+    {
+        if(_animationsTimers == null) _animationsTimers = new Timer[50];
         _timersAvailability = new bool[_animationsTimers.Length];
         for (int i = 0; i < _animationsTimers.Length; i++)
         {
@@ -35,7 +41,7 @@ public class YYExtensions : MonoBehaviour
         StartCoroutine(ActionAfterFrame(1, ExecuteCallback));
         void ExecuteCallback()
         {
-            animator.Play(currentState);
+            animator?.Play(currentState);
             method?.Invoke();
         }
     }
@@ -186,5 +192,11 @@ public class YYExtensions : MonoBehaviour
     }
 
     private void OnDestroy() {
+
+        for (int i = 0; i < _animationsTimers.Length; i++)
+        {
+            _timersAvailability[i] = false;
+            _animationsTimers[i] = new(0f);
+        }
     }
 }

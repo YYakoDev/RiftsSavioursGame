@@ -13,25 +13,12 @@ MonoBehaviour:
   m_Name: HealthUP20
   m_EditorClassIdentifier: 
   _name: Mysterious Stew
-  _descriptions:
-  - text: + 20% Max Health
-    color: 2
-  - text: '  Heals 5 points'
-    color: 2
+  _description: 
   _sprite: {fileID: 21300000, guid: d63f3b0f36023b142a70b4115c30e8f7, type: 3}
   _costs:
   - CraftingMaterial: {fileID: 11400000, guid: 00a58af03a53dc947be4af400a57e69b, type: 2}
     Cost: 1
   - CraftingMaterial: {fileID: 11400000, guid: ccc82676898691444bf3ddaac80b30ee, type: 2}
     Cost: 2
-  _stats: {fileID: 11400000, guid: 77f8be5469984ec4b92db0a6e8c44838, type: 2}
-  _indexes: 0000000001000000
-  _statsChanges:
-  - _usePercentage: 1
-    _percentage: 22
-    _flatAmount: 0
-  - _usePercentage: 0
-    _percentage: 1
-    _flatAmount: 5
-  ElementCount: 2
-  _savedText: MaxHealth,CurrentHealth
+  _statsToModify: 
+  _modifications: []

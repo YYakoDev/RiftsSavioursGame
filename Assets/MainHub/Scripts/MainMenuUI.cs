@@ -12,6 +12,7 @@ public class MainMenuUI : MonoBehaviour
     [SerializeField] Button _startButton;
     EventSystem _currentEventSys;
     [SerializeField] GameObject _selectionMenu;
+    [SerializeField] SettingsMenu _settingsMenu;
     [SerializeField] FeedbackMenu _feedbackMenu;
     [SerializeField] MenuQuitter _menuQuitter;
     [SerializeField]AudioSource _audio;
@@ -47,6 +48,12 @@ public class MainMenuUI : MonoBehaviour
         _audio.PlayWithVaryingPitch(_selectionSFX);
         UpgradeCreator.CreateUpgrades();
         SceneManager.LoadScene(1);
+    }
+    public void OpenSettings()
+    {
+        _audio.PlayWithVaryingPitch(_selectionSFX);
+        _settingsMenu.OpenMenu();
+        //_menuQuitter.SetCurrentMenu(_settingsMenu.gameObject);
     }
 
     public void QuitButton()

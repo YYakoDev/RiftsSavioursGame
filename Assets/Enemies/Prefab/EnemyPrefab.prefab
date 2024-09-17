@@ -441,6 +441,7 @@ MonoBehaviour:
   _target: {fileID: 0}
   _distanceThreshold: 5
   _minVolume: 0.1
+  _effectStrength: 1.28
 --- !u!1 &7543925694828763027
 GameObject:
   m_ObjectHideFlags: 0

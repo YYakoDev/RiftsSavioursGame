@@ -28,7 +28,6 @@ public class PrototypeRift : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        Debug.Log("hI");
         //if(_alreadyInteracted) return;
         if(!_waveSpawner.gameObject.activeInHierarchy) _waveSpawner.gameObject.SetActive(true);
         _timer.Start();

@@ -7,11 +7,13 @@ public class PlayerAttackEffects : MonoBehaviour
     Camera _mainCamera;
     [SerializeField]WeaponManager _weaponManager;
     [SerializeField]PlayerManager _player;
+    [SerializeField] WhiteBlinkEffect _playerBlinkFx;
     [SerializeField]CameraTarget _cameraTargetting;
     WeaponAiming _weaponAiming;
     int _targetIndex = -1;
     [SerializeField]AudioSource _audio;
     WeaponBase _currentWeapon;
+    WeaponPrefab _weaponPrefabLogic;
     Transform weaponPrefab => _currentWeapon.PrefabTransform;
     public AudioSource Audio => _audio;
     float AttackDuration => _currentWeapon.AtkDuration;
@@ -25,6 +27,7 @@ public class PlayerAttackEffects : MonoBehaviour
     {
         _mainCamera = Camera.main;
         _weaponAiming = _weaponManager.AimingLogic;
+        _weaponPrefabLogic = weaponPrefab.GetComponent<WeaponPrefab>();
         yield return null;
         yield return null;
         _targetIndex = _cameraTargetting.AddTarget(weaponPrefab);
@@ -56,7 +59,10 @@ public class PlayerAttackEffects : MonoBehaviour
 
     public void KnockbackPlayer(float knockbackAmount) => _player.MovementScript.KnockbackLogic.SetKnockbackData(MousePosition, knockbackAmount, forceMultiplier: 0.5f);
     public void KnockbackPlayer(Vector3 emitterPosition, float knockbackAmount) => _player.MovementScript.KnockbackLogic.SetKnockbackData(emitterPosition, knockbackAmount, forceMultiplier: 0.5f);
-    
+    public void BlinkPlayer(float duration) => _playerBlinkFx.Play(duration);
+    public void BlinkPlayer() => _playerBlinkFx.Play();
+    public void BlinkWeapon() => _weaponPrefabLogic.BlinkFX.Play();
+    public void BlinkWeapon(float duration) => _weaponPrefabLogic.BlinkFX.Play(duration);
 
     public void ScreenShake(float strength) => CameraEffects.Shake(strength);
     public void ScreenShake(float strength, float duration) => CameraEffects.Shake(strength, duration);

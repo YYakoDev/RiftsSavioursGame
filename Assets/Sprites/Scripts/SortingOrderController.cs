@@ -26,7 +26,7 @@ public class SortingOrderController
 
     public void SortOrder()
     {
-        int sortOrder = _extraOrder -(int)((_currentPosition.position.y - _offset) *35);
+        int sortOrder = _extraOrder -(int)((_currentPosition.position.y - _offset) * 35f);
         _spriteRenderer.sortingOrder = sortOrder;
     }
 

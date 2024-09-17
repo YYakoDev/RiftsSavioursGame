@@ -11,9 +11,11 @@ public class SettingsMenu : MonoBehaviour
 {
     [SerializeField]InputActionReference _uiEscHotkey, _gameplayEscHotkey;
     [SerializeField] PlayerInputController _inputController;
+    [SerializeField] ScreenController _screenController;
     [SerializeField] MenuController _menuController;
     [SerializeField] GameObject _menuParent, _pauseMenuParent;
     [SerializeField]Canvas _canvas;
+    bool _menuState;
     //esto de abajo no tiene que ser parte de esta clase
     [SerializeField] UISkillsManager _uiSkillsManager;
     [SerializeField] Sprite _settingsIcon;
@@ -23,8 +25,12 @@ public class SettingsMenu : MonoBehaviour
     [SerializeField] AudioMixer _masterMixer;
     [SerializeField] Slider _soundsSlider, _musicSlider;
     [SerializeField] TextMeshProUGUI t_soundsValue, t_musicValue;
-    bool _menuState;
     float _soundsStartValue = -1f, _musicStartValue = -1f;
+
+    [SerializeField] Toggle _toggle;
+    [SerializeField] TMP_Dropdown _resolutionsDropdown;
+    int _initialResolutionIndex = -1, _fullscreenValue = 0;
+
     private void Awake() {
         _menuState = _menuParent.activeInHierarchy;
         if(_menuState) OpenMenu();
@@ -33,18 +39,45 @@ public class SettingsMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
-        _inputItem = _uiSkillsManager.SetInputSkill(_uiEscHotkey, _settingsIcon);
-        var itemTransform = _inputItem.transform;
-        itemTransform.SetParent(_uiSkillsManager.transform, false);
-        itemTransform.localPosition = _iconPosition;
+        //Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
+        SetUISettingsKey();
         _uiEscHotkey.action.performed += PlaySettingsButtonAnimation;
         _gameplayEscHotkey.action.performed += PlaySettingsButtonAnimation;
         //Debug.Log(_inputItem.GetItemSize());
         _soundsStartValue = PlayerPrefs.GetFloat("SoundsVolume", 50);
         _musicStartValue = PlayerPrefs.GetFloat("MusicVolume", 50);
         
-        SetSliders(); 
+        SetSliders();
+        _fullscreenValue = PlayerPrefs.GetInt("FullScreen", 0);
+        if(_fullscreenValue == 1) _screenController.SetFullScreen();
+        else _screenController.SetWindowed();
+        _toggle.isOn = _screenController.Fullscreen;
+        _resolutionsDropdown.options = new List<TMP_Dropdown.OptionData>(Screen.resolutions.Length);
+        _initialResolutionIndex = PlayerPrefs.GetInt("InitialResolutionIndex", -1);
+        if(_initialResolutionIndex == -1)
+        {
+            int currentRes = Screen.resolutions.Length - 1;
+            for (int i = 0; i < Screen.resolutions.Length; i++)
+            {
+                var res = Screen.resolutions[i];
+                var text = $"{res.width} x {res.height}  {res.refreshRate}Hz";
+                TMP_Dropdown.OptionData item = new(text);
+                _resolutionsDropdown.options.Add(item);
+                if(res.width == Screen.currentResolution.width && res.height == Screen.currentResolution.height) currentRes = i;
+            }
+            _initialResolutionIndex = currentRes;
+        }
+        _resolutionsDropdown.SetValueWithoutNotify(_initialResolutionIndex);
+        Debug.Log(_resolutionsDropdown.options.Count);
+    }
+
+    void SetUISettingsKey()
+    {
+        if(_uiSkillsManager == null) return;
+        _inputItem = _uiSkillsManager.SetInputSkill(_uiEscHotkey, _settingsIcon);
+        var itemTransform = _inputItem.transform;
+        itemTransform.SetParent(_uiSkillsManager.transform, false);
+        itemTransform.localPosition = _iconPosition;
     }
 
     void SetSliders()
@@ -63,12 +96,13 @@ public class SettingsMenu : MonoBehaviour
 
     void PlaySettingsButtonAnimation(InputAction.CallbackContext obj)
     {
-        _inputItem.Interact();
+        _inputItem?.Interact();
         if(_menuState) CloseMenu();
     }
 
     public void OpenMenu()
     {
+        _toggle.isOn = Screen.fullScreen;
         _menuController.SwitchCurrentMenu(gameObject);
         _menuState = true;
         //do opening sound and animation
@@ -85,21 +119,26 @@ public class SettingsMenu : MonoBehaviour
         PauseMenuManager.DisablePauseBehaviour(false);
         //_inputController.ChangeInputToGameplay();
         _menuParent.SetActive(false);
-        _menuController.SwitchCurrentMenu(_pauseMenuParent);
+        if(_pauseMenuParent != null)_menuController.SwitchCurrentMenu(_pauseMenuParent);
         //TimeScaleManager.ForceTimeScale(1f);
     }
 
-    public void ToggleFullscreen(bool state)
+    //function called by the toggle on the ui
+    public void ToggleFullscreen()
     {
-        Debug.Log("FUllscreen!!! :)");
-        if(state)
-        {
-            Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
-        }else
-        {
-            Screen.fullScreenMode = FullScreenMode.Windowed;
-        }
-        Screen.fullScreen = !Screen.fullScreen;
+        //Debug.Log("FUllscreen!!! :)");
+        int fullscreenValue = _screenController.Fullscreen ? 1 : 0;
+        PlayerPrefs.SetInt("FullScreen", fullscreenValue);
+        _screenController.ToggleFullscreen();
+    }
+
+    //function called by the dropdown on the ui
+    public void SetResolution(int index)
+    {
+        var res = Screen.resolutions[index];
+        _screenController.SetResolution(res.width, res.height, res.refreshRate);
+        PlayerPrefs.SetInt("ResolutionIndex", index);
+        //Debug.Log("Dropdown option selected at:  " + index + "  \n " + _resolutionsDropdown.options[index].text);
     }
 
     public void SetSoundsValue(float value)

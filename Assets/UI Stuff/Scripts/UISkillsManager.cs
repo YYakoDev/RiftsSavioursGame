@@ -28,7 +28,6 @@ public class UISkillsManager : MonoBehaviour
         var size = skill.GetItemSize();
         if(_lastItemSize.sqrMagnitude < size.sqrMagnitude)
         {
-            Debug.Log("New bigger element");
             _lastItemSize = size;
         }
         foreach(UISkill uiItem in _skillsIntances) uiItem.SetItemSize(_lastItemSize);
@@ -41,7 +40,6 @@ public class UISkillsManager : MonoBehaviour
         var size = skill.GetItemSize();
         if(_lastItemSize.sqrMagnitude < size.sqrMagnitude)
         {
-            Debug.Log("New bigger element");
             _lastItemSize = size;
         }
         foreach(UISkill uiItem in _skillsIntances) uiItem.SetItemSize(_lastItemSize);

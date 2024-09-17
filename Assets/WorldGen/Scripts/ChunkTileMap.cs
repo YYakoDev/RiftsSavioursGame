@@ -11,7 +11,7 @@ public class ChunkTileMap : MonoBehaviour
     [SerializeField] float xOffset = 0.5f;
     [SerializeField] float yOffset = 0f;
     Tilemap _tileMap;
-    [SerializeField, Range(-1, 20), Tooltip("-1 Would be infinite, 0 Will not spawn any")] int _maxSpawnCount = -1;
+    //[SerializeField, Range(-1, 20), Tooltip("-1 Would be infinite, 0 Will not spawn any")] int _maxSpawnCount = -1;
 
     Vector2Int _positionOnGrid;
 

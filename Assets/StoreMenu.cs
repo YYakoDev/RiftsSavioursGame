@@ -92,7 +92,7 @@ public class StoreMenu : MonoBehaviour
     {
         sw2.Reset();
         sw2.Start();
-        _upgradeRarityLevels = Enum.GetValues(typeof(UpgradeRarity)) as UpgradeRarity[];
+        /*_upgradeRarityLevels = Enum.GetValues(typeof(UpgradeRarity)) as UpgradeRarity[];
         foreach (var rarity in _upgradeRarityLevels)
         {
             var array = new int[UpgradeCreator.GetUpgradesCount(rarity)];
@@ -100,7 +100,7 @@ public class StoreMenu : MonoBehaviour
             IndexStorage indexArray = new(array, 0);
             _correspondingIndexesToRarity.Add(rarity, indexArray);
             _rarityAvailability.Add(rarity, true);
-        }
+        */
         sw2.Stop();
         //Debug.Log("Populating used indexes array operation time:  " + sw2.ElapsedMilliseconds + " ms");
     }
@@ -118,6 +118,7 @@ public class StoreMenu : MonoBehaviour
 
     void StateSwitchCheck(GameStateBase state)
     {
+        return;
         if (state.GetType() == typeof(RestState))
         {
             OpenMenu();
@@ -178,7 +179,7 @@ public class StoreMenu : MonoBehaviour
         if (_storeItems == null) return;
         //int[] usedIndexes = new int[_amountToPick]; //used indexes should be the chosen upgrades from this batch but also the upgrades the player possess!! so you should be storing the index of that upgrade everytime the player applies one!
         //you can achieve the latter by adding a custom method to the button that sends the index back to here to add to a BoughtUpgrades[] array
-        RemoveIndexesFromStoreItems();
+        //RemoveIndexesFromStoreItems();
         for (int i = 0; i < _amountToPick; i++)
         {
             var item = _storeItems[i];
@@ -217,19 +218,20 @@ public class StoreMenu : MonoBehaviour
             return;
         }
         //Debug.Log("Setting a store item with the rarity:   " + rarity);
-        var usedIndexes = GetUsedIndexes(rarity);
-        var upgradeIndex = GetRandomUpgrade(rarity, usedIndexes);
-        if (upgradeIndex == -1)
+        //var usedIndexes = GetUsedIndexes(rarity);
+        //var upgradeIndex = GetRandomUpgrade(rarity, usedIndexes);
+        /*if (upgradeIndex == -1)
         {
             item.gameObject.SetActive(false);
             return;
-        }
-        AddNewUsedIndex(rarity, upgradeIndex);
-        StoreUpgradeData storeUpgradeData = UpgradeCreator.GetUpgradeFromList(upgradeIndex);
-        upgrade.Initialize(storeUpgradeData, upgradeIndex);
+        }*/
+        //AddNewUsedIndex(rarity, 0);
+        //StoreUpgradeData storeUpgradeData = UpgradeCreator.GetUpgradeFromList(upgradeIndex);
+        StoreUpgradeData storeUpgradeData = UpgradeCreator.GetRandomUpgrade(rarity); //this the new approach to avoid generating 100k upgrades on start.
+        upgrade.Initialize(storeUpgradeData);
         var affordable = CheckIfItsAffordable(upgrade.Costs);
         if(!item.gameObject.activeInHierarchy) item.gameObject.SetActive(true);
-        item.Initialize(upgrade, BuyUpgrade, storeItemIndex, upgradeIndex);
+        item.Initialize(upgrade, BuyUpgrade, storeItemIndex, 0);
         if (affordable && _selectedItem == null) _selectedItem = item.gameObject;
         item.UpdateCostText(affordable, _xpTextEmojiIndex);
     }
@@ -317,6 +319,7 @@ public class StoreMenu : MonoBehaviour
             <100 => UpgradeRarity.Broken,
             _ => UpgradeRarity.Common
         };
+        return rarity;
         var isAvailable = _rarityAvailability[rarity];
         //Debug.Log($"Is upgrade of rarity {rarity} available?  {isAvailable}");
         if(!isAvailable) return rarity switch

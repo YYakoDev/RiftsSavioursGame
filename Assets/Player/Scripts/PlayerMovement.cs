@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour, IKnockback
     //References
     [Header("References")]
     [SerializeField] PlayerHealthManager _healthManager;
+    [SerializeField] WorldBounds _worldBounds;
     PlayerManager _player;
     [SerializeField] WeaponAiming _aimingLogic;
     [SerializeField] ParticleSystem _dustEffect, _dashParticleEffect;
@@ -186,9 +187,7 @@ public class PlayerMovement : MonoBehaviour, IKnockback
         {
             var mouseDir = (YYInputManager.i.GetMousePosition() - transform.position).normalized;
             _dashDirection = _movement.normalized;
-            if(!_autoAim) backDash = (Mathf.Sign(_movement.x) != Mathf.Sign(FacingDirection));
-            else backDash = false;
-
+            backDash = false;
         }else
         {
             var mouseOppositeDir = (transform.position - YYInputManager.i.GetMousePosition()).normalized;
@@ -198,9 +197,19 @@ public class PlayerMovement : MonoBehaviour, IKnockback
             );
             finalDir.Normalize();
             if(finalDir.sqrMagnitude < 0.05f) finalDir = Vector2.right * -FacingDirection;
-            _dashDirection =  finalDir;
-            
-                float GetVectorValue(float value)
+            if(!_autoAim)_dashDirection =  finalDir;
+            else
+            {
+                if(_aimingLogic.EnemyResultsCount > 0)
+                {
+                    _dashDirection = ((Vector2)transform.position - _aimingLogic.TargetPoint).normalized;
+                }else
+                {
+                    _dashDirection = -_lastMovement.normalized;
+                }
+            }
+
+            float GetVectorValue(float value)
                 {
                     return (value > 0.12f) ?  1f : (value < -0.12f) ? -1f : 0f;
                 }
@@ -273,6 +282,8 @@ public class PlayerMovement : MonoBehaviour, IKnockback
         if(_elapsedAcceleration < 2f) _elapsedAcceleration += Time.deltaTime;
         var speed = Mathf.Lerp(MovementSpeed * 0.5f * _slowdown , MovementSpeed * _slowdown * 1.1f, _curve.Evaluate(_elapsedAcceleration));
         Vector2 direction = (Vector2)transform.position + _movement * (speed *Time.fixedDeltaTime);
+        direction.x = Mathf.Clamp(direction.x, -_worldBounds.BoundsArea.x, _worldBounds.BoundsArea.x);
+        direction.y = Mathf.Clamp(direction.y, -_worldBounds.BoundsArea.y, _worldBounds.BoundsArea.y);
         _player.RigidBody.MovePosition(direction);
         MovementEffects();
         _audio.PlayWithCooldown(_stepSound, _stepSoundCooldown, ref _nextStepSound);
@@ -282,7 +293,10 @@ public class PlayerMovement : MonoBehaviour, IKnockback
     {
         _elapsedDashTime += Time.fixedDeltaTime;
         var percent = _elapsedDashTime / _dashDuration;
-        _player.RigidBody.MovePosition(Vector2.Lerp(_startingDashPosition, moveDirection, _dashCurve.Evaluate(percent)));
+        var direction = Vector2.Lerp(_startingDashPosition, moveDirection, _dashCurve.Evaluate(percent));
+        direction.x = Mathf.Clamp(direction.x, -_worldBounds.BoundsArea.x, _worldBounds.BoundsArea.x);
+        direction.y = Mathf.Clamp(direction.y, -_worldBounds.BoundsArea.y, _worldBounds.BoundsArea.y);
+        _player.RigidBody.MovePosition(direction);
         MovementEffects();
         //_elapsedAcceleration = 0f; //only if it is a backstep??
     }
