@@ -45,7 +45,8 @@ public static class UpgradeCreator
             || statType == StatsTypes.ProjectilesCount
             || statType == StatsTypes.ProjectilesSpeed
             || statType == StatsTypes.SummonDamage
-            || statType == StatsTypes.SummonSpeed) continue;
+            || statType == StatsTypes.SummonSpeed
+            || statType == StatsTypes.HarvestMultiplier) continue;
             statTypes[index] = statType;
             index++;
         }

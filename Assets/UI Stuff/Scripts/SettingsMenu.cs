@@ -127,9 +127,9 @@ public class SettingsMenu : MonoBehaviour
     public void ToggleFullscreen()
     {
         //Debug.Log("FUllscreen!!! :)");
+        _screenController.ToggleFullscreen();
         int fullscreenValue = _screenController.Fullscreen ? 1 : 0;
         PlayerPrefs.SetInt("FullScreen", fullscreenValue);
-        _screenController.ToggleFullscreen();
     }
 
     //function called by the dropdown on the ui

@@ -14,10 +14,11 @@ public class Notification : MonoBehaviour
     Vector3 _offset, _initialPosition, _endPosition;
     [SerializeField] TextMeshProUGUI _text;
     [SerializeField] Image _icon;
+    [SerializeField] Sprite _emptySprite;
     LayoutElement _iconElement;
     [SerializeField] CurveTypes _scaleUpCurveType, _scaleDownCurveType, _moveCurveType;
     [SerializeField] float _animDuration = 0.6f, _offsetScaler = 1f, _widthOffset = 125;
-    float _elapsedMoveTime;
+    float _elapsedMoveTime, _waitTimeOffset = 0f, _durationScaler = 1f;
     AnimationCurve _moveCurve;
 
     private void Awake() {
@@ -40,11 +41,11 @@ public class Notification : MonoBehaviour
     private void Update() {
         if(_target == null) return;
         _elapsedMoveTime += Time.deltaTime;
-        var percent = _elapsedMoveTime / (_animDuration / 2f);
+        var percent = _elapsedMoveTime / (_animDuration / 1.65f);
         _cachedTransform.position = _target.position + Vector3.Lerp(Vector3.zero, _offset, _moveCurve.Evaluate(percent));
     }
 
-    public void Set(string text, Sprite icon, Transform targetTransform, NotificationType type, float offsetScaler)
+    public void Set(string text, Sprite icon, Transform targetTransform, NotificationType type, float offsetScaler, float durationScaler, float waitTime)
     {
         _text.SetText(text);
         if(icon != null)
@@ -61,6 +62,7 @@ public class Notification : MonoBehaviour
             var size = _rect.sizeDelta;
             size.x = _text.rectTransform.sizeDelta.x + _widthOffset;
             _rect.sizeDelta = size;
+            _icon.sprite = _emptySprite;
         }
         _target = targetTransform;
         var offset = type switch
@@ -81,16 +83,18 @@ public class Notification : MonoBehaviour
         _offset *= _offsetScaler * offsetScaler;
         _initialPosition = _target.position;
         _endPosition = _initialPosition + _offset;
+        _waitTimeOffset = waitTime;
+        _durationScaler = durationScaler;
         PlayAnimation();
     }
 
     void PlayAnimation()
     {
-        _animator.Scale(_rect, Vector3.one, _animDuration, _scaleUpCurveType, onComplete:() => 
+        _animator.Scale(_rect, Vector3.one, _animDuration * _durationScaler, _scaleUpCurveType, onComplete:() => 
         {
-            _animator.Scale(_rect, Vector3.one, _animDuration / 2f, CurveTypes.Linear,onComplete: () => 
+            _animator.Scale(_rect, Vector3.one, (_animDuration / 2f) * _durationScaler + _waitTimeOffset, CurveTypes.Linear,onComplete: () => 
             {
-                _animator.Scale(_rect, Vector3.zero, _animDuration / 4f, _scaleDownCurveType, onComplete: () =>
+                _animator.Scale(_rect, Vector3.zero, (_animDuration / 3.5f) * _durationScaler, _scaleDownCurveType, onComplete: () =>
                 {
                     gameObject.SetActive(false);//
                 });

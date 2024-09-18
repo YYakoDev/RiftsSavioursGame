@@ -1,11 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(EnemyHealthManager), typeof(EnemyMovement), typeof(Rigidbody2D)),
 RequireComponent(typeof(EnemyAnimations), typeof(AudioSource), typeof(EnemyCollisions))]
 public class EnemyBrain : MonoBehaviour
 {
+    public static event Action OnEnemyDeath;
     bool _checkedComponents = false;
 
     [Header("References")]
@@ -88,7 +91,7 @@ public class EnemyBrain : MonoBehaviour
         _animation.Animator.keepAnimatorControllerStateOnDisable = true;
     }
 
-    public void Initialize(SOEnemy data, Transform target)
+    public void Initialize(SOEnemy data, Transform target, DifficultyStats stats = null)
     {
         CheckComponents();
         _target = target;
@@ -98,6 +101,7 @@ public class EnemyBrain : MonoBehaviour
         _renderer.sprite = _intialSprite;
         _animation.Animator.runtimeAnimatorController = data.Animator;
         _aiStats.SetValues(data.Stats);
+        _aiStats.AddDifficultyStats(stats);
 
         _dropper.Clear();
         foreach(Drop drop in data.Drops) _dropper.AddDrop(drop);
@@ -115,6 +119,7 @@ public class EnemyBrain : MonoBehaviour
         SetBehaviours(data.MovementBehaviour, data.AttackBehaviour, data.DeathBehaviour);
 
         _bloodPrefab = data.BloodFX;
+        if(data.BlinkMaterial != null)_healthManager.BlinkFX.SetMaterial(data.BlinkMaterial);
         _shadowFxData = new(data.HasShadow, data.ShadowOffset, data.ShadowSize);
         SetShadow();
         _moveSFXs = data.MoveSFXs;
@@ -198,7 +203,11 @@ public class EnemyBrain : MonoBehaviour
     }
     void EnableComponents() => SetComponentsToActive(true);
     
-    void DisableComponents() => SetComponentsToActive(false);
+    void DisableComponents() 
+    {
+        OnEnemyDeath?.Invoke();
+        SetComponentsToActive(false);
+    }
     
     private void OnEnable() {
         EnableComponents();

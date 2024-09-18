@@ -31,6 +31,7 @@ public class PlayerMovement : MonoBehaviour, IKnockback
     bool _isDashing, _dashOnCooldown, _dashLogicInitialized;
     Vector2 _dashDirection, _startingDashPosition;
     float _dashCooldown, _elapsedDashTime = 0f, _dashDuration = 0.25f;
+    [SerializeField] CurveTypes _dashCurveType = CurveTypes.EaseOutCirc;
     AnimationCurve _dashCurve;
     Timer _dashDurationTimer, _dashCooldownTimer;
     [SerializeField] DashFXPrefab _dashFXPrefab;
@@ -105,7 +106,7 @@ public class PlayerMovement : MonoBehaviour, IKnockback
         _realSpeed = MovementSpeed;
         _slowdown = 1f;
         if (_curve == null) _curve = TweenCurveLibrary.EaseOutCirc;
-        _dashCurve = TweenCurveLibrary.EaseOutCirc;
+        _dashCurve = TweenCurveLibrary.GetCurve(_dashCurveType);
         yield return null;
         if (_player.CharacterData.DashData != null) InitializeDashLogic();
         _dashParticleEffect.Stop();
@@ -158,7 +159,7 @@ public class PlayerMovement : MonoBehaviour, IKnockback
             DashMovement(_dashDirection);
             return;
         }
-        if (KnockbackEnabled) _knockbackLogic.ApplyKnockback();
+        else if (KnockbackEnabled) _knockbackLogic.ApplyKnockback();
         else if (_movement.sqrMagnitude > 0.1f) Move();
         else Iddle();
     }
@@ -264,6 +265,14 @@ public class PlayerMovement : MonoBehaviour, IKnockback
                 _dashCooldownTimer.ChangeTime(_dashCooldown);
             }
         }
+    }
+
+    public void AddToDashDirection(Vector2 dir)
+    {
+        var durationOffset = _dashFXInstance.DashData.DashDuration / 10f;
+        _dashDuration += durationOffset;
+        //_dashDurationTimer.ChangeTime(_dashDurationTimer.CurrentTime + durationOffset);
+        _dashDirection += dir;
     }
 
     void ReadyDash() => _dashOnCooldown = false;

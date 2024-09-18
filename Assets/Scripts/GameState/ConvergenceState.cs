@@ -12,13 +12,13 @@ public class ConvergenceState : GameStateCountdown
     public override void Start()
     {
         base.Start();
-        _countdownTime = _stateManager.CurrentWorld.CurrentWave.WaveDuration;
+        _countdownTime = _stateManager.CurrentWorld.CurrentWave.WaveDuration + _stateManager.DifficultyScaler.CurrentStats.Duration;
     }
     protected override void Transition()
     {
         base.Transition();
         _stateManager.CurrentWorld.AdvanceWave();
-        _countdownTime = _stateManager.CurrentWorld.CurrentWave.WaveDuration;
+        _countdownTime = _stateManager.CurrentWorld.CurrentWave.WaveDuration + _stateManager.DifficultyScaler.CurrentStats.Duration;
         _convergencesCount++;
         if(_convergencesCount >= MaxConvergences)
         {

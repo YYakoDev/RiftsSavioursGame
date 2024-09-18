@@ -30,6 +30,8 @@ public class WhiteBlinkEffect : MonoBehaviour
         }
     }
 
+    public void SetMaterial(Material mat) => _blinkMat = mat;
+
     private void Update() {
         _blinkTimer.UpdateTime();
     }

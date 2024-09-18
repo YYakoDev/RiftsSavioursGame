@@ -17,7 +17,8 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable, ITargetPositionPro
     public event Action onDeath;
     Transform _player;
 
-    //SFX STUFF
+
+    public WhiteBlinkEffect BlinkFX => _blinkFX;
     public Transform TargetTransform { get => _player; set => _player = value; }
 
     private void Awake()
@@ -75,7 +76,7 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable, ITargetPositionPro
 
     public void Die()
     {
-        _blinkFX.Stop();
+        _blinkFX.Play(0.1f);
         _brain.MovementLogic.KnockbackLogic.SetKnockbackData(_player, 1.5f, ignoreResistance: true);
         StartCoroutine(DeactivateObject());
         _brain.PlaySound(_brain.GetOnDeathSfx());

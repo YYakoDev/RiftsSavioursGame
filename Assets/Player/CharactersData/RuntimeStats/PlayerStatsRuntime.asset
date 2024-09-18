@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PlayerStatsRuntime
   m_EditorClassIdentifier: 
   _maxHealth: 50
-  _currentHealth: 45
+  _currentHealth: 0
   _speed: 4.2
   _slowdownMultiplier: 0.257
   _dashSpeed: 120
@@ -29,7 +29,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9e17bf3495947ee47a9cc4325633cfb2, type: 2}
   _attackStats: {fileID: 11400000, guid: 5c0efc2d47ffa234c9cfe266e112553e, type: 2}
   _stunResistance: 0
-  _knockbackResistance: 10
+  _knockbackResistance: 0
   _damageResistance: 0
   _buffBooster: 0
   _debuffResistance: 0

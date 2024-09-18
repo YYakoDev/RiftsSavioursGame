@@ -7,6 +7,7 @@ public class PlayerEnemyCollisionDetection : MonoBehaviour
     [SerializeField] LayerMask _enemyLayer;
     Collider2D[] _collidersDetected = new Collider2D[20];
     [SerializeField] float _detectionRadius;
+    [SerializeField] Vector2 _offset;
     //[SerializeField] float _distanceThreshold;
     //int _detectionResults = 0;
     private float _detectionRate = 0.1f;
@@ -23,7 +24,7 @@ public class PlayerEnemyCollisionDetection : MonoBehaviour
 
     void DetectCollisions()
     {
-        Vector2 currentPos = transform.position;
+        Vector2 currentPos = transform.position + (Vector3)_offset;
         int results = Physics2D.OverlapCircleNonAlloc(currentPos, _detectionRadius, _collidersDetected, _enemyLayer);
         if(results == 0) return;
         
@@ -58,7 +59,7 @@ public class PlayerEnemyCollisionDetection : MonoBehaviour
 
     private void OnDrawGizmosSelected() {
         Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position, _detectionRadius);
+        Gizmos.DrawWireSphere(transform.position + (Vector3)_offset, _detectionRadius);
     }
 
 }

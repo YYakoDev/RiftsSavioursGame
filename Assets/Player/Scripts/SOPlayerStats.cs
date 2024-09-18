@@ -52,8 +52,13 @@ public class SOPlayerStats : PlayerStatsBase
         {
             var healthDiff = _maxHealth - _currentHealth;
             _maxHealth = value; 
-            if(healthDiff >= 0) _currentHealth = value - healthDiff;
-            else if(_currentHealth > _maxHealth) 
+            if(healthDiff > 0)
+            {
+                int result = value - healthDiff;
+                if(result <= 0) _currentHealth = 1;
+                else _currentHealth = result;
+
+            }else if(_currentHealth > _maxHealth) 
                 _currentHealth = _maxHealth;
             onStatsChange?.Invoke(); 
         }

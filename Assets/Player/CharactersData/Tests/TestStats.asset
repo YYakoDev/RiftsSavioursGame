@@ -29,8 +29,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9e17bf3495947ee47a9cc4325633cfb2, type: 2}
   _attackStats: {fileID: 11400000, guid: fb637baf54ecc0042986a0affa9dbbbe, type: 2}
   _stunResistance: 0
-  _knockbackResistance: 10
-  _damageResistance: 0
+  _knockbackResistance: 5
+  _damageResistance: 10
   _buffBooster: 0
   _debuffResistance: 0
   _faith: 1

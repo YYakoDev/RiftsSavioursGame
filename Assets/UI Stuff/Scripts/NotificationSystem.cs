@@ -19,12 +19,13 @@ public class NotificationSystem : MonoBehaviour
         _playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
-    public static void SendNotification(NotificationType type, string content, Sprite icon = null, float offsetScaler = 0f)
+    public static void SendNotification
+    (NotificationType type, string content, Sprite icon = null, float offsetScaler = 1f, float animDurationScaler = 1f, float waitTime = 0f)
     {
         var notif = GetNotification();
         notif.transform.SetParent(_cachedTransform, true);
         notif.gameObject.SetActive(true);
-        notif.Set(content, icon, _playerTransform, type, offsetScaler);
+        notif.Set(content, icon, _playerTransform, type, offsetScaler, animDurationScaler, waitTime);
     }
 
     static Notification GetNotification()

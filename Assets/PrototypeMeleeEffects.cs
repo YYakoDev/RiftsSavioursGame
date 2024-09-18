@@ -79,7 +79,7 @@ public class PrototypeMeleeEffects : MonoBehaviour
         {
             _attackEffects.SelfPush(_dashPullForce, 0.06f);
         }
-        _holdTimer.Start();
+        //_holdTimer.Start();
         _holding = true;
         //you could disable the dash a few miliseconds after the attack holding, so the player can correct his course
 
@@ -104,7 +104,14 @@ public class PrototypeMeleeEffects : MonoBehaviour
         var percent = _elapsedTime / _holdDuration;
         if(_dashing && percent < 0.25f)
         {
+            return;
             //DASH ATTACK!
+            //ADD direction to the weapon, to the current dash direction on the movement script, and maybe a little offset to the duration aswell
+            var dirToWeapon = transform.position;
+            var mousePos = YYInputManager.i.GetMousePosition();
+            if(mousePos.sqrMagnitude > 0.1f) dirToWeapon -= mousePos * _dashPullForce;
+            else dirToWeapon -= (Vector3)_movement.LastMovement * _dashPullForce;
+            _movement.AddToDashDirection(-dirToWeapon.normalized);
             //_attackEffects.SelfPush(_dashPullForce, 0.06f);
         }
         _elapsedTime = 0f;

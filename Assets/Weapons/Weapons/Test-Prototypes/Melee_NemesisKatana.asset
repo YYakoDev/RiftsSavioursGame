@@ -1,0 +1,131 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5d477e5c1f07ee42bee6417298698fe, type: 3}
+  m_Name: Melee_NemesisKatana
+  m_EditorClassIdentifier: 
+  _attackKey: {fileID: -2831406729901597417, guid: 4d54cc78634f7354fbb24fa0c72ecc2e, type: 3}
+  _name: Melee Weapon 2
+  _description: WEAPON 2
+  _SpriteAndAnimationsData: {fileID: 11400000, guid: fe301fefb53f91646b28abcd3bed37b4, type: 2}
+  _effects:
+  - {fileID: 11400000, guid: 3961fbaed97e0aa4ea6fed7535dadd51, type: 2}
+  - {fileID: 11400000, guid: 0429586a3501b674d98e9c4fcf8476e7, type: 2}
+  - {fileID: 11400000, guid: d4e16b2053b94a344bdaec49dc2eba00, type: 2}
+  _weaponSounds:
+  - {fileID: 8300000, guid: 4b44864f6a44e594eb373a71bd3618fe, type: 3}
+  _pointCameraOnAttack: 0
+  _attackCooldown: 0
+  _baseStats:
+    _cooldown: 0.15
+    _pullForce: 1
+    _atkRange: 0.9
+    _atkSpeed: 1.88
+    _knockbackForce: 1.1
+    _damageDelay: 0.095
+    _criticalDamageMultiplier: 2
+    _pullDuration: 0.075
+    _atkDmg: 3
+    _criticalChance: 20
+    _staminaConsumption: 0
+  _maxStats:
+    _cooldown: 0
+    _pullForce: 0
+    _atkRange: 0
+    _atkSpeed: 0
+    _knockbackForce: 0
+    _damageDelay: 0
+    _criticalDamageMultiplier: 0
+    _pullDuration: 0
+    _atkDmg: 0
+    _criticalChance: 0
+    _staminaConsumption: 0
+  _rangeOffset: {x: 0, y: 0}
+  _comboAttacks:
+  - _stats:
+      _cooldown: 0
+      _pullForce: 0.45
+      _atkRange: 0
+      _atkSpeed: 0.1
+      _knockbackForce: 0
+      _damageDelay: 0
+      _criticalDamageMultiplier: 0
+      _pullDuration: 0
+      _atkDmg: 0
+      _criticalChance: 0
+      _staminaConsumption: 0
+    _effects:
+    - {fileID: 11400000, guid: 73356674117be624b89f398b7b526560, type: 2}
+    _sounds:
+    - {fileID: 8300000, guid: bb5a381345214dc469cd56d7f8b12a03, type: 3}
+  - _stats:
+      _cooldown: 0
+      _pullForce: 0.45
+      _atkRange: 0.2
+      _atkSpeed: 0
+      _knockbackForce: 0.5
+      _damageDelay: 0
+      _criticalDamageMultiplier: 0
+      _pullDuration: 0
+      _atkDmg: 2
+      _criticalChance: 0
+      _staminaConsumption: 0
+    _effects:
+    - {fileID: 11400000, guid: c9c1e59da1cfa0d438f4301a1069edcd, type: 2}
+    - {fileID: 11400000, guid: 09d7f5330f8f034429287665ec6f885f, type: 2}
+    - {fileID: 11400000, guid: bc668329a2d90574a91d7f07ac9991c9, type: 2}
+    _sounds:
+    - {fileID: 8300000, guid: bf6e2b4df56b93e45b6323a7837b73f2, type: 3}
+  - _stats:
+      _cooldown: 0.05
+      _pullForce: 0
+      _atkRange: 0
+      _atkSpeed: 0
+      _knockbackForce: 0.1
+      _damageDelay: 0
+      _criticalDamageMultiplier: 0
+      _pullDuration: 0
+      _atkDmg: 3
+      _criticalChance: 0
+      _staminaConsumption: 0
+    _effects:
+    - {fileID: 11400000, guid: a46798bb6b4605f46a88a7cb00606fc1, type: 2}
+    - {fileID: 11400000, guid: 09d7f5330f8f034429287665ec6f885f, type: 2}
+    _sounds:
+    - {fileID: 8300000, guid: 8fc1cb3207a94d64683a5c20d2684b0f, type: 3}
+  _heavyAttackBonus:
+    _cooldown: 0.08
+    _pullForce: 0.42
+    _atkRange: 0.35
+    _atkSpeed: 0.15
+    _knockbackForce: 1
+    _damageDelay: 0
+    _criticalDamageMultiplier: 0
+    _pullDuration: 0
+    _atkDmg: 4
+    _criticalChance: 0
+    _staminaConsumption: 0
+  _cameraZoomPercent: -7
+  _heavyAtkEffects:
+  - {fileID: 11400000, guid: df7c73a62b7d8ea4da3c4d678c5b278b, type: 2}
+  - {fileID: 11400000, guid: f1b3174f673fb1a4b91613d5d1414674, type: 2}
+  - {fileID: 11400000, guid: 73356674117be624b89f398b7b526560, type: 2}
+  - {fileID: 11400000, guid: 4780209016f8aa349864b33bf7198c79, type: 2}
+  - {fileID: 11400000, guid: b38795998130cfd4e9799775cf5b0360, type: 2}
+  - {fileID: 11400000, guid: 7bb318d68cc698b419d3846eb54100c6, type: 2}
+  - {fileID: 11400000, guid: 0429586a3501b674d98e9c4fcf8476e7, type: 2}
+  - {fileID: 11400000, guid: 0429586a3501b674d98e9c4fcf8476e7, type: 2}
+  - {fileID: 11400000, guid: a46798bb6b4605f46a88a7cb00606fc1, type: 2}
+  - {fileID: 11400000, guid: bfb68f75966a4294992ea75fe9a1dd9a, type: 2}
+  _heavyAtkCueSFX: {fileID: 8300000, guid: 3f7670eadeb43e54f9ff0765007b070a, type: 3}
+  _heavyAtkChargeUpSfx: {fileID: 8300000, guid: 3401fd0402f64d740886d6968e3f9650, type: 3}
+  _heavyAtkSound: {fileID: 0}
+  _pitchSubstraction: 0.085

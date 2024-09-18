@@ -13,12 +13,14 @@ public class GameStateManager : MonoBehaviour
     float _currentRiftTime;
     public static event Action onRiftTimerEnd;
     [SerializeField]World _currentWorld;
+    [SerializeField] DifficultyScaler _difficultyScaler;
     //[SerializeField] UpgradesMenu _upgradesMenu;
 
 
     public static event Action<GameStateBase> OnStateSwitch;
     public static event Action<GameStateBase> OnStateEnd;
     public static GameStateBase CurrentState => CurrentGameState;
+    public DifficultyScaler DifficultyScaler => _difficultyScaler;
     public float CurrentRiftTime => _currentRiftTime;
     public World CurrentWorld => _currentWorld;
     public ConvergenceState ConvergenceState => _convergenceState;

@@ -10,7 +10,8 @@ public class SOEnemyWave : ScriptableObject
     [SerializeField, Range(0.05f, 5f)]private float _enemySpawnCooldown = 1f; // seconds
     [SerializeField, Range(0, 20)]private int _enemiesToSpawn = 1;
     [SerializeField] private float _waveDuration = 30f;
-    [SerializeField] bool _changeStatsOvertime = true;
+    [SerializeField] bool _changeStatsOvertime = true, _spawnElite = false;
+    [SerializeField] int _maxEnemiesToSpawn = 25;
 
     //Properties
     public SOEnemy[] Enemies => _enemies;
@@ -18,4 +19,6 @@ public class SOEnemyWave : ScriptableObject
     public int EnemiesToSpawn => _enemiesToSpawn;
     public float WaveDuration => _waveDuration;
     public bool ChangeStatsOvertime => _changeStatsOvertime;
+    public bool SpawnElite => _spawnElite;
+    public int MaxEnemiesToSpawn => _maxEnemiesToSpawn;
 }

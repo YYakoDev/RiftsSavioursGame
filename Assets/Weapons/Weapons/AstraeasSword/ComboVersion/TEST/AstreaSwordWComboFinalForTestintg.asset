@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5c8a2cd6ed58fc42a814fef259de216, type: 3}
   m_Name: AstreaSwordWComboFinalForTestintg
   m_EditorClassIdentifier: 
+  _attackKey: {fileID: -2831406729901597417, guid: 4d54cc78634f7354fbb24fa0c72ecc2e, type: 3}
   _name: "astrik\xF3 x\xEDfos"
   _description: 
   _SpriteAndAnimationsData: {fileID: 11400000, guid: 7ececea671a0adb44b74cff559f4409c, type: 2}
@@ -27,9 +28,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0429586a3501b674d98e9c4fcf8476e7, type: 2}
   - {fileID: 11400000, guid: a46798bb6b4605f46a88a7cb00606fc1, type: 2}
   - {fileID: 11400000, guid: c9c1e59da1cfa0d438f4301a1069edcd, type: 2}
-  _flipSprite: 0
-  _spawnPosition: {x: -0.55, y: 0.25, z: 0}
-  _spawnRotation: 120
   _weaponSounds:
   - {fileID: 8300000, guid: 508c570f9c0b8054d994892ce675547e, type: 3}
   - {fileID: 8300000, guid: fb3c88f79d40cfc40a7b56eb31cb7061, type: 3}

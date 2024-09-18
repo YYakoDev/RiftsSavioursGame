@@ -22,8 +22,9 @@ public class World : ScriptableObject
     //properties
     public static float RiftDurationInSeconds => RiftDuration;
     public SOEnemyWave CurrentWave => _currentWave;
-    public SOEnemyWave[] Waves => _waves;
-    public float WavesInterval => _currentWave.WaveDuration;
+    //public SOEnemyWave[] Waves => _waves;
+    public int WaveIndex => _currentWaveIndex;
+    //public float WavesInterval => _currentWave.WaveDuration;
     public float RestInterval => _restInterval;
     public ChunkTileMap[] Chunks => _chunks;
 

@@ -30,4 +30,10 @@ public class AIStats
         _damage = stats.Damage;
         _knockbackForce = stats.KnockbackForce;
     }
+    public void AddDifficultyStats(DifficultyStats stats)
+    {
+        if(stats == null) return;
+        _damage += stats.EnemyDamage;
+        _speed += stats.EnemySpeed;
+    }
 }

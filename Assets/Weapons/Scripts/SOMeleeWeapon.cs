@@ -127,7 +127,12 @@ public class SOMeleeWeapon : WeaponBase
     public override void SetWeaponActive(bool active)
     {
         base.SetWeaponActive(active);
-        if(active)_weaponAnimator.speed = _modifiedStats._atkSpeed;
+        if(active)
+        {
+            _hittedEnemiesGO = new();
+            _atkExecutionTimer.Stop();
+            _weaponAnimator.speed = _modifiedStats._atkSpeed;
+        }
     }
 
     protected override void SubscribeInput()
@@ -174,6 +179,7 @@ public class SOMeleeWeapon : WeaponBase
                 //_holding = false;
                 _weaponManager.AtkEffects.BlinkWeapon();
                 _weaponManager.AtkEffects.BlinkPlayer();
+                NotificationSystem.SendNotification(NotificationType.Top, "Heavy attack charged!");
                 //TryAttack();
             }
         }
@@ -189,6 +195,7 @@ public class SOMeleeWeapon : WeaponBase
 
     void StopHolding(InputAction.CallbackContext obj)
     {
+        if(!_holding) return;
         TryAttack();
         _holding = false;
         //_releaseHoldAtkTimer.End();
@@ -245,7 +252,7 @@ public class SOMeleeWeapon : WeaponBase
         if(_nextAttackTime >= Time.time) return;
         _currentComboIndex++;
         if(_currentComboIndex >= ComboMaxCount) _currentComboIndex = 0;
-        Debug.Log("Attacking");
+        
         _weaponManager.AtkEffects.SlowdownPlayer(0f, 0f);
         _holding = false;
         CameraEffects.ResetScale();
@@ -280,7 +287,12 @@ public class SOMeleeWeapon : WeaponBase
 
         _resetComboTime = currentAnimDuration + 0.3f; //this 0.25f could be replaced with a variable called _comboWaitTime
         var cooldown = currentAnimDuration - (Time.deltaTime * 2f);
-        if(_currentComboIndex == ComboMaxCount-1) cooldown = _resetComboTime + _modifiedStats._cooldown;
+        //Debug.Log("current anim duration: " + currentAnimDuration);
+        if(_currentComboIndex == ComboMaxCount-1)
+        {
+            cooldown = _resetComboTime + _modifiedStats._cooldown;
+            _comboWaitTimer.Stop();
+        }
         _weaponAnimator.speed = _modifiedStats._atkSpeed;
         _holdTime = 0f;
         _attackDuration = currentAnimDuration;

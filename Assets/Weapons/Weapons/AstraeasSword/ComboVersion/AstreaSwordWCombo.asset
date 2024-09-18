@@ -12,13 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5c8a2cd6ed58fc42a814fef259de216, type: 3}
   m_Name: AstreaSwordWCombo
   m_EditorClassIdentifier: 
+  _attackKey: {fileID: -2831406729901597417, guid: 4d54cc78634f7354fbb24fa0c72ecc2e, type: 3}
   _name: "astrik\xF3 x\xEDfos"
+  _description: 
   _SpriteAndAnimationsData: {fileID: 11400000, guid: 3ffd0d601d729f44f946aefc00161325, type: 2}
-  _effects:
-  - {fileID: 11400000, guid: 23196116de9b69d47a045c9e6a9b7e11, type: 2}
-  _flipSprite: 1
-  _spawnPosition: {x: -0.55, y: 0.25, z: 0}
-  _spawnRotation: 0
+  _effects: []
   _weaponSounds:
   - {fileID: 8300000, guid: 5f3a43ec23ce51345a07f63c6fe762c6, type: 3}
   - {fileID: 8300000, guid: 8aba69f5bbe09a047b7792f94a2c13dc, type: 3}
@@ -26,12 +24,17 @@ MonoBehaviour:
   _pointCameraOnAttack: 1
   _attackCooldown: 0.5
   _pullForce: 0.2
+  _pullDuration: 0.1
   _attackRange: 1
   _attackSpeed: 1
   _rangeOffset: {x: 0, y: 0}
   _attackDamage: 5
+  _criticalChance: 10
+  _criticalDamageMultiplier: 2
   _damageDelay: 0.185
   _knockbackForce: 0.3
+  _animationDelayTime: 0
+  _delayPercentage: 0
   _speedUPComboAnimations: 1
   _speedUpFactor: 1.3
   _comboStats:
@@ -41,6 +44,7 @@ MonoBehaviour:
     AtkSpeed: 0.1
     PullForce: 2
     AtkDelay: 0
+    PullDuration: 0
     Damage: 5
     RangeOffset: {x: 0, y: 0}
     WeaponFxs:
@@ -51,12 +55,21 @@ MonoBehaviour:
     - {fileID: 11400000, guid: c9c1e59da1cfa0d438f4301a1069edcd, type: 2}
     - {fileID: 11400000, guid: 5aa96cb87718dbb42b53feddbbdae7b1, type: 2}
     - {fileID: 11400000, guid: f1b3174f673fb1a4b91613d5d1414674, type: 2}
+    UsedEffects:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
   - Cooldown: 0
     Range: 1
     KnockbackForce: 1
     AtkSpeed: 0
     PullForce: 0
     AtkDelay: 0
+    PullDuration: 0
     Damage: 10
     RangeOffset: {x: 0, y: 0}
     WeaponFxs:
@@ -67,12 +80,21 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 9ddd7eda1b0d2ed44ab35738ce51d08c, type: 2}
     - {fileID: 11400000, guid: c9c1e59da1cfa0d438f4301a1069edcd, type: 2}
     - {fileID: 11400000, guid: f1b3174f673fb1a4b91613d5d1414674, type: 2}
+    UsedEffects:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
   - Cooldown: 0.1
     Range: 0.84
     KnockbackForce: 4
     AtkSpeed: 0.35
     PullForce: 2
     AtkDelay: 0
+    PullDuration: 0
     Damage: 0
     RangeOffset: {x: 0, y: 0}
     WeaponFxs:
@@ -81,3 +103,9 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 9ddd7eda1b0d2ed44ab35738ce51d08c, type: 2}
     - {fileID: 11400000, guid: f1b3174f673fb1a4b91613d5d1414674, type: 2}
     - {fileID: 11400000, guid: c9c1e59da1cfa0d438f4301a1069edcd, type: 2}
+    UsedEffects:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
