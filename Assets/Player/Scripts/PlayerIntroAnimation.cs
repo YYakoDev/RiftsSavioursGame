@@ -23,12 +23,12 @@ public class PlayerIntroAnimation
         _animTimer = new(_animDuration + 0.1f, false, true);
         _animTimer.Stop();
         _animTimer.onEnd += ResumeTime;
-        StopTime();
         //PlayAnimation();
     }
 
     public void PlayAnimation()
     {
+        StopTime();
         _animTimer.Start();
         _animator.Play(PlayerAnimationsNames.Landing);
         SpawnFX();

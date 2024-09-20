@@ -30,7 +30,7 @@ public class GameStatePopup : MonoBehaviour
         _animator = GetComponent<TweenAnimatorMultiple>();
         _audio = GetComponent<AudioSource>();
         _popupTextRect = _popupText.GetComponent<RectTransform>();
-        GameStateManager.OnStateSwitch += SwitchedState;
+        //GameStateManager.OnStateSwitch += SwitchedState;
     }
 
     private void Start() {
@@ -89,7 +89,7 @@ public class GameStatePopup : MonoBehaviour
     }
 
     private void OnDestroy() {
-        GameStateManager.OnStateSwitch -= SwitchedState;
+        //GameStateManager.OnStateSwitch -= SwitchedState;
     }
 
     private void OnValidate() {

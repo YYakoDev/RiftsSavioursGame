@@ -10,6 +10,7 @@ public class WeaponAiming : MonoBehaviour
     [SerializeField] PlayerMovement _playerMovement;
     [SerializeField] SOPlayerAttackStats _attackStats;
     [SerializeField]InputActionReference _switchAimKey, _pointerPosition;
+    [SerializeField] Sprite _uiAimingIcon;
     private Vector3 _mousePosition;
     Vector2 _targetDirection;
     WeaponBase _currentWeapon;
@@ -81,11 +82,13 @@ public class WeaponAiming : MonoBehaviour
         _autoAiming = !_autoAiming;
         if (_autoAiming)
         {
+            NotificationSystem.SendNotification(NotificationType.Left, "AutoAiming enabled", _uiAimingIcon, 0.7f, 0.5f, 0.2f);
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
         else
         {
+            NotificationSystem.SendNotification(NotificationType.Left, "AutoAiming Disabled", _uiAimingIcon, 0.8f, 0.4f, 0.2f);
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
             _crosshair.gameObject.SetActive(false);
@@ -211,7 +214,7 @@ public class WeaponAiming : MonoBehaviour
     private void OnDestroy() {
         _switchAimKey.action.performed -= SwitchAim;
         _enemyDetectionTimer.onEnd -= DetectEnemy;
-        _currentWeapon.onAttack -= StopAiming;
+        if(_currentWeapon != null)_currentWeapon.onAttack -= StopAiming;
         _attackStats.onStatsChange -= IncreaseDetectionRadius;
     }
 }

@@ -111,14 +111,13 @@ public class StoreMenu : MonoBehaviour
         _eventSys = EventSystem.current;
         _escapeInput.action.performed += CloseMenuWithInput;
         //PickUpgrades();
-        GameStateManager.OnStateEnd += StateSwitchCheck;
+        //GameStateManager.OnStateEnd += StateSwitchCheck;
         _playerInventory.onInventoryChange += GetCoins;
         if (_parent.activeInHierarchy) OpenMenu();
     }
 
     void StateSwitchCheck(GameStateBase state)
     {
-        return;
         if (state.GetType() == typeof(RestState))
         {
             OpenMenu();
@@ -168,7 +167,7 @@ public class StoreMenu : MonoBehaviour
     private void OnDestroy()
     {
         _playerInventory.onInventoryChange -= GetCoins;
-        GameStateManager.OnStateEnd -= StateSwitchCheck;
+        //GameStateManager.OnStateEnd -= StateSwitchCheck;
         _escapeInput.action.performed -= CloseMenuWithInput;
     }
 
@@ -320,7 +319,7 @@ public class StoreMenu : MonoBehaviour
             _ => UpgradeRarity.Common
         };
         return rarity;
-        var isAvailable = _rarityAvailability[rarity];
+        /*var isAvailable = _rarityAvailability[rarity];
         //Debug.Log($"Is upgrade of rarity {rarity} available?  {isAvailable}");
         if(!isAvailable) return rarity switch
         {
@@ -332,7 +331,7 @@ public class StoreMenu : MonoBehaviour
             UpgradeRarity.Legendary => (UpgradeRarity)(-1),
             _ => rarity
         };
-        else return rarity;
+        else return rarity;*/
     }
     #endregion
 

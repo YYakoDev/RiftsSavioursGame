@@ -26,7 +26,7 @@ public static class UpgradeCreator
         //if (GeneratedStoreUpgrades != null) return;
         Iterations = 0;
         var totalStats = Enum.GetValues(typeof(StatsTypes)) as StatsTypes[];
-        StatsTypes[] statTypes = new StatsTypes[totalStats.Length - 15]; //THIS MINUS 7 IS EQUAL TO THE AMOUNT OF SKIPS IN THE FOR THE LOOP BELLOW IF YOU FORGET THIS YOU WILL GET REPEATED MAX HEALTH UPGRADES
+        StatsTypes[] statTypes = new StatsTypes[totalStats.Length - 16]; //THIS MINUS 7 IS EQUAL TO THE AMOUNT OF SKIPS IN THE FOR THE LOOP BELLOW IF YOU FORGET THIS YOU WILL GET REPEATED MAX HEALTH UPGRADES
         int index = 0;
         for (int i = 0; i < totalStats.Length; i++)
         {
@@ -46,7 +46,7 @@ public static class UpgradeCreator
             || statType == StatsTypes.ProjectilesSpeed
             || statType == StatsTypes.SummonDamage
             || statType == StatsTypes.SummonSpeed
-            || statType == StatsTypes.HarvestMultiplier) continue;
+            || statType == StatsTypes.LootMultiplier) continue;
             statTypes[index] = statType;
             index++;
         }
@@ -259,7 +259,7 @@ public static class UpgradeCreator
     public static StoreUpgradeData GetRandomUpgrade(UpgradeRarity rarity)
     {
         var totalStats = Enum.GetValues(typeof(StatsTypes)) as StatsTypes[];
-        StatsTypes[] statTypes = new StatsTypes[totalStats.Length - 15]; //THIS MINUS 7 IS EQUAL TO THE AMOUNT OF SKIPS IN THE FOR THE LOOP BELLOW IF YOU FORGET THIS YOU WILL GET REPEATED MAX HEALTH UPGRADES
+        StatsTypes[] statTypes = new StatsTypes[totalStats.Length - 16]; //THIS MINUS 7 IS EQUAL TO THE AMOUNT OF SKIPS IN THE FOR THE LOOP BELLOW IF YOU FORGET THIS YOU WILL GET REPEATED MAX HEALTH UPGRADES
         int index = 0;
         for (int i = 0; i < totalStats.Length; i++)
         {
@@ -278,7 +278,8 @@ public static class UpgradeCreator
             || statType == StatsTypes.ProjectilesCount
             || statType == StatsTypes.ProjectilesSpeed
             || statType == StatsTypes.SummonDamage
-            || statType == StatsTypes.SummonSpeed) continue;
+            || statType == StatsTypes.SummonSpeed
+            || statType == StatsTypes.LootMultiplier) continue;
             statTypes[index] = statType;
             index++;
         }

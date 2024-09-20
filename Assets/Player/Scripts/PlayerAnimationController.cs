@@ -25,7 +25,7 @@ public class PlayerAnimationController : MonoBehaviour
         _introAnim = new(_animator, _introFX.gameObject);
     }
 
-    private void Start() {
+    private IEnumerator Start() {
         _durations = new()
         {
             {PlayerAnimationsNames.Iddle, GetAnimationDuration(PlayerAnimationsNames.Iddle)},
@@ -35,6 +35,7 @@ public class PlayerAnimationController : MonoBehaviour
             {PlayerAnimationsNames.ForwardDash, GetAnimationDuration(PlayerAnimationsNames.ForwardDash)},
             {PlayerAnimationsNames.BackDash, GetAnimationDuration(PlayerAnimationsNames.BackDash)},
         };
+        yield return null;
         //Debug.Log("Forward dash duration:  " + _durations[PlayerAnimationsNames.ForwardDash] + "\n Back Dash: " + _durations[PlayerAnimationsNames.BackDash]);
         _introAnim.PlayAnimation();
     }

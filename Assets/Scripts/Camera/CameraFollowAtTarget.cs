@@ -10,10 +10,17 @@ public class CameraFollowAtTarget : MonoBehaviour
     [SerializeField]Vector2 _offset;
     [SerializeField] WorldBounds _worldBounds;
     [SerializeField] Vector2 _boundsOffset;
+    float _defaultSmoothFollow;
     //[SerializeField] float _distanceThreshold = 0.4f;
+
+    public float SmoothFollow => _smoothFollow;
 
     private void OnEnable() => _cameraTargetManager.onTargetSwitch += SwitchTarget;
     
+    private void Awake() {
+        _defaultSmoothFollow = _smoothFollow;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +28,7 @@ public class CameraFollowAtTarget : MonoBehaviour
         
         _currentTarget = _cameraTargetManager.Target;
     }
+    
 
     // Update is called once per frame
     void FixedUpdate()
@@ -44,6 +52,13 @@ public class CameraFollowAtTarget : MonoBehaviour
     {
         _currentTarget = _cameraTargetManager.Target;
     }
+
+    public void SetCameraSpeed(float speed)
+    {
+        _smoothFollow = speed;
+    }
+
+    public void ResetCameraSpeed() => SetCameraSpeed(_defaultSmoothFollow);
 
     private void OnDisable() => _cameraTargetManager.onTargetSwitch -= SwitchTarget;
 

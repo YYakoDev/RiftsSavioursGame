@@ -4,13 +4,13 @@ using UnityEngine;
 
 public abstract class GameStateBase
 {
-    protected GameStateManager _stateManager;
+    /*protected GameStateManager _stateManager;
     public GameStateBase(GameStateManager manager)
     {
         _stateManager = manager;
     }
     public abstract void Start();
     public abstract void UpdateLogic();
-    protected abstract void Transition();
+    protected abstract void Transition();*/
     
 }

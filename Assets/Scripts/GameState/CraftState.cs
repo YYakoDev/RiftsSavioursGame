@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CraftState : GameStateBase
 {
-    public CraftState(GameStateManager manager) : base(manager)
+   /* public CraftState(GameStateManager manager) : base(manager)
     {
         //_stateManager.UpgradesMenu.OnMenuClose += Transition;
     }
@@ -25,5 +25,5 @@ public class CraftState : GameStateBase
     ~CraftState()
     {
         //_stateManager.UpgradesMenu.OnMenuClose -= Transition;
-    }
+    }*/
 }

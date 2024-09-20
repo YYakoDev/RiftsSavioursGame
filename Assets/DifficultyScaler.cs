@@ -8,7 +8,7 @@ public class DifficultyScaler : MonoBehaviour
 {
     [SerializeField] SOPlayerStats _playerStats;
     [SerializeField] SOPlayerAttackStats _playerAttackStats;
-    [SerializeField] World _currentWorld;
+    [SerializeField] WaveSystem _waveSys;
     [SerializeField] int _scalingThreshold = 5;
     [SerializeField] DifficultyStats _maxStats = new();
     DifficultyStats _currentStats = new();
@@ -18,7 +18,8 @@ public class DifficultyScaler : MonoBehaviour
     public DifficultyStats CurrentStats => _currentStats;
 
     private void Start() {
-        _currentWorld.OnWaveChange += CheckWaveCount;
+        OnDifficultyIncrease?.Invoke();
+        _waveSys.OnWaveChange += CheckWaveCount;
     }
 
     void CheckWaveCount(SOEnemyWave wave)
@@ -27,15 +28,15 @@ public class DifficultyScaler : MonoBehaviour
         if(_waveCount >= _scalingThreshold)
         {
             _waveCount = 0;
-            _currentStats.Duration += 2f;
-            _currentStats.EnemiesToSpawn += 1;
-            _currentStats.PlayerDamage += 2;
-            _currentStats.WavesRestTime += 1f;
+            if(_currentStats.GraceDuration <= _maxStats.GraceDuration)_currentStats.GraceDuration += 1f;
+            if(_currentStats.EnemiesToSpawn <= _maxStats.EnemiesToSpawn)_currentStats.EnemiesToSpawn += 2;
+            if(_currentStats.PlayerDamage <= _maxStats.PlayerDamage) _currentStats.PlayerDamage += 1;
+            if(_currentStats.WavesRestTime <= _maxStats.WavesRestTime)_currentStats.WavesRestTime += 1f;
             _currentStats.EnemyDamage += 1;
-            _currentStats.EnemySpeed += 0.065f;
-            _currentStats.PlayerSpeed += 0.1f;
-            _currentStats.SpawnCooldown -= 0.13f;
-            _currentStats.SpawnElite = (_currentWorld.WaveIndex % 10f == 0f);
+            if(_currentStats.EnemySpeed <= _maxStats.EnemySpeed)_currentStats.EnemySpeed += 0.05f;
+            if(_currentStats.PlayerSpeed <= _maxStats.PlayerSpeed)_currentStats.PlayerSpeed += 0.095f;
+            _currentStats.SpawnCooldown -= 0.155f;
+            _currentStats.SpawnElite = (_waveSys.WaveNumber % 10f == 0f);
 
             _playerStats.Speed += _currentStats.PlayerSpeed;
             _playerAttackStats.BaseDamageAddition += _currentStats.PlayerDamage;
@@ -46,6 +47,6 @@ public class DifficultyScaler : MonoBehaviour
     }
 
     private void OnDestroy() {
-        _currentWorld.OnWaveChange -= CheckWaveCount;
+        _waveSys.OnWaveChange -= CheckWaveCount;
     }
 }

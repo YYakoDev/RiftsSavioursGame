@@ -13,8 +13,8 @@ public class PlayerAttackEffects : MonoBehaviour
     int _targetIndex = -1;
     [SerializeField]AudioSource _audio;
     WeaponBase _currentWeapon;
-    WeaponPrefab _weaponPrefabLogic;
-    Transform weaponPrefab => _currentWeapon.PrefabTransform;
+    Transform weaponPrefab => _weaponManager.PrefabInstance;
+    WeaponPrefab _weaponPrefabLogic => _weaponManager.PrefabLogicInstance;
     public AudioSource Audio => _audio;
     float AttackDuration => _currentWeapon.AtkDuration;
     public Vector3 MousePosition => YYInputManager.i.GetMousePosition();
@@ -27,10 +27,9 @@ public class PlayerAttackEffects : MonoBehaviour
     {
         _mainCamera = Camera.main;
         _weaponAiming = _weaponManager.AimingLogic;
-        _weaponPrefabLogic = weaponPrefab.GetComponent<WeaponPrefab>();
         yield return null;
         yield return null;
-        _targetIndex = _cameraTargetting.AddTarget(weaponPrefab);
+        if(_currentWeapon != null)_targetIndex = _cameraTargetting.AddTarget(weaponPrefab);
         
     }
 
@@ -38,6 +37,7 @@ public class PlayerAttackEffects : MonoBehaviour
     {
         if(_currentWeapon != null) _currentWeapon.onAttack -= AttackEffects;
         _currentWeapon = weapon;
+        if(_targetIndex == -1) _targetIndex = _cameraTargetting.AddTarget(weaponPrefab);
         _currentWeapon.onAttack += AttackEffects;
     }
     
@@ -79,7 +79,7 @@ public class PlayerAttackEffects : MonoBehaviour
     private void OnDestroy()
     {
         _weaponManager.OnWeaponChange -= SwitchCurrentWeapon;
-        _currentWeapon.onAttack -= AttackEffects;
+        if(_currentWeapon != null)_currentWeapon.onAttack -= AttackEffects;
     }
 
 }

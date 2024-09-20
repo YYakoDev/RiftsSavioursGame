@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class GameStateManager : MonoBehaviour
 {
-    //States
+    /*//States
     static GameStateBase CurrentGameState;
     ConvergenceState _convergenceState;
     //CraftState _craftState;
@@ -17,8 +17,8 @@ public class GameStateManager : MonoBehaviour
     //[SerializeField] UpgradesMenu _upgradesMenu;
 
 
-    public static event Action<GameStateBase> OnStateSwitch;
-    public static event Action<GameStateBase> OnStateEnd;
+    //public static event Action<GameStateBase> OnStateSwitch;
+    //public static event Action<GameStateBase> OnStateEnd;
     public static GameStateBase CurrentState => CurrentGameState;
     public DifficultyScaler DifficultyScaler => _difficultyScaler;
     public float CurrentRiftTime => _currentRiftTime;
@@ -58,11 +58,11 @@ public class GameStateManager : MonoBehaviour
     public void SwitchState(GameStateBase state)
     {
         //Debug.Log("Switching to state:   " + state);
-        OnStateEnd?.Invoke(CurrentGameState);
+        //OnStateEnd?.Invoke(CurrentGameState);
         CurrentGameState = state;
         CurrentGameState.Start();
-        OnStateSwitch?.Invoke(CurrentGameState);
+        //OnStateSwitch?.Invoke(CurrentGameState);
     }
 
-
+    */
 }

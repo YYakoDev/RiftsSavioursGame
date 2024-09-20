@@ -61,7 +61,7 @@ MonoBehaviour:
   _moveCurveType: 1
   _animDuration: 0.455
   _offsetScaler: 1.12
-  _widthOffset: 80
+  _widthOffset: 70
 --- !u!114 &1152716246267403422
 MonoBehaviour:
   m_ObjectHideFlags: 0

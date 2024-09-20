@@ -27,6 +27,10 @@ public class PostProcessingManager : MonoBehaviour
             {
                 var effect = effects[i] as MotionBlur;
                 _defaultValues.Add(effect, ((float)effect.intensity));
+            }else if(type == (typeof(ColorAdjustments)))
+            {
+                var effect = effects[i] as ColorAdjustments;
+                _defaultValues.Add(effect, ((float)effect.hueShift));
             }
         }
         //SetVignette(1f);
@@ -48,6 +52,12 @@ public class PostProcessingManager : MonoBehaviour
     {
         var lensDist = AddOrGetEffect<LensDistortion>();
         lensDist.intensity.Override(intensity);
+    }
+
+    public static void SetHue(float intensity)
+    {
+        var hue = AddOrGetEffect<ColorAdjustments>(true);
+        hue.hueShift.Override(intensity);
     }
 
     public static float GetDefaultValue<T>() where T : VolumeComponent
@@ -76,6 +86,10 @@ public class PostProcessingManager : MonoBehaviour
             }else if(type == typeof(MotionBlur))
             {
                 SetMotionBlur(componentPairValue.Value);
+            }
+            else if(type == typeof(ColorAdjustments))
+            {
+                SetHue(componentPairValue.Value);
             }
         }
 

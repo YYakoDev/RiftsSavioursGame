@@ -63,6 +63,7 @@ public class SOMeleeWeapon : WeaponBase
 
     public override void Initialize(WeaponManager weaponManager, Transform prefabTransform)
     {
+        base.Initialize(weaponManager, prefabTransform);
         _weaponAnimator = prefabTransform.GetComponent<Animator>();
         _audioSource = prefabTransform.GetComponent<AudioSource>();
         _upgradeStats = new();
@@ -71,7 +72,6 @@ public class SOMeleeWeapon : WeaponBase
         _enemyLayer = weaponManager.EnemyLayer;
         _switchInfo = new(0, false, false);
         _startingAudioPitch = _audioSource.pitch;
-        base.Initialize(weaponManager, prefabTransform);
         
         _currentComboIndex = -1;
         _resetComboTime = 0f;
@@ -102,6 +102,7 @@ public class SOMeleeWeapon : WeaponBase
         _cameraAnimCurve = TweenCurveLibrary.EaseInExpo;
         _slowdownCurve = TweenCurveLibrary.EaseInCirc;
 
+        Debug.Log("init");
 
         //_delayTimer = new(_animationDelayTime);
         //_delayTimer.Stop();
@@ -131,6 +132,7 @@ public class SOMeleeWeapon : WeaponBase
         {
             _hittedEnemiesGO = new();
             _atkExecutionTimer.Stop();
+            //_weaponAnimator = _weaponManager.PrefabInstance.GetComponent<Animator>();
             _weaponAnimator.speed = _modifiedStats._atkSpeed;
         }
     }
@@ -144,6 +146,7 @@ public class SOMeleeWeapon : WeaponBase
     {
         _attackKey.action.performed -= Hold;
         _attackKey.action.canceled -= StopHolding;
+        _initialized = false;
     }
 
     public override void UpdateLogic()
@@ -179,7 +182,7 @@ public class SOMeleeWeapon : WeaponBase
                 //_holding = false;
                 _weaponManager.AtkEffects.BlinkWeapon();
                 _weaponManager.AtkEffects.BlinkPlayer();
-                NotificationSystem.SendNotification(NotificationType.Top, "Heavy attack charged!");
+                NotificationSystem.SendNotification(NotificationType.Top, "Heavy attack charged!", null, 0.75f, 0.6f, 0.189f);
                 //TryAttack();
             }
         }
@@ -232,7 +235,7 @@ public class SOMeleeWeapon : WeaponBase
         TryAttack();
         if(info.WasHoldingHeavyAtkButton)
         {
-            if(_attackKey.action.IsPressed())
+            if(_attackKey.action.IsInProgress())
             {
                 Debug.Log("You were holding the attack button");
                 _effectsAudio.PlayWithVaryingPitch(_heavyAtkChargeUpSfx);

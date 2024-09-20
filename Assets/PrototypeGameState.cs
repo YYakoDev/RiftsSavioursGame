@@ -30,8 +30,8 @@ public class PrototypeGameState : MonoBehaviour
         _restTimer.Stop();
         _restTimer.onEnd += StartWaves;
         if(!_waveSpawner.gameObject.activeInHierarchy) _waveSpawner.gameObject.SetActive(true);
-        _waveSpawner.StopSpawning();
-        GameStateManager.OnStateSwitch += WavePassed;
+        //_waveSpawner.StopSpawning();
+        //GameStateManager.OnStateSwitch += WavePassed;
     }
 
     private void OpenStore()
@@ -162,7 +162,7 @@ public class PrototypeGameState : MonoBehaviour
     }
 
     private void OnDestroy() {
-        GameStateManager.OnStateSwitch -= WavePassed;
+        //GameStateManager.OnStateSwitch -= WavePassed;
         _restTimer.onEnd -= StartWaves;
         _storeOpeningTimer.onEnd -= OpenStore;
     }

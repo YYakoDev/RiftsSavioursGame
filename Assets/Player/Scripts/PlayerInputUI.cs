@@ -6,15 +6,15 @@ using UnityEngine.InputSystem;
 
 public class PlayerInputUI : MonoBehaviour
 {
+    [SerializeField] SOPlayerStats _playerStats;
     [SerializeField] UISkillsManager _uiSkillsManager;
     [SerializeField] WeaponManager _weaponManager;
     [SerializeField] WeaponAiming _aiming;
     [SerializeField] PlayerMovement _movementScript;
     [SerializeField] Sprite _dashUIIcon, _atkUIIcon, _aimIcon;
-    UISkill _dashSkill, _attackSkill, _switchAimSkill;
-    [SerializeField]InputActionReference _atkInput, _dashInput, _switchAimInput;
-    WeaponBase _currentWeapon;
-
+    UISkill _dashSkill, _attackSkill, _switchAimSkill, _switchWeaponSkill;
+    [SerializeField]InputActionReference _atkInput, _switchInput, _dashInput, _switchAimInput;
+    WeaponBase _currentWeapon, _previousWeapon;
 
     private void Awake() {
         _weaponManager.OnWeaponChange += SetWeapon;
@@ -24,10 +24,13 @@ public class PlayerInputUI : MonoBehaviour
         yield return null;
         yield return null;
         SetAtkInputOnUI();
+        SetSwitchWeaponOnUI();
         SetDashInputOnUI();
         SetSwitchAimOnUI();
         _movementScript.onDash += PlayDashInput;
         _aiming.OnAimingChange += PlayAimInput;
+        _switchInput.action.performed += PlaySwitchWeaponInput;
+        SwitchAttackIcons();
     }
 
     void SetWeapon(WeaponBase weapon)
@@ -35,9 +38,11 @@ public class PlayerInputUI : MonoBehaviour
         if(_currentWeapon != null)
         {
             _currentWeapon.onAttack -= PlayAttackInput;
+            _previousWeapon = _currentWeapon;
         }
         _currentWeapon = weapon;
         _currentWeapon.onAttack += PlayAttackInput;
+        SwitchAttackIcons();
     }
 
     void SetInputOnUI(ref UISkill item, InputActionReference inputType, Sprite icon, float cooldown)
@@ -58,6 +63,10 @@ public class PlayerInputUI : MonoBehaviour
         }
     }
 
+    void SetSwitchWeaponOnUI()
+    {
+        SetInputOnUI(ref _switchWeaponSkill, _switchInput, _atkUIIcon);
+    }
 
     void SetDashInputOnUI()
     {
@@ -77,6 +86,39 @@ public class PlayerInputUI : MonoBehaviour
         //_attackSkill?.UpdateCooldown(_currentWeapon.GetWeaponCooldown());
         _attackSkill?.Interact();
     }
+    void PlaySwitchWeaponInput(InputAction.CallbackContext obj)
+    {
+        _switchWeaponSkill?.Interact();
+    }
+
+    void SwitchAttackIcons()
+    {
+        if(_currentWeapon == null)
+        {
+            _attackSkill?.UpdateSkillIcon(_atkUIIcon);
+        }else
+        {
+            WeaponBase otherWeapon = null;
+            for (int i = 0; i < _playerStats.Weapons.Length; i++)
+            {
+                var weapon = _playerStats.Weapons[i];
+                if(weapon != null && weapon != _currentWeapon)
+                {
+                    otherWeapon = weapon;
+                    break;
+                }
+            }
+            if(otherWeapon == null)
+            {
+                _attackSkill?.UpdateSkillIcon(_currentWeapon.SpriteAndAnimationData.Sprite);   
+                _switchWeaponSkill?.UpdateSkillIcon(_atkUIIcon);
+            }else
+            {
+                _attackSkill?.UpdateSkillIcon(_currentWeapon.SpriteAndAnimationData.Sprite);   
+                _switchWeaponSkill?.UpdateSkillIcon(otherWeapon.SpriteAndAnimationData.Sprite);
+            }
+        }
+    }
 
     void PlayDashInput()
     {
@@ -88,9 +130,9 @@ public class PlayerInputUI : MonoBehaviour
     {
         _switchAimSkill?.Interact();
     }
-
     private void OnDestroy() {
         _weaponManager.OnWeaponChange -= SetWeapon;
+        _switchInput.action.performed -= PlaySwitchWeaponInput;
         _movementScript.onDash -= PlayDashInput;
         _aiming.OnAimingChange -= PlayAimInput;
     }

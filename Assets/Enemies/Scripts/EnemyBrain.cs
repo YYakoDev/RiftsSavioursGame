@@ -97,12 +97,12 @@ public class EnemyBrain : MonoBehaviour
         _target = target;
 
         _intialSprite = data.Sprite;
+        _renderer.color = Color.white;
         _animation.Animator.runtimeAnimatorController = null;
         _renderer.sprite = _intialSprite;
         _animation.Animator.runtimeAnimatorController = data.Animator;
         _aiStats.SetValues(data.Stats);
         _aiStats.AddDifficultyStats(stats);
-
         _dropper.Clear();
         foreach(Drop drop in data.Drops) _dropper.AddDrop(drop);
 
@@ -119,7 +119,7 @@ public class EnemyBrain : MonoBehaviour
         SetBehaviours(data.MovementBehaviour, data.AttackBehaviour, data.DeathBehaviour);
 
         _bloodPrefab = data.BloodFX;
-        if(data.BlinkMaterial != null)_healthManager.BlinkFX.SetMaterial(data.BlinkMaterial);
+        _healthManager.BlinkFX.SetMaterial(data.BlinkMaterial);
         _shadowFxData = new(data.HasShadow, data.ShadowOffset, data.ShadowSize);
         SetShadow();
         _moveSFXs = data.MoveSFXs;
@@ -206,6 +206,7 @@ public class EnemyBrain : MonoBehaviour
     void DisableComponents() 
     {
         OnEnemyDeath?.Invoke();
+        _shadow.SetActive(false);
         SetComponentsToActive(false);
     }
     

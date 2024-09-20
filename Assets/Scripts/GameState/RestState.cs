@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RestState : GameStateCountdown
 {
-    public RestState(GameStateManager manager) : base(manager)
+    /*public RestState(GameStateManager manager) : base(manager)
     {}
 
     public override void Start()
@@ -22,5 +22,5 @@ public class RestState : GameStateCountdown
     public override void UpdateLogic()
     {
         base.UpdateLogic();
-    }
+    }*/
 }

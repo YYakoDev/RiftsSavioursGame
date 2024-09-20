@@ -19,7 +19,7 @@ public enum StatsTypes
     BuffBooster = 15,
     DebuffResistance = 16,
     Faith = 17,
-    HarvestMultiplier = 18,
+    LootMultiplier = 18,
     DamageMultiplier = 19,
     DamageAddition = 20,
     AttackRange = 21,

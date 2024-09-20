@@ -27,9 +27,9 @@ public class DebugTestCurrentWave : MonoBehaviour
     void SetDebugText()
     {
         if(!_debug)return;
-        if(_currentWave == _spawner._currentWave)return;
+        /*if(_currentWave == _spawner._currentWave)return;
         _currentWave = _spawner._currentWave;
-        _debugText.text = "Current Wave: " + _currentWave.name + "\n";
+        _debugText.text = "Current Wave: " + _currentWave.name + "\n";*/
     }
     #endif
     

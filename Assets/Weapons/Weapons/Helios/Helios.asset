@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93fe133b00f61ba4cb106b67db658a5b, type: 3}
   m_Name: Helios
   m_EditorClassIdentifier: 
-  _name: Helios
+  _initialized: 0
+  _name: Helios ParsVeil
   _description: 
   _SpriteAndAnimationsData: {fileID: 11400000, guid: a9b4cb78cbdc1d549ae8dcf73f6b73cb, type: 2}
   _effects:
@@ -23,9 +24,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0f1731e4c0912a34eabf484ba539aa9c, type: 2}
   - {fileID: 11400000, guid: bc668329a2d90574a91d7f07ac9991c9, type: 2}
   - {fileID: 11400000, guid: d4e16b2053b94a344bdaec49dc2eba00, type: 2}
-  _flipSprite: 0
-  _spawnPosition: {x: -0.793, y: 0.222, z: 0}
-  _spawnRotation: 120
   _weaponSounds:
   - {fileID: 8300000, guid: ba8fe44fc8785364a978c7ec7d17ce65, type: 3}
   - {fileID: 8300000, guid: 62831dff93289e44786d140f137d6408, type: 3}

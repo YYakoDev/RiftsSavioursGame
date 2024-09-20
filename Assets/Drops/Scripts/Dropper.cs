@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 public class Dropper : MonoBehaviour
 {
 
-    [SerializeField] Drop[] _drops = new Drop[0];
+    [SerializeField]protected Drop[] _drops = new Drop[0];
     int _currentLength = 0;
     Vector3 _dropOffset = Vector3.zero;
 
@@ -25,7 +25,7 @@ public class Dropper : MonoBehaviour
         Array.Clear(_drops, 0, _drops.Length);
     }
 
-    public void Drop()
+    public virtual void Drop()
     {
         var currentPosition = transform.position;
         Vector3 previousDropPosition = currentPosition;

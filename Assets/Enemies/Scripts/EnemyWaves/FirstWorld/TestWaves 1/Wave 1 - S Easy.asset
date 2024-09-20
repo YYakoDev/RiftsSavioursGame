@@ -19,3 +19,4 @@ MonoBehaviour:
   _waveDuration: 15
   _changeStatsOvertime: 0
   _spawnElite: 0
+  _maxEnemiesToSpawn: 25

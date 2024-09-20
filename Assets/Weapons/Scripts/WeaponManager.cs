@@ -18,7 +18,7 @@ public class WeaponManager : MonoBehaviour
     private WeaponBase _currentWeapon;
     GameObject _weaponPrefabInstance;
     WeaponPrefab _weaponLogicInstance;
-    [SerializeField] InputActionReference _switchKey, _quickSwitchAttackKey;
+    [SerializeField] InputActionReference _switchKey, _attackKey;
     [SerializeField] float _holdTimeThreshold = 0.225f;
     private bool _allowSwitch = true, _holdingKey;
     private float _switchCooldown = 0.2f, _keyHoldingTime;
@@ -32,7 +32,9 @@ public class WeaponManager : MonoBehaviour
         }
     }
     public event Action<WeaponBase> OnWeaponChange;
-
+    public Transform PrefabInstance => _weaponPrefabInstance.transform;
+    public WeaponPrefab PrefabLogicInstance => _weaponLogicInstance;
+    public InputActionReference AttackInputRef => _attackKey;
     public WeaponAiming AimingLogic => _weaponAiming;
     public PlayerAttackEffects AtkEffects => _effects;
     public LayerMask EnemyLayer => _enemyLayer;
@@ -87,6 +89,7 @@ public class WeaponManager : MonoBehaviour
     void SetWeapon(WeaponBase weapon)
     {
         if(weapon == null || _currentWeapon == weapon) return;
+        if(!weapon.Initialized) weapon.Initialize(this, _weaponPrefabInstance.transform);
         _currentWeapon?.SetWeaponActive(false);
         _currentWeapon = weapon;
         Transform instanceTransform = _weaponPrefabInstance.transform;
@@ -98,6 +101,29 @@ public class WeaponManager : MonoBehaviour
         _weaponAiming.SwitchCurrentWeapon(weapon);
         OnWeaponChange?.Invoke(weapon);
         _currentWeapon.SetWeaponActive(true);
+    }
+
+   /* public bool SetWeapon(int index)
+    {
+        var weapon = _playerStats.Weapons[index];
+        if(weapon == null || weapon == _currentWeapon || GetSwitchWeapon(index) == weapon) return false;
+        WeaponIndex = index;
+        SetWeapon(weapon);
+        return true;
+    }*/
+
+    public bool SetWeaponAtIndex(int index, WeaponBase weaponToSwitch)
+    {
+        var weaponEquipped = _playerStats.Weapons[index];
+        if(weaponEquipped != null && weaponEquipped == weaponToSwitch || GetSwitchWeapon(index) == weaponToSwitch)
+        {
+            Debug.Log("You already have that weapon equipped");
+            return false;
+        }
+        WeaponIndex = index;
+        SetWeapon(weaponToSwitch);
+        return true;
+
     }
 
     void CheckSwitchInput(InputAction.CallbackContext obj)
@@ -115,6 +141,11 @@ public class WeaponManager : MonoBehaviour
     void SwitchWeapon()
     {
         if(!_allowSwitch) return;
+        if(_attackKey.action.IsPressed())
+        {
+            NotificationSystem.SendNotification(NotificationType.Left, "Can't Switch", animDurationScaler: 0.65f);
+            return;
+        }
         WeaponIndex++;
         SetWeapon(_playerStats.Weapons[WeaponIndex]);
         SetSwitchCooldown(_currentWeapon.AtkDuration);
@@ -128,7 +159,11 @@ public class WeaponManager : MonoBehaviour
         if(switchWeapon == null) return;
         var currentInfo = _currentWeapon.GetSwitchInfo();
         var nextWeaponInfo = switchWeapon?.GetSwitchInfo();
-        if(currentInfo == null || nextWeaponInfo == null) return;
+        if(currentInfo == null || nextWeaponInfo == null)
+        {
+            //NotificationSystem.SendNotification(NotificationType.Left, "Can't do Quick Switch", animDurationScaler: 0.65f);
+            return;
+        }
         SetWeapon(switchWeapon);
         _currentWeapon.QuickSwitch(currentInfo);
         WeaponIndex++;
@@ -143,12 +178,24 @@ public class WeaponManager : MonoBehaviour
         //GameFreezer.FreezeGame(0.015f);
     }
 
-    WeaponBase GetSwitchWeapon()
+    public WeaponBase GetSwitchWeapon()
     {
         WeaponIndex++;
         var weapon = _playerStats.Weapons[WeaponIndex];
         WeaponIndex--;
         return weapon;
+    }
+    public WeaponBase GetSwitchWeapon(int index)
+    {
+        if(index < _playerStats.Weapons.Length - 1)
+        {
+            var weapon = _playerStats.Weapons[index + 1];
+            return weapon;
+        }else
+        {
+            var weapon = _playerStats.Weapons[0];
+            return weapon;
+        }
     }
 
     public void SetSwitchCooldown(float cd)

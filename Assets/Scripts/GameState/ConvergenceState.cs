@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ConvergenceState : GameStateCountdown
 {
-    int _convergencesCount = 2;
+    /*int _convergencesCount = 2;
     const int MaxConvergences = 2; 
 
     public ConvergenceState(GameStateManager manager) : base(manager)
@@ -34,5 +34,5 @@ public class ConvergenceState : GameStateCountdown
     public override void UpdateLogic()
     {
         base.UpdateLogic();
-    }
+    }*/
 }

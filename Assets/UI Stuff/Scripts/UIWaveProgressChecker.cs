@@ -7,56 +7,59 @@ using TMPro;
 [RequireComponent(typeof(TweenAnimatorMultiple))]
 public class UIWaveProgressChecker : MonoBehaviour
 {
+    [SerializeField] WaveSystem _waveSys;
+    [SerializeField] EnemyWaveSpawner _waveSpawner;
+    [SerializeField] DifficultyScaler _difficultyScaler;
+    [SerializeField] DifficultyTiers _difficultyTiers;
     [SerializeField]Slider _slider;
     [SerializeField] Image _fillImg, _barIcon;
-    [SerializeField] Sprite _enemyWaveImg, _restImg;
+    [SerializeField] Sprite _restImg;
     [SerializeField] TextMeshProUGUI _waveCountText, _difficultyLevelText, _timeText;
+    SOEnemyWave _currentWave;
     RectTransform _sliderRect;
-    Timer _waveTimer;
-    int _waveCount = 0; 
-    float _currentWaveDuration = 0f;
-    bool _timerIsRunning = false;
+    int _waveCount = 0, _playerWaveKillCount;
     TweenAnimatorMultiple _animator;
 
     [Header("Animation")]
     [SerializeField] float _animDuration = 0.5f;
     [SerializeField] Vector3 _endScale = Vector3.one, _scaleOffset;
+    float _timeUpdates = 0.9f, _nextTimeUpdate;
 
     private void Awake() {
         _sliderRect = _slider.GetComponent<RectTransform>();
-        _waveTimer = new Timer(_currentWaveDuration);
-        _waveTimer.Stop();
         _animator = GetComponent<TweenAnimatorMultiple>();
-        GameStateManager.OnStateSwitch += StateSwitchCheck;
     }
 
     private void Start() {
-        //_handleImg.sprite = _enemyWaveImg;
-        //_fillImg.color = UIColors.GetColor(UIColor.Red);
+        EnemyBrain.OnEnemyDeath += UpdateKillCount;
+        _waveSys.OnWaveChange += NextWaveCheck;
+        _difficultyScaler.OnDifficultyIncrease += UpdateDifficulty;
         _waveCount = 0;
-        _slider.value = 0f;
-        _slider.maxValue = 1f;
         _slider.wholeNumbers = false;
-        StateSwitchCheck(GameStateManager.CurrentState);
+        _waveCountText.SetText($"CURRENT WAVE: {_waveCount}");
+        UpdateDifficulty();
     }
 
-    void StateSwitchCheck(GameStateBase state)
+    void NextWaveCheck(SOEnemyWave wave)
     {
-        if(state.GetType() == typeof(ConvergenceState))
-        {
-            var ConvergenceState = (ConvergenceState)state;
-            _currentWaveDuration = ConvergenceState.CountdownTime;
-            _barIcon.sprite = _enemyWaveImg;
-            AdvanceWaveCount();
-        }
-        else if(state.GetType() == typeof(RestState))
+        Debug.Log("New wave!");
+        _currentWave = wave;
+        _playerWaveKillCount = 0;
+        AdvanceWaveCount();
+        SetEnemyWaveSlider();
+        /*else if(state.GetType() == typeof(RestState))
         {
             var RestState = (RestState)state;
             _currentWaveDuration = RestState.CountdownTime;
             _barIcon.sprite = _restImg;
             _waveCountText.SetText("RESTING");
-        }
-        SetEnemyWaveSlider(_currentWaveDuration);
+        }*/
+    }
+
+    void UpdateKillCount()
+    {
+        _playerWaveKillCount = _waveSpawner.PlayerKills;
+        _slider.value = _waveSpawner.MaxEnemiesToKill - _playerWaveKillCount;
     }
 
     void AdvanceWaveCount()
@@ -65,39 +68,39 @@ public class UIWaveProgressChecker : MonoBehaviour
         _waveCountText.SetText($"CURRENT WAVE: {_waveCount}");
     }
 
-    void SetEnemyWaveSlider(float time)
+    void SetEnemyWaveSlider()
     {
+        _slider.maxValue = _waveSpawner.MaxEnemiesToKill;
+        _slider.value = _waveSpawner.MaxEnemiesToKill;
         PlayAnimation();
-        //_handleImg.sprite = _enemyWaveImg;
-        //_fillImg.color = UIColors.GetColor(UIColor.Red);
-        SetNewTime(time);
     }
 
-    void SetNewTime(float time)
+    void UpdateDifficulty()
     {
-        //Debug.Log("New wave progress timer:  " + time);
-        _waveTimer.ChangeTime(time);
-        _waveTimer.Start();
-        _timerIsRunning = true;
+        //maybe play a little sound?
+        _barIcon.sprite = _difficultyTiers.CurrentTier.Icon;
+        _animator.TweenScaleBouncy(_barIcon.rectTransform, _endScale, _scaleOffset, _animDuration / 2f, 0, 6, CurveTypes.EaseOutCirc);
+        _difficultyLevelText.SetText(_difficultyTiers.CurrentTier.Name);
     }
 
     void PlayAnimation() => _animator.TweenScaleBouncy(_sliderRect, _endScale, _scaleOffset, _animDuration, 0, 4);
     
 
     private void Update() {
-        _waveTimer.UpdateTime();
-        if(_timerIsRunning)
-        {
-            var percentage = _waveTimer.CurrentTime / _currentWaveDuration;
-            _slider.value = percentage;
-        }
+        
+        if(_nextTimeUpdate > Time.time) return;
         var minutes = Mathf.FloorToInt(GameTime.RunTime/60);
         var seconds = Mathf.FloorToInt(GameTime.RunTime % 60);
         var time = string.Format("{0:00}:{1:00}",minutes,seconds);
         _timeText.SetText(time);
+        _nextTimeUpdate = Time.time + _timeUpdates;
+
+        //if(!_waveSys.Enabled) return;
     }
     private void OnDestroy() {
-        GameStateManager.OnStateSwitch -= StateSwitchCheck;
+        EnemyBrain.OnEnemyDeath -= UpdateKillCount;
+        _waveSys.OnWaveChange -= NextWaveCheck;
+        _difficultyScaler.OnDifficultyIncrease -= UpdateDifficulty;
     }
 }
 

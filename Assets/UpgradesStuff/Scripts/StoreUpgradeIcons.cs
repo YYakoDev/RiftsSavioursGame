@@ -45,7 +45,7 @@ public static class StoreUpgradeIcons
             {StatsTypes.BuffBooster, buffIcon},
             {StatsTypes.DebuffResistance, buffIcon},
             {StatsTypes.Faith, buffIcon},
-            {StatsTypes.HarvestMultiplier, toolIcon},
+            {StatsTypes.LootMultiplier, toolIcon},
             {StatsTypes.DamageMultiplier, swordIcon},
             {StatsTypes.DamageAddition, swordIcon},
             {StatsTypes.AttackRange, swordIcon},

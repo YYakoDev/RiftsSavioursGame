@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class PrototypeMeleeEffects : MonoBehaviour
 {
     [SerializeField] PlayerMovement _movement;
+    [SerializeField] CameraFollowAtTarget _cameraLogic;
     [SerializeField] WeaponAiming _aiming;
     [SerializeField] WeaponManager _weaponManager;
     [SerializeField] PlayerAnimationController _playerAnimator;
@@ -67,7 +68,11 @@ public class PrototypeMeleeEffects : MonoBehaviour
         if(_dashTime > 0f)
         {
             _dashTime -= Time.deltaTime;
-            if(_dashTime <= 0f) _dashing = false;
+            if(_dashTime <= 0f)
+            {
+                _dashing = false;
+                _cameraLogic.ResetCameraSpeed();
+            }
         }
 
         
@@ -104,15 +109,16 @@ public class PrototypeMeleeEffects : MonoBehaviour
         var percent = _elapsedTime / _holdDuration;
         if(_dashing && percent < 0.25f)
         {
-            return;
             //DASH ATTACK!
             //ADD direction to the weapon, to the current dash direction on the movement script, and maybe a little offset to the duration aswell
+            /*
             var dirToWeapon = transform.position;
             var mousePos = YYInputManager.i.GetMousePosition();
             if(mousePos.sqrMagnitude > 0.1f) dirToWeapon -= mousePos * _dashPullForce;
             else dirToWeapon -= (Vector3)_movement.LastMovement * _dashPullForce;
             _movement.AddToDashDirection(-dirToWeapon.normalized);
             //_attackEffects.SelfPush(_dashPullForce, 0.06f);
+            */
         }
         _elapsedTime = 0f;
         //_atkTimer.ChangeTime(_weaponManager.) //get the atk duration of the current weapon
@@ -127,6 +133,7 @@ public class PrototypeMeleeEffects : MonoBehaviour
 
     void SetDash()
     {
+        _cameraLogic.SetCameraSpeed(_cameraLogic.SmoothFollow + 5f);
         _dashTime = _movement.DashDuration * 0.7f;
         _dashing = true;
     }

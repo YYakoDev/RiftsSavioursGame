@@ -101,7 +101,7 @@ public class WeaponPrefab : MonoBehaviour
     }
 
     private void OnDestroy() {
-        _weaponBase.onAttack -= AttackEffects;
+        if(_weaponBase != null)_weaponBase.onAttack -= AttackEffects;
     }
 }
 

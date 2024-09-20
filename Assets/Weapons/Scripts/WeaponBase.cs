@@ -7,10 +7,11 @@ using Random = UnityEngine.Random;
 
 public abstract class WeaponBase: ScriptableObject, IQuickSwitchHandler
 {
+    [NonSerialized]protected bool _initialized = false;
     public const string MenuPath = "ScriptableObjects/Weapons/";
     //references
     protected WeaponManager _weaponManager;
-    [SerializeField]protected InputActionReference _attackKey;
+    [SerializeField]protected InputActionReference _attackKey => _weaponManager.AttackInputRef;
 
     protected bool _deactivated = false;
 
@@ -40,6 +41,8 @@ public abstract class WeaponBase: ScriptableObject, IQuickSwitchHandler
 
 
     //properties
+    public bool Initialized => _initialized;
+
     public string WeaponName => _name;
     public string Description => _description;
     public SOWeaponSpriteAnimationData SpriteAndAnimationData => _SpriteAndAnimationsData;
@@ -69,9 +72,17 @@ public abstract class WeaponBase: ScriptableObject, IQuickSwitchHandler
         onEnemyHit = null;
         SubscribeInput();
         InitializeFXS();
+        _initialized = true;
     }
-    protected virtual void SubscribeInput() => _attackKey.action.started += TryAttack;
-    public virtual void UnsubscribeInput() => _attackKey.action.started -= TryAttack;
+    protected virtual void SubscribeInput()
+    {
+        _attackKey.action.started += TryAttack;
+    }
+    public virtual void UnsubscribeInput()
+    {
+        _attackKey.action.started -= TryAttack;
+        _initialized = false;
+    }
     protected virtual void InitializeFXS()
     {
         if(_effects == null) return;
@@ -79,6 +90,7 @@ public abstract class WeaponBase: ScriptableObject, IQuickSwitchHandler
         for (int i = 0; i < _usedEffects.Length; i++)
         {
             var baseFx = _effects[i];
+            if(baseFx == null) continue;
             _usedEffects[i] = GameObject.Instantiate(baseFx);
             _usedEffects[i]?.Initialize(this);
         }

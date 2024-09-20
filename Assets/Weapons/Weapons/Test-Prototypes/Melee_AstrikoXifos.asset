@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Melee_AstrikoXifos
   m_EditorClassIdentifier: 
   _attackKey: {fileID: -2831406729901597417, guid: 4d54cc78634f7354fbb24fa0c72ecc2e, type: 3}
-  _name: Melee Weapon
+  _name: Astriko Xifos
   _description: 
   _SpriteAndAnimationsData: {fileID: 11400000, guid: 7ececea671a0adb44b74cff559f4409c, type: 2}
   _effects:
