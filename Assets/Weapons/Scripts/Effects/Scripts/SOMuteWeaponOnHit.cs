@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = MenuPath + "MuteWeaponOnHit")]
 public class SOMuteWeaponOnHit : SOMeleeWeaponEffect
 {
-    public override void OnHitFX(Vector3 pos)
+    public override void OnHitFX(Transform pos)
     {
         base.OnHitFX(pos);
         YYExtensions.i.ExecuteEventAfterTime(_meleeWeapon.AtkDuration / 2.5f, () =>

@@ -14,7 +14,7 @@ public class SOSelfKnockOnHit : WeaponEffects
         _nextApplyTime = 0f;
         _cooldown = weapon.AtkDuration / 3f;
     }
-    public override void OnHitFX(Vector3 pos)
+    public override void OnHitFX(Transform pos)
     {
         //if(_nextApplyTime >= Time.time) return; 
         _effects.KnockbackPlayer(_amount);

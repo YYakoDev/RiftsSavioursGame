@@ -12,17 +12,14 @@ public class EnemyWaveSpawner : MonoBehaviour
     [SerializeField] float _innerRadius, _spawnRadius;
     int _spawnedEnemies, _killedEnemies, _globalEnemyKills, _maxEnemiesToKill;
     EnemyWavePooler _pool;
-    [SerializeField]GameObject _portalFx;
-    [SerializeField] float _portalFxDuration = 0.3f;
-    NotMonoObjectPool _portalPool;
+    [SerializeField]PortalFx _portalFx;
+    ObjectAndComponentPool<PortalFx> _portalPool;
     private SOEnemyWave _currentWave;
     private float _nextSpawnTime = 0f;
     private Vector3 _selectedSpawnpoint;
 
     bool _stopped;
-    Timer _spawnTimer;
-    //private float _nextSpawnLocationCooldown = 0f;
-    //SOEnemy[] _enemiesInfo => _currentWave.Enemies;
+
     public int PlayerKills => _killedEnemies;
     public int MaxEnemiesToKill => _maxEnemiesToKill;
     public int GlobalEnemyKills => _globalEnemyKills;
@@ -32,18 +29,15 @@ public class EnemyWaveSpawner : MonoBehaviour
         set
         {
             _spawnedEnemies = value;
-            if(_spawnedEnemies >= _currentWave.MaxEnemiesToSpawn) _stopped = true;
+            if(_spawnedEnemies >= _maxEnemiesToKill) _stopped = true;
         }
     }
 
     private void Awake()
     {
         gameObject.CheckComponent<EnemyWavePooler>(ref _pool);
-        _portalPool = new(60, _portalFx, this.transform, true);
+        _portalPool = new ObjectAndComponentPool<PortalFx>(60, _portalFx.gameObject, this.transform, true);
         _nextSpawnTime = Time.time + 1f;
-        _spawnTimer = new(_portalFxDuration);
-        _spawnTimer.Stop();
-        _spawnTimer.onEnd += DoSpawning;
         _killedEnemies = 0;
         _maxEnemiesToKill = 0;
     }
@@ -61,13 +55,12 @@ public class EnemyWaveSpawner : MonoBehaviour
     void Update()
     {
         if(!_waveSys.Enabled) return;
-        _spawnTimer.UpdateTime();
         if(_stopped) return;
         if (_nextSpawnTime < Time.time)
         {
             _nextSpawnTime = _difficultyScaler.CurrentStats.SpawnCooldown + _currentWave.EnemySpawnCooldown + Time.time;
             if(_nextSpawnTime <= 0) _nextSpawnTime = Time.time + 0.055f;
-            _spawnTimer.Start();
+            DoSpawning();
         }
     }
 
@@ -102,13 +95,15 @@ public class EnemyWaveSpawner : MonoBehaviour
         var data = enemies[Random.Range(0, enemies.Length)];
         var enemy = _pool.GetPooledObject();
         if(enemy.Value == null) return;
-        
+
+        enemy.Key.transform.SetParent(null); 
+        enemy.Key.transform.position = _selectedSpawnpoint; //this line MUST be above the initialize
         enemy.Value.Initialize(data, _playerTransform);
         if(_currentWave.ChangeStatsOvertime) enemy.Value.Stats.AddDifficultyStats(_difficultyScaler.CurrentStats);
 
-        enemy.Key.transform.SetParent(null); //aca setearlo al parent del objeto "Units" adentro de environment
-        enemy.Key.transform.position = _selectedSpawnpoint + (Vector3)(Vector2.one * Random.Range(-1f, 1f));
+        //enemy.Key.transform.position = _selectedSpawnpoint + (Vector3)(Vector2.one * Random.Range(-1f, 1f));
         enemy.Key.SetActive(true);
+        SpawnPortalFx(_selectedSpawnpoint);
         SpawnedEnemies++;
     }
     public GameObject CreateEnemy(SOEnemy enemyData)
@@ -138,7 +133,7 @@ public class EnemyWaveSpawner : MonoBehaviour
     {
         Debug.Log("Spawning new wave");
         _currentWave = newWave;
-        _maxEnemiesToKill = _currentWave.MaxEnemiesToSpawn;
+        _maxEnemiesToKill = _currentWave.MaxEnemiesToSpawn + _difficultyScaler.CurrentStats.MaxEnemiesToSpawn;
         ResumeSpawning();
     }
 
@@ -154,20 +149,18 @@ public class EnemyWaveSpawner : MonoBehaviour
 
         //_selectedSpawnpoint = _spawnPoint.position + (Vector3)radius;
         _selectedSpawnpoint = (Vector3)radius + dirFromPlayer.normalized * _innerRadius;
-        SpawnPortalFx(_selectedSpawnpoint);
     }
     void SpawnPortalFx(Vector3 position)
     {
-        GameObject portal = _portalPool.GetObjectFromPool();
-        portal.transform.position = position;
-        portal.SetActive(true);
+        var portal = _portalPool.GetObjectWithComponent();
+        portal.Key.transform.position = position;
+        portal.Key.SetActive(true);
     }
 
     private void OnDestroy()
     {
         _waveSys.OnWaveChange -= NextWaveCheck;
         EnemyBrain.OnEnemyDeath -= AddEnemyKill;
-        _spawnTimer.onEnd -= DoSpawning;
     }
 
     private void OnDrawGizmosSelected() {

@@ -54,7 +54,7 @@ public class UIWeaponSelector : MonoBehaviour
             CloseMenu();
             return;
         }
-        _swapper.SetWeapon(weaponToLeave);
+        _swapper?.SetWeapon(weaponToLeave);
         _playerStats.Weapons[index] = _weaponToSwap;
         CloseMenu();
     }
@@ -65,6 +65,7 @@ public class UIWeaponSelector : MonoBehaviour
 
     public void CloseMenu()
     {
+        if(!_currentlySelecting) return;
         _currentlySelecting = false;
         _menuVisuals.SetActive(false);
         _menuController.SwitchCurrentMenu(null);

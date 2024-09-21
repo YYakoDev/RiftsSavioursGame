@@ -8,9 +8,10 @@ public class SOPlayerInventory : ScriptableObject
 {
     Dictionary<CraftingMaterial, int> _ownedMaterials = new();
     List<UpgradeGroup> _equippedUpgrades = new();
+    List<RewardItem> _tokens = new();
     [SerializeField]int _maxUpgradesCount = 5;
     private PlayerUpgradesManager _upgradesManager;
-    public event Action onInventoryChange;
+    public event Action onInventoryChange, OnTokenAddition;
     public event Action<SOUpgradeBase> onUpgradeAdded;
     
     //properties
@@ -81,5 +82,22 @@ public class SOPlayerInventory : ScriptableObject
         onUpgradeAdded?.Invoke(upgrade);
         //Debug.Log($"added {upgrade.name} upgrade and now you have {_equippedUpgrades[upgrade]}");
         upgrade.ApplyEffect(_upgradesManager);
+    }
+
+
+    public void AddToken(RewardItem token)
+    {
+        _tokens.Add(token);
+        OnTokenAddition?.Invoke();
+    }
+
+    public RewardItem GetToken()
+    {
+        for (int i = 0 ; i < _tokens.Count; i++)
+        {
+            if(!_tokens[i].Availabe) continue;
+            return _tokens[i];
+        }
+        return null;
     }
 }

@@ -37,7 +37,7 @@ public abstract class WeaponBase: ScriptableObject, IQuickSwitchHandler
 
 
     public event Action onAttack;
-    public event Action<Vector3> onEnemyHit;
+    public event Action<Transform> onEnemyHit;
 
 
     //properties
@@ -132,10 +132,10 @@ public abstract class WeaponBase: ScriptableObject, IQuickSwitchHandler
         onAttack?.Invoke();
         PlayAtkFXS(_usedEffects);
     }
-    protected void InvokeOnEnemyHit(Vector3 enemyPos)
+    protected void InvokeOnEnemyHit(Transform enemy)
     {
-        onEnemyHit?.Invoke(enemyPos);
-        PlayHitFXS(_usedEffects, enemyPos);
+        onEnemyHit?.Invoke(enemy);
+        PlayHitFXS(_usedEffects, enemy);
     }
 
     protected virtual void PlayAtkFXS(WeaponEffects[] effects)
@@ -146,12 +146,12 @@ public abstract class WeaponBase: ScriptableObject, IQuickSwitchHandler
             fx.OnAttackFX();
         }
     }
-    protected virtual void PlayHitFXS(WeaponEffects[] effects, Vector3 pos)
+    protected virtual void PlayHitFXS(WeaponEffects[] effects, Transform enemy)
     {
         foreach(WeaponEffects fx in effects)
         {
             if(fx == null) continue;
-            fx.OnHitFX(pos);
+            fx.OnHitFX(enemy);
         }
     }
     public virtual void RemoveFxFromList(WeaponEffects fx)

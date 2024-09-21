@@ -15,10 +15,10 @@ MonoBehaviour:
   _maxHealth: 65
   _currentHealth: 65
   _speed: 4.25
-  _slowdownMultiplier: 0.257
-  _dashSpeed: 125
-  _dashCooldown: 0.65
-  _dashInvulnerabilityTime: 0.05
+  _slowdownMultiplier: 0.295
+  _dashSpeed: 110
+  _dashCooldown: 0.685
+  _dashInvulnerabilityTime: 0.1
   _pickUpRange: 2.15
   _collectingRange: 2
   _collectingDamage: 1
@@ -26,10 +26,10 @@ MonoBehaviour:
   _maxResourceInteractions: 1
   _weapons:
   - {fileID: 11400000, guid: e967d87f24555164bad1b82988f1d89e, type: 2}
-  - {fileID: 11400000, guid: 9e17bf3495947ee47a9cc4325633cfb2, type: 2}
+  - {fileID: 11400000, guid: 1c82270c0c2475a4898a0f602d785277, type: 2}
   _attackStats: {fileID: 11400000, guid: 5c0efc2d47ffa234c9cfe266e112553e, type: 2}
   _stunResistance: 0
-  _knockbackResistance: 5
+  _knockbackResistance: 0
   _damageResistance: 10
   _buffBooster: 0
   _debuffResistance: 0

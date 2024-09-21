@@ -38,6 +38,12 @@ public class EnemyBrain : MonoBehaviour
     private ShadowData _shadowFxData;
     AudioClip[] _moveSFXs, _onHitSFXs, _attackSFXs, _deathSFXs;
 
+    [SerializeField] float _timeToActivate = 0.7f;
+    float _activationCountdown;
+    Vector2 _activationPosition, _endPosition;
+    [SerializeField] CurveTypes _spawnSequenceCurveType;
+    AnimationCurve _spawnSequenceCurve;
+
     //properties
     public Rigidbody2D Rigidbody => _rb;
     public SpriteRenderer Renderer => _renderer;
@@ -89,6 +95,7 @@ public class EnemyBrain : MonoBehaviour
         _aiStats = new();
 
         _animation.Animator.keepAnimatorControllerStateOnDisable = true;
+        _spawnSequenceCurve = TweenCurveLibrary.GetCurve(_spawnSequenceCurveType);
     }
 
     public void Initialize(SOEnemy data, Transform target, DifficultyStats stats = null)
@@ -128,8 +135,21 @@ public class EnemyBrain : MonoBehaviour
         _deathSFXs = data.DeathSFXs;
 
         InitializeLogics();
+        DoSpawnSequence();
     }
 
+    void DoSpawnSequence()
+    {
+        var spriteY = _renderer.sprite.bounds.size.y * 0.3f;
+        _activationPosition = (Vector2)transform.position + Vector2.down * (spriteY * 2.3f);
+        _endPosition = transform.position;
+        _endPosition.y += spriteY / 2f;
+        _movement.enabled = false;
+        _shadow.SetActive(false);
+        SetComponentsToActive(false);
+        _activationCountdown = _timeToActivate;
+        _renderer.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
+    }
 
 
     public struct ShadowData
@@ -201,7 +221,13 @@ public class EnemyBrain : MonoBehaviour
         _healthManager.enabled = state;
         if(_movementLogic != null) _movementLogic.Enabled = state;
     }
-    void EnableComponents() => SetComponentsToActive(true);
+    void EnableComponents()
+    {
+        _renderer.maskInteraction = SpriteMaskInteraction.None;
+        _movement.enabled = true;
+        SetComponentsToActive(true);
+        SetShadow();
+    }
     
     void DisableComponents() 
     {
@@ -211,7 +237,7 @@ public class EnemyBrain : MonoBehaviour
     }
     
     private void OnEnable() {
-        EnableComponents();
+        //EnableComponents();
         _renderer.enabled = true;
     }
     private void OnDisable() {
@@ -219,6 +245,20 @@ public class EnemyBrain : MonoBehaviour
         _renderer.sprite = _intialSprite;
         _renderer.enabled = false;
         _renderer.sprite = _intialSprite;
+    }
+
+    private void Update() {
+        if(_activationCountdown > 0)
+        {
+            _activationCountdown -= Time.deltaTime;
+            var percent = (_timeToActivate - _activationCountdown) / _timeToActivate;
+            var dir = Vector2.Lerp(_activationPosition, _endPosition, _spawnSequenceCurve.Evaluate(percent));
+            _rb.MovePosition(dir);
+            if(_activationCountdown <= 0)
+            {
+                EnableComponents();
+            }
+        }
     }
 
     private void OnDestroy() {

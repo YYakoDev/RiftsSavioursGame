@@ -6,7 +6,7 @@ using UnityEngine;
 public class SOPlayAudioOnHit : WeaponEffects
 {
     [SerializeField] AudioClip _clip;
-    public override void OnHitFX(Vector3 pos)
+    public override void OnHitFX(Transform pos)
     {
         _effects.PlayAudio(_clip);
     }

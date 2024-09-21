@@ -35,5 +35,6 @@ public class AIStats
         if(stats == null) return;
         _damage += stats.EnemyDamage;
         _speed += stats.EnemySpeed;
+        _maxHealth += stats.EnemyHealth;
     }
 }

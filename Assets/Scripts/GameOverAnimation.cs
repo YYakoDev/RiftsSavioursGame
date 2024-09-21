@@ -15,9 +15,10 @@ public class GameOverAnimation : MonoBehaviour
     [SerializeField] Canvas _canvas;
     [SerializeField] SOPlayerStats _playerStats;
     [SerializeField] Camera _mainCamera;
-    [SerializeField] PlayerInput _inputController;
+    [SerializeField] PlayerInputController _inputController;
     [SerializeField] GameObject _visualsParent;
     [SerializeField] RectTransform _redScreenRect;
+    [SerializeField] MenuController _menuController;
     Image _redScreenImg;
     [SerializeField] RectTransform _playerImageRect;
     Image _playerImg;
@@ -107,15 +108,16 @@ public class GameOverAnimation : MonoBehaviour
             _playGameOver = true;
             //YYInputManager.StopInput();
             //GameOver();
-            _inputController.SwitchCurrentActionMap("UI");
+            _inputController.ChangeInputToUI();
             PauseMenuManager.DisablePauseBehaviour(true);
+            _menuController.SwitchCurrentMenu(gameObject);
         }
     }
 
     private void Update() {
         if(!_playGameOver) return;
         _gameFreezeTimer.UpdateTime();
-        float percent = 1 - (_gameFreezeTimer.CurrentTime / _slowFreezeTime);
+        float percent = 1f - (_gameFreezeTimer.CurrentTime / _slowFreezeTime);
         if(percent >= 1.05f || percent == 0) return;
         float result = Mathf.Lerp(1, 0, percent);
         TimeScaleManager.SetTimeScale(result);
@@ -129,7 +131,7 @@ public class GameOverAnimation : MonoBehaviour
         TimeScaleManager.ForceTimeScale(0f);
         SetInitialStates();
         PlayAnimations();
-        _inputController.SwitchCurrentActionMap("UI");
+        _inputController.ChangeInputToUI();
     }
 
     void CheckAnimators()
@@ -260,16 +262,19 @@ public class GameOverAnimation : MonoBehaviour
         //here you reset player stats, or maybe fire an event called onGameReset
         //you need to restart the run with the same parameters chosen at the start like character & weapon selected
         //TimeScaleManager.ForceTimeScale(1f);
-        SceneManager.LoadScene("MainHub");
-        _inputController.SwitchCurrentActionMap("GAMEPLAY");
+        _menuController.SwitchCurrentMenu(null);
+        _inputController.ChangeInputToGameplay();
         PauseMenuManager.DisablePauseBehaviour(false);
+        SceneManager.LoadScene("MainHub");
 
     }
     public void Restart()
     {
+        _menuController.SwitchCurrentMenu(null);
+        _inputController.ChangeInputToGameplay();
+        PauseMenuManager.DisablePauseBehaviour(false);
         //TimeScaleManager.ForceTimeScale(1f);
         SceneManager.LoadScene(1);
-        _inputController.SwitchCurrentActionMap("GAMEPLAY");
     }
 
     public void QuitGame()

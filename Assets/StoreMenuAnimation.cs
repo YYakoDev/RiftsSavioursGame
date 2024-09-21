@@ -23,12 +23,13 @@ public class StoreMenuAnimation : MonoBehaviour
     private void Awake() {
         _animator = GetComponent<TweenAnimatorMultiple>();
         _animator.ChangeTimeScalingUsage(TweenAnimator.TimeUsage.UnscaledTime);
-        _bgMidAnimationTimer = new(_bgFadeInDuration / 2f, useUnscaledTime: true);
+        _bgMidAnimationTimer = new(_bgFadeInDuration / 1.65f, useUnscaledTime: true);
         _bgMidAnimationTimer.Stop();
         _bgMidAnimationTimer.onEnd += PlayRestOfAnimations;
     }
 
     private void OnEnable() {
+        _animator.Clear();
         StartAnimation();
     }
 

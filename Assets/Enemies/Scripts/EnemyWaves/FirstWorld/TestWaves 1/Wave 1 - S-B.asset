@@ -15,8 +15,9 @@ MonoBehaviour:
   _enemies:
   - {fileID: 11400000, guid: da1f7dc4125b5de49be6608d5a2a7d3e, type: 2}
   - {fileID: 11400000, guid: ad70501e11924f54d8989e25a8e48682, type: 2}
-  _enemySpawnCooldown: 1.04
+  _enemySpawnCooldown: 1.2
   _enemiesToSpawn: 4
-  _waveDuration: 10
+  _graceTime: 5
   _changeStatsOvertime: 1
   _spawnElite: 0
+  _maxEnemiesToSpawn: 35

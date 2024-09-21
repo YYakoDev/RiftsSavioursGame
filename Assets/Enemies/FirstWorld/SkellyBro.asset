@@ -15,11 +15,11 @@ MonoBehaviour:
   _sprite: {fileID: 21300000, guid: be4daa75fcee05740a28f8e378e11bb4, type: 3}
   _animator: {fileID: 22100000, guid: 95a673bc9af60b644a8098715751a431, type: 2}
   _stats:
-    _speed: 2.45
+    _speed: 2.55
     _stunDuration: 0.22
     _stunResistance: 10
     _knockbackResistance: 0
-    _maxHealth: 14
+    _maxHealth: 22
     _damage: 1
     _knockbackForce: 1.06
   _drops:

@@ -13,6 +13,7 @@ public class StoreMenu : MonoBehaviour
     [SerializeField] World _currentWorld;
     [SerializeField] PlayerInput _inputController;
     [SerializeField] GameObject _parent;
+    [SerializeField] MenuController _menuController;
     [SerializeField] StoreMenuAnimation _animations;
     [SerializeField] PlayerUpgradesManager _upgradesManager;
     [SerializeField] SOPlayerInventory _playerInventory;
@@ -131,6 +132,7 @@ public class StoreMenu : MonoBehaviour
         _inputController.SwitchCurrentActionMap("UI");
         YYInputManager.StopInput();
         TimeScaleManager.ForceTimeScale(0f);
+        _menuController.SwitchCurrentMenu(_parent);
         PauseMenuManager.DisablePauseBehaviour(true);
         _previousCursorState = Cursor.visible;
         _previousCursorLockMode = Cursor.lockState;
@@ -158,6 +160,7 @@ public class StoreMenu : MonoBehaviour
         _parent.SetActive(false);
         _inputController.SwitchCurrentActionMap("Gameplay");
         TimeScaleManager.ForceTimeScale(1f);
+        _menuController.SwitchCurrentMenu(null);
         PauseMenuManager.DisablePauseBehaviour(false);
         Cursor.visible = _previousCursorState;
         Cursor.lockState = _previousCursorLockMode;

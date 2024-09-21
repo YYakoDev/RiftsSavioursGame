@@ -25,7 +25,7 @@ MonoBehaviour:
   _interactCooldown: 0.65
   _maxResourceInteractions: 1
   _weapons:
-  - {fileID: 11400000, guid: e967d87f24555164bad1b82988f1d89e, type: 2}
+  - {fileID: 0}
   - {fileID: 0}
   _attackStats: {fileID: 11400000, guid: fb637baf54ecc0042986a0affa9dbbbe, type: 2}
   _stunResistance: 0

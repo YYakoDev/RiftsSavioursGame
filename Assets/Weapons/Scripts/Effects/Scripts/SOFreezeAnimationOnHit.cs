@@ -11,7 +11,7 @@ public class SOFreezeAnimationOnHit : SOMeleeWeaponEffect
         base.Initialize(weapon);
     }
 
-    public override void OnHitFX(Vector3 pos)
+    public override void OnHitFX(Transform pos)
     {
         base.OnHitFX(pos);
         _meleeWeapon.Animator.speed = 0f;

@@ -11,7 +11,7 @@ public class SOCameraShakeEffect : WeaponEffects
     {
         
     }
-    public override void OnHitFX(Vector3 pos)
+    public override void OnHitFX(Transform pos)
     {
         _effects.ScreenShake(_strength, _duration);
     }

@@ -29,14 +29,16 @@ public class DifficultyScaler : MonoBehaviour
         {
             _waveCount = 0;
             if(_currentStats.GraceDuration <= _maxStats.GraceDuration)_currentStats.GraceDuration += 1f;
-            if(_currentStats.EnemiesToSpawn <= _maxStats.EnemiesToSpawn)_currentStats.EnemiesToSpawn += 2;
+            _currentStats.EnemiesToSpawn += 3;
             if(_currentStats.PlayerDamage <= _maxStats.PlayerDamage) _currentStats.PlayerDamage += 1;
-            if(_currentStats.WavesRestTime <= _maxStats.WavesRestTime)_currentStats.WavesRestTime += 1f;
-            _currentStats.EnemyDamage += 1;
-            if(_currentStats.EnemySpeed <= _maxStats.EnemySpeed)_currentStats.EnemySpeed += 0.05f;
+            if(_currentStats.WavesRestTime <= _maxStats.WavesRestTime)_currentStats.WavesRestTime += 0.5f;
+            _currentStats.EnemyDamage += 2;
+            if(_currentStats.EnemySpeed <= _maxStats.EnemySpeed)_currentStats.EnemySpeed += 0.3f;
             if(_currentStats.PlayerSpeed <= _maxStats.PlayerSpeed)_currentStats.PlayerSpeed += 0.095f;
-            _currentStats.SpawnCooldown -= 0.155f;
+            _currentStats.SpawnCooldown -= 0.1f;
             _currentStats.SpawnElite = (_waveSys.WaveNumber % 10f == 0f);
+            _currentStats.MaxEnemiesToSpawn += 3;
+            _currentStats.EnemyHealth += 3;
 
             _playerStats.Speed += _currentStats.PlayerSpeed;
             _playerAttackStats.BaseDamageAddition += _currentStats.PlayerDamage;

@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: World2 - Lost Rift
   m_EditorClassIdentifier: 
   _name: Lost Rift
-  _restInterval: 3.5
+  _restInterval: 0.2
   _waves:
+  - {fileID: 11400000, guid: d8f7ee991caa2744683a83fa56b6bc6a, type: 2}
   - {fileID: 11400000, guid: 9995c252d4850e2419ee3f8d86a31a69, type: 2}
   - {fileID: 11400000, guid: 75e9bbecc268c1c40a57f54b2f88d50f, type: 2}
-  - {fileID: 11400000, guid: 584bc0dc2ec2c964b85c9402c50c259d, type: 2}
   - {fileID: 11400000, guid: bb7718a5f534d684fa6850c6d5a9587b, type: 2}
+  - {fileID: 11400000, guid: 584bc0dc2ec2c964b85c9402c50c259d, type: 2}
   - {fileID: 11400000, guid: b7e81002e613b3e4a869783175cddb09, type: 2}
   - {fileID: 11400000, guid: fd272544097fc364584aba66f5e665ef, type: 2}
   - {fileID: 11400000, guid: d9fa6b7ad019ae1459b479957639d6a7, type: 2}
@@ -32,5 +33,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8b55aa128dc9ae148a34dc6f92017e02, type: 2}
   - {fileID: 11400000, guid: 5f25fb64762701142b4e7cb26c933d54, type: 2}
   - {fileID: 11400000, guid: b6b6b235d09a47344961dff49eb3ac87, type: 2}
+  - {fileID: 11400000, guid: 8b55aa128dc9ae148a34dc6f92017e02, type: 2}
   _chunks:
   - {fileID: 8802944811774838316, guid: fc73c8f83d2ed17449d31922e6651c21, type: 3}

@@ -6,16 +6,20 @@ using UnityEngine;
 public class WaveSystem : MonoBehaviour
 {
     [SerializeField] World _currentWorld;
+    [SerializeField] EnemyWaveSpawner _waveSpawner;
+    [SerializeField] DifficultyScaler _difficultyScaler;
     bool _enabled = false;
     SOEnemyWave _currentWave;
     public event Action<SOEnemyWave> OnWaveChange;
-    private int _currentWaveIndex = -1;
-    float _elapsedWaveTime = 0f;
+    public event Action OnWaveEnd;
+    private int _currentWaveIndex = -1, _currentKillCount = 0;
+    float _elapsedRestTime = 0f;
 
     //properties
 
+    public SOEnemyWave CurrentWave => _currentWave;
     public int WaveNumber => _currentWaveIndex;
-    public float ElapsedWaveTime => _elapsedWaveTime;
+    //public float ElapsedWaveTime => _elapsedWaveTime;
     public bool Enabled => _enabled;
 
     private void Awake() {
@@ -23,8 +27,9 @@ public class WaveSystem : MonoBehaviour
         _currentWaveIndex = -1;
     }
 
-    private IEnumerator Start() {
-        yield return null;
+    private void Start() 
+    {
+        EnemyBrain.OnEnemyDeath += CheckEnemyKills;    
         //StartWaves();
     }
 
@@ -35,7 +40,6 @@ public class WaveSystem : MonoBehaviour
     }
     public void AdvanceWave()
     {
-        _elapsedWaveTime = 0f;
         _currentWaveIndex++;
         if(_currentWorld.Waves.Length <= _currentWaveIndex)
         {
@@ -50,13 +54,34 @@ public class WaveSystem : MonoBehaviour
 
     private void Update() 
     {
+        if(_elapsedRestTime > 0f)
+        {
+            _elapsedRestTime -= Time.deltaTime;
+            if(_elapsedRestTime <= 0)
+            {
+                _enabled = true;
+            }
+        }
+        
         if(!_enabled) return;
-        _elapsedWaveTime += Time.deltaTime;
     }
+
+    void CheckEnemyKills()
+    {
+        _currentKillCount++;
+        if(_currentKillCount >= _waveSpawner.MaxEnemiesToKill)
+        {
+            Debug.Log("Wave ended");
+            OnWaveEnd?.Invoke();
+            _currentKillCount = 0;
+        }
+    }
+
 
     public void ResumeWaves()
     {
-        _enabled = true;
+        //_enabled = true;
+        _elapsedRestTime = _currentWorld.RestInterval + _difficultyScaler.CurrentStats.WavesRestTime;
     }
 
     public void StopWaves()
@@ -64,6 +89,8 @@ public class WaveSystem : MonoBehaviour
         _enabled = false;
     }
 
-
+    private void OnDestroy() {
+        EnemyBrain.OnEnemyDeath -= CheckEnemyKills;
+    }
 
 }

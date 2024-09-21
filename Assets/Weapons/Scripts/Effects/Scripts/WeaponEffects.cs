@@ -17,7 +17,7 @@ public class WeaponEffects : ScriptableObject
     {
     }
 
-    public virtual void OnHitFX(Vector3 pos)
+    public virtual void OnHitFX(Transform enemy)
     {
     }
 }

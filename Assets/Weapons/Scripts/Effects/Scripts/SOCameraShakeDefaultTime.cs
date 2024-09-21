@@ -6,7 +6,7 @@ using UnityEngine;
 public class SOCameraShakeDefaultTime : WeaponEffects
 {
     [SerializeField]float _strength;
-    public override void OnHitFX(Vector3 pos)
+    public override void OnHitFX(Transform enemy)
     {
         _effects.ScreenShake(_strength);
     }

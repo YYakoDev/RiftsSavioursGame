@@ -10,7 +10,7 @@ public class SOFreezeGameEffect : WeaponEffects
     {
         base.OnAttackFX();
     }
-    public override void OnHitFX(Vector3 pos)
+    public override void OnHitFX(Transform pos)
     {
         base.OnHitFX(pos);
         _effects.FreezeGame(_freezeTime);

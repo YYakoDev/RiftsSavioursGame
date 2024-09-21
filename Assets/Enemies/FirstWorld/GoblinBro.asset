@@ -19,7 +19,7 @@ MonoBehaviour:
     _stunDuration: 0.22
     _stunResistance: 0
     _knockbackResistance: 4
-    _maxHealth: 11
+    _maxHealth: 16
     _damage: 1
     _knockbackForce: 0.57
   _drops:

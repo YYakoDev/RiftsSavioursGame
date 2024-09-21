@@ -15,10 +15,11 @@ public class PlayerManager : MonoBehaviour
     [SerializeField]Rigidbody2D _rigidBody;
     [SerializeField]SpriteRenderer _renderer;
     [SerializeField]SOPlayerInventory _inventory;
-    [SerializeField]PlayerLevelManager _levelManager;
+    //[SerializeField]PlayerLevelManager _levelManager;
     [SerializeField]PlayerMovement _movementScript;
     [SerializeField]PlayerUpgradesManager _upgradesManager;
-    [SerializeField] PlayerStatsManager _statsManager;
+    [SerializeField]PlayerStatsManager _statsManager;
+    [SerializeField] WeaponManager _weaponManager;
     bool _gettedComponents = false;
 
     public SOPlayerStats Stats => _stats;
@@ -26,7 +27,8 @@ public class PlayerManager : MonoBehaviour
     public Rigidbody2D RigidBody => _rigidBody;
     public SpriteRenderer Renderer => _renderer;
     public SOPlayerInventory Inventory => _inventory;
-    public PlayerLevelManager LevelManager => _levelManager;
+    public WeaponManager WeaponManager => _weaponManager;
+    //public PlayerLevelManager LevelManager => _levelManager;
     public PlayerMovement MovementScript => _movementScript;
     public PlayerStatsManager StatsManager => _statsManager;
     public SOCharacterData CharacterData => _charData;
@@ -50,7 +52,7 @@ public class PlayerManager : MonoBehaviour
         thisGO.CheckComponent<PlayerAnimationController>(ref _animatorController);
         thisGO.CheckComponent<Rigidbody2D>(ref _rigidBody);
         thisGO.CheckComponent<SpriteRenderer>(ref _renderer);
-        thisGO.CheckComponent<PlayerLevelManager>(ref _levelManager);
+        //thisGO.CheckComponent<PlayerLevelManager>(ref _levelManager);
         thisGO.CheckComponent<PlayerMovement>(ref _movementScript);
         thisGO.CheckComponent<PlayerStatsManager>(ref _statsManager);
         _gettedComponents = true;

@@ -265,9 +265,9 @@ public class TripleComboMeleeWeapon : MeleeWeapon
     {
         foreach(WeaponEffects fx in _modifiedStats.UsedEffects)  fx?.OnAttackFX();
     }
-    protected override void PlayHitFXS(WeaponEffects[] effects, Vector3 pos)
+    protected override void PlayHitFXS(WeaponEffects[] effects, Transform enemy)
     {
-        foreach(WeaponEffects fx in _modifiedStats.UsedEffects) fx?.OnHitFX(pos);
+        foreach(WeaponEffects fx in _modifiedStats.UsedEffects) fx?.OnHitFX(enemy);
     }
 
     public override void EvaluateStats(SOPlayerAttackStats attackStats)

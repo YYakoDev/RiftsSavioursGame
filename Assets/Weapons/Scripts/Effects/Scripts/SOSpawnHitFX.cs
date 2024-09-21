@@ -5,8 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(menuName = MenuPath + "SpawnHitFX")]
 public class SOSpawnHitFX : SOSpawnFXBase
 {
-    public override void OnHitFX(Vector3 pos)
+    public override void OnHitFX(Transform enemy)
     {
-        SpawnFX(pos);
+        SpawnFX(enemy.position);
     }
 }

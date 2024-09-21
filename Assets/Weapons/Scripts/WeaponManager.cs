@@ -70,7 +70,17 @@ public class WeaponManager : MonoBehaviour
             _switchCooldown -= Time.deltaTime;
             if(_switchCooldown <= 0) EnableSwitch();
         }
-        if(_holdingKey) _keyHoldingTime += Time.deltaTime;
+        if(_holdingKey)
+        {
+            _keyHoldingTime += Time.deltaTime;
+            
+            if(_keyHoldingTime >= _holdTimeThreshold + 0.05f) 
+            {
+                SwitchWeapon();
+                _holdingKey = false;
+                _keyHoldingTime = 0f;
+            }
+        }
     }
 
     void CreatePrefab()
@@ -132,6 +142,7 @@ public class WeaponManager : MonoBehaviour
     }
     void StopSwitchInput(InputAction.CallbackContext obj)
     {
+        if(!_holdingKey) return;
         _holdingKey = false;
         if(_keyHoldingTime >= _holdTimeThreshold) SwitchWeapon();
         else QuickSwitch();

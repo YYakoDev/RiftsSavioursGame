@@ -370,11 +370,11 @@ public class SOMeleeWeapon : WeaponBase
         bool critHit = (_modifiedStats._criticalChance > critRoll);
         int realDamage = (critHit) ? (int)(damage * _modifiedStats._criticalDamageMultiplier) : damage;
         entity.TakeDamage(realDamage);
-        InvokeOnEnemyHit(enemy.position);
+        InvokeOnEnemyHit(enemy);
         DamagePopupTypes popupType = (critHit) ? DamagePopupTypes.CriticalRed : (_attackIsHeavy) ? DamagePopupTypes.CriticalYellow : DamagePopupTypes.Normal;
         PopupsManager.CreateDamagePopup(enemy.position + Vector3.up * 0.85f, realDamage, popupType);
-        PlayHitFXS(_comboAttacks[_currentComboIndex].Effects, enemy.position);
-        if(_attackIsHeavy) PlayHitFXS(_heavyAtkEffectsInstance, enemy.position);
+        PlayHitFXS(_comboAttacks[_currentComboIndex].Effects, enemy);
+        if(_attackIsHeavy) PlayHitFXS(_heavyAtkEffectsInstance, enemy);
     }
 
     protected void SetRadiusOffset(float atkRange)

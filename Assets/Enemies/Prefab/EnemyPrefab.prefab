@@ -177,6 +177,8 @@ MonoBehaviour:
   _boxColl: {fileID: 4374775281762290928}
   _circleColl: {fileID: 3646742176340471683}
   _audio: {fileID: 4462049691066434452}
+  _timeToActivate: 0.55
+  _spawnSequenceCurveType: 3
 --- !u!58 &3646742176340471683
 CircleCollider2D:
   m_ObjectHideFlags: 0
