@@ -102,7 +102,7 @@ public class SOMeleeWeapon : WeaponBase
         _cameraAnimCurve = TweenCurveLibrary.EaseInExpo;
         _slowdownCurve = TweenCurveLibrary.EaseInCirc;
 
-        Debug.Log("init");
+        Debug.Log("init" + name);
 
         //_delayTimer = new(_animationDelayTime);
         //_delayTimer.Stop();
@@ -198,6 +198,7 @@ public class SOMeleeWeapon : WeaponBase
 
     void StopHolding(InputAction.CallbackContext obj)
     {
+        if(_deactivated) return;
         if(!_holding) return;
         TryAttack();
         _holding = false;

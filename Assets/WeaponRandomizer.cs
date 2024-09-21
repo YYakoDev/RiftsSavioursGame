@@ -8,6 +8,6 @@ public class WeaponRandomizer : MonoBehaviour
     [SerializeField] WeaponSwapper _swapper;
 
     private void Awake() {
-        _swapper.SetWeapon(_weapons[Random.Range(0, _weapons.Length)]);
+        _swapper.SetPedestalWeapon(_weapons[Random.Range(0, _weapons.Length)]);
     }
 }

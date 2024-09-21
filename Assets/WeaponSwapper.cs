@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class WeaponSwapper : MonoBehaviour, IInteractable
 {
+    [SerializeField] SOPlayerStats _playerStats;
+    [SerializeField] WeaponManager _weaponManager;
     [SerializeField] WaveSystem _waveSys;
     [SerializeField] bool _disableRift = true;
     [SerializeField] PrototypeRift _riftStarter;
@@ -28,15 +30,37 @@ public class WeaponSwapper : MonoBehaviour, IInteractable
         SwapWeapon();
     }
 
+    bool PlayerHasWeapons()
+    {
+        var weapons = _playerStats.Weapons;
+        bool result = false;
+        for (int i = 0; i < weapons.Length; i++)
+        {
+            if(weapons[i] != null)
+            {
+                result = true;
+                break;
+            }
+        }
+        return result;
+    }
     void SwapWeapon()
     {
         if(_weaponOnPedestal == null) return;
+        if(!PlayerHasWeapons())
+        {
+            _weaponManager.SetWeaponAtIndex(0, _weaponOnPedestal);
+            _playerStats.Weapons[0] = _weaponOnPedestal;
+            SetPedestalWeapon(null);
+            _riftStarter.AlreadyInteracted = false;
+            return;
+        }
         _weaponSelector.OpenMenu(_weaponOnPedestal, this);
-        _riftStarter.AlreadyInteracted = false;
         _alreadyInteracted = false;
+        _riftStarter.AlreadyInteracted = false;
     }
 
-    public void SetWeapon(WeaponBase weapon)
+    public void SetPedestalWeapon(WeaponBase weapon)
     {
         _weaponOnPedestal = weapon;
         if(weapon != null) _spriteOnPedestal.sprite = weapon.SpriteAndAnimationData.Sprite;

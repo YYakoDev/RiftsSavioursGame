@@ -805,6 +805,17 @@
                 },
                 {
                     "name": "",
+                    "id": "d2a5bf8b-fdce-4767-b7bf-93c90436ee64",
+                    "path": "<HID:: USB Gamepad          >/trigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "USB Gamepad",
+                    "action": "Consume",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "da2c0c6d-343c-4a58-9291-82411b05d013",
                     "path": "<Keyboard>/escape",
                     "interactions": "",

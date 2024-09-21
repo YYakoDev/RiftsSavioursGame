@@ -48,6 +48,7 @@ public class InteractableSeeker : MonoBehaviour
             Transform collidedObj = other.transform;
             _interactableObject = collidedObj.gameObject;
             _hotkeyPrefabInstance.ChangeState(true);
+            _hotkeyPrefabInstance.Text.SetText(_interactKey.action.GetBindingDisplayString());
             //_hotkeyPrefabInstance.Self.transform.SetParent(collidedObj);
             _hotkeyPrefabInstance.Self.transform.position = collidedObj.position + _interactableInterface.Offset;
         }
