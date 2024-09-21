@@ -183,6 +183,7 @@ public class SOMeleeWeapon : WeaponBase
                 _weaponManager.AtkEffects.BlinkWeapon();
                 _weaponManager.AtkEffects.BlinkPlayer();
                 NotificationSystem.SendNotification(NotificationType.Top, "Heavy attack charged!", null, 0.75f, 0.6f, 0.189f);
+                WeaponEvents.FireHeavyAttackChargeCompleteEvent();
                 //TryAttack();
             }
         }
@@ -194,6 +195,7 @@ public class SOMeleeWeapon : WeaponBase
         if(_nextAttackTime + 0.05f - (HeavyAtkThreshold) >= Time.time) return;
         _effectsAudio.PlayWithVaryingPitch(_heavyAtkChargeUpSfx);
         _holding = true;
+        WeaponEvents.FireHeavyAttackChargingEvent();
     }
 
     void StopHolding(InputAction.CallbackContext obj)
@@ -234,6 +236,7 @@ public class SOMeleeWeapon : WeaponBase
         if(index >= ComboMaxCount) index = 0;
         if(info.IsHeavyAttack) _holdTime = HeavyAtkThreshold;
         TryAttack();
+        WeaponEvents.FireSwitchAttackEvent();
         if(info.WasHoldingHeavyAtkButton)
         {
             if(_attackKey.action.IsInProgress())
@@ -241,6 +244,7 @@ public class SOMeleeWeapon : WeaponBase
                 Debug.Log("You were holding the attack button");
                 _effectsAudio.PlayWithVaryingPitch(_heavyAtkChargeUpSfx);
                 _holding = true;
+                WeaponEvents.FireHeavyAttackChargingEvent();
             }
         }
     }
@@ -256,7 +260,6 @@ public class SOMeleeWeapon : WeaponBase
         if(_nextAttackTime >= Time.time) return;
         _currentComboIndex++;
         if(_currentComboIndex >= ComboMaxCount) _currentComboIndex = 0;
-        
         _weaponManager.AtkEffects.SlowdownPlayer(0f, 0f);
         _holding = false;
         CameraEffects.ResetScale();
@@ -306,16 +309,23 @@ public class SOMeleeWeapon : WeaponBase
             _comboWaitTimer.Start();
         }
         _atkExecutionTimer.ChangeTime(_modifiedStats._damageDelay);
+        
+        _weaponEvents.FireComboAttackEvent(_currentComboIndex);
+        
         Attack(cooldown);
 
     }
 
     protected override void Attack(float cooldown)
     {
-        PlayAtkFXS(_comboAttacks[_currentComboIndex].Effects);
-        if(_attackIsHeavy) PlayAtkFXS(_heavyAtkEffectsInstance);
         _nextAttackTime = Time.time + cooldown;
-        InvokeOnAttack();
+        PlayAtkFXS(_comboAttacks[_currentComboIndex].Effects);
+        if(_attackIsHeavy)
+        {
+            WeaponEvents.FireHeavyAttackEvent();
+            PlayAtkFXS(_heavyAtkEffectsInstance);
+        }
+        WeaponEvents.FireAttackEvent();
         SetAttackPoint();
         SetRadiusOffset(_modifiedStats._atkRange);
         SetMaxEnemiesToHit(_modifiedStats._atkRange);
@@ -371,7 +381,7 @@ public class SOMeleeWeapon : WeaponBase
         bool critHit = (_modifiedStats._criticalChance > critRoll);
         int realDamage = (critHit) ? (int)(damage * _modifiedStats._criticalDamageMultiplier) : damage;
         entity.TakeDamage(realDamage);
-        InvokeOnEnemyHit(enemy);
+        WeaponEvents.FireEnemyHitEvent(enemy);
         DamagePopupTypes popupType = (critHit) ? DamagePopupTypes.CriticalRed : (_attackIsHeavy) ? DamagePopupTypes.CriticalYellow : DamagePopupTypes.Normal;
         PopupsManager.CreateDamagePopup(enemy.position + Vector3.up * 0.85f, realDamage, popupType);
         PlayHitFXS(_comboAttacks[_currentComboIndex].Effects, enemy);

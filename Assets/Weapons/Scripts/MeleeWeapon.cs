@@ -168,7 +168,7 @@ public class MeleeWeapon : WeaponBase
         entity.TakeDamage(realDamage);
         var popupType = (critHit) ? DamagePopupTypes.CriticalRed : DamagePopupTypes.Normal;
         PopupsManager.CreateDamagePopup(enemy.position + Vector3.up * 0.9f, realDamage, popupType);
-        InvokeOnEnemyHit(enemy);
+        WeaponEvents.FireEnemyHitEvent(enemy);
     }
 
     protected void SetRadiusOffset(float atkRange)

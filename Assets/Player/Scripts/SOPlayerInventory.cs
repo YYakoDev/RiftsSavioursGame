@@ -30,6 +30,7 @@ public class SOPlayerInventory : ScriptableObject
         //also apply the equipped upgrades if there is any
         _ownedMaterials = new();
         _equippedUpgrades = new();
+        _tokens = new();
         _upgradesManager = upgradesManager;
         if(startingMaterials != null)
         foreach(var inventoryItemData in startingMaterials)

@@ -15,5 +15,5 @@ MonoBehaviour:
   _sprite: {fileID: 21300000, guid: 08a2d49d8cc06444b8c35a8abb385dc1, type: 3}
   _animOverrideController: {fileID: 22100000, guid: 3c5e375eeeff5274fa425c4e93739000, type: 2}
   _flipSprite: 0
-  _spawnPosition: {x: -0.55, y: 0.25, z: 0}
+  _spawnPosition: {x: -0.6, y: 0.3, z: 0}
   _spawnRotation: 120

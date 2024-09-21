@@ -72,7 +72,7 @@ public class WeaponPrefab : MonoBehaviour
 
     public void SetWeaponBase(WeaponBase weapon)
     {
-        weapon.onAttack -= AttackEffects;
+        weapon.WeaponEvents.OnAttack -= AttackEffects;
         _weaponBase = weapon;
         Animator.enabled = false;
         _animator.runtimeAnimatorController = null;
@@ -84,7 +84,7 @@ public class WeaponPrefab : MonoBehaviour
         _spriteRenderer.enabled = true;
         _animator.runtimeAnimatorController = weapon.SpriteAndAnimationData.AnimatorOverride;
         Animator.enabled = true;
-        weapon.onAttack += AttackEffects;
+        weapon.WeaponEvents.OnAttack += AttackEffects;
         PlayUnsheateSFX();
     }
 
@@ -101,7 +101,7 @@ public class WeaponPrefab : MonoBehaviour
     }
 
     private void OnDestroy() {
-        if(_weaponBase != null)_weaponBase.onAttack -= AttackEffects;
+        if(_weaponBase != null)_weaponBase.WeaponEvents.OnAttack -= AttackEffects;
     }
 }
 

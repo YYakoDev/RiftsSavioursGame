@@ -37,11 +37,11 @@ public class PlayerInputUI : MonoBehaviour
     {
         if(_currentWeapon != null)
         {
-            _currentWeapon.onAttack -= PlayAttackInput;
+            _currentWeapon.WeaponEvents.OnAttack -= PlayAttackInput;
             _previousWeapon = _currentWeapon;
         }
         _currentWeapon = weapon;
-        _currentWeapon.onAttack += PlayAttackInput;
+        _currentWeapon.WeaponEvents.OnAttack += PlayAttackInput;
         SwitchAttackIcons();
     }
 
@@ -135,6 +135,7 @@ public class PlayerInputUI : MonoBehaviour
         _switchInput.action.performed -= PlaySwitchWeaponInput;
         _movementScript.onDash -= PlayDashInput;
         _aiming.OnAimingChange -= PlayAimInput;
+        if(_currentWeapon != null)_currentWeapon.WeaponEvents.OnAttack -= PlayAttackInput;
     }
 
 }

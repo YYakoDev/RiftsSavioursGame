@@ -58,7 +58,7 @@ public class ResourceBreakingWeapon : MeleeWeapon
                 iterations++;
                 resource.TakeDamage(_modifiedStats._atkDmg);
                 //PopupsManager.Create(_hittedEnemiesGO[i].transform.position + Vector3.up * 0.75f, _modifiedStats._atkDmg);
-                InvokeOnEnemyHit(_hittedEnemiesGO[i].transform);
+                WeaponEvents.FireEnemyHitEvent(_hittedEnemiesGO[i].transform);
             }
             if(i >= _maxResourcesToHit) break;
         }

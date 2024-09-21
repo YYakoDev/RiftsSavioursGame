@@ -12,7 +12,7 @@ public class RewardItem : MonoBehaviour, IInteractable
     [SerializeField] RewardType _rewardType;
     protected bool _alreadyInteracted;
     [SerializeField] Vector3 _offset;
-    protected bool _available;
+    protected bool _available = true;
     [SerializeField] AudioClip _interactSfx;
 
     public bool AlreadyInteracted { get => _alreadyInteracted; set => _alreadyInteracted = value; }

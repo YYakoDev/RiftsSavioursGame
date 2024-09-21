@@ -11,9 +11,9 @@ public abstract class WeaponBase: ScriptableObject, IQuickSwitchHandler
     public const string MenuPath = "ScriptableObjects/Weapons/";
     //references
     protected WeaponManager _weaponManager;
-    [SerializeField]protected InputActionReference _attackKey => _weaponManager.AttackInputRef;
-
+    protected InputActionReference _attackKey => _weaponManager.AttackInputRef;
     protected bool _deactivated = false;
+    protected WeaponEvents _weaponEvents = new();
 
     //fields
     [Header("Weapon Properties")]
@@ -35,11 +35,6 @@ public abstract class WeaponBase: ScriptableObject, IQuickSwitchHandler
     protected float _attackDuration = 0.35f;
     protected float _nextAttackTime = 0f;
 
-
-    public event Action onAttack;
-    public event Action<Transform> onEnemyHit;
-
-
     //properties
     public bool Initialized => _initialized;
 
@@ -53,6 +48,7 @@ public abstract class WeaponBase: ScriptableObject, IQuickSwitchHandler
     public Transform PrefabTransform => _weaponPrefabTransform;
     public float AtkDuration => _attackDuration;
     public bool PointCameraOnAttack => _pointCameraOnAttack;
+    public WeaponEvents WeaponEvents => _weaponEvents;
 
     //anims
     public int Animation => _currentAnim;
@@ -68,10 +64,12 @@ public abstract class WeaponBase: ScriptableObject, IQuickSwitchHandler
         _weaponPrefabTransform = prefabTransform;
         _currentAnim = Animator.StringToHash(AtkAnimName);
         _attackDuration = GetAnimationDuration(AtkAnimName);
-        onAttack = null;
-        onEnemyHit = null;
+        _weaponEvents = new();
+        _weaponEvents.Initialize();
         SubscribeInput();
         InitializeFXS();
+        _weaponEvents.OnAttack += DoAttackFxs;
+        _weaponEvents.OnEnemyHit += DoEnemyHitFxs;
         _initialized = true;
     }
     protected virtual void SubscribeInput()
@@ -100,7 +98,7 @@ public abstract class WeaponBase: ScriptableObject, IQuickSwitchHandler
     {
         _nextAttackTime = Time.time + weaponCooldown;
         if(_randomizeSounds) _attackSound = _weaponSounds[Random.Range(0, _weaponSounds.Length)];
-        InvokeOnAttack();
+        _weaponEvents.FireAttackEvent();
     }
     public virtual void UpdateLogic()
     {
@@ -127,14 +125,12 @@ public abstract class WeaponBase: ScriptableObject, IQuickSwitchHandler
     public virtual float GetWeaponCooldown() => _attackCooldown;
 
     public abstract void EvaluateStats(SOPlayerAttackStats attackStats);
-    protected void InvokeOnAttack()
+    protected void DoAttackFxs()
     {
-        onAttack?.Invoke();
         PlayAtkFXS(_usedEffects);
     }
-    protected void InvokeOnEnemyHit(Transform enemy)
+    protected void DoEnemyHitFxs(Transform enemy)
     {
-        onEnemyHit?.Invoke(enemy);
         PlayHitFXS(_usedEffects, enemy);
     }
 

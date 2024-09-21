@@ -35,10 +35,10 @@ public class PlayerAttackEffects : MonoBehaviour
 
     void SwitchCurrentWeapon(WeaponBase weapon)
     {
-        if(_currentWeapon != null) _currentWeapon.onAttack -= AttackEffects;
+        if(_currentWeapon != null) _currentWeapon.WeaponEvents.OnAttack -= AttackEffects;
         _currentWeapon = weapon;
         if(_targetIndex == -1) _targetIndex = _cameraTargetting.AddTarget(weaponPrefab);
-        _currentWeapon.onAttack += AttackEffects;
+        _currentWeapon.WeaponEvents.OnAttack += AttackEffects;
     }
     
 
@@ -79,7 +79,7 @@ public class PlayerAttackEffects : MonoBehaviour
     private void OnDestroy()
     {
         _weaponManager.OnWeaponChange -= SwitchCurrentWeapon;
-        if(_currentWeapon != null)_currentWeapon.onAttack -= AttackEffects;
+        if(_currentWeapon != null)_currentWeapon.WeaponEvents.OnAttack -= AttackEffects;
     }
 
 }

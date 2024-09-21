@@ -61,7 +61,7 @@ public class WeaponAiming : MonoBehaviour
         if (_mainCamera == null) _mainCamera = Camera.main;
         _switchAimKey.action.performed += SwitchAim;
         _crosshair.gameObject.SetActive(false);
-        if(_currentWeapon != null) _currentWeapon.onAttack += StopAiming;
+        if(_currentWeapon != null) _currentWeapon.WeaponEvents.OnAttack += StopAiming;
         _attackStats.onStatsChange += IncreaseDetectionRadius;
     }
 
@@ -206,15 +206,15 @@ public class WeaponAiming : MonoBehaviour
 
     public void SwitchCurrentWeapon(WeaponBase weapon)
     {
-        if(_currentWeapon != null) _currentWeapon.onAttack -= StopAiming;
+        if(_currentWeapon != null) _currentWeapon.WeaponEvents.OnAttack -= StopAiming;
         _currentWeapon = weapon;
-        _currentWeapon.onAttack += StopAiming;
+        _currentWeapon.WeaponEvents.OnAttack += StopAiming;
     }
 
     private void OnDestroy() {
         _switchAimKey.action.performed -= SwitchAim;
         _enemyDetectionTimer.onEnd -= DetectEnemy;
-        if(_currentWeapon != null)_currentWeapon.onAttack -= StopAiming;
+        if(_currentWeapon != null)_currentWeapon.WeaponEvents.OnAttack -= StopAiming;
         _attackStats.onStatsChange -= IncreaseDetectionRadius;
     }
 }
