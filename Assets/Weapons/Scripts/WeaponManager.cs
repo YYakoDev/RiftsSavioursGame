@@ -110,6 +110,7 @@ public class WeaponManager : MonoBehaviour
         _weaponLogicInstance.SetWeaponBase(weapon);
         _weaponAiming.SwitchCurrentWeapon(weapon);
         OnWeaponChange?.Invoke(weapon);
+        _currentWeapon.EvaluateStats(_playerAttackStats);
         _currentWeapon.SetWeaponActive(true);
     }
 
@@ -152,6 +153,7 @@ public class WeaponManager : MonoBehaviour
     void SwitchWeapon()
     {
         if(!_allowSwitch) return;
+        if(_currentWeapon == null) return;
         if(_attackKey.action.IsPressed())
         {
             NotificationSystem.SendNotification(NotificationType.Left, "Can't Switch", animDurationScaler: 0.65f);
