@@ -141,7 +141,7 @@ public class WeaponAiming : MonoBehaviour
         {
             _crosshair.gameObject.SetActive(false);
             //_mousePosition = _mainCamera.ScreenToWorldPoint(YYInputManager.MousePosition); 
-            _closestEnemyPosition = _currentWeapon.PrefabTransform.position;
+            _closestEnemyPosition = _playerMovement.transform.position;
             SetCameraTargetPoint(currentPos);
             return;
         }

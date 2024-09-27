@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5998084811606540371}
   - component: {fileID: -872656025477200972}
   - component: {fileID: 2062176802140626436}
+  - component: {fileID: 7477980134984751361}
   m_Layer: 2
   m_Name: WeaponPrefab
   m_TagString: Untagged
@@ -56,7 +57,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: c6689dd3e1da4144a9f89db219f119c8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -230,3 +231,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &7477980134984751361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7259605076874394457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fae7a9714e4200843a22b8919982b4dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _blinkMat: {fileID: 0}
+  _duration: 0.15
+  _spriteRenderer: {fileID: 0}

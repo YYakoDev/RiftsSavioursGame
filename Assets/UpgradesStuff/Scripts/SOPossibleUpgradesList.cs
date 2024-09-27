@@ -8,11 +8,13 @@ public class SOPossibleUpgradesList : ScriptableObject
 {
     [SerializeField]List<UpgradeGroup> _startingUpgrades;
     List<UpgradeGroup>  _possibleUpgrades; 
+    List<UpgradeGroup> _weaponUpgrades; 
 
     //properties
     public List<UpgradeGroup> StartingUpgrades => _startingUpgrades;
     public List<UpgradeGroup>  PossibleUpgrades => _possibleUpgrades;
-    
+    public List<UpgradeGroup> WeaponUpgrades => _weaponUpgrades;
+
     public void Initialize()
     {
         foreach(var upgrade in _startingUpgrades)
