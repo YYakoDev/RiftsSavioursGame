@@ -6,28 +6,19 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
 
-public class RewardItem : MonoBehaviour, IInteractable
+[System.Serializable]
+public class RewardItem
 {
-    [SerializeField] SOPlayerInventory _inventory;
+    [SerializeField] string _name, _desctiption;
     [SerializeField] RewardType _rewardType;
-    protected bool _alreadyInteracted;
-    [SerializeField] Vector3 _offset;
-    protected bool _available = true;
-    [SerializeField] AudioClip _interactSfx;
+    [SerializeField] Sprite _sprite;
+    [SerializeField] AudioClip _sfx;
+    bool _availability;
 
-    public bool AlreadyInteracted { get => _alreadyInteracted; set => _alreadyInteracted = value; }
-    public Vector3 Offset => _offset;
-    public AudioClip InteractSfx => _interactSfx;
-    public bool Availabe { get => _available; set => _available = value; }
-    public RewardType RewardType => _rewardType;
-
-    private void OnEnable() {
-        _available = true;
-    }
-
-    public virtual void Interact()
-    {
-        _inventory.AddToken(this);
-        gameObject.SetActive(false);
-    }
+    public string Name => _name;
+    public string Description => _desctiption;
+    public RewardType Type => _rewardType;
+    public bool Available { get => _availability; set => _availability = value; }
+    public Sprite Sprite => _sprite;
+    public AudioClip Sfx => _sfx;
 }

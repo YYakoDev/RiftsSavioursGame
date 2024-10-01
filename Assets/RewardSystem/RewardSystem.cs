@@ -7,8 +7,9 @@ using Random = UnityEngine.Random;
 
 public class RewardSystem : MonoBehaviour
 {
-    [SerializeField] RewardItem[] _possibleRewards;
+    [SerializeField] RewardAnimator _rewardsAnimator;
     [SerializeField] WaveSystem _waveSys;
+    [SerializeField] RewardItem[] _possibleRewards;
     [SerializeField] InputActionReference _tokenConsumeInput;
     [SerializeField] SOPlayerInventory _playerInventory;
     [SerializeField] StoreMenu _storeMenu;
@@ -26,7 +27,9 @@ public class RewardSystem : MonoBehaviour
     void GrantReward()
     {
         var reward = _possibleRewards[Random.Range(0, _possibleRewards.Length)];
-        Instantiate(reward, Vector3.down + new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f), 0f), Quaternion.identity);
+        _playerInventory.AddToken(reward);
+        _rewardsAnimator.Play(reward);
+        //Instantiate(reward, Vector3.down + new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f), 0f), Quaternion.identity);
         Debug.Log("Reward granted");
     }
     
@@ -38,7 +41,7 @@ public class RewardSystem : MonoBehaviour
             NotificationSystem.SendNotification(NotificationType.Bottom, "No tokens available", null, 0.7f, 0.6f, 0.1f);
             return;
         }
-        switch(token.RewardType)
+        switch(token.Type)
         {
             case RewardType.StoreToken:
                 _storeMenu.OpenMenu();
@@ -50,8 +53,8 @@ public class RewardSystem : MonoBehaviour
                 OpenWeaponSelection();
                 break;
         }
-        token.Availabe = false;
-        OnTokenConsumption?.Invoke(token.RewardType);
+        token.Available = false;
+        OnTokenConsumption?.Invoke(token.Type);
 
     }
 

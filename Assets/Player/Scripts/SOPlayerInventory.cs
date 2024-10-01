@@ -96,7 +96,7 @@ public class SOPlayerInventory : ScriptableObject
     {
         for (int i = 0 ; i < _tokens.Count; i++)
         {
-            if(!_tokens[i].Availabe) continue;
+            if(!_tokens[i].Available) continue;
             return _tokens[i];
         }
         return null;

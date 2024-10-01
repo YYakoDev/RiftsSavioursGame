@@ -168,6 +168,15 @@ public class TweenAnimator : MonoBehaviour
         anim.Initialize(transform, endRotation, duration, curve, loop, onComplete);
         SwitchCurrentAnimation(anim); 
     }
+    public void TweenRotate(RectTransform rect, float endRotation, float duration, CurveTypes curveType = CurveTypes.EaseInOut, bool loop = false, Action onComplete = null)
+    {
+        TweenRotate anim = new(this);
+        AnimationCurve curve = TweenCurveLibrary.GetCurve(curveType);   
+
+        anim.Initialize(rect, endRotation, duration, curve, loop, onComplete);
+        SwitchCurrentAnimation(anim); 
+    }
+
 
     public void TweenImageColor
     (RectTransform rect, Color endValue, float duration, CurveTypes curveType = CurveTypes.EaseInOut, bool loop = false, Action onComplete = null)
