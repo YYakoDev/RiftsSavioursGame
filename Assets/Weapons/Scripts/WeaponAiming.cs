@@ -6,6 +6,7 @@ public class WeaponAiming : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] Camera _mainCamera;
+    [SerializeField] CursorSetter _cursorSetter;
     [SerializeField] Transform _crosshair;
     [SerializeField] PlayerMovement _playerMovement;
     [SerializeField] SOPlayerAttackStats _attackStats;
@@ -83,14 +84,12 @@ public class WeaponAiming : MonoBehaviour
         if (_autoAiming)
         {
             NotificationSystem.SendNotification(NotificationType.Left, "AutoAiming enabled", _uiAimingIcon, 0.7f, 0.5f, 0.2f);
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+            _cursorSetter.HideCursor();
         }
         else
         {
             NotificationSystem.SendNotification(NotificationType.Left, "AutoAiming Disabled", _uiAimingIcon, 0.8f, 0.4f, 0.2f);
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
+            _cursorSetter.ShowCursor();
             _crosshair.gameObject.SetActive(false);
         }
         OnAimingChange?.Invoke(_autoAiming);

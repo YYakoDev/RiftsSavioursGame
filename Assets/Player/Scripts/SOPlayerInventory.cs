@@ -8,7 +8,7 @@ public class SOPlayerInventory : ScriptableObject
 {
     Dictionary<CraftingMaterial, int> _ownedMaterials = new();
     List<UpgradeGroup> _equippedUpgrades = new();
-    List<RewardItem> _tokens = new();
+    Dictionary<RewardType, int> _ownedTokens = new();
     [SerializeField]int _maxUpgradesCount = 5;
     private PlayerUpgradesManager _upgradesManager;
     public event Action onInventoryChange, OnTokenAddition;
@@ -22,7 +22,7 @@ public class SOPlayerInventory : ScriptableObject
     }
     public Dictionary<CraftingMaterial, int> OwnedMaterials => _ownedMaterials;
     public List<UpgradeGroup> EquippedUpgrades => _equippedUpgrades;
- 
+    public event Action<RewardType> OnTokenConsumption;
 
     public void Initialize(PlayerUpgradesManager upgradesManager, List<InventoryMaterialData> startingMaterials = null)
     {
@@ -30,7 +30,7 @@ public class SOPlayerInventory : ScriptableObject
         //also apply the equipped upgrades if there is any
         _ownedMaterials = new();
         _equippedUpgrades = new();
-        _tokens = new();
+        _ownedTokens = new();
         _upgradesManager = upgradesManager;
         if(startingMaterials != null)
         foreach(var inventoryItemData in startingMaterials)
@@ -86,19 +86,57 @@ public class SOPlayerInventory : ScriptableObject
     }
 
 
-    public void AddToken(RewardItem token)
+    public void AddToken(RewardType tokenType)
     {
-        _tokens.Add(token);
+        if(_ownedTokens.ContainsKey(tokenType))
+        {
+            _ownedTokens[tokenType]++;
+        }else _ownedTokens.Add(tokenType, 1);
         OnTokenAddition?.Invoke();
     }
 
-    public RewardItem GetToken()
+    public bool GetTokenAvailability(RewardType type) => GetTokenCount(type) > 0;
+    
+    public int GetTokenCount(RewardType type)
     {
-        for (int i = 0 ; i < _tokens.Count; i++)
+        _ownedTokens.TryGetValue(type, out int value);
+        return value;
+    }
+    public int GetTotalTokenCount()
+    {
+        int count = 0;
+        foreach(var item in _ownedTokens) count += item.Value;
+        return count;
+    }
+    public bool HasTokens()
+    {
+        bool result = false;
+        foreach (var item in _ownedTokens)
         {
-            if(!_tokens[i].Available) continue;
-            return _tokens[i];
+            if(item.Value > 0)
+            {
+                result = true;
+                break;
+            }
         }
-        return null;
+        return result;
+    }
+    public void ConsumeToken(RewardType type)
+    {
+        if(!GetTokenAvailability(type)) return;
+        _ownedTokens[type]--;
+        OnTokenConsumption?.Invoke(type);
+    }
+
+    public RewardType? GetFirstTokenAvailable()
+    {
+        RewardType? type = null;
+        foreach(var item in _ownedTokens)
+        {
+            if(item.Value <= 0) continue;
+            type = item.Key;
+            break;
+        }
+        return type;
     }
 }

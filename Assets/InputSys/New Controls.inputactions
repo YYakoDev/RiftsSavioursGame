@@ -857,6 +857,17 @@
                     "action": "Pause Game",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0f38ab6b-569b-4fe6-82a0-37cc72a01f72",
+                    "path": "<Keyboard>/p",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Pause Game",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -1665,6 +1676,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "USB Gamepad",
+                    "action": "Escape",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f27c6c17-9d8e-4ad7-8183-372df82de5f9",
+                    "path": "<Keyboard>/p",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
                     "action": "Escape",
                     "isComposite": false,
                     "isPartOfComposite": false

@@ -7,10 +7,13 @@ using UnityEngine.EventSystems;
 
 public class MenuController : MonoBehaviour
 {
+    [SerializeField] CursorSetter _cursorSetter;
     public event Action<GameObject> OnMenuChanged;
     GameObject _currentMenu;
     //bool _locked;
     EventSystem _eventSys;
+
+    public CursorSetter CursorSetter => _cursorSetter;
 
     private void Awake() {
         
@@ -20,7 +23,7 @@ public class MenuController : MonoBehaviour
         _eventSys = EventSystem.current;
     }
 
-    public void SwitchCurrentMenu(GameObject menu)
+    public void SwitchCurrentMenu(GameObject menu, bool showCursor = true)
     {
         _currentMenu = menu;
         OnMenuChanged?.Invoke(menu);
@@ -30,7 +33,10 @@ public class MenuController : MonoBehaviour
             var obj = menu.GetComponentInChildren<Selectable>(true)?.gameObject;
             if(_eventSys == null) _eventSys = EventSystem.current;
             _eventSys.SetSelectedGameObject(obj);
-
+            if(showCursor)_cursorSetter.ShowCursor();
+        }else
+        {
+            _cursorSetter.SwitchBack();
         }
     }
 }

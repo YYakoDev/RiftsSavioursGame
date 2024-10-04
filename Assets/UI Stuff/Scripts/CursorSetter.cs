@@ -5,9 +5,14 @@ using UnityEngine;
 public class CursorSetter : MonoBehaviour
 {
     [SerializeField] Texture2D _defaultTexture;
+    [SerializeField] WeaponAiming _aimingLogic;
+    bool _autoAiming = false;
     private void Awake() {
         //Cursor.SetCursor(_defaultTexture, Vector2.zero, CursorMode.Auto);
+        _aimingLogic.OnAimingChange += ChangeAiming;
     }
+
+    void ChangeAiming(bool state) => _autoAiming = state;
 
     private void Start()
     {
@@ -21,5 +26,27 @@ public class CursorSetter : MonoBehaviour
             Debug.Log("WEBGL");
             Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
         #endif
+    }
+
+    public void SwitchBack()
+    {
+        if(_autoAiming) HideCursor();
+        else ShowCursor();
+    }
+
+    public void ShowCursor()
+    {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+    }
+
+    public void HideCursor()
+    {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.None;
+    }
+    
+    private void OnDestroy() {
+        _aimingLogic.OnAimingChange -= ChangeAiming;
     }
 }

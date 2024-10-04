@@ -33,10 +33,6 @@ public class StoreMenu : MonoBehaviour
     bool _menuState = false;
     EventSystem _eventSys;
 
-    //cursor stuff
-    bool _previousCursorState;
-    CursorLockMode _previousCursorLockMode;
-
     //audio stuff
     [SerializeField] AudioSource _audio;
     [SerializeField] AudioClip _buySFX, _rerollSFX, _closeSFX;
@@ -134,8 +130,6 @@ public class StoreMenu : MonoBehaviour
         TimeScaleManager.ForceTimeScale(0f);
         _menuController.SwitchCurrentMenu(_parent);
         PauseMenuManager.DisablePauseBehaviour(true);
-        _previousCursorState = Cursor.visible;
-        _previousCursorLockMode = Cursor.lockState;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
         GetCoins();
@@ -162,8 +156,6 @@ public class StoreMenu : MonoBehaviour
         TimeScaleManager.ForceTimeScale(1f);
         _menuController.SwitchCurrentMenu(null);
         PauseMenuManager.DisablePauseBehaviour(false);
-        Cursor.visible = _previousCursorState;
-        Cursor.lockState = _previousCursorLockMode;
         _audio.PlayWithVaryingPitch(_closeSFX);
     }
 

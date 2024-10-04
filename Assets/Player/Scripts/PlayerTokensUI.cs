@@ -12,8 +12,8 @@ public class PlayerTokensUI : MonoBehaviour
     private void Start() {
         
         _tokenItemUI.SetText($"({_rewardSystem.TokenInput.action.GetBindingDisplayString()}) Token Available");
-        _rewardSystem.OnTokenConsumption += OnTokenConsumption;
         _inventory.OnTokenAddition += CheckTokens;
+        _inventory.OnTokenConsumption += OnTokenConsumption;
     }
 
 
@@ -24,14 +24,14 @@ public class PlayerTokensUI : MonoBehaviour
 
     void OnTokenConsumption(RewardType rewardType)
     {
-        var token = _inventory.GetToken();
-        if(token == null) _tokenItemUI.Hide();
+        var hasTokens = _inventory.HasTokens();
+        if(!hasTokens) _tokenItemUI.Hide();
         else _tokenItemUI.Shake();
     }
 
     private void OnDestroy() {
-        _rewardSystem.OnTokenConsumption -= OnTokenConsumption;
         _inventory.OnTokenAddition -= CheckTokens;
+        _inventory.OnTokenConsumption -= OnTokenConsumption;
     }
 
 }

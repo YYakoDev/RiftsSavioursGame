@@ -1,9 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class BlacksmithMenu : MonoBehaviour
 {
+    [Header("References")]
+    [SerializeField] MenuController _menuController;
+    [SerializeField] GameObject _menuParent;
+    [SerializeField] InputActionReference _escapeInput;
+    
+    [Header("Blacksmith Upgrades")]
     [SerializeField] UIBlacksmithUpgrade _itemPrefab;
     [SerializeField] RectTransform _upgradesParent;
     [SerializeField] SOPossibleUpgradesList _upgradesList;
@@ -21,6 +28,7 @@ public class BlacksmithMenu : MonoBehaviour
     {
         SetUpgrades();
     }
+
 
     void SetUpgrades()
     {
@@ -53,5 +61,11 @@ public class BlacksmithMenu : MonoBehaviour
             _upgrades[i] = Instantiate(_itemPrefab, _upgradesParent);
             _upgrades[i].Init(null, null);
         }
+    }
+
+    void CloseMenuWithInput(InputAction.CallbackContext obj) => CloseMenu();
+    public void CloseMenu()
+    {
+        
     }
 }

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acc711da50db9ac4b87debd9c12d4546, type: 3}
+  m_Name: WeaponSwapToken
+  m_EditorClassIdentifier: 
+  _name: Weapon Token
+  _desctiption: Grants you a random weapon
+  _rewardType: 2
+  _sprite: {fileID: 21300000, guid: 6be297ed1658ca54d9cb0f726bc84b71, type: 3}
+  _sfx: {fileID: 8300000, guid: 6d3b80f2a9fcd064fb8fa9533ea30bf5, type: 3}

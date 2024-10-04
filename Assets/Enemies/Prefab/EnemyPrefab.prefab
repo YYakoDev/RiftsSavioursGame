@@ -246,7 +246,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _blinkMat: {fileID: 2100000, guid: a5f676503bdb234469d7de6b22d924ae, type: 2}
-  _duration: 0.1
+  _duration: 0.176
   _spriteRenderer: {fileID: 6582818337101826148}
 --- !u!114 &7018758983244734893
 MonoBehaviour:
@@ -429,8 +429,8 @@ MonoBehaviour:
   _audio: {fileID: 4462049691066434452}
   _target: {fileID: 0}
   _distanceThreshold: 5
-  _minVolume: 0.1
-  _effectStrength: 1.28
+  _minVolume: 0.2
+  _effectStrength: 1.34
 --- !u!114 &5569325380216403297
 MonoBehaviour:
   m_ObjectHideFlags: 0
