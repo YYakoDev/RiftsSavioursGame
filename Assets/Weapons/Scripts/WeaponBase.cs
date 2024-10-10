@@ -70,14 +70,17 @@ public abstract class WeaponBase: ScriptableObject, IQuickSwitchHandler
         InitializeFXS();
         _weaponEvents.OnAttack += DoAttackFxs;
         _weaponEvents.OnEnemyHit += DoEnemyHitFxs;
+
+        RunManager.OnRunDestroy += UnsubscribeInput;
         _initialized = true;
     }
     protected virtual void SubscribeInput()
     {
         _attackKey.action.started += TryAttack;
     }
-    public virtual void UnsubscribeInput()
+    protected virtual void UnsubscribeInput()
     {
+        RunManager.OnRunDestroy -= UnsubscribeInput;
         _attackKey.action.started -= TryAttack;
         _initialized = false;
     }
@@ -170,9 +173,4 @@ public abstract class WeaponBase: ScriptableObject, IQuickSwitchHandler
 
     public virtual void QuickSwitch(QuickSwitchInfo info)
     {}
-
-    ~WeaponBase()
-    {
-        UnsubscribeInput();
-    }
 }

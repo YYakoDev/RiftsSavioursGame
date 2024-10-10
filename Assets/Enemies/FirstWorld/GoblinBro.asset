@@ -38,7 +38,7 @@ MonoBehaviour:
   _movementBehaviour: {fileID: 11400000, guid: 9506340d249ee2f4aa6eaa1981b01eda, type: 2}
   _attackBehaviour: {fileID: 11400000, guid: fa81f5ed01e62f145b9699053d248833, type: 2}
   _deathBehaviour: {fileID: 0}
-  _bloodSplatter: {fileID: -2486305248213958785, guid: 329e704e453c1fd4c8c5db7ffbe677c7, type: 3}
+  _bloodFXData: {fileID: 11400000, guid: e10c1a65d73a61a4da8548bc6d386ba5, type: 2}
   _blinkMat: {fileID: 2100000, guid: a5f676503bdb234469d7de6b22d924ae, type: 2}
   _hasShadow: 1
   _shadowPosition: {x: 0, y: 0.1, z: 0}

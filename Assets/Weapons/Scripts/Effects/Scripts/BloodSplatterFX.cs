@@ -6,16 +6,14 @@ public class BloodSplatterFX : MonoBehaviour
 {
     [SerializeField]Animator _animator;
     [SerializeField] SpriteRenderer _renderer;
-    [SerializeField]AnimatorOverrideController[] _SplatterAnimatorVariants;
     Color _initialColor;
-    Color _endColor = new Color(0.25f, 0, 0, 1);
+    Color _endColor = new Color(0.25f, 0, 0, 0f);
     Vector2 _offset = new Vector2(-0.51f, 0.1f);
-    [SerializeField] float _coagulationTime = 10f;
+    float _coagulationTime = 10f;
     float _elapsedTime = 0f;
 
     private void Awake() {
         gameObject.SetActive(_animator != null || _renderer != null);
-        _animator.runtimeAnimatorController = _SplatterAnimatorVariants[Random.Range(0, _SplatterAnimatorVariants.Length)];
         _initialColor = _renderer.color;
         
     }
@@ -24,8 +22,24 @@ public class BloodSplatterFX : MonoBehaviour
         _animator.enabled = true;
     }
 
+    public void Set(SOBloodFX bloodData)
+    {
+        _initialColor = bloodData.InitialColor;
+        //_renderer.enabled = false;
+        _animator.runtimeAnimatorController = null;
+        _animator.runtimeAnimatorController = bloodData.Animator;
+        _elapsedTime = 0f;
+        _coagulationTime = bloodData.CoagulationTime + 5f;
+        transform.localScale = bloodData.Size;
+        //_renderer.enabled = true;
+    }
+
     private void Update() {
-        if(_elapsedTime >= _coagulationTime) return;
+        if(_elapsedTime >= _coagulationTime)
+        {
+            gameObject.SetActive(false);
+            return;
+        }
         _elapsedTime += Time.deltaTime;
         float percent = _elapsedTime / _coagulationTime;
         _renderer.color = Color.Lerp(_initialColor, _endColor, percent);
@@ -38,7 +52,7 @@ public class BloodSplatterFX : MonoBehaviour
         Vector3 flippedScale = obj.localScale;
         Vector3 direction = obj.position - playerPos;
         direction.Normalize();
-        flippedScale.x = (direction.x > 0) ? -1 : 1;
+        flippedScale.x *= (direction.x > 0) ? -1 : 1;
         obj.localScale = flippedScale;
         obj.position += (Vector3)(_offset * flippedScale.x);
     }

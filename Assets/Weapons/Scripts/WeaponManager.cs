@@ -247,7 +247,6 @@ public class WeaponManager : MonoBehaviour
         _playerAttackStats.onStatsChange -= ApplyNewAttackStats;
         _switchKey.action.started -= CheckSwitchInput;
         _switchKey.action.canceled -= StopSwitchInput;
-        foreach(var weapon in _playerStats.Weapons) weapon?.UnsubscribeInput();
     }
 
 }

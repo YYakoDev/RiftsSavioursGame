@@ -142,7 +142,7 @@ public class SOMeleeWeapon : WeaponBase
         _attackKey.action.performed += Hold;
         _attackKey.action.canceled += StopHolding;
     }
-    public override void UnsubscribeInput()
+    protected override void UnsubscribeInput()
     {
         _attackKey.action.performed -= Hold;
         _attackKey.action.canceled -= StopHolding;

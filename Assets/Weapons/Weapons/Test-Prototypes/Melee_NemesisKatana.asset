@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5d477e5c1f07ee42bee6417298698fe, type: 3}
   m_Name: Melee_NemesisKatana
   m_EditorClassIdentifier: 
-  _initialized: 1
   _name: Nemesis
   _description: WEAPON 2
   _SpriteAndAnimationsData: {fileID: 11400000, guid: fe301fefb53f91646b28abcd3bed37b4, type: 2}
@@ -27,13 +26,13 @@ MonoBehaviour:
   _baseStats:
     _cooldown: 0.045
     _pullForce: 1
-    _atkRange: 0.9
+    _atkRange: 0.85
     _atkSpeed: 1.88
     _knockbackForce: 1.1
     _damageDelay: 0.095
     _criticalDamageMultiplier: 2
     _pullDuration: 0.075
-    _atkDmg: 3
+    _atkDmg: 4
     _criticalChance: 20
     _staminaConsumption: 0
   _maxStats:

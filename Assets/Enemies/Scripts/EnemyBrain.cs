@@ -34,7 +34,7 @@ public class EnemyBrain : MonoBehaviour
     SOEnemyMovementBehaviour _movementBehaviour;
     SOEnemyAttackBehaviour _attackBehaviour;
     SOEnemyBehaviour _deathBehaviour;
-    private BloodSplatterFX _bloodPrefab;
+    private SOBloodFX _bloodData;
     private ShadowData _shadowFxData;
     AudioClip[] _moveSFXs, _onHitSFXs, _attackSFXs, _deathSFXs;
 
@@ -55,7 +55,7 @@ public class EnemyBrain : MonoBehaviour
     public EnemyBaseMovement MovementLogic => _movementLogic;
     public EnemyDetector EnemyDetector => _enemyDetector;
     public EnemyCollisions Collisions => _collisions;
-    public BloodSplatterFX BloodFX => _bloodPrefab;
+    public SOBloodFX BloodFX => _bloodData;
     public Transform TargetTransform 
     {   
         get => _target;
@@ -125,7 +125,7 @@ public class EnemyBrain : MonoBehaviour
 
         SetBehaviours(data.MovementBehaviour, data.AttackBehaviour, data.DeathBehaviour);
 
-        _bloodPrefab = data.BloodFX;
+        _bloodData = data.BloodFXData;
         _healthManager.BlinkFX.SetMaterial(data.BlinkMaterial);
         _shadowFxData = new(data.HasShadow, data.ShadowOffset, data.ShadowSize);
         SetShadow();
@@ -263,6 +263,7 @@ public class EnemyBrain : MonoBehaviour
 
     private void OnDestroy() {
         _healthManager.onDeath -= DisableComponents;
+        SharedBloodObjPool.UnloadPool();
     }
     #endregion
 

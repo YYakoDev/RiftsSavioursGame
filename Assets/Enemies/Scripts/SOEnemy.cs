@@ -31,7 +31,7 @@ public class SOEnemy : ScriptableObject
     [SerializeField] SOEnemyBehaviour _deathBehaviour;
 	
 	[Header("Fxs & Sfxs")]
-    [SerializeField] BloodSplatterFX _bloodSplatter;
+    [SerializeField] SOBloodFX _bloodFXData;
     [SerializeField] Material _blinkMat;
     [SerializeField] bool _hasShadow = true;
     [SerializeField] Vector3 _shadowPosition = Vector3.zero;
@@ -60,7 +60,7 @@ public class SOEnemy : ScriptableObject
 	public SOEnemyBehaviour DeathBehaviour => _deathBehaviour;
 
 
-    public BloodSplatterFX BloodFX => _bloodSplatter;
+    public SOBloodFX BloodFXData => _bloodFXData;
     public Material BlinkMaterial => _blinkMat;
 
     public bool HasShadow => _hasShadow;

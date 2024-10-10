@@ -26,9 +26,7 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable, ITargetPositionPro
         gameObject.CheckComponent<EnemyBrain>(ref _brain);
         gameObject.CheckComponent<Dropper>(ref _dropper);
         gameObject.CheckComponent<WhiteBlinkEffect>(ref _blinkFX);
-
         _deathDurationWait = new(_deathDuration);
-        
     }
     public void Init(EnemyBrain brain, SOEnemyBehaviour deathBehaviour)
     {
@@ -70,7 +68,8 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable, ITargetPositionPro
     void SpawnBlood()
     {
         if(_brain.BloodFX == null) return;
-        BloodSplatterFX blood = Instantiate(_brain.BloodFX, transform.position, Quaternion.identity);
+        var blood = SharedBloodObjPool.GetPrefab(_brain.BloodFX);
+        blood.transform.position = transform.position;
         blood.Flip(_player.position);
     }
 

@@ -107,7 +107,7 @@ public class TripleComboMeleeWeapon : MeleeWeapon
     }
     protected override void SubscribeInput() => _attackKey.action.started += TryAttack;
     
-    public override void UnsubscribeInput() => _attackKey.action.started -= TryAttack;
+    protected override void UnsubscribeInput() => _attackKey.action.started -= TryAttack;
     
 
     protected override void TryAttack(InputAction.CallbackContext obj)
