@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93fe133b00f61ba4cb106b67db658a5b, type: 3}
   m_Name: Helios
   m_EditorClassIdentifier: 
-  _initialized: 0
   _name: Helios ParsVeil
   _description: 
   _SpriteAndAnimationsData: {fileID: 11400000, guid: a9b4cb78cbdc1d549ae8dcf73f6b73cb, type: 2}
@@ -28,10 +27,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: ba8fe44fc8785364a978c7ec7d17ce65, type: 3}
   - {fileID: 8300000, guid: 62831dff93289e44786d140f137d6408, type: 3}
   _pointCameraOnAttack: 0
-  _attackCooldown: 0.75
-  _pullForce: 0.5
+  _attackCooldown: 0.55
+  _pullForce: 0.75
   _pullDuration: 0.1
-  _attackRange: 1.75
+  _attackRange: 1.6
   _attackSpeed: 0.85
   _rangeOffset: {x: 0, y: 0}
   _attackDamage: 6

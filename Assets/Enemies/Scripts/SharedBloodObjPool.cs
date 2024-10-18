@@ -21,6 +21,7 @@ public static class SharedBloodObjPool
     {
         if(!_initialized) Init();
         var obj = _pool.GetObjectWithComponent();
+        if(obj.Key == null) return null;
         obj.Value.Set(bloodData);
         obj.Key.SetActive(true);
         return obj.Value;

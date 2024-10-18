@@ -73,7 +73,7 @@ public class PrototypeRift : MonoBehaviour, IInteractable
             {
                 _audio.PlayWithVaryingPitch(_animationEndClip);
                 PostProcessingManager.RestoreDefaultValues();
-                _waveSys.StartWaves(); // this line should be changed to call the RunManager to start the run, and the wave system should subscribe the startwaves method to the run start
+                //_waveSys.StartWaves();
                 _doAnimation = false;
                 gameObject.SetActive(false);
             }

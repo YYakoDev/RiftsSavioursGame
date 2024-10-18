@@ -34,7 +34,7 @@ public class ChunkTileMap : MonoBehaviour
         if(Vector2Int.Distance(_positionOnGrid, playerPosOnGrid) > 3) gameObject.SetActive(false);
     }
 
-    private void OnDrawGizmos() {
+    private void OnDrawGizmosSelected() {
         if(Application.isPlaying) return;
         Vector2 chunkSize = new Vector2Int(33, 24); // this value is the same as the _reference tilemap size (the starting TILEMAP used for REFERENCE in TILEMAPGENERATOR SCRIPT) 
 

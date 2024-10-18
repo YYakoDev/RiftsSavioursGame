@@ -40,13 +40,13 @@ public class EnemyWaveSpawner : MonoBehaviour
         _nextSpawnTime = Time.time + 1f;
         _killedEnemies = 0;
         _maxEnemiesToKill = 0;
+        _waveSys.OnWaveChange += NextWaveCheck;
+        EnemyBrain.OnEnemyDeath += AddEnemyKill;
     }
     
     // Start is called before the first frame update
     void Start()
     {
-        _waveSys.OnWaveChange += NextWaveCheck;
-        EnemyBrain.OnEnemyDeath += AddEnemyKill;
         if(_playerTransform == null) _playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         if(_spawnPoint == null) _spawnPoint = _playerTransform;
     }
@@ -56,6 +56,7 @@ public class EnemyWaveSpawner : MonoBehaviour
     {
         if(!_waveSys.Enabled) return;
         if(_stopped) return;
+        return;
         if (_nextSpawnTime < Time.time)
         {
             _nextSpawnTime = _difficultyScaler.CurrentStats.SpawnCooldown + _currentWave.EnemySpawnCooldown + Time.time;
@@ -93,33 +94,40 @@ public class EnemyWaveSpawner : MonoBehaviour
         SelectSpawnPosition();
         var enemies = _currentWave.Enemies;
         var data = enemies[Random.Range(0, enemies.Length)];
-        var enemy = _pool.GetPooledObject();
-        if(enemy.Value == null) return;
-
-        enemy.Key.transform.SetParent(null); 
-        enemy.Key.transform.position = _selectedSpawnpoint; //this line MUST be above the initialize
-        enemy.Value.Initialize(data, _playerTransform);
-        if(_currentWave.ChangeStatsOvertime) enemy.Value.Stats.AddDifficultyStats(_difficultyScaler.CurrentStats);
-
-        //enemy.Key.transform.position = _selectedSpawnpoint + (Vector3)(Vector2.one * Random.Range(-1f, 1f));
-        enemy.Key.SetActive(true);
-        SpawnPortalFx(_selectedSpawnpoint);
+        Spawn(data, _selectedSpawnpoint);
         SpawnedEnemies++;
     }
     public GameObject CreateEnemy(SOEnemy enemyData)
     {
         SelectSpawnPosition();
-        var enemy = _pool.GetPooledObject();
-        if(enemy.Value == null) return null;
-        
-        enemy.Value.Initialize(enemyData, _playerTransform);
-
-        enemy.Key.transform.SetParent(null); //aca setearlo al parent del objeto "Units" adentro de environment
-        enemy.Key.transform.position = _selectedSpawnpoint + (Vector3)(Vector2.one * Random.Range(-1f, 1f));
-        enemy.Key.SetActive(true);
-        return enemy.Key;
+        var pos = _selectedSpawnpoint + (Vector3)(Vector2.one * Random.Range(-1f, 1f));
+        return Spawn(enemyData, pos);
     }
 
+    public void CreateEnemy(Vector3 position)
+    {
+        Debug.Log("Creating enemy");
+        var enemies = _currentWave.Enemies;
+        var data = enemies[Random.Range(0, enemies.Length)];
+        Spawn(data, position);
+    }
+
+    GameObject Spawn(SOEnemy enemyData, Vector3 position)
+    {
+        if(_stopped) return null;
+        var enemy = _pool.GetPooledObject();
+        if(enemy.Value == null) return null;
+
+        enemy.Key.transform.SetParent(null); 
+        enemy.Key.transform.position = position; //this line MUST be above the initialize
+        enemy.Value.Initialize(enemyData, _playerTransform);
+        if(_currentWave.ChangeStatsOvertime) enemy.Value.Stats.AddDifficultyStats(_difficultyScaler.CurrentStats);
+
+        //enemy.Key.transform.position = _selectedSpawnpoint + (Vector3)(Vector2.one * Random.Range(-1f, 1f));
+        enemy.Key.SetActive(true);
+        SpawnPortalFx(position);
+        return enemy.Key;
+    }
 
 
     public void ResumeSpawning()

@@ -69,6 +69,7 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable, ITargetPositionPro
     {
         if(_brain.BloodFX == null) return;
         var blood = SharedBloodObjPool.GetPrefab(_brain.BloodFX);
+        if(blood == null) return;
         blood.transform.position = transform.position;
         blood.Flip(_player.position);
     }

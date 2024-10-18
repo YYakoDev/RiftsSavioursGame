@@ -25,15 +25,16 @@ public class WaveSystem : MonoBehaviour
     private void Awake() {
         _enabled = false;
         _currentWaveIndex = -1;
+        EnemyBrain.OnEnemyDeath += CheckEnemyKills;
+        RunManager.OnRunStart += StartWaves;
     }
 
-    private void Start() 
+    private void Start()
     {
-        EnemyBrain.OnEnemyDeath += CheckEnemyKills;    
         //StartWaves();
     }
 
-    public void StartWaves()
+    void StartWaves()
     {
         AdvanceWave();
         _enabled = true;
@@ -91,6 +92,7 @@ public class WaveSystem : MonoBehaviour
 
     private void OnDestroy() {
         EnemyBrain.OnEnemyDeath -= CheckEnemyKills;
+        RunManager.OnRunStart -= StartWaves;
     }
 
 }

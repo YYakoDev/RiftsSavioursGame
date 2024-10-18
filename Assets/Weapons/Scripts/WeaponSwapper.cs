@@ -69,6 +69,7 @@ public class WeaponSwapper : MonoBehaviour, IInteractable
 
     void Deactivate(SOEnemyWave wave)
     {
+        return;
         gameObject.SetActive(false);
     }
 

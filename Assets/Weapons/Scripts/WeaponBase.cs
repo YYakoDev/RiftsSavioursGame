@@ -60,6 +60,11 @@ public abstract class WeaponBase: ScriptableObject, IQuickSwitchHandler
 
     public virtual void Initialize(WeaponManager weaponManager, Transform prefabTransform)
     {
+        if(_initialized)
+        {
+            Debug.LogError("Weapon already initialized");
+            return;
+        }
         _weaponManager = weaponManager;
         _weaponPrefabTransform = prefabTransform;
         _currentAnim = Animator.StringToHash(AtkAnimName);

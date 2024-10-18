@@ -9,7 +9,7 @@ public class CursorSetter : MonoBehaviour
     bool _autoAiming = false;
     private void Awake() {
         //Cursor.SetCursor(_defaultTexture, Vector2.zero, CursorMode.Auto);
-        _aimingLogic.OnAimingChange += ChangeAiming;
+        if(_aimingLogic != null) _aimingLogic.OnAimingChange += ChangeAiming;
     }
 
     void ChangeAiming(bool state) => _autoAiming = state;
@@ -47,6 +47,6 @@ public class CursorSetter : MonoBehaviour
     }
     
     private void OnDestroy() {
-        _aimingLogic.OnAimingChange -= ChangeAiming;
+        if(_aimingLogic != null)_aimingLogic.OnAimingChange -= ChangeAiming;
     }
 }

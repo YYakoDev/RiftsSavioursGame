@@ -8,7 +8,7 @@ public class WorldBounds : MonoBehaviour
 
     public Vector2 BoundsArea => _area;
 
-    private void OnDrawGizmosSelected() {
+    private void OnDrawGizmos() {
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(transform.position, _area * 2f);
     }

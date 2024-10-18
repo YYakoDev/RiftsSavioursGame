@@ -121,7 +121,7 @@ public class PrototypeMeleeEffects : MonoBehaviour
             */
         }
         _elapsedTime = 0f;
-        //_atkTimer.ChangeTime(_weaponManager.) //get the atk duration of the current weapon
+        //_atkTimer.ChangeTime(_weaponManager.) //get the atk duration of the current weapon//
         _atkTimer.Start();
         _dashButton.action.Disable();
     }
