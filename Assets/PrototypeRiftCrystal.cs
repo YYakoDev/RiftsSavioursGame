@@ -5,7 +5,7 @@ using UnityEngine;
 public class PrototypeRiftCrystal : MonoBehaviour, IDamageable
 {
     [SerializeField] int _maxHealth = 3;
-    [SerializeField] float _spawnRadius, _timeToRegenerate;
+    [SerializeField] float _spawnRadius, _timeToRegenerate, _spawnCooldown;
     [SerializeField] RunManager _runManager;
     [SerializeField] SpriteRenderer _fxRenderer;
     [SerializeField] EnemyWaveSpawner _enemySpawner;
@@ -26,7 +26,7 @@ public class PrototypeRiftCrystal : MonoBehaviour, IDamageable
         _regenTimer = new(_timeToRegenerate);
         _regenTimer.Stop();
         _regenTimer.onEnd += Regenerate;
-        _spawningTimer = new(1f, true);
+        _spawningTimer = new(_spawnCooldown + Random.Range(-0.10f, 0.125f), true);
         _spawningTimer.Stop();
         _spawningTimer.onEnd += SpawnEnemy;
         _currentHealth = _maxHealth;

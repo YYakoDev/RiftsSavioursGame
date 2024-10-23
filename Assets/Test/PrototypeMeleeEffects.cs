@@ -56,7 +56,7 @@ public class PrototypeMeleeEffects : MonoBehaviour
             }
         }else if(_movement.Movement.sqrMagnitude > 0.1f)
         {
-            _aiming.AimSmoothing = _initialAimSpeed / 1.45f;
+            _aiming.AimSmoothing = _initialAimSpeed / 1.1f;
         }else
         {
             if(_aiming.AimSmoothing < _initialAimSpeed)

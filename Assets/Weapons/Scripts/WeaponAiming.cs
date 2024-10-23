@@ -105,7 +105,7 @@ public class WeaponAiming : MonoBehaviour
         else
         {
             var mouseInput = _pointerPosition.action.ReadValue<Vector2>();
-            _mousePosition = _mainCamera.ScreenToWorldPoint(mouseInput);
+            _mousePosition = YYInputManager.i.GetMousePosition();
             if(mouseInput != Vector2.zero)
             {
                 _targetDirection = _mousePosition - transform.position;

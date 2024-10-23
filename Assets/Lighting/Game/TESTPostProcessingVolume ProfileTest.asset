@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81180773991d8724ab7f2d216912b564, type: 3}
   m_Name: ChromaticAberration
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   intensity:
     m_OverrideState: 1
     m_Value: 0.124
@@ -36,7 +36,7 @@ MonoBehaviour:
     m_OverrideState: 1
     m_Value: 27
   colorFilter:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: {r: 1.1486983, g: 1.1486983, b: 1.1486983, a: 1}
   hueShift:
     m_OverrideState: 1
@@ -99,10 +99,10 @@ MonoBehaviour:
     m_Value: {x: 0.5, y: 0.5}
   intensity:
     m_OverrideState: 1
-    m_Value: 0.227
+    m_Value: 0.144
   smoothness:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 0.829
   rounded:
     m_OverrideState: 1
     m_Value: 0
@@ -186,7 +186,7 @@ MonoBehaviour:
     m_Value: {x: 0.9709981, y: 0.9135824, z: 1, w: 0.08608322}
   gamma:
     m_OverrideState: 1
-    m_Value: {x: 1, y: 1, z: 1, w: 0}
+    m_Value: {x: 0.8934412, y: 0.89515316, z: 1, w: 0}
   gain:
     m_OverrideState: 1
     m_Value: {x: 0.9956706, y: 0.8915901, z: 1, w: 0.040765893}

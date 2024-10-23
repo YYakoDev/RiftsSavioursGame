@@ -48,9 +48,9 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.859
-  m_Color: {r: 0.58431375, g: 0.20392159, b: 0.2627451, a: 1}
-  m_Intensity: 2.77
-  m_LightVolumeIntensity: 1
+  m_Color: {r: 1, g: 0, b: 0.15555573, a: 1}
+  m_Intensity: 4
+  m_LightVolumeIntensity: 0.1
   m_LightVolumeIntensityEnabled: 0
   m_ApplyToSortingLayers: 00000000134df2d3f135f5e6
   m_LightCookieSprite: {fileID: 0}
@@ -97,10 +97,10 @@ MonoBehaviour:
   m_LocalBounds:
     m_Center: {x: 0, y: -0.00000011920929, z: 0}
     m_Extent: {x: 0.9985302, y: 0.99853027, z: 0}
-  m_PointLightInnerAngle: 342.16348
-  m_PointLightOuterAngle: 342.16348
+  m_PointLightInnerAngle: 360
+  m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
-  m_PointLightOuterRadius: 2.63
+  m_PointLightOuterRadius: 2.35
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0
   m_ShapeLightParametricRadius: 1
@@ -218,7 +218,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHealth: 3
   _spawnRadius: 4
-  _timeToRegenerate: 7
+  _timeToRegenerate: 13
+  _spawnCooldown: 1.2
   _runManager: {fileID: 0}
   _fxRenderer: {fileID: 8362263812728855299}
   _enemySpawner: {fileID: 0}
@@ -446,7 +447,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 1
-  m_Size: {x: 2.73, y: 1.64}
+  m_Size: {x: 2.5, y: 1.5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -636,9 +637,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: -420137487
+  m_SortingLayer: -1
+  m_SortingOrder: 4
   m_Sprite: {fileID: 21300000, guid: c14aa72afdf797d41a9ea30c7313a1e2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

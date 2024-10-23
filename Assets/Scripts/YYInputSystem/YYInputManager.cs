@@ -6,17 +6,18 @@ using UnityEngine.InputSystem;
 public class YYInputManager : MonoBehaviour
 {
     public static YYInputManager i;
+    [SerializeField] Camera _mouseCamera;
     //static bool _stopInput = false;
     [SerializeField] InputActionReference _pointerPosition;
     public Vector3 GetMousePosition()
     {
-        return HelperMethods.MainCamera.ScreenToWorldPoint(_pointerPosition.action.ReadValue<Vector2>());
+        return _mouseCamera.ScreenToWorldPoint(_pointerPosition.action.ReadValue<Vector2>());
     }
     private void Awake() {
         if(i != null && i != this) Destroy(this);
         else i = this;
         //DontDestroyOnLoad(i);//
-        //KeyInputs = _keys; // if you have a save system this is where you would change the keycodes to the saved ones (modified by the player)
+        //KeyInputs = _keys; // if you have a save system this is where you would change the keycodes to the saved ones (modified by the player)(())
     }
 
     private void Start() {
