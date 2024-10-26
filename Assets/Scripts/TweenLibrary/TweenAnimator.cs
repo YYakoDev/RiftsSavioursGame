@@ -17,6 +17,8 @@ public class TweenAnimator : MonoBehaviour
     bool _isAnimationPlaying = false;
     [SerializeField]TimeUsage _timeUsage = TimeUsage.ScaledTime;
 
+    TweenDestination[] _endPositionsList = new TweenDestination[0];
+
     //public accessor
 
     public TimeUsage timeUsage => _timeUsage;
@@ -36,13 +38,50 @@ public class TweenAnimator : MonoBehaviour
         _animationQueue.Clear();
     }
 
+    public TweenDestination GetDestination(Vector3 endPosition)
+    {
+        var indexResult = CheckIfDestinationExist(endPosition);
+        if(indexResult == -1)
+        {
+            var index = AddDestination(endPosition);
+            return _endPositionsList[index];
+        }else
+        {
+            return _endPositionsList[indexResult];
+        }
+    }
+
+    int AddDestination(Vector3 endPos)
+    {
+        var size = _endPositionsList.Length;
+        System.Array.Resize<TweenDestination>(ref _endPositionsList, size + 1);
+        _endPositionsList[size] = new(endPos);
+        return size;
+    }
+
+    int CheckIfDestinationExist(Vector3 endPos)
+    {
+        int indexResult = -1;
+        for (int i = 0; i < _endPositionsList.Length; i++)
+        {
+            var destination = _endPositionsList[i];
+            if (destination.RawEndPosition == endPos)
+            {
+                Debug.Log("Destination already exist");
+                indexResult = i;
+                break;
+            }
+        }
+        return indexResult;
+    }
+
     public void MoveTo
     (RectTransform rectTransform, Vector3 endPosition, float duration, CurveTypes curveType = CurveTypes.EaseInOut, bool loop = false, Action onComplete = null)
     {
         TweenMoveTo moveToAnim = new(this);
         AnimationCurve curve = TweenCurveLibrary.GetCurve(curveType);    
 
-        moveToAnim.Initialize(rectTransform, endPosition, duration, curve, loop, onComplete);
+        moveToAnim.Initialize(rectTransform, GetDestination(endPosition), duration, curve, loop, onComplete);
         SwitchCurrentAnimation(moveToAnim);
     }
 
