@@ -287,4 +287,26 @@ public class TweenAnimator : MonoBehaviour
     {
         _timeUsage = usage;
     }
+
+    public static void DrawTweenPosition(Vector3 position, Vector3 size, Color color, Canvas canvas = null, bool drawOnPlay = false)
+    {
+        if (!drawOnPlay && Application.isPlaying) return;
+        if (canvas == null)
+            canvas = GameObject.FindObjectOfType<Canvas>();
+        if (canvas == null) return;
+        RectTransform canvasRect = canvas.GetComponent<RectTransform>();
+        Gizmos.color = color;
+        Debug.Log(canvasRect.sizeDelta);
+        Vector2 endPosition = new
+        (
+            canvasRect.position.x + ((canvasRect.sizeDelta.x) * (GetPercentage(canvasRect.sizeDelta.x, position.x) / 100f) - canvasRect.sizeDelta.x / 2f) / 2f,
+            canvasRect.position.y + ((canvasRect.sizeDelta.y) * (GetPercentage(canvasRect.sizeDelta.y, position.y) / 100f) - canvasRect.sizeDelta.y / 2f) / 2f
+        );
+        Gizmos.DrawWireCube(endPosition, size);
+
+        float GetPercentage(float screenValue, float screenPosition)
+        {
+            return ((screenPosition + (screenValue / 2f)) * 100f) / screenValue;
+        }
+    }
 }

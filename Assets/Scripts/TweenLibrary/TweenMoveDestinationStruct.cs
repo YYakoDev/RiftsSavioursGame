@@ -21,8 +21,8 @@ public struct TweenDestination
         _endPos = Vector3.zero;
         _rawEndPosition = endPosition;
         _endPositionPercentages = new Vector3();
-        _endPositionPercentages.x = GetPercentage(_canvasRect.sizeDelta.x, (endPosition.x + _canvasRect.sizeDelta.x / 2f));
-        _endPositionPercentages.y = GetPercentage(_canvasRect.sizeDelta.y, (endPosition.y + _canvasRect.sizeDelta.y / 2f));
+        _endPositionPercentages.x = GetPercentage(1920f, (endPosition.x + 1920f / 2f));
+        _endPositionPercentages.y = GetPercentage(1080f, (endPosition.y + 1080f / 2f));
         _endPositionPercentages.z = 0f;
     }
 

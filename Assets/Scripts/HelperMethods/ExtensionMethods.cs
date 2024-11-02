@@ -97,6 +97,7 @@ public static class ExtensionMethods
         float canvasCenterX = canvasRect.position.x; //this two positions are already expressed as world points and also its the center of the canvas
         float canvasCenterY = canvasRect.position.y;
 
+        Debug.Log(canvasCenterX);
         //float percentX = position.x / canvasWidth;
         //float percentY = position.y / canvasHeight;
 
@@ -107,8 +108,6 @@ public static class ExtensionMethods
         );
         return worldPoint;
     }
-
-    
 
     public static int GetRandomIndexExcept(this Array array, params int[] exceptions) => HelperMethods.GetRandomIndexExcept(array.Length);
     

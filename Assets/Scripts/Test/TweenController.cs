@@ -26,9 +26,9 @@ public class TweenController : MonoBehaviour
     }
 
     private void OnDrawGizmos() {
-        Gizmos.color = Color.magenta;
-        if(_rootCanvas == null) _rootCanvas = transform.root.GetComponentInChildren<Canvas>();
-        Gizmos.DrawWireCube(_rootCanvas.TranslateUiToWorldPoint(_destination), Vector3.one * 50);
+
+        TweenAnimator.DrawTweenPosition(_destination, Vector3.one * 50f, Color.magenta, null, true);
+
     }
 
     /*Vector2 TranslateWorldToUIPoint(Vector2 position)
