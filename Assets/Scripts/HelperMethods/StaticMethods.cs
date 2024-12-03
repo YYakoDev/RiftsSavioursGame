@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
 
 public static class HelperMethods
@@ -26,13 +27,14 @@ public static class HelperMethods
         return WaitDictionary[time];
     }*/
 
+    
     private static PointerEventData _eventDataCurrentPosition;
     private static List<RaycastResult> _results;
 
     public static bool IsOverUI()
     {
         EventSystem currentEventSys = EventSystem.current;
-        _eventDataCurrentPosition = new PointerEventData(currentEventSys) {position = _camera.WorldToScreenPoint(YYInputManager.i.GetMousePosition())};
+        _eventDataCurrentPosition = new PointerEventData(currentEventSys) {position = (Mouse.current.position.ReadValue())};
         _results = new();
         currentEventSys.RaycastAll(_eventDataCurrentPosition, _results);
         return _results.Count > 0;
@@ -137,5 +139,12 @@ public static class HelperMethods
         var exponent = Mathf.Log10(layerValue) / Mathf.Log10(2f);
         int result = Mathf.RoundToInt(exponent);
         return result;
+    }
+    
+    public static float GetBiggerValueFromVector(Vector2 v)
+    {
+        bool xIsBigger = true;
+        xIsBigger = v.x >= v.y;
+        return xIsBigger ? v.x : v.y;
     }
 }

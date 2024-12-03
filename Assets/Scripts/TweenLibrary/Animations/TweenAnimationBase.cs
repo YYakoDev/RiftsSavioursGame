@@ -30,7 +30,7 @@ public abstract class TweenAnimationBase
         if(_elapsedTime >= _totalDuration)
         {
             _animator.EnableAnimator = _loop;
-            _elapsedTime = 0f;
+            _elapsedTime = 0;
             
             _onComplete?.Invoke();
             if(!_loop)_animator.AnimationComplete();

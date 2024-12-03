@@ -1,42 +1,65 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
 public struct TweenDestination
 {
-    Canvas _canvas;
+    private Canvas _sceneCanvas;
     RectTransform _canvasRect;
     Vector3 _rawEndPosition, _endPositionPercentages, _endPos;
     public Vector3 RawEndPosition => _rawEndPosition;
     public Vector3 EndPositionPercentage => _endPositionPercentages;
-    public TweenDestination(Vector3 endPosition, Canvas canvas = null)
+    public Canvas SceneCanvas => _sceneCanvas;
+    
+    public TweenDestination(Vector3 endPosition, Canvas sceneCanvas = null)
     {
-        _canvas = canvas;
-        if(_canvas == null)
+        var canvas = sceneCanvas;
+        if(canvas == null)
         {
-            _canvas = GameObject.FindObjectOfType<Canvas>();
+            try
+            {
+                canvas = GameObject.FindGameObjectWithTag("MainCanvas").GetComponent<Canvas>();
+            }
+            catch (Exception e)
+            {
+                canvas = GameObject.FindObjectOfType<Canvas>();
+                Console.WriteLine(e);
+            }
+            if(canvas == null)
+            {
+                Debug.LogWarning("Could not get not a single canvas object for the tween library");
+            }
         }
-        _canvasRect = _canvas.GetComponent<RectTransform>();
-        var scaleFactor = _canvas.scaleFactor;
+
+        _sceneCanvas = canvas;
+        _canvasRect = _sceneCanvas?.GetComponent<RectTransform>();
 
         _endPos = Vector3.zero;
         _rawEndPosition = endPosition;
-        _endPositionPercentages = new Vector3();
-        _endPositionPercentages.x = GetPercentage(1920f, (endPosition.x + 1920f / 2f));
-        _endPositionPercentages.y = GetPercentage(1080f, (endPosition.y + 1080f / 2f));
+        _endPositionPercentages = new();
+        _endPositionPercentages.x = GetPercentage(1920f, (endPosition.x));
+        _endPositionPercentages.y = GetPercentage(1080f, (endPosition.y));
         _endPositionPercentages.z = 0f;
     }
 
     float GetPercentage(float screenValue, float screenPosition)
     {
-        Debug.Log(Screen.width + "  " + Screen.height);
-        Debug.Log(screenValue);
-        return (screenPosition * 100f) / screenValue;
+        return ((screenPosition + screenValue / 2f) * 100f) / screenValue;
     }
 
     public Vector3 GetEndPosition()
     {
-        Debug.Log("X percentage:  " + EndPositionPercentage.x + "\n Y percentage:  " + EndPositionPercentage.y);
-        //var inverseScale = 1f / _canvas.scaleFactor;
-        return new Vector3(((_canvasRect.sizeDelta.x) * EndPositionPercentage.x) / 100f - (_canvasRect.sizeDelta.x / 2f), ((_canvasRect.sizeDelta.y) * EndPositionPercentage.y) / 100f - (_canvasRect.sizeDelta.y / 2f), 0f);
+        return new Vector3((_canvasRect.sizeDelta.x * EndPositionPercentage.x) / 100f - (_canvasRect.sizeDelta.x / 2f), ((_canvasRect.sizeDelta.y) * EndPositionPercentage.y) / 100f - (_canvasRect.sizeDelta.y / 2f), 0f);
     }
+
+    public Vector2 GetCanvasSize()
+    {
+        if (_sceneCanvas == null) return new Vector2(Screen.width, Screen.height); //the screen width and height are not the value that you desire but at least it returns something
+        if (_canvasRect == null)
+        {
+            _canvasRect = _sceneCanvas.GetComponent<RectTransform>(); // mutable struct????
+        }
+        return _canvasRect.sizeDelta; 
+    }
+    
 }

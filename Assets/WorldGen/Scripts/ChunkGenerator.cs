@@ -137,9 +137,9 @@ public class ChunkGenerator : MonoBehaviour
     void SpawnChunksIn8Direction(Vector2Int spawnPosition)
     {
         Vector2Int[] newChunkPositions = new Vector2Int[8];
-        for(int i = 0; i < Directions.eightDirections.Length; i++)
+        for(int i = 0; i < Directions.EightDirections.Length; i++)
         {
-            Vector2Int directionalPosition = Directions.eightDirections[i];
+            Vector2Int directionalPosition = Directions.EightDirections[i];
             //ACA ES DONDE DEBERIAS TENER EN CUENTA LA RENDER DISTANCE Y LA DISTANCIA ENTRE EL JUGADOR Y SPAWNEAR CHUNKS A LO LARGO DE ESA DISTANCIA
             Vector2Int newChunkPosition =  directionalPosition + spawnPosition;
             newChunkPositions[i] = newChunkPosition;

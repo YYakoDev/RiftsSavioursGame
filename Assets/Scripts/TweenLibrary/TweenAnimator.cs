@@ -54,7 +54,7 @@ public class TweenAnimator : MonoBehaviour
     int AddDestination(Vector3 endPos)
     {
         var size = _endPositionsList.Length;
-        System.Array.Resize<TweenDestination>(ref _endPositionsList, size + 1);
+        Array.Resize(ref _endPositionsList, size + 1);
         _endPositionsList[size] = new(endPos);
         return size;
     }
@@ -67,14 +67,14 @@ public class TweenAnimator : MonoBehaviour
             var destination = _endPositionsList[i];
             if (destination.RawEndPosition == endPos)
             {
-                Debug.Log("Destination already exist");
                 indexResult = i;
                 break;
             }
         }
         return indexResult;
     }
-
+    
+    //NEVER CALL THIS ANIMATION FROM THE AWAKE FUNCTION - the canvas doesnt update correctly until the start
     public void MoveTo
     (RectTransform rectTransform, Vector3 endPosition, float duration, CurveTypes curveType = CurveTypes.EaseInOut, bool loop = false, Action onComplete = null)
     {
@@ -252,6 +252,16 @@ public class TweenAnimator : MonoBehaviour
         AnimationCurve curve = TweenCurveLibrary.GetCurve(curveType);   
 
         anim.Initialize(light, endValue, duration, curve, loop, onComplete);
+        SwitchCurrentAnimation(anim); 
+    }
+
+    public void TweenFloatValue
+        (float valueToModify, float endValue, float duration,  Action<float> valueCallback, CurveTypes curveType = CurveTypes.EaseInOut, bool loop = false, Action onComplete = null)
+    {
+        TweenFloatValue anim = new(this);
+        AnimationCurve curve = TweenCurveLibrary.GetCurve(curveType);   
+
+        anim.Initialize(valueToModify, endValue, duration, curve, loop, onComplete, valueCallback);
         SwitchCurrentAnimation(anim); 
     }
 

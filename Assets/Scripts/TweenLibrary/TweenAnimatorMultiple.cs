@@ -34,7 +34,7 @@ public class TweenAnimatorMultiple : TweenAnimator
             var animation = _animations[i];
             if(animation == null) continue;
             if(animation.Loop) continue;
-            if(animation.Percent >= 1f) _animations[i] = null;
+            if(animation.Percent >= 0.999f) _animations[i] = null;
         }
     }
 

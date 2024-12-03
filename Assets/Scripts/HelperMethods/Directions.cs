@@ -2,7 +2,7 @@ using UnityEngine;
 
 public static class Directions
 {
-    public static Vector2Int[] eightDirections = new Vector2Int[8]
+    public static Vector2Int[] EightDirections = new Vector2Int[8]
     {
         Vector2Int.up,
         Vector2Int.down,

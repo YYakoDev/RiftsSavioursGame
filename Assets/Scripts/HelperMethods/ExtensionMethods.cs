@@ -27,25 +27,33 @@ public static class ExtensionMethods
     }*/
 
     //TRY TO GET COMPONENT IF ITS NOT NULL
-    public static void CheckComponent<T>(this GameObject gameObj, ref T component) where T: Component
+    public static bool CheckComponent<T>(this GameObject gameObj, ref T component) where T: Component
     {
-        if(component != null)return;
+        if(component != null)return true;
 
         if(gameObj.TryGetComponent<T>(out T desiredComponent))
         {
             component = desiredComponent;
+            return true;
         }
         else
         {
             Debug.LogError($" Couldn't get the component {typeof(T)}  of  {gameObj.name} ");
+            return false;
         }
     }
 
+    public static void CheckOrAddComponent<T>(this GameObject gameObj, ref T componentToCheck) where T : Component
+    {
+        if (!gameObj.CheckComponent(ref componentToCheck))
+        {
+            componentToCheck = gameObj.AddComponent<T>();
+        }
+    }
+    
     public static T CheckOrAddComponent<T>(this Component component) where T : Component
     {
-        T componentToCheck;
-        
-        if(!component.TryGetComponent<T>(out componentToCheck))
+        if(!component.TryGetComponent<T>(out var componentToCheck))
         {
             componentToCheck = component.gameObject.AddComponent<T>();
         }
@@ -97,7 +105,7 @@ public static class ExtensionMethods
         float canvasCenterX = canvasRect.position.x; //this two positions are already expressed as world points and also its the center of the canvas
         float canvasCenterY = canvasRect.position.y;
 
-        Debug.Log(canvasCenterX);
+        //Debug.Log(canvasCenterX);
         //float percentX = position.x / canvasWidth;
         //float percentY = position.y / canvasHeight;
 
@@ -123,33 +131,132 @@ public static class ExtensionMethods
     }
 
 
-    /*public static Vector2 TranslateWorldPointToUI(this Canvas canvas, Vector2 worldPoint)
+    public static bool Contains<T>(this T[] array, T itemToSearch)
     {
-        Camera camera = Camera.main;
-        worldPoint = camera.WorldToScreenPoint(worldPoint);
-        float screenCenterX = camera.scaledPixelWidth/2f;
-        float screenCenterY = camera.scaledPixelHeight/2f;
+        return ContainsItem(array, itemToSearch) != -1;
+    }
+    
+    /// <summary>
+    /// Searchs on the array if the given item is present, returns the index if it is, if not returns -1.
+    /// </summary>
+    /// <param name="array"></param>
+    /// <param name="itemToSearch"></param>
+    /// <typeparam name="T"></typeparam>
+    /// <returns></returns>
+    public static int ContainsItem<T>(this T[] array, T itemToSearch)
+    {
+        if (array == null || array.Length == 0) return -1;
+        for(int i = 0; i < array.Length; i++)
+        {
+            var t = array[i];
+            if(t == null) continue;
+            if (t.Equals(itemToSearch))
+            {
+                return i;
+            }
+        }
 
-        var canvasRect = canvas.GetComponent<RectTransform>();
-        float canvasCenterX = canvasRect.position.x; //this two positions are already expressed as world points and also its the center of the canvas
-        float canvasCenterY = canvasRect.position.y;
+        return -1;
+    }
 
-        Debug.Log($"Camera Center X:  {screenCenterX} \n Camera Center Y: {screenCenterY} ");
-        float scaleFactor = canvas.scaleFactor;
+    /// <summary>
+    /// Adds the given not null element to the array and returns the index at which it was added
+    /// </summary>
+    /// <param name="arrayClass"></param>
+    /// <param name="array"></param>
+    /// <param name="newItem"></param>
+    /// <typeparam name="T"></typeparam>
+    /// <returns></returns>
+    public static int Add<T>(this Array arrayClass, ref T[] array, T newItem)
+    {
+        if (array == null)
+        {
+            Debug.LogWarning("The given array is null");
+            return -1;
+        }
+        if (newItem == null) return -1;
+        var length = array.Length;
+        Array.Resize<T>(ref array, length + 1);
+        array[length] = newItem;
+        return length;
+    }
+    
+    public static float Round(this float value, MidpointRounding midpointRounding = MidpointRounding.ToEven)
+    {
+        return (float)Math.Round(value, midpointRounding);
+    }
+    
+    public static float RoundAwayFromZero(this float value) => Round(value, MidpointRounding.AwayFromZero);
+    
+    public static Vector2 Round(this ref Vector2 v, MidpointRounding midpointRounding = MidpointRounding.AwayFromZero)
+    {
+        v.x = v.x.Round(midpointRounding);
+        v.y = v.y.Round(midpointRounding);
+        return v;
+    }
+    public static Vector3 Round(this ref Vector3 v, MidpointRounding midpointRounding = MidpointRounding.AwayFromZero)
+    {
+        v.x = v.x.Round(midpointRounding);
+        v.y = v.y.Round(midpointRounding);
+        v.z = v.z.Round(midpointRounding);
+        return v;
+    }
 
-        Vector2 test = new Vector2(screenCenterX, screenCenterY);
-        //float percentX = position.x / canvasWidth;
-        //float percentY = position.y / canvasHeight;
+    public static Vector3 Floor(this ref Vector3 v)
+    {
+        v.x = Mathf.Floor(v.x);
+        v.y = Mathf.Floor(v.y);
+        v.z = Mathf.Floor(v.z);
+        return v;
+    }
 
-        Vector2 uiPoint = new Vector2
-        (
-            screenCenterX - worldPoint.x / scaleFactor,
-            screenCenterY - worldPoint.y / scaleFactor
-        );
-        return uiPoint;
-    }*/
+    public static Vector2 Abs(this ref Vector2 v)
+    {
+        v.x = Mathf.Abs(v.x);
+        v.y = Mathf.Abs(v.y);
+        return v;
+    }
+    
+    public static Vector3 Abs(this ref Vector3 v)
+    {
+        v.x = Mathf.Abs(v.x);
+        v.y = Mathf.Abs(v.y);
+        v.z = Mathf.Abs(v.z);
+        return v;
+    }
 
+    public static Vector2 MultiplyBy(this ref Vector2 v, Vector2 m)
+    {
+        v.x *= m.x;
+        v.y *= m.y;
+        return v;
+    }
+    
+    public static Vector3 MultiplyBy(this ref Vector3 v, Vector3 m)
+    {
+        v.x *= m.x;
+        v.y *= m.y;
+        v.z *= m.z;
+        return v;
+    }
 
+    public static bool Approximately(this Vector2 v, Vector2 v2)
+    {
+        return (Mathf.Approximately(v.x, v2.x) && Mathf.Approximately(v.y, v2.y));
+    }
+    
+    public static bool GreaterThan(this Vector2 v, Vector2 v2)
+    {
+        return (v.x > v2.x && v.y > v2.y);
+    }
 
+    public static bool LessThan(this Vector2 v, Vector2 v2) => !GreaterThan(v, v2);
 
+    public static bool GreaterThan(this Vector3 v, Vector3 v2)
+    {
+        return (v.x > v2.x && v.y > v2.y);
+    }
+
+    public static bool LessThan(this Vector3 v, Vector3 v2) => !GreaterThan(v, v2);
+    
 }

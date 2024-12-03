@@ -3,16 +3,17 @@ using UnityEngine;
 
 public class Timer
 {
-    float _countdownTime = 1f;
-    float _timeRemaining;
-    bool _resetOnZero;
-    private bool _timerStopped = false;
-    bool _useUnscaledTime = false;
+    private float _countdownTime;
+    private float _timeRemaining;
+    private readonly bool _resetOnZero;
+    private bool _timerStopped;
+    private readonly bool _useUnscaledTime;
     public event Action onStart;
     public event Action onEnd;
 
     public float TotalDuration => _countdownTime;
     public float CurrentTime => _timeRemaining;
+    public bool TimerStopped => _timerStopped;
 
     public Timer(float countdownTime, bool resetOnZero = false, bool useUnscaledTime = false)
     {

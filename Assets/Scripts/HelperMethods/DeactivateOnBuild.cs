@@ -6,7 +6,7 @@ using UnityEngine;
 public class DeactivateOnBuild : MonoBehaviour
 {
     
-    void Start()
+    void Awake()
     {
         gameObject.SetActive((Application.installMode == ApplicationInstallMode.Editor));
     }
