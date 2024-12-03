@@ -67,15 +67,23 @@ public class TweenMoveTo : TweenAnimationBase
         // + new Vector3(1920f * 0.5f - 206f, 1080f * -0.5f + 300f);
         _anchorOffset = Vector2.zero;
         RectTransform rectParent = _rectTransform;
+        var rootCanvas = _rectTransform.root.GetComponent<RectTransform>();
         GetRectParent();
         int iterations = 0;
         while (rectParent != null)
         {
             if(iterations >= 5) break;
             iterations++;
-            if(rectParent.TryGetComponent<Canvas>(out var canvas)) break; // when reaching the canvas stopping the loop
-            var anchor = rectParent.anchorMax;
-            var offsetDirection = GetDirectionFromAnchor(anchor); 
+            if (rectParent == rootCanvas)
+            {
+                break; // when reaching the canvas stopping the loop
+            }
+            var offsetDirection = GetDirectionFromAnchor(rectParent.anchorMax);
+            if (offsetDirection == Directions.EightDirections[4] && rectParent.anchorMin.Approximately(Vector3.zero)) // if anchor is top left but the min anchor is 0,0. that means is strecthed to the whole screen
+            {
+                continue;
+            }
+
             if(offsetDirection == Vector2.zero) continue; //this means the anchor is the center so there shouldnt be an anchor offset
             var screenSize = _startDestination.GetCanvasSize();
             var anchoredPos = rectParent.anchoredPosition;
@@ -92,7 +100,7 @@ public class TweenMoveTo : TweenAnimationBase
         
         void GetRectParent()
         {
-            rectParent = rectParent.parent.GetComponent<RectTransform>();
+            rectParent = rectParent?.parent?.GetComponent<RectTransform>();
         }
 
         Vector2 GetDirectionFromAnchor(Vector2 v)

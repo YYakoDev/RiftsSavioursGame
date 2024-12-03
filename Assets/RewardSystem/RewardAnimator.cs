@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(TweenAnimatorMultiple))]
 public class RewardAnimator : MonoBehaviour
 {
+    [SerializeField] private Canvas _canvas;
     [SerializeField] UIRewardItem _rewardPrefab;
     [SerializeField] TweenAnimatorMultiple _animator;
     UIRewardItem _rewardInstance;
@@ -12,9 +14,12 @@ public class RewardAnimator : MonoBehaviour
     [SerializeField] float _scaleUpDuration, _moveDuration, _readDuration;
     [SerializeField] CurveTypes _scaleCurve, _moveCurve;
 
-    private void Awake() {
+    private void Awake()
+    {
+        if (_canvas == null) _canvas = transform.root.GetComponent<Canvas>();
         _rewardInstance = Instantiate(_rewardPrefab, transform);
         _rewardInstance.gameObject.SetActive(false);
+        MoveAnimation();
     }
 
     public void Play(SORewardItem item)
@@ -39,5 +44,11 @@ public class RewardAnimator : MonoBehaviour
         {
             _animator.Scale(_rewardInstance.Rect, Vector3.zero, _scaleUpDuration, CurveTypes.EaseInOut);
         });
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.magenta;
+        Gizmos.DrawWireCube(_canvas.TranslateUiToWorldPoint(_endPos), Vector3.one * 25f);
     }
 }
